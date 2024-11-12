@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
+		<version>3.3.5</version>
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
@@ -26,7 +26,7 @@
 		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.projectKey>${project.artifactId}</sonar.projectKey>
 		<sonar.projectName>${project.artifactId}</sonar.projectName>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.host.url>http://sonarqube:9000</sonar.host.url>
 		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 		<sonar.sources>${project.basedir}</sonar.sources>
 		<sonar.exclusions>target/**/*, src/test/**/*</sonar.exclusions>
@@ -150,21 +150,6 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>5.0.0.4389</version>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.6.0</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -252,7 +237,7 @@
       <profile>
           <id>sonar</id>
           <properties>
-              <sonar.host.url>http://localhost:9000</sonar.host.url>
+              <sonar.host.url>http://sonarqube:9000</sonar.host.url>
               <sonar.login>admin</sonar.login>
               <sonar.password>sonarqube</sonar.password>
           </properties>

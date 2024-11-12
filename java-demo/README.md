@@ -22,11 +22,11 @@ Build the application :
 
 ## Quality / linting
 
-### Checkstyle
+### Spotless
 
-Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. It automates the process of checking Java code to spare humans of this boring (but important) task. This makes it ideal for projects that want to enforce a coding standard.
+[Spotless](https://github.com/diffplug/spotless/) is a general-purpose formatting plugin used by 15,000 projects on GitHub (Jan 2023). It is completely à la carte, but also includes powerful "batteries-included" if you opt-in.
 
-Command to build check / apply coding standard :
+Command to build check / apply coding standard with Spotless :
 
 ```bash
 ./mvnw spotless:check
@@ -41,24 +41,34 @@ In any case, **you can have analysis directly during your devs by adding [SonarL
 
 Thanks to Docker it's also possible to run a Sonarqube locally to execute an analysis with Maven :
 
-1. Run Sonarqube locally :
+1. Automatically run a Sonarqube server locally and execute an analysis on your code :
 
     ```bash
     docker compose -f compose.sonarqube.yaml up
     ```
 
-2. [Generate a global analysis token](https://docs.sonarsource.com/sonarqube/latest/user-guide/managing-tokens/#generating-a-token)
+2. View the analysis result on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall>
+
+<!-- 
+
+3. Run Sonarqube locally :
+
+    ```bash
+    docker compose -f compose.sonarqube.yaml up
+    ```
+
+4. [Generate a global analysis token](https://docs.sonarsource.com/sonarqube/latest/user-guide/managing-tokens/#generating-a-token)
 
    - login : admin
    - password : sonarqube
 
-3. Execute analysis with Maven :
+5. Execute analysis with Maven :
 
     ```bash
     ./mvnw -P sonar sonar:sonar -Dsonar.token=REPLACE_BY_YOUR_TOKEN
     ```
 
-4. Consult analysis on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall>
+4. Consult analysis on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall> -->
 
 #### Costumized configurations
 

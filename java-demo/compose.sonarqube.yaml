@@ -1,5 +1,23 @@
 ---
 services:
+
+  # automatically execute analysis from sources
+  sonarqube-analysis:
+    image: eclipse-temurin:21-jre-jammy
+    container_name: sonarqube-analysis
+    depends_on:
+      sonarqube-change-password:
+        condition: service_completed_successfully
+    working_dir: /quality
+    volumes:
+      - .:/quality
+    command: >
+      sh -c "apt update
+      && apt install -y curl jq
+      && SONAR_TOKEN=$(curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/generate?name=docker-analysis-tgsdfsddsfdsfokends&type=GLOBAL_ANALYSIS_TOKEN' | jq '.token')
+      && ./mvnw -P sonar sonar:sonar -Dsonar.token=$SONAR_TOKEN"
+
+  # automatically update default password 
   sonarqube-change-password:
     image: ubuntu:22.04
     container_name: sonarqube-change-password
@@ -11,6 +29,7 @@ services:
       && apt install -y curl
       && curl -u admin:admin -X POST 'http://sonarqube:9000/api/users/change_password?login=admin&previousPassword=admin&password=sonarqube'"
 
+  # Sonarqube server
   sonarqube:
     image: sonarqube:community
     hostname: sonarqube
@@ -32,7 +51,8 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
-
+  
+  # postgres database for sonarqube instance
   sonarqube-db:
     image: postgres:15
     hostname: sonarqube-db
