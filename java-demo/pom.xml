@@ -27,7 +27,6 @@
 		<sonar.projectKey>${project.artifactId}</sonar.projectKey>
 		<sonar.projectName>${project.artifactId}</sonar.projectName>
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.token>REPLACE_BY_YOUR_TOKEN</sonar.token>
 		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 		<sonar.sources>${project.basedir}</sonar.sources>
 		<sonar.exclusions>target/**/*, src/test/**/*</sonar.exclusions>

@@ -47,16 +47,18 @@ Thanks to Docker it's also possible to run a Sonarqube locally to execute an ana
     docker compose -f compose.sonarqube.yaml up
     ```
 
-2. Execute analysis with Maven :
+2. [Generate a global analysis token](https://docs.sonarsource.com/sonarqube/latest/user-guide/managing-tokens/#generating-a-token)
+
+   - login : admin
+   - password : sonarqube
+
+3. Execute analysis with Maven :
 
     ```bash
-    ./mvnw -P sonar sonar:sonar
+    ./mvnw -P sonar sonar:sonar -Dsonar.token=REPLACE_BY_YOUR_TOKEN
     ```
 
-3. Consult analysis on the Sonarqube UI running locally : <http://localhost:9000>
-
-  - login : admin
-  - password : sonarqube
+4. Consult analysis on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall>
 
 #### Costumized configurations
 
