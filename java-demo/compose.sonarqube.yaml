@@ -9,9 +9,7 @@ services:
     command: >
       sh -c "apt update
       && apt install -y curl
-      && curl -u admin:admin -X POST \
-      'http://sonarqube:9000/api/users/change_password\
-      ?login=admin&previousPassword=admin&password=sonarqube'"
+      && curl -u admin:admin -X POST 'http://sonarqube:9000/api/users/change_password?login=admin&previousPassword=admin&password=sonarqube'"
 
   sonarqube:
     image: sonarqube:community
