@@ -35,9 +35,9 @@ Command to build check / apply coding standard with Spotless :
 
 ### Sonarqube
 
-We can also do more extensive Quality contrôle / Linting thanks to Sonarqube and Maven but to automate it, it required a SonarQube server that run somewhere.
+We can also do more extensive quality control / Linting thanks to Sonarqube and Maven, but to automate this, **it required a SonarQube server that run somewhere**.
 
-In any case, **you can have analysis directly during your devs by adding [SonarLint](https://docs.sonarsource.com/sonarlint/intellij/) plugin to your IDE**. It provides immediate feedback in your IDE as you write code so you can find and fix issues before a commit.
+In any case, **you can have analysis directly during your devs by adding [SonarLint](https://docs.sonarsource.com/sonarlint/vs-code/) plugin to your IDE**. It provides immediate feedback in your IDE as you write code so you can find and fix issues before a commit.
 
 Thanks to Docker it's also possible to run a Sonarqube locally to execute an analysis with Maven :
 
@@ -49,26 +49,8 @@ Thanks to Docker it's also possible to run a Sonarqube locally to execute an ana
 
 2. View the analysis result on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall>
 
-<!-- 
-
-3. Run Sonarqube locally :
-
-    ```bash
-    docker compose -f compose.sonarqube.yaml up
-    ```
-
-4. [Generate a global analysis token](https://docs.sonarsource.com/sonarqube/latest/user-guide/managing-tokens/#generating-a-token)
-
    - login : admin
    - password : sonarqube
-
-5. Execute analysis with Maven :
-
-    ```bash
-    ./mvnw -P sonar sonar:sonar -Dsonar.token=REPLACE_BY_YOUR_TOKEN
-    ```
-
-4. Consult analysis on the Sonarqube UI running locally : <http://localhost:9000/dashboard?id=fruits&codeScope=overall> -->
 
 #### Costumized configurations
 
