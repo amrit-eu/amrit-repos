@@ -10,4 +10,4 @@ def hello() -> str:
         A printable string with the content of "Hello World!".
 
     """
-    return "Hello World!"
+    return "Hello World! Oh look this is bad"
