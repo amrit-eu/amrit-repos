@@ -14,6 +14,7 @@ jobs:
       matrix:
         # Run on Python versions that are stable and not EOL
         python-version: ["3.10", "3.11", "3.12", "3.13"]
+        tox-jobs: ["build, lint, type, test"]
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Set up Python ${{ matrix.python-version }}  # Get Python ready to use
@@ -28,15 +29,6 @@ jobs:
           curl -sSL https://install.python-poetry.org | python -
           tox depends --recreate
       # Run Tox jobs
-      - name: Build
+      - name: Tox (${{ matrix.tox-job }})
         working-directory: ./example-python
-        run: tox -e build
-      - name: Lint
-        working-directory: ./example-python
-        run: tox -e lint
-      - name: Type
-        working-directory: ./example-python
-        run: tox -e type
-      - name: Test
-        working-directory: ./example-python
-        run: tox -e test
+        run: tox -e ${{ matrix.tox-job }}
