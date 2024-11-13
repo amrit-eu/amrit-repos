@@ -14,7 +14,7 @@ jobs:
       matrix:
         # Run on Python versions that are stable and not EOL
         python-version: ["3.10", "3.11", "3.12", "3.13"]
-        tox-job: ["build, lint, type, test"]
+        tox-job: ["build", "lint", "type", "test"]
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Set up Python ${{ matrix.python-version }}  # Get Python ready to use
