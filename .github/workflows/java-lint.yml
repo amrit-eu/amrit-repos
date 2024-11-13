@@ -3,8 +3,8 @@ name: Java Lint
 on:
   push:
     branches:
-      - feature/java-lint
-  # pull_request:
+      - main
+  pull_request:
 
 jobs:
   Spotlesslint:
