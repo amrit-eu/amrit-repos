@@ -49,8 +49,8 @@ services:
       test: curl -sS http://localhost:9000/api/system/status | grep -e '"status":"UP"' > /dev/null
       interval: 10s
       timeout: 30s
-      retries: 5
-      start_period: 30s
+      retries: 10
+      start_period: 60s
   
   # postgres database for sonarqube instance
   sonarqube-db:
