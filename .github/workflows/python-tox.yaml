@@ -5,8 +5,12 @@ on:
     branches:
       # Run on our main branch
       - main
-  pull_request:  # Run for any pull requests
-
+    paths:
+      - example-python/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - example-python/**
 jobs:
   tox:
     runs-on: ubuntu-latest
