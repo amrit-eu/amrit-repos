@@ -1,0 +1,16 @@
+name: Java Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Spotlesslint:
+    runs-on: eclipse-temurin:21-jre-jammy
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run Spotless lint
+      working-directory: ./java-demo
+      run: ./mvnw spotless:check
