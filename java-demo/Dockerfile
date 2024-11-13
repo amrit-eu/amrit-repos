@@ -1,19 +1,30 @@
-FROM eclipse-temurin:17.0.10_7-jre-jammy AS runtime
+FROM cgr.dev/chainguard/jdk AS base
 
-WORKDIR /opt/app
+USER root
+
+FROM base AS builder
+
+WORKDIR /build
+
+COPY . .
+
+RUN ./mvnw clean package
+
+FROM base AS runtime
+
+WORKDIR /app
 
 RUN <<EOF
 set -e
-addgroup --gid 1001 java
-useradd --uid 1001 --gid 1001 -m java
+addgroup --system --gid 1001 gcontainer
+adduser --system --uid 1001 -G gcontainer springjava
 EOF
 
-ARG JAR_FILE=target/*.jar
-COPY --chown=java --chmod=750 ${JAR_FILE} app.jar
-COPY --chown=java --chmod=750 scripts/run.sh run.sh
+COPY --from=builder --chown=springjava --chmod=750 /build/target/*.jar app.jar
+COPY --chown=springjava --chmod=750 scripts/run.sh run.sh
 
 EXPOSE 8080
 
-USER java
+USER springjava
 
-ENTRYPOINT ["/opt/app/run.sh"]
+ENTRYPOINT ["/app/run.sh"]
