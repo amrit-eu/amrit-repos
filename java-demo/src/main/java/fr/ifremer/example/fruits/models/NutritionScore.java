@@ -12,9 +12,8 @@ public record Fruit(
     @Version Integer version) {
 
   public Fruit(Integer id, String name, String description) {
-    
+
     this(id, name, description, null, null);
-    
   }
 
   public Fruit withNutritionScore(NutritionScore nutritionScore) {
