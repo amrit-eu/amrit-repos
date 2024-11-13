@@ -44,6 +44,7 @@ optional = true
 [tool.poetry.group.test.dependencies]
 pytest = ">=8.3.3,<9.0.0"
 pytest-cov = ">=6.0.0,<7.0.0"
+pytest-mock = ">=3.14.0,<4.0.0"
 tox = ">=4.23.2,<5.0.0"
 coverage = {extras = ["xml"], version = ">=7.6.4,<8.0.0"}
 
@@ -102,17 +103,19 @@ select = [
     "TRY",
     "FLY",
     "NPY",
-    "FAST",
     "PERF",
     "FURB",
-    "DOC",
     "RUF"
 ]
-ignore = []
+ignore = [
+    "D203",  # Conflict with D211 - prefer no-blank-line-before-class.
+    "D213",  # Conflict with D213 - prefer multi-line-summary-first-line.
+]
 fixable = ["ALL"]
 unfixable = []
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+isort.split-on-trailing-comma = false
 
 [tool.ruff.format]
 quote-style = "double"
