@@ -14,7 +14,7 @@ Thanks to the wrapper, Maven is embedded in the project (in a defined version). 
 
 ## Getting Started
 
-Build the application :
+Build the application (will requiert Java jdk installed) :
 
 ```bash
 ./mvnw clean install
@@ -26,7 +26,7 @@ Build the application :
 
 [Spotless](https://github.com/diffplug/spotless/) is a general-purpose formatting plugin used by 15,000 projects on GitHub (Jan 2023). It is completely à la carte, but also includes powerful "batteries-included" if you opt-in.
 
-Command to build check / apply coding standard with Spotless :
+Command to build check / apply coding standard with Spotless (will requiert Java jdk installed) :
 
 ```bash
 ./mvnw spotless:check
