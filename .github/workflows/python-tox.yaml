@@ -32,5 +32,6 @@ jobs:
       - name: Tox (${{ matrix.tox-job }})
         working-directory: ./example-python
         run: |
+          poetry config virtualenvs.create false
           poetry install --no-root --with ${{ matrix.tox-job }}
           tox -e ${{ matrix.tox-job }}
