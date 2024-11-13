@@ -14,7 +14,8 @@ services:
     command: >
       sh -c "apt update
       && apt install -y curl jq
-      && SONAR_TOKEN=$(curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/generate?name=docker-analysis-tgsdfsddsfdsfokends&type=GLOBAL_ANALYSIS_TOKEN' | jq '.token')
+      && curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/revoke?name=docker-analysis-token'
+      && SONAR_TOKEN=$(curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/generate?name=docker-analysis-token&type=GLOBAL_ANALYSIS_TOKEN' | jq --raw-output '.token')
       && ./mvnw -P sonar sonar:sonar -Dsonar.token=$SONAR_TOKEN"
 
   # automatically update default password 
