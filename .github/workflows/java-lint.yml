@@ -3,7 +3,7 @@ name: Java Lint
 on:
   push:
     branches:
-      - main
+      - feature/java-lint
   pull_request:
 
 jobs:
