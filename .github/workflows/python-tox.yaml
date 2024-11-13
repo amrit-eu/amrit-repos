@@ -31,4 +31,6 @@ jobs:
       # Run Tox jobs
       - name: Tox (${{ matrix.tox-job }})
         working-directory: ./example-python
-        run: tox -e ${{ matrix.tox-job }}
+        run: |
+          poetry install --no-root --with ${{ matrix.tox-job }}
+          tox -e ${{ matrix.tox-job }}
