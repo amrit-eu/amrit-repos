@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     paths:
-    - 'java-demo/**'
+      - 'java-demo/**'
 
 jobs:
   build:
