@@ -1,6 +1,6 @@
 """Example importable module."""
 
-__all__: tuple[str] = ("hello",)
+__all__: list[str] = ["hello"]
 
 
 def hello() -> str:

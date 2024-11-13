@@ -2,7 +2,7 @@
 
 from .example import hello
 
-__all__: tuple[str] = ("main",)
+__all__: list[str] = ["main"]
 
 
 def main() -> None:
