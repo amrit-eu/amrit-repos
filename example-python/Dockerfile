@@ -16,17 +16,7 @@ RUN \
 RUN useradd -ms /bin/bash developer
 USER developer
 WORKDIR /home/developer
-#ENV PATH="/home/developer/.poetry/bin:/home/developer/.local/bin:${PATH}"
 
-#COPY --chown=developer --chmod=755 pyproject.toml poetry*.lock README.md ./
-#RUN curl -sSL https://install.python-poetry.org | python -
-#RUN \
-#    poetry config virtualenvs.create false && \
-#    if [ ! -f poetry.lock ]; then poetry lock; fi && \
-#    poetry install --no-root && \
-#    poetry env info && \
-#    mkdir -p .poetry && \
-#    ln -s "$(poetry env info --path)/bin" "${HOME}/.poetry/bin"
 
 FROM base as dev
 USER root
