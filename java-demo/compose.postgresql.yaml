@@ -1,0 +1,15 @@
+---
+services:
+  fruits-db:
+    image: postgres:15
+    restart: unless-stopped
+    container_name: fruits-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: fruits
+      POSTGRES_PASSWORD: fruits
+      POSTGRES_DB: fruits
+    labels:
+      # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.docker-compose.custom-images
+      org.springframework.boot.service-connection: postgres
