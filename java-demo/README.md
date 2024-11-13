@@ -14,11 +14,25 @@ Thanks to the wrapper, Maven is embedded in the project (in a defined version). 
 
 ## Getting Started
 
-Build the application (will requiert Java jdk installed) :
+- Build the application with maven (will requiert Java jdk installed) :
 
 ```bash
 ./mvnw clean install
 ```
+
+- Build the application with Docker :
+
+```bash
+docker compose build
+```
+
+- Run the application with Docker :
+
+```bash
+docker compose up
+```
+
+You can then access to API documentation : <http://localhost:8080/v3/api-docs>
 
 ## Quality / linting
 
