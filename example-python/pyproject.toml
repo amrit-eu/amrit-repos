@@ -101,6 +101,7 @@ select = [
     "I",
     "N",
     "D",
+    "S",
     "ERA",
     "PD",
     "PGH",
