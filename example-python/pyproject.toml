@@ -35,6 +35,7 @@ optional = true
 
 [tool.poetry.group.lint.dependencies]
 ruff = ">=0.7.3,<1.0.0"
+mypy = "<=1.13.0,<2.0.0"
 
 
 # Define the dependencies for Testing.
@@ -124,3 +125,25 @@ skip-magic-trailing-comma = true
 line-ending = "auto"
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
+
+[tool.mpypy]
+python_version = "3.12"
+disallow_any_unimported = true
+disallow_any_expr = true
+disallow_any_decorated = true
+disallow_any_generics = true
+disallow_any_explicit = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_return_any = true
+warn_redundant_casts = true
+strict_equality = true
+warn_unused_configs = true
+ignore_missing_imports = true
