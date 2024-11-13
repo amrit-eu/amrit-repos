@@ -27,6 +27,16 @@ jobs:
           python -m pip install tox tox-gh-actions
           curl -sSL https://install.python-poetry.org | python -
           tox depends --recreate
-      - name: Test with tox  # Run Tox jobs
+      # Run Tox jobs
+      - name: Build
         working-directory: ./example-python
-        run: tox
+        run: tox -e build
+      - name: Lint
+        working-directory: ./example-python
+        run: tox -e lint
+      - name: Type
+        working-directory: ./example-python
+        run: tox -e type
+      - name: Test
+        working-directory: ./example-python
+        run: tox -e test
