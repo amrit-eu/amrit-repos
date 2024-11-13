@@ -20,9 +20,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          cd ./example-python
-          ls
           python -m pip install --upgrade pip
           python -m pip install tox tox-gh-actions
+          curl -sSL https://install.python-poetry.org | python -
       - name: Test with tox
+        working-directory: ./example-python
         run: tox
