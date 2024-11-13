@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - feature/java-lint
-  pull_request:
+  # pull_request:
 
 jobs:
   Spotlesslint:
