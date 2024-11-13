@@ -17,8 +17,7 @@ readme = "README.md"
 
 
 [tool.poetry.dependencies]
-python = "^3.12"
-poetry-dynamic-versioning = ">=1.4.1"
+python = ">=3.10,<4.0.0"
 
 
 # Define the dependencies for building.
