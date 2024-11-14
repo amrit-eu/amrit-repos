@@ -34,5 +34,4 @@ jobs:
         with:
           context: "{{defaultContext}}:example-python"
           push: ${{ github.event_name == 'release' }}
-          tags: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app:latest
-
+          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app:${{ github.ref_name }}"
