@@ -25,4 +25,4 @@ jobs:
         with:
           context: "{{defaultContext}}:example-python"
           push: true
-          tags: ghcr.io/British-Oceanographic-Data-Centre/amrit-repos/python/app:latest
+          tags: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app:latest
