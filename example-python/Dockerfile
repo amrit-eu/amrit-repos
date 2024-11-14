@@ -14,7 +14,7 @@ RUN \
     poetry env info
 
 
-FROM base as dev
+FROM base AS dev
 RUN useradd -ms /bin/bash developer
 USER developer
 WORKDIR /home/developer
@@ -23,7 +23,7 @@ RUN cd /opt/poetry/project && poetry install --no-root --with build,lint,test
 USER developer
 
 
-FROM base as build
+FROM base AS build
 RUN --mount=type=bind,source=.,target=/opt/project,rw=true \
     cd /opt/project && \
     rm -rf ./dist && \
@@ -32,11 +32,11 @@ RUN --mount=type=bind,source=.,target=/opt/project,rw=true \
     mv ./dist/*.whl /opt/build
 
 
-FROM base as app
+FROM base AS app
 RUN --mount=type=bind,from=build,source=/opt/build,target=/opt/build \
     pip install /opt/build/*.whl && \
     which amrit-example
 RUN useradd -ms /bin/bash app
 USER app
 WORKDIR /home/app
-ENTRYPOINT amrit-example
+ENTRYPOINT ["amrit-example"]
