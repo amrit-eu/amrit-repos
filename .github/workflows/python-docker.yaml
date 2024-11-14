@@ -11,6 +11,8 @@ on:
     # Run for any pull requests
     paths:
       - example-python/**
+  release:
+    types: [created]
 
 jobs:
   docker:
@@ -24,5 +26,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:example-python"
-          push: true
+          push: ${{ github.event_name == 'release' }}
           tags: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app:latest
