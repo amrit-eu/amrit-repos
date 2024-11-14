@@ -1,3 +1,4 @@
+FROM python:3.12 AS base
 LABEL org.opencontainers.image.authors="matcaz@noc.ac.uk"
 LABEL org.opencontainers.image.description="Example OCI image for a Python application."
 LABEL org.opencontainers.image.url="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
@@ -6,8 +7,6 @@ LABEL org.opencontainers.image.documentation="https://github.com/British-Oceanog
 LABEL org.opencontainers.image.licenses="TBD"
 LABEL org.opencontainers.image.vendor="Advance Marine Research Infrastructures Together (AMRIT)"
 
-
-FROM python:3.12 AS base
 ENV POETRY_HOME=/opt/poetry
 ENV PATH="${POETRY_HOME}/bin:${PATH}"
 
