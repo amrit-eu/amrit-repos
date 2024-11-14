@@ -27,9 +27,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
+      - name: Build
         uses: docker/build-push-action@v6
+        if: ${{ ! env.rulePush }}
         with:
           context: "{{defaultContext}}:java-demo"
-          push: ${{ env.rulePush }}
+          push: false
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        if: ${{ env.rulePush }}
+        with:
+          context: "{{defaultContext}}:java-demo"
+          push: true
           tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app:${{ github.ref_name }}"
