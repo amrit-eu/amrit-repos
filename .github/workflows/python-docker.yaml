@@ -23,5 +23,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          push: false
-          tags: user/app:latest
+          context: "{{defaultContext}}:example-python"
+          push: true
+          tags: ghcr.io/British-Oceanographic-Data-Centre/amrit-repos/python/app:latest
