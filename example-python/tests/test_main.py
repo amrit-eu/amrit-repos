@@ -1,6 +1,6 @@
 """Example unit testing (via PyTest) module for an application entry point."""
 
-from example import main
+from example import __main__
 
 
 def test_main(mocker):
