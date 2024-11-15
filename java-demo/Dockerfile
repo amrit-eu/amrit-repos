@@ -12,7 +12,7 @@ RUN ./mvnw clean package
 FROM eclipse-temurin:21-jre-alpine AS runtime
 
 # Common base image.
-LABEL org.opencontainers.image.authors="matcaz@noc.ac.uk"
+LABEL org.opencontainers.image.authors="Leo.Bruvry.Lagadec@ifremer.fr"
 LABEL org.opencontainers.image.description="Example OCI image for a Python application."
 LABEL org.opencontainers.image.url="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
 LABEL org.opencontainers.image.source="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
