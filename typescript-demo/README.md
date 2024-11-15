@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Docker image is available publicly using `docker pull ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app:{TAG}`.
+
 ## Getting Started
 
 
