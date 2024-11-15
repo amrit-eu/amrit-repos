@@ -3,8 +3,14 @@ name: Typescript Lint
 on:
   push:
     branches:
+      # Run on our main branch
       - main
+    paths:
+      - typescript-demo/**
   pull_request:
+    # Run for any pull requests
+    paths:
+      - typescript-demo/**
 
 jobs:
   eslint:
