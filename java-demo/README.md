@@ -5,7 +5,7 @@ Demo Java API using springboot and applying best pratices. Docker image is avail
 As the API requiert a database to run, to run the demo you'll need to clone the repository and run following command :
 
 ```bash
-TAG=v0.0.1a6 docker compose -f compose.yaml -f compose.registry.yaml up
+TAG=${TAG} docker compose -f compose.yaml -f compose.registry.yaml up
 ```
 
 ## TOOLS
