@@ -1,9 +1,11 @@
 # Java api template
 
-Demo Java API using springboot and applying best pratices. Docker image is available publicly using :
+Demo Java API using springboot and applying best pratices. Docker image is available publicly.
+
+As the API requiert a database to run, to run the demo you'll need to clone the repository and run following command :
 
 ```bash
-docker pull ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app:{TAG}
+TAG=v0.0.1a6 docker compose -f compose.yaml -f compose.registry.yaml up
 ```
 
 ## TOOLS
@@ -20,10 +22,22 @@ Thanks to the wrapper, Maven is embedded in the project (in a defined version). 
 
 ## Getting Started
 
+- Clone the repository :
+
+```bash
+git clone https://github.com/British-Oceanographic-Data-Centre/amrit-repos.git
+```
+
 - Build the application with maven (will requiert Java jdk installed) :
 
 ```bash
 ./mvnw clean install
+```
+
+- Run the application with maven (will requiert Java jdk installed) :
+
+```bash
+./mvnw spring-boot:run
 ```
 
 - Build the application with Docker :
