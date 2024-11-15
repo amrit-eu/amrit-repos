@@ -1,5 +1,11 @@
 # Java api template
 
+Demo Java API using springboot and applying best pratices. Docker image is available publicly using :
+
+```bash
+docker pull ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app:{TAG}
+```
+
 ## TOOLS
 
 ### SDKMAN
