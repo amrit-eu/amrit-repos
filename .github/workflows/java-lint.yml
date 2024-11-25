@@ -3,7 +3,7 @@ name: Java Lint
 on:
   push:
     branches:
-      - main
+      - java-testing
     paths:
       - 'java-demo/**'
   pull_request:
