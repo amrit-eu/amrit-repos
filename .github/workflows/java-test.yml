@@ -18,6 +18,6 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '21'
-    - name: Run Maven build with tests
+    - name: Run Maven run tests
       working-directory: ./java-demo
-      run: ./mvnw clean install
+      run: ./mvnw clean test
