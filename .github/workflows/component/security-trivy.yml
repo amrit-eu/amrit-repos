@@ -1,17 +1,15 @@
-name: Java Security
+name: Security Trivy
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'java-demo/**'
-  pull_request:
-    paths:
-      - 'java-demo/**'
-
+  workflow_call:
+    inputs:
+      context:
+        description: 'Path to the Docker image to analyse'
+        required: true
+        default: 'java-demo'
+        type: string
 jobs:
-  java-security-trivy:
+  security-trivy:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -20,9 +18,9 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
-          context: "{{defaultContext}}:java-demo"
-          push: false
+          context: "{{defaultContext}}:${{ inputs.context }}"
           tags: "security-check:${{ github.ref_name }}"
+          push: false
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         env:

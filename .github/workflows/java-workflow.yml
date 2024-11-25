@@ -1,0 +1,16 @@
+name: Java Workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'java-demo/**'
+  pull_request:
+    paths:
+      - 'java-demo/**'
+jobs:
+  call-workflow-java-linting:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component/java-lint.yml@main
+    with:
+      context: java-demo
