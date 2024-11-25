@@ -4,6 +4,9 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [project]
 
+[tool.bandit]
+exclude_dirs = ["tests"]
+
 [tool.poetry]
 version = "0.0.0"
 name = "example"

@@ -1,4 +1,4 @@
-# Workflow regading python security scanning.
+# Workflow regarding python security scanning.
 name: Python Security
 
 on:
@@ -33,3 +33,4 @@ jobs:
         uses: PyCQA/bandit-action@v1
         with:
           targets: example-python
+          configfile: example-python/pyproject.toml
