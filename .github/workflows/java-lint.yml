@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feature/java-testing
-    paths:
-      - 'java-demo/**'
+    # paths:
+    #   - 'java-demo/**'
   pull_request:
     paths:
       - 'java-demo/**'
