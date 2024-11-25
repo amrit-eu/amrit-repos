@@ -1,16 +1,7 @@
 name: Java Security
 
 on:
-  push:
-    branches:
-      - feature/java-testing
-    # paths:
-    #   - 'java-demo/**'
-  pull_request:
-    paths:
-      - 'java-demo/**'
-  release:
-    types: [created]
+  workflow_call:
 
 jobs:
   java-security-trivy:
@@ -20,11 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Build an image from Dockerfile
-        run: docker build -t ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app:${{ github.ref_name }} .
+        run: docker build -t security-check:${{ github.ref_name }} .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app:${{ github.ref_name }}'
+          image-ref: 'security-check:${{ github.ref_name }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
