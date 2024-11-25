@@ -17,6 +17,7 @@ jobs:
   grype:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Scan python directory
         uses: anchore/scan-action@v3
         with:
