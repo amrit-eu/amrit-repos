@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name == 'release' }}
         with:
-          context: "${{ inputs.context }}"
+          context: "{{defaultContext}}:${{ inputs.context }}"
           push: true
           tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
           # labels: ${{ steps.meta.outputs.labels }}

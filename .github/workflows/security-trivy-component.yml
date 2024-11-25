@@ -19,8 +19,8 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "${{ inputs.context }}"
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
+          context: "{{defaultContext}}:${{ inputs.context }}"
+          tags: "security-check:${{ github.ref_name }}"
           push: false
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
@@ -28,7 +28,7 @@ jobs:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
-          image-ref: 'ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}'
+          image-ref: 'security-check:${{ github.ref_name }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
