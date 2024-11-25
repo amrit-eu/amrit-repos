@@ -17,11 +17,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Build
+      - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:java-demo"
           push: false
+          tags: "security-check:${{ github.ref_name }}"
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
