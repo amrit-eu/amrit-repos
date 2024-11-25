@@ -20,7 +20,7 @@ jobs:
     with:
       context: example-python
   container-image-build:
-    needs: java-testing
+    needs: python-linting
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: example-python
