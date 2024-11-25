@@ -16,6 +16,9 @@ jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   security:
     runs-on: ubuntu-latest
+    permissions:
+      # required for bandit
+      security-events: write
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Grype Scan
@@ -26,3 +29,7 @@ jobs:
         uses: pypa/gh-action-pip-audit@v1.1.0
         with:
           inputs: example-python
+      - name: Bandit Analysis
+        uses: PyCQA/bandit-action@v1
+        with:
+          targets: example-python
