@@ -1,0 +1,22 @@
+# Workflow regading python security scanning.
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - example-python/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - example-python/**
+jobs:
+  # https://github.com/marketplace/actions/anchore-container-scan
+  grype:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Scan python directory
+      uses: anchore/scan-action@v3
+      with:
+        path: "./example-python"
