@@ -10,7 +10,7 @@ on:
     paths:
       - 'java-demo/**'
 jobs:
-  Spotlesslint:
+  java:linter:spotless:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
