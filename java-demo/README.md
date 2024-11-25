@@ -119,3 +119,15 @@ Properties can be override throw properties defined in maven configuration file 
     <sonar.skip>false</sonar.skip>
 </properties>
 ```
+
+## Security
+
+A Docker Compose file enables you to perform a Trivy vulnerability analysis as early as possible.
+
+- Run a Trivy analysis on your app file system.
+
+```bash
+docker compose -f compose.trivy.yaml up
+```
+
+- Trivy analysis on container image will be done with a Github action as it require to save teh image in a registry
