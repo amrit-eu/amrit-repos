@@ -36,6 +36,5 @@ jobs:
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
           push: ${{ github.event_name == 'release' }} # push on tag
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          # tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app:${{ github.ref_name }}"
+          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
+          # labels: ${{ steps.meta.outputs.labels }}
