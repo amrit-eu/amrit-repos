@@ -25,16 +25,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
-      # - name: Extract Docker metadata
-      #   id: meta
-      #   uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-      #   with:
-      #     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "{{defaultContext}}:example-python"
+          context: "{{defaultContext}}:${{ inputs.context }}"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -42,5 +42,6 @@ jobs:
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
           push: true
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
-          # labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          # tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
+          labels: ${{ steps.meta.outputs.labels }}
