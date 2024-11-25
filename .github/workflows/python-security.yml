@@ -1,4 +1,5 @@
 # Workflow regading python security scanning.
+name: Python Security
 
 on:
   push:
@@ -9,14 +10,14 @@ on:
       - example-python/**
   pull_request:
     # Run for any pull requests
-    paths:
-      - example-python/**
+    branches:
+      - master
 jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   grype:
     runs-on: ubuntu-latest
     steps:
-    - name: Scan python directory
-      uses: anchore/scan-action@v3
-      with:
-        path: "./example-python"
+      - name: Scan python directory
+        uses: anchore/scan-action@v3
+        with:
+          path: "./example-python"
