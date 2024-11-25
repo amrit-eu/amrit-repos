@@ -4,10 +4,11 @@ on:
   workflow_call:
     inputs:
       context:
-        description: 'Path to the Docker image to analyse'
+        description: "Path to the Docker image to analyse"
         required: true
-        default: '.'
+        default: "."
         type: string
+
 jobs:
   security-trivy:
     name: Build
@@ -28,9 +29,9 @@ jobs:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
-          image-ref: 'security-check:${{ github.ref_name }}'
-          format: 'table'
-          exit-code: '1'
+          image-ref: "security-check:${{ github.ref_name }}"
+          format: "table"
+          exit-code: "1"
           ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          vuln-type: "os,library"
+          severity: "CRITICAL,HIGH"

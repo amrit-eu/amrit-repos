@@ -1,0 +1,31 @@
+name: Python Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - example-python/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - example-python/**
+  release:
+    types: [created]
+
+jobs:
+  python-linting:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-python-lint.yml@feature/shared-ci
+    with:
+      context: java-demo
+  container-image-build:
+    needs: java-testing
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
+    # with:
+    #   context: java-demo
+  security-trivy-scan:
+    needs: container-image-build
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-trivy.yml@feature/shared-ci
+    with:
+      context: java-demo
