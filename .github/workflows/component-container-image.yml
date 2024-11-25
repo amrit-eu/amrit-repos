@@ -4,8 +4,7 @@ on:
   workflow_call:
     inputs:
       context:
-        description: 'Path to the module to lint'
-        required: true
+        description: 'Path to the Docker image to build'
         default: '.'
         type: string
 jobs:
