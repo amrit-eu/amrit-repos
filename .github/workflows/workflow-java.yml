@@ -1,0 +1,31 @@
+name: Java Workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'java-demo/**'
+  pull_request:
+    paths:
+      - 'java-demo/**'
+jobs:
+  java-linting:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@feature/shared-ci
+    with:
+      context: java-demo
+  java-testing:
+    needs: java-linting
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-test.yml@feature/shared-ci
+    with:
+      context: java-demo
+  container-image-build:
+    needs: java-testing
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
+    with:
+      context: java-demo
+  security-trivy-scan:
+    needs: container-image-build
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-trivy.yml@feature/shared-ci
+    with:
+      context: java-demo
