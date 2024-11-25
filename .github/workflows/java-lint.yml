@@ -10,7 +10,6 @@ on:
         type: string
       java-version:
         description: 'Java version'
-        required: true
         default: '21'
         type: string
 jobs:
