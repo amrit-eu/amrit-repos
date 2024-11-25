@@ -11,6 +11,9 @@ on:
     # Run for any pull requests
     paths:
       - java-demo/**
+  release:
+    types: [created]
+
 jobs:
   java-linting:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@feature/shared-ci

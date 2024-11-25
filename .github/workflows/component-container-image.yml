@@ -22,19 +22,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: "ghcr.io/${{ github.repository }}:develop"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -42,6 +35,7 @@ jobs:
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          # tags: ${{ steps.meta.outputs.tags }}
+          tags: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}"
           # tags: "ghcr.io/${{ github.workspace }}/${{ inputs.context }}:${{ github.ref_name }}"
           labels: ${{ steps.meta.outputs.labels }}
