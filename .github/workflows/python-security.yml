@@ -14,11 +14,15 @@ on:
       - main
 jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
-  grype:
+  security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
-      - name: Scan python directory
+      - name: Grype Scan
         uses: anchore/scan-action@v3
         with:
-          path: "example-python"
+          path: example-python
+      - name: Pip Audit
+        uses: pypa/gh-action-pip-audit@v1.1.0
+        with:
+          inputs: example-python
