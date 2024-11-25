@@ -3,12 +3,14 @@ name: Java Workflow
 on:
   push:
     branches:
+      # Run on our main branch
       - main
     paths:
-      - 'java-demo/**'
+      - java-demo/**
   pull_request:
+    # Run for any pull requests
     paths:
-      - 'java-demo/**'
+      - java-demo/**
 jobs:
   java-linting:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@feature/shared-ci
@@ -23,9 +25,9 @@ jobs:
     needs: java-testing
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     # with:
-    #   context: java-demo
+    #   context: "{{defaultContext}}:java-demo"
   security-trivy-scan:
     needs: container-image-build
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-trivy.yml@feature/shared-ci
     with:
-      context: java-demo
+      context: "{{defaultContext}}:java-demo"
