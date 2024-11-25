@@ -1,7 +1,14 @@
 name: Java Security
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
+    paths:
+      - 'java-demo/**'
+  pull_request:
+    paths:
+      - 'java-demo/**'
 
 jobs:
   java-security-trivy:
