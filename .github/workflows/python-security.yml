@@ -11,7 +11,7 @@ on:
   pull_request:
     # Run for any pull requests
     branches:
-      - master
+      - main
 jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   grype:
