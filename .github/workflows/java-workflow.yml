@@ -11,6 +11,6 @@ on:
       - 'java-demo/**'
 jobs:
   call-workflow-java-linting:
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/java-lint.yml@main
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/java-lint.yml@feature/shared-ci
     with:
       context: java-demo
