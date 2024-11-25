@@ -3,9 +3,9 @@ name: Java Tests
 on:
   push:
     branches:
-      - feature/java-testing
-    # paths:
-    #   - 'java-demo/**'
+      - main
+    paths:
+      - 'java-demo/**'
   pull_request:
     paths:
       - 'java-demo/**'
