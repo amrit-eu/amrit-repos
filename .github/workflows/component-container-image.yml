@@ -35,6 +35,7 @@ jobs:
         if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
+          tags: "ghcr.io/${{ github.workspace }}/${{ inputs.context }}:test,${{ steps.meta.outputs.tags }}"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -43,5 +44,5 @@ jobs:
           context: "{{defaultContext}}:${{ inputs.context }}"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          # tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
+          # tags: "ghcr.io/${{ github.workspace }}/${{ inputs.context }}:${{ github.ref_name }}"
           labels: ${{ steps.meta.outputs.labels }}
