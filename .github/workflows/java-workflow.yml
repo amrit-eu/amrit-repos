@@ -15,6 +15,7 @@ jobs:
     with:
       context: java-demo
   call-workflow-java-testing:
+    needs: call-workflow-java-linting
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/java-test-component.yml@feature/shared-ci
     with:
       context: java-demo
