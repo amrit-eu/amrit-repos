@@ -6,7 +6,7 @@ on:
       context:
         description: 'Path to the Docker image to analyse'
         required: true
-        default: 'java-demo'
+        default: '.'
         type: string
 jobs:
   security-trivy:
@@ -18,7 +18,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
-          context: "{{defaultContext}}:${{ inputs.context }}"
+          context: "${{ inputs.context }}"
           tags: "security-check:${{ github.ref_name }}"
           push: false
       - name: Run Trivy vulnerability scanner
