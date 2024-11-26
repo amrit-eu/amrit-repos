@@ -14,6 +14,7 @@ on:
 
 jobs:
   container-image-build:
+    name: Docker
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU

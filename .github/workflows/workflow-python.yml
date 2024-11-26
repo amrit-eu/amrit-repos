@@ -25,9 +25,9 @@ jobs:
     with:
       context: example-python
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app
-  security-trivy-scan:
+  security-scan:
     needs: container-image-build
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-trivy.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-scan.yml@feature/shared-ci
     with:
       context: example-python
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app
