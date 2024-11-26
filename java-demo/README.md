@@ -130,4 +130,4 @@ A Docker Compose file enables you to perform a Trivy vulnerability analysis as e
 docker compose -f compose.trivy.yaml up
 ```
 
-- Trivy analysis on container image will be done with a Github action as it require to save teh image in a registry
+- Trivy analysis on container image will be done with a Github action as it require to save the image in a registry
