@@ -5,10 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
   pull_request:
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
   release:
     types: [created]
 

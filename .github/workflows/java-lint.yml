@@ -5,19 +5,19 @@ on:
     branches:
       - main
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
   pull_request:
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
 jobs:
   java-linter-spotless:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
-    - name: Run Spotless lint
-      working-directory: ./java-demo
-      run: ./mvnw spotless:check
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - name: Run Spotless lint
+        working-directory: ./java-demo
+        run: ./mvnw spotless:check
