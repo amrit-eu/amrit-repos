@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name == 'release' }}
         with:
-          context: "{{defaultContext}}:${{ inputs.context }}"
+          context: "${{ inputs.context }}"
           tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}:${{ github.ref_name }}"
           # tags: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}" need to lowercase github.repository
           push: true
