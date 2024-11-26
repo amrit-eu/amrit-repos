@@ -11,6 +11,7 @@ on:
         description: "Path of the docker image Tag"
         default: "ghcr.io/${{ github.repository }}/app"
         type: string
+
 jobs:
   container-image-build:
     runs-on: ubuntu-latest
@@ -19,7 +20,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - id: string
+      - id: format
         name: Lowercase repository path
         uses: ASzc/change-string-case-action@v1
         with:
@@ -36,12 +37,12 @@ jobs:
         if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          tags: "${{ steps.string.outputs.lowercase }}:develop"
+          tags: "${{ steps.format.outputs.lowercase }}:develop"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
         if: ${{ github.event_name == 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          tags: "${{ steps.string.outputs.lowercase }}:${{ github.ref_name }}"
+          tags: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
           push: true

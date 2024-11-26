@@ -8,6 +8,10 @@ on:
         required: true
         default: "."
         type: string
+    image-path:
+      description: "Path of the docker image to analyse"
+      default: "ghcr.io/${{ github.repository }}/app"
+      type: string
 
 jobs:
   security-trivy:
@@ -16,11 +20,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - id: format
+        name: Lowercase repository path
+        uses: ASzc/change-string-case-action@v1
+        with:
+          string: ${{ inputs.image-path }}
       - name: Build Docker image
         uses: docker/build-push-action@v6
+        if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          tags: "security-check:${{ github.ref_name }}"
+          tags: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
           push: false
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
@@ -28,7 +38,7 @@ jobs:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
-          image-ref: "security-check:${{ github.ref_name }}"
+          image-ref: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true

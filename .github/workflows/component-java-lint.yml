@@ -11,6 +11,7 @@ on:
         description: "Java version"
         default: "21"
         type: string
+
 jobs:
   java-linter-spotless:
     runs-on: ubuntu-latest
