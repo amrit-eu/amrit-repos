@@ -9,8 +9,8 @@ on:
       - typescript-demo/**
   pull_request:
     # Run for any pull requests
-    # paths:
-    #   - typescript-demo/**
+    paths:
+      - typescript-demo/**
   release:
     types: [created]
 
