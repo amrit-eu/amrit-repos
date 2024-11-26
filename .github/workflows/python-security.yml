@@ -50,7 +50,8 @@ jobs:
         working-directory: ./example-python
         run: |
           bandit -r . -c pyproject.toml -f sarif >> bandit.sarif
-      - uses: github/codeql-action/upload-sarif@v3
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: example-python/bandit.sarif
