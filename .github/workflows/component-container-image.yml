@@ -7,6 +7,10 @@ on:
         description: "Path to the Docker image to build"
         default: ""
         type: string
+      container-image-path:
+        description: "Path of the docker image Tag"
+        default: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app"
+        type: string
 jobs:
   container-image-build:
     runs-on: ubuntu-latest
@@ -26,15 +30,15 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "${{ inputs.context }}"
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}:develop"
+          context: "./${{ inputs.context }}"
+          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:develop"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
         if: ${{ github.event_name == 'release' }}
         with:
-          context: "${{ inputs.context }}"
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}:${{ github.ref_name }}"
+          context: "./${{ inputs.context }}"
+          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
           # tags: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}" need to lowercase github.repository
           push: true
           labels: ${{ steps.meta.outputs.labels }}
