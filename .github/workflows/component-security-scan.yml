@@ -20,13 +20,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # - id: format
-      #   name: Format lowercase repository path
-      #   uses: ASzc/change-string-case-action@v1
-      #   with:
-      #     string: ${{ inputs.image-path }}
+      # need to format as github.repository contains uppercase
+      # and pull request workflow contains slashes
       - id: format
-        name: Format proper tag
+        name: Format proper image path and tag
         env:
           IMAGE_PATH: ${{ inputs.image-path }}
         run: |
