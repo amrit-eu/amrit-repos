@@ -24,6 +24,7 @@ jobs:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: typescript-demo
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
   security-trivy-scan:
     needs: container-image-build
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-trivy.yml@feature/shared-ci

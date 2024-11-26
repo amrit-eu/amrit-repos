@@ -6,7 +6,7 @@ on:
       context:
         description: "Path to the Docker image to analyse"
         required: true
-        default: ""
+        default: "."
         type: string
 
 jobs:
