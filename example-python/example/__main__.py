@@ -14,6 +14,7 @@ def main() -> None:
     https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
     """
     message = hello()
+    assert message == "Hello World!"
     print(message)
 
 
