@@ -20,7 +20,7 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "{{defaultContext}}:${{ inputs.security-context }}"
+          context: "{{defaultContext}}:${{ inputs.context }}"
           tags: "security-check:${{ github.ref_name }}"
           push: false
       - name: Run Trivy vulnerability scanner

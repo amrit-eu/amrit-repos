@@ -9,7 +9,7 @@ on:
         type: string
       image-path:
         description: "Path of the docker image Tag"
-        default: "ghcr.io/${{ github.repository }}"
+        default: "ghcr.io/${{ github.repository }}/app"
         type: string
 jobs:
   container-image-build:
