@@ -8,10 +8,10 @@ on:
         required: true
         default: "."
         type: string
-    image-path:
-      description: "Path of the docker image to analyse"
-      default: "ghcr.io/${{ github.repository }}/app"
-      type: string
+      image-path:
+        description: "Path of the docker image to analyse"
+        default: "ghcr.io/${{ github.repository }}/app"
+        type: string
 
 jobs:
   security-trivy:
