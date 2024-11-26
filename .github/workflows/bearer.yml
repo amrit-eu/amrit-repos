@@ -10,6 +10,8 @@ name: Bearer
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - typescript-demo/**
   schedule:
     - cron: '*/15 * * * *'
 
@@ -29,7 +31,7 @@ jobs:
         id: report
         uses: bearer/bearer-action@828eeb928ce2f4a7ca5ed57fb8b59508cb8c79bc
         with:
-          path: './typescript-demo'
+          path: ./typescript-demo
           format: sarif
           output: results.sarif
           exit-code: 0
