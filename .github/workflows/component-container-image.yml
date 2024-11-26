@@ -5,11 +5,11 @@ on:
     inputs:
       context:
         description: "Path to the Docker image to build"
-        default: ""
+        default: "."
         type: string
-      container-image-path:
+      image-path:
         description: "Path of the docker image Tag"
-        default: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app"
+        default: "ghcr.io/${{ github.repository }}"
         type: string
 jobs:
   container-image-build:
@@ -19,6 +19,11 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - id: string
+        name: Lowercase repository path
+        uses: ASzc/change-string-case-action@v1
+        with:
+          string: ${{ inputs.image-path }}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         if: ${{ github.event_name == 'release' }}
@@ -30,15 +35,13 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "./${{ inputs.context }}"
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:develop"
+          context: "{{defaultContext}}:${{ inputs.context }}"
+          tags: "${{ steps.string.outputs.lowercase }}:develop"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
         if: ${{ github.event_name == 'release' }}
         with:
-          context: "./${{ inputs.context }}"
-          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/${{ inputs.context }}/app:${{ github.ref_name }}"
-          # tags: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}" need to lowercase github.repository
+          context: "{{defaultContext}}:${{ inputs.context }}"
+          tags: "${{ steps.string.outputs.lowercase }}:${{ github.ref_name }}"
           push: true
-          labels: ${{ steps.meta.outputs.labels }}
