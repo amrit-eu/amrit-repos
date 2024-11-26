@@ -9,8 +9,8 @@ on:
       - example-python/**
   pull_request:
     # Run for any pull requests
-    paths:
-      - example-python/**
+    # paths:
+    #   - example-python/**
   release:
     types: [created]
 
