@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       context:
-        description: "Path to the Docker image to build"
+        description: "Path to the Dockerfile directory to build"
         default: "."
         type: string
       image-path:
