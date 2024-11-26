@@ -27,9 +27,11 @@ jobs:
       #     string: ${{ inputs.image-path }}
       - id: format
         name: Format proper tag
+        env:
+          IMAGE_PATH: ${{ inputs.image-path }}
         run: |
           echo "image-tag=${GITHUB_REF_NAME/\//-}" >> $GITHUB_OUTPUT
-          echo "image-path=${inputs.image-path@L}" >> $GITHUB_OUTPUT
+          echo "image-path=${IMAGE_PATH@L}" >> $GITHUB_OUTPUT
       - name: Build Docker image
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
