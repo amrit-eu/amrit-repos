@@ -21,20 +21,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - id: format
-        name: FOrmat lowercase repository path
+        name: Format lowercase repository path
         uses: ASzc/change-string-case-action@v1
         with:
           string: ${{ inputs.image-path }}
-      - id: version
+      - id: format
         name: Format proper tag
         run: |
-          echo "tag=${GITHUB_REF_NAME/\//-}" >> $GITHUB_OUTPUT
+          echo "image-tag=${GITHUB_REF_NAME/\//-}" >> $GITHUB_OUTPUT
+          echo "image-path=${inputs.image-path@L}" >> $GITHUB_OUTPUT
       - name: Build Docker image
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          tags: "${{ steps.format.outputs.lowercase }}:${{ steps.version.outputs.tag }}"
+          tags: "${{ steps.format.outputs.image-path }}:${{ steps.format.outputs.image-tag }}"
           push: false
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
@@ -42,7 +43,7 @@ jobs:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
-          image-ref: "${{ steps.format.outputs.lowercase }}:${{ steps.version.outputs.tag }}"
+          image-ref: "${{ steps.format.outputs.image-path }}:${{ steps.format.outputs.image-tag }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
