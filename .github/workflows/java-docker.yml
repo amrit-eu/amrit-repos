@@ -1,19 +1,19 @@
-name: Java Build
+name: Java Docker
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
   pull_request:
     paths:
-      - 'java-demo/**'
+      - "java-demo/**"
   release:
     types: [created]
 
 jobs:
-  build:
+  container-image-build:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
