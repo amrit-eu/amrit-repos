@@ -52,7 +52,7 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 [Grype](https://github.com/anchore/grype) is a vulnerability scanner for container images and filesystems.
 
 #### Pip Audit
-[pip-audit](https://pypi.org/project/pip-audit/)is a tool for scanning Python environments for packages with known vulnerabilities.
+[pip-audit](https://pypi.org/project/pip-audit/) is a tool for scanning Python environments for packages with known vulnerabilities.
 
 ### TypeScript
 #### ESLint
