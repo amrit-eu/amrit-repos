@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         # Run on Python versions that are stable and not EOL
-        python-version: ["3.11"]
+        python-version: ["3.13"]
     permissions:
       # required for uploading sarif file
       security-events: write
@@ -50,7 +50,7 @@ jobs:
         working-directory: ./example-python
         # Run bandit and output to sarif file
         run: |
-          bandit -r . -c pyproject.toml -f sarif >> bandit.sarif
+          bandit -r . -c pyproject.toml -f sarif -o bandit.sarif
       - name: Upload sarif file
         if: always()
         uses: github/codeql-action/upload-sarif@v3
