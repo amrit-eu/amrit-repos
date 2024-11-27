@@ -1,4 +1,4 @@
-name: Java Lint
+name: Java Tests
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
     paths:
       - "java-demo/**"
 jobs:
-  java-linter-spotless:
+  java-test-junit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,6 +18,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
-      - name: Run Spotless lint
+      - name: Run Maven run tests
         working-directory: ./java-demo
-        run: ./mvnw spotless:check
+        run: ./mvnw clean test

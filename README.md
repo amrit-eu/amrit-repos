@@ -17,10 +17,10 @@ A series of "best practice" examples for code quality, testing, and style for op
 | Language | Linting | Testing | Typing | Security Scanning | Containerisation | Images | CI/CD |
 | :------: | :-----: | :-----: | :----: | :---------------: | :--------------: | :----: | :---: |
 | Java | [Spotless](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%3CgroupId%3Ecom.diffplug.spotless%3C%2FgroupId%3E&type=code) | [JUnit](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/java-demo/src/test) | [N/A](## "Java is a statically typed language.") | N/A | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/java-demo/Dockerfile) + [Compose](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/java-demo/compose.yaml) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Fjava%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fjava-*.yml+&type=code) |
-| Python | [Ruff](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btool.ruff%5D&type=code) | [PyTest](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/tests/test_main.py) | [MyPy](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btestenv%3Atype%5D&type=code) | N/A |  [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Fpython%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fpython-*.yaml+&type=code) |
+| Python | [Ruff](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btool.ruff%5D&type=code) + [Bandit](https://github.com/PyCQA/bandit) | [PyTest](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/tests/test_main.py) | [MyPy](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btestenv%3Atype%5D&type=code) | [Grype](https://github.com/anchore/grype) + [pip-audit](https://pypi.org/project/pip-audit/) | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Fpython%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fpython-*.yaml+&type=code) |
 | TypeScript | [ESLint](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/.eslintrc.json) | [N/A](## "In future, we expect to use front-end testing frameworks such as Cypress.") | [Strict](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3Atypescript-demo%2Ftsconfig.json+%22strict%22%3A+&type=code) | [Bearer](https://docs.bearer.com/) | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Ftypescript%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fts-*.yml&type=code) |
 
-All of our chosen linting rules, tests, as well as package builds can be executed both locally on developer machines and in the cloud via GitHub Actions.
+All of our chosen linting rules, tests, as well as package builds can be executed both locally on developer machines and in the cloud via GitHub Actions. Security checks can be executed via GitHub Actions.
 
 ### Java
 #### Spotless
@@ -34,7 +34,10 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 
 ### Python
 #### Ruff
-[Ruff](https://github.com/astral-sh/ruff) is a static analysis and formatting tool for Python, serving as an aggregator of rules multiple analysis and formatting tools. Our Python example is subject to a customised collection of Ruff rules including (but not limited to) those from [Black](https://black.readthedocs.io/en/stable/), [PyLint](https://pylint.readthedocs.io/en/latest/), [Flake8](https://github.com/pycqa/flake8), and [Bandit](https://github.com/PyCQA/bandit). Our Ruff rules are evaluated via Tox.
+[Ruff](https://github.com/astral-sh/ruff) is a static analysis and formatting tool for Python, serving as an aggregator of rules multiple analysis and formatting tools. Our Python example is subject to a customised collection of Ruff rules including (but not limited to) those from [Black](https://black.readthedocs.io/en/stable/), [PyLint](https://pylint.readthedocs.io/en/latest/), and [Flake8](https://github.com/pycqa/flake8). Our Ruff rules are evaluated via Tox.
+
+#### Bandit
+[Bandit](https://github.com/PyCQA/bandit) is a tool designed to find common security issues in Python code. It is worth noting that Ruff implements a subset of Bandit checks, however we have disabled these in preference of explicitly using Bandit itself to perform these.
 
 #### PyTest
 [PyTest](https://docs.pytest.org/en/stable/) is a testing framework for Python. The unit tests we have written for this example are run via Tox.
@@ -44,6 +47,12 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 
 #### Tox
 [Tox](https://tox.wiki/en/4.23.2/) is a tool for automating the application of tests and other jobs against Python code.
+
+#### Grype
+[Grype](https://github.com/anchore/grype) is a vulnerability scanner for container images and filesystems.
+
+#### Pip Audit
+[pip-audit](https://pypi.org/project/pip-audit/) is a tool for scanning Python environments for packages with known vulnerabilities.
 
 ### TypeScript
 #### ESLint

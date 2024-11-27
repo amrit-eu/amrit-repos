@@ -1,0 +1,37 @@
+name: Java Security
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'java-demo/**'
+  pull_request:
+    paths:
+      - 'java-demo/**'
+
+jobs:
+  java-security-trivy:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:java-demo"
+          push: false
+          tags: "security-check:${{ github.ref_name }}"
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
+          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
+        with:
+          image-ref: 'security-check:${{ github.ref_name }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'

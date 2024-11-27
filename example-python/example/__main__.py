@@ -11,7 +11,7 @@ def main() -> None:
     Obtains a Hello World string and prints it.
 
     Note the use of "Google-style" docstrings:
-    https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
+    https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html 
     """
     message = hello()
     print(message)
