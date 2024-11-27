@@ -36,7 +36,7 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 #### Ruff
 [Ruff](https://github.com/astral-sh/ruff) is a static analysis and formatting tool for Python, serving as an aggregator of rules multiple analysis and formatting tools. Our Python example is subject to a customised collection of Ruff rules including (but not limited to) those from [Black](https://black.readthedocs.io/en/stable/), [PyLint](https://pylint.readthedocs.io/en/latest/), and [Flake8](https://github.com/pycqa/flake8). Our Ruff rules are evaluated via Tox.
 
-### Bandit
+#### Bandit
 [Bandit](https://github.com/PyCQA/bandit) is a tool designed to find common security issues in Python code. It is worth noting that Ruff implements a subset of Bandit checks, however we have disabled these in preference of explicitly using Bandit itself to perform these.
 
 #### PyTest
@@ -48,10 +48,10 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 #### Tox
 [Tox](https://tox.wiki/en/4.23.2/) is a tool for automating the application of tests and other jobs against Python code.
 
-### Grype
+#### Grype
 [Grype](https://github.com/anchore/grype) is a vulnerability scanner for container images and filesystems.
 
-### Pip Audit
+#### Pip Audit
 [pip-audit](https://pypi.org/project/pip-audit/)is a tool for scanning Python environments for packages with known vulnerabilities.
 
 ### TypeScript
