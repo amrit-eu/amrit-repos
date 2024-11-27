@@ -32,6 +32,9 @@ jobs:
         with:
           sarif_file: ${{ steps.grype-scan.outputs.sarif }}
           category: grype-scan
+      - name: Inspect grype SARIF report
+        if: always()
+        run: cat ${{ steps.grype-scan.outputs.sarif }}
       - name: Pip Audit
         uses: pypa/gh-action-pip-audit@v1.1.0
         with:
@@ -66,3 +69,6 @@ jobs:
         with:
           sarif_file: example-python/bandit.sarif
           category: bandit-python-analysis
+      - name: Inspect bandit SARIF report
+        if: always()
+        run: cat bandit.sarif
