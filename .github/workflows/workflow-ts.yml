@@ -20,13 +20,13 @@ jobs:
     with:
       context: typescript-demo
   container-image-build:
-    needs: ts-linting
+    needs: [ts-linting]
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: typescript-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
   container-image-security:
-    needs: container-image-build
+    needs: [container-image-build]
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@feature/shared-ci
     with:
       context: typescript-demo
