@@ -4,13 +4,13 @@ on:
   push:
     branches:
       # Run on our main branch
-      - feature/shared-ci
+      - main
     paths:
       - java-demo/**
   pull_request:
     # Run for any pull requests
-    paths:
-      - java-demo/**
+    # paths:
+    #   - java-demo/**
   release:
     types: [created]
 

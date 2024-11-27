@@ -4,13 +4,13 @@ on:
   push:
     branches:
       # Run on our main branch
-      - feature/shared-ci
+      - main
     paths:
       - typescript-demo/**
   pull_request:
     # Run for any pull requests
-    paths:
-      - typescript-demo/**
+    # paths:
+    #   - typescript-demo/**
   release:
     types: [created]
 

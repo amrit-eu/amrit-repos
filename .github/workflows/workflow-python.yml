@@ -4,13 +4,13 @@ on:
   push:
     branches:
       # Run on our main branch
-      - feature/shared-ci
+      - main
     paths:
       - example-python/**
   pull_request:
     # Run for any pull requests
-    paths:
-      - example-python/**
+    # paths:
+    #   - example-python/**
   release:
     types: [created]
 
