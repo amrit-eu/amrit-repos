@@ -4,7 +4,7 @@ on:
   push:
     branches:
       # Run on our main branch
-      - main
+      - feature/shared-ci
     paths:
       - java-demo/**
   pull_request:

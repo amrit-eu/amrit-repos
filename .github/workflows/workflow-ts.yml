@@ -4,7 +4,7 @@ on:
   push:
     branches:
       # Run on our main branch
-      - main
+      - feature/shared-ci
     paths:
       - typescript-demo/**
   pull_request:
