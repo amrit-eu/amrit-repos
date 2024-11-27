@@ -37,6 +37,6 @@ jobs:
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.report.output.results }}
+          sarif_file: ${{ steps.report.outputs.results }}
           category: secure-scan
         
