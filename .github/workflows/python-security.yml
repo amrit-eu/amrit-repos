@@ -30,10 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Run on Python versions that are stable and not EOL
         python-version: ["3.13"]
     permissions:
-      # required for uploading sarif file
+      # Required for uploading sarif file
       security-events: write
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
