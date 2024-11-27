@@ -2,8 +2,6 @@ name: Typescript Test
 
 on:
   push:
-    branches:
-      - main
     paths:
       - typescript-demo/**
   pull_request:
@@ -13,21 +11,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    services:
-      # Optional: Set up a service to run your app locally (for Cypress)
-      app:
-        image: node:22
-        options: >-
-          --env-file .env
-        ports:
-          - "3000:3000"
-        command: >
-          sh -c "
-          npm install &&
-          npm run build &&
-          npm start
-          "
 
     steps:
       # Checkout the repository
@@ -39,35 +22,42 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22"
-          cache: "npm"
 
-      # Install dependencies
+      # Install dependencies in the `typescript-demo` folder
       - name: Install dependencies
         run: npm install
+        working-directory: ./typescript-demo
 
-      # Run Jest tests
-      - name: Run Jest tests
-        run: npm test -- --coverage
+      # Build the application
+      - name: Build the application
+        run: npm run build
+        working-directory: ./typescript-demo
 
-      # Start the application for Cypress tests
+      # Start the application
       - name: Start the application
         run: npm start &
+        working-directory: ./typescript-demo
         env:
           NODE_ENV: test
 
       # Wait for the application to be ready
       - name: Wait for localhost:3000
-        uses: jakejarvis/wait-action@v1
+        uses: jakejarvis/wait-action@master
         with:
           url: "http://localhost:3000"
           timeout: 60
+
+      # Run Jest tests
+      - name: Run Jest tests
+        run: npm test -- --coverage
+        working-directory: ./typescript-demo
 
       # Run Cypress tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
         with:
-          start: npm start
+          working-directory: ./typescript-demo
           wait-on: http://localhost:3000
           wait-on-timeout: 60
-          spec: cypress/e2e/**/*.cy.ts
+          spec: cypress/e2e/**/*.cy.js
           browser: chrome

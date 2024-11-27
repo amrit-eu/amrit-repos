@@ -31,15 +31,13 @@ To lint the code base, after doing `npm install` use the command `npm run lint`.
 
 To test the code base, you can run Unit tests with Jest and E2E tests with Cypress.
 
-Add unit *.test.tsx test files in /__tests__/ 
-To run unit tests:
+Add unit *.test.tsx test files in `/__tests__/` and run them with:
 
 ```bash
 npm test
 ```
 
-Add E2E *.cy.js test files in /cypress/e2e/
-To run e2e tests:
+Add E2E *.cy.js test files in `/cypress/e2e/` and run them with:
 
 ```bash
 npm run cypress:run
