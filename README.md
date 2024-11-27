@@ -52,6 +52,20 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 #### Strict mode
 TypeScript features optional static typing via [strict mode](https://www.typescriptlang.org/tsconfig/#strict), which has been enabled for our example code.
 
+### Security scans
+A tool called Bearer is performing these; there is a GitHub action which, on a pull request, will scan all the files within the typescript-demo folder. 
+
+A developer can find the latest instructions on installing and running Bearer locally [here](https://docs.bearer.com/reference/installation/). 
+For quick reference, see the steps below.
+```shell
+$ curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
+# that will install locally into a ./bin/ folder - either keep it here or more it into a $path location 
+```
+
+```shell
+# making sure your are in the root of the AMRIT project
+$ bearer scan typescript-demo
+```
 ### Docker and Docker Compose
 [Docker](https://www.docker.com/) is a tool for the development and execution of OCI-standard container images. It is used to build and run images for our Java, Python, and TypeScript example applications.
 
