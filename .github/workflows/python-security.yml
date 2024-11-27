@@ -16,12 +16,22 @@ jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   dependency-check:
     runs-on: ubuntu-latest
+    permissions:
+      # Required for uploading sarif file
+      security-events: write
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Grype Scan
         uses: anchore/scan-action@v3
+        id: grype-scan
         with:
           path: example-python
+      - name: Upload grype sarif file
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.grype-scan.outputs.sarif }}
+          category: grype-scan
       - name: Pip Audit
         uses: pypa/gh-action-pip-audit@v1.1.0
         with:
@@ -50,7 +60,7 @@ jobs:
         # Run bandit and output to sarif file
         run: |
           bandit -r . -c pyproject.toml -f sarif -o bandit.sarif
-      - name: Upload sarif file
+      - name: Upload bandit sarif file
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
