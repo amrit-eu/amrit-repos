@@ -71,4 +71,4 @@ jobs:
           category: bandit-python-analysis
       - name: Inspect bandit SARIF report
         if: always()
-        run: cat bandit.sarif
+        run: cat example-python/bandit.sarif
