@@ -10,8 +10,8 @@ on:
       - example-python/**
   pull_request:
     # Run for any pull requests
-    branches:
-      - main
+    paths:
+      - example-python/**
 jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   dependency-check:
