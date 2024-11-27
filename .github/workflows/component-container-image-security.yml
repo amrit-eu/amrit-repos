@@ -1,4 +1,4 @@
-name: Security scan
+name: Generic security scan
 
 on:
   workflow_call:
@@ -14,8 +14,8 @@ on:
         type: string
 
 jobs:
-  security-trivy:
-    name: Trivy
+  security-dependency-trivy:
+    name: Trivy dependency scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

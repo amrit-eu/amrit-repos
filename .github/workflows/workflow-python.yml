@@ -19,15 +19,19 @@ jobs:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-python-lint.yml@feature/shared-ci
     with:
       context: example-python
+  python-security:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-python-security.yml@feature/shared-ci
+    with:
+      context: example-python 
   container-image-build:
     needs: python-linting
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: example-python
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app
-  security-scan:
+  container-image-security:
     needs: container-image-build
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-scan.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@feature/shared-ci
     with:
       context: example-python
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app

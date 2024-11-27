@@ -25,9 +25,9 @@ jobs:
     with:
       context: typescript-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
-  security-scan:
+  container-image-security:
     needs: container-image-build
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-security-scan.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@feature/shared-ci
     with:
       context: typescript-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
