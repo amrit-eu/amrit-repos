@@ -13,8 +13,8 @@ on:
         type: string
 
 jobs:
-  java-test-junit:
-    name: Test
+  java-test-maven:
+    name: Test with Maven
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
