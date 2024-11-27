@@ -8,10 +8,8 @@
 name: Bearer
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - typescript-demo/**
+  pull_request:  
+    
   schedule:
     - cron: '*/15 * * * *'
 
