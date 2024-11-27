@@ -1,0 +1,73 @@
+name: Typescript Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - typescript-demo/**
+  pull_request:
+    paths:
+      - 'typescript-demo/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Optional: Set up a service to run your app locally (for Cypress)
+      app:
+        image: node:22
+        options: >-
+          --env-file .env
+        ports:
+          - "3000:3000"
+        command: >
+          sh -c "
+          npm install &&
+          npm run build &&
+          npm start
+          "
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run Jest tests
+      - name: Run Jest tests
+        run: npm test -- --coverage
+
+      # Start the application for Cypress tests
+      - name: Start the application
+        run: npm start &
+        env:
+          NODE_ENV: test
+
+      # Wait for the application to be ready
+      - name: Wait for localhost:3000
+        uses: jakejarvis/wait-action@v1
+        with:
+          url: "http://localhost:3000"
+          timeout: 60
+
+      # Run Cypress tests
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v4
+        with:
+          start: npm start
+          wait-on: http://localhost:3000
+          wait-on-timeout: 60
+          spec: cypress/e2e/**/*.cy.ts
+          browser: chrome
