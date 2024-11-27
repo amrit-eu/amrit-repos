@@ -46,8 +46,7 @@ jobs:
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
           image-ref: "${{ steps.format.outputs.image-path }}:${{ steps.format.outputs.image-tag }}"
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
+          format: 'sarif'
           output: 'trivy-results.sarif'
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
