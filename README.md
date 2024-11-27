@@ -18,7 +18,7 @@ A series of "best practice" examples for code quality, testing, and style for op
 | :------: | :-----: | :-----: | :----: | :---------------: | :--------------: | :----: | :---: |
 | Java | [Spotless](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%3CgroupId%3Ecom.diffplug.spotless%3C%2FgroupId%3E&type=code) | [JUnit](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/java-demo/src/test) | [N/A](## "Java is a statically typed language.") | N/A | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/java-demo/Dockerfile) + [Compose](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/java-demo/compose.yaml) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Fjava%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fjava-*.yml+&type=code) |
 | Python | [Ruff](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btool.ruff%5D&type=code) + [Bandit](https://github.com/PyCQA/bandit) | [PyTest](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/tests/test_main.py) | [MyPy](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos%20%5Btestenv%3Atype%5D&type=code) | [Grype](https://github.com/anchore/grype) + [pip-audit](https://pypi.org/project/pip-audit/) | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/example-python/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Fpython%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fpython-*.yaml+&type=code) |
-| TypeScript | [ESLint](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/.eslintrc.json) | [N/A](## "In future, we expect to use front-end testing frameworks such as Cypress.") | [Strict](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3Atypescript-demo%2Ftsconfig.json+%22strict%22%3A+&type=code) | N/A | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Ftypescript%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fts-*.yml&type=code) |
+| TypeScript | [ESLint](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/.eslintrc.json) | [N/A](## "In future, we expect to use front-end testing frameworks such as Cypress.") | [Strict](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3Atypescript-demo%2Ftsconfig.json+%22strict%22%3A+&type=code) | [Bearer](https://docs.bearer.com/) | [Docker](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/blob/main/typescript-demo/Dockerfile) | [GitHub Packages](https://github.com/British-Oceanographic-Data-Centre/amrit-repos/pkgs/container/amrit-repos%2Ftypescript%2Fapp) | [GitHub Actions](https://github.com/search?q=repo%3ABritish-Oceanographic-Data-Centre%2Famrit-repos+path%3A.github%2Fworkflows%2Fts-*.yml&type=code) |
 
 All of our chosen linting rules, tests, as well as package builds can be executed both locally on developer machines and in the cloud via GitHub Actions. Security checks can be executed via GitHub Actions.
 
@@ -61,6 +61,20 @@ All of our chosen linting rules, tests, as well as package builds can be execute
 #### Strict mode
 TypeScript features optional static typing via [strict mode](https://www.typescriptlang.org/tsconfig/#strict), which has been enabled for our example code.
 
+### Security scans
+A tool called Bearer is performing these; there is a GitHub action which, on a pull request, will scan all the files within the typescript-demo folder. 
+
+A developer can find the latest instructions on installing and running Bearer locally [here](https://docs.bearer.com/reference/installation/). 
+For quick reference, see the steps below.
+```shell
+$ curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
+# that will install locally into a ./bin/ folder - either keep it here or more it into a $path location 
+```
+
+```shell
+# making sure your are in the root of the AMRIT project
+$ bearer scan typescript-demo
+```
 ### Docker and Docker Compose
 [Docker](https://www.docker.com/) is a tool for the development and execution of OCI-standard container images. It is used to build and run images for our Java, Python, and TypeScript example applications.
 
