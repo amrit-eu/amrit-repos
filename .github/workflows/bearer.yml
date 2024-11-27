@@ -31,12 +31,12 @@ jobs:
         with:
           path: typescript-demo
           format: sarif
-          output: results.sarif          
+          output: results          
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.report.outputs.results.sarif }}
+          sarif_file: ${{ steps.report.output.results }}
           category: secure-scan
         
