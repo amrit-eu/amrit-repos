@@ -17,9 +17,8 @@ jobs:
   security-dependency-trivy:
     name: Trivy dependency scan
     permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      # Required for uploading sarif file
+      security-events: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -47,12 +46,13 @@ jobs:
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
           image-ref: "${{ steps.format.outputs.image-path }}:${{ steps.format.outputs.image-tag }}"
-          format: 'sarif'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
-          exit-code: "1"
-          ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
+          exit-code: "1"
+          ignore-unfixed: true
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
