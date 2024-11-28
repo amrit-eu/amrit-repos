@@ -61,15 +61,7 @@ jobs:
           custom-title: 'Jest Coverage Report'
           annotations: coverage 
           skip-step: all
-
-      # Generate Jest Coverage Report
-      - name: Generate Jest Coverage Report
-        uses: arthurbarros/jest-coverage-report-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: ./typescript-demo/coverage/lcov-report/index.html
-          working-directory: ./typescript-demo
-
+          
       # Run Cypress tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
