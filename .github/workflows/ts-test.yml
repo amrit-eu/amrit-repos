@@ -47,23 +47,27 @@ jobs:
           url: "http://localhost:3000"
           timeout: 60
 
-      # Run Jest tests
       - name: Run Jest tests
-        run: npx jest --coverage --coverageReporters=json --coverageDirectory=coverage
+        run: npx jest --ci
         working-directory: ./typescript-demo
+        env:
+          JEST_JUNIT_OUTPUT_DIR: test-results
+          JEST_JUNIT_OUTPUT_NAME: junit.xml
 
-      # Add Jest coverage comment to PR using Jest Coverage Report
-      - name: Jest Coverage Report
-        uses: ArtiomTr/jest-coverage-report-action@v2
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           working-directory: ./typescript-demo
-          coverage-file: ./coverage/coverage-final.json
-          base-coverage-file: ./coverage/coverage-final.json
-          custom-title: 'Jest Coverage Report'
-          annotations: coverage 
-          skip-step: all
-          # test-script: npm test
+          name: jest-test-results
+          path: test-results/junit.xml
+
+      - name: Display test results in summary
+        uses: dorny/test-reporter@v1
+        with:
+          working-directory: ./typescript-demo
+          name: Jest Tests
+          path: test-results/junit.xml
+          reporter: jest-junit
 
       # Run Cypress tests
       - name: Run Cypress tests

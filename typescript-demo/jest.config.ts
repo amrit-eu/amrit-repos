@@ -16,6 +16,18 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  reporters: [
+    'default',
+    ['jest-junit', { outputDirectory: 'test-results', outputName: 'junit.xml' }],
+  ],
+  coverageThreshold: {
+	global: {
+	  branches: 0,
+	  functions: 0,
+	  lines: 0,
+	  statements: 0,
+	},
+  },
 };
 
 export default createJestConfig(config);
