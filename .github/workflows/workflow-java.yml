@@ -16,22 +16,22 @@ on:
 
 jobs:
   java-linting:
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@latest
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@main
     with:
       context: java-demo
   java-testing:
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-test.yml@latest
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-test.yml@main
     with:
       context: java-demo
   container-image-build:
     needs: [java-linting, java-testing]
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@latest
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@main
     with:
       context: java-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app
   container-image-security:
     needs: [container-image-build]
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@latest
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@main
     with:
       context: java-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app
