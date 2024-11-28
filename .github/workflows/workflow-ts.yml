@@ -22,12 +22,16 @@ jobs:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-ts-lint.yml@feature/shared-ci
     with:
       context: typescript-demo
+  ts-test:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-ts-test.yml@feature/shared-ci
+    with:
+      context: typescript-demo
   ts-security:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-ts-security.yml@feature/shared-ci
     with:
       context: typescript-demo
   container-image-build:
-    needs: [ts-linting, ts-security]
+    needs: [ts-linting, ts-test, ts-security]
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: typescript-demo
