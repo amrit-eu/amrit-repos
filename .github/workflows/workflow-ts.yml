@@ -11,6 +11,9 @@ on:
     # Run for any pull requests
     # paths:
     #   - typescript-demo/**
+  # TODO : Do we have to keep that ?!
+  # schedule:
+  #   - cron: '*/15 * * * *'
   release:
     types: [created]
 
@@ -19,8 +22,12 @@ jobs:
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-ts-lint.yml@feature/shared-ci
     with:
       context: typescript-demo
+  ts-security:
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-ts-security.yml@feature/shared-ci
+    with:
+      context: typescript-demo
   container-image-build:
-    needs: [ts-linting]
+    needs: [ts-linting, ts-security]
     uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
     with:
       context: typescript-demo

@@ -9,13 +9,16 @@ on:
         default: ""
         type: string
 
+permissions:
+  contents: read # for actions/checkout to fetch code
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+  actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+
 jobs:
   # https://github.com/marketplace/actions/anchore-container-scan
   dependency-check:
+    name: Grype & Pip Audit dependency scan
     runs-on: ubuntu-latest
-    permissions:
-      # Required for uploading sarif file
-      security-events: write
     steps:
       - uses: actions/checkout@v4  # Checkout the current branch/merge state
       - name: Grype Scan
@@ -37,6 +40,7 @@ jobs:
         with:
           inputs: ${{ inputs.context }}
   code-check:
+    name: Bandit scan
     runs-on: ubuntu-latest
     strategy:
       matrix:

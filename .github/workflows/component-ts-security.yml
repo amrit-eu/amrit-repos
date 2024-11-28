@@ -5,13 +5,15 @@
 #
 # This workflow file requires a free account on Bearer.com to manage findings, notifications and more.
 # See https://docs.bearer.com/guides/bearer-cloud/
-name: Bearer
+name: Typescript security
 
 on:
-  pull_request:  
-    
-  schedule:
-    - cron: '*/15 * * * *'
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
 
 permissions:
   contents: read # for actions/checkout to fetch code
@@ -20,6 +22,7 @@ permissions:
 
 jobs:
   bearer:
+    name: Bearer scan
     runs-on: ubuntu-latest
     steps:
       # Checkout project source
@@ -29,4 +32,4 @@ jobs:
         id: report
         uses: bearer/bearer-action@828eeb928ce2f4a7ca5ed57fb8b59508cb8c79bc
         with:
-          path: typescript-demo
+          path: ${{ inputs.context }}
