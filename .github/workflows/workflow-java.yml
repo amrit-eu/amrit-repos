@@ -9,8 +9,8 @@ on:
       - java-demo/**
   pull_request:
     # Run for any pull requests
-    # paths:
-    #   - java-demo/**
+    paths:
+      - java-demo/**
   release:
     types: [created]
 
