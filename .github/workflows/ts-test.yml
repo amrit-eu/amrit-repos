@@ -1,0 +1,73 @@
+name: Typescript Test
+
+on:
+  push:
+    paths:
+      - typescript-demo/**
+  pull_request:
+    paths:
+      - 'typescript-demo/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      # Install dependencies in the `typescript-demo` folder
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./typescript-demo
+
+      # Build the application
+      - name: Build the application
+        run: npm run build
+        working-directory: ./typescript-demo
+
+      # Start the application
+      - name: Start the application
+        run: npm start &
+        working-directory: ./typescript-demo
+        env:
+          NODE_ENV: test
+
+      - name: Run Jest tests
+        run: npx jest --ci
+        working-directory: ./typescript-demo
+        env:
+          JEST_JUNIT_OUTPUT_DIR: test-results
+          JEST_JUNIT_OUTPUT_NAME: junit.xml
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-test-results
+          path: ./typescript-demo/test-results/junit.xml
+
+      - name: Display test results in summary
+        uses: dorny/test-reporter@v1
+        with:
+          name: Jest Tests
+          path: ./typescript-demo/test-results/junit.xml
+          reporter: jest-junit
+          fail-on-error: 'true'
+          use-actions-summary: 'true'
+
+      # Run Cypress tests
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: ./typescript-demo
+          wait-on: http://localhost:3000
+          wait-on-timeout: 60
+          spec: cypress/e2e/**/*.cy.js
+          browser: chrome
