@@ -57,16 +57,14 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
-          working-directory: ./typescript-demo
           name: jest-test-results
-          path: test-results/junit.xml
+          path: ./typescript-demo/test-results/junit.xml
 
       - name: Display test results in summary
         uses: dorny/test-reporter@v1
         with:
-          working-directory: ./typescript-demo
           name: Jest Tests
-          path: test-results/junit.xml
+          path: ./typescript-demo/test-results/junit.xml
           reporter: jest-junit
 
       # Run Cypress tests
