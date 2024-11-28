@@ -59,7 +59,8 @@ jobs:
           name: Jest Tests
           path: ./typescript-demo/test-results/junit.xml
           reporter: jest-junit
-          fail-on-error: true
+          fail-on-error: 'true'
+          use-actions-summary: 'true'
 
       # Run Cypress tests
       - name: Run Cypress tests
