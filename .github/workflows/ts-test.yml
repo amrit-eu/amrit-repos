@@ -49,7 +49,7 @@ jobs:
 
       # Run Jest tests
       - name: Run Jest tests
-        run: npm test -- --coverage
+        run: npx jest --coverage --coverageReporters=json --coverageDirectory=coverage
         working-directory: ./typescript-demo
 
       # Add Jest coverage comment to PR using Jest Coverage Report
@@ -58,10 +58,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           working-directory: ./typescript-demo
-          coverage-file: ./coverage/coverage-final.json  # Adjust path as necessary
+          coverage-file: ./coverage/coverage-final.json
+          base-coverage-file: ./coverage/coverage-final.json
           custom-title: 'Jest Coverage Report'
           annotations: coverage 
           skip-step: all
+          # test-script: npm test
 
       # Run Cypress tests
       - name: Run Cypress tests
