@@ -64,8 +64,8 @@ jobs:
         uses: arthurbarros/jest-coverage-report-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: ./typescript-demo
           coverage-file: ./typescript-demo/coverage/lcov-report/index.html
+        working-directory: ./typescript-demo
 
       # Run Cypress tests
       - name: Run Cypress tests
