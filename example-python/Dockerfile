@@ -1,4 +1,4 @@
-FROM python:3.12 AS base
+FROM python:3.12-slim AS base
 # Common base image.
 LABEL org.opencontainers.image.authors="matcaz@noc.ac.uk"
 LABEL org.opencontainers.image.description="Example OCI image for a Python application."
