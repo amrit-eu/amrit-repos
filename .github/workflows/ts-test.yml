@@ -57,11 +57,12 @@ jobs:
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: ./typescript-demo/coverage/coverage-final.json  # Adjust path as necessary
+          working-directory: ./typescript-demo
+          coverage-file: ./coverage/coverage-final.json  # Adjust path as necessary
           custom-title: 'Jest Coverage Report'
           annotations: coverage 
-          skip-step: all
-          
+          skip-step: install
+
       # Run Cypress tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
