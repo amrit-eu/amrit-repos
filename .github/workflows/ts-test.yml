@@ -61,7 +61,7 @@ jobs:
           coverage-file: ./coverage/coverage-final.json  # Adjust path as necessary
           custom-title: 'Jest Coverage Report'
           annotations: coverage 
-          skip-step: install
+          skip-step: all
 
       # Run Cypress tests
       - name: Run Cypress tests
