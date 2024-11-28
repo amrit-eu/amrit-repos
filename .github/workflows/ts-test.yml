@@ -40,13 +40,6 @@ jobs:
         env:
           NODE_ENV: test
 
-      # Wait for the application to be ready
-      - name: Wait for localhost:3000
-        uses: jakejarvis/wait-action@master
-        with:
-          url: "http://localhost:3000"
-          timeout: 60
-
       - name: Run Jest tests
         run: npx jest --ci
         working-directory: ./typescript-demo
@@ -55,7 +48,7 @@ jobs:
           JEST_JUNIT_OUTPUT_NAME: junit.xml
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jest-test-results
           path: ./typescript-demo/test-results/junit.xml
@@ -66,6 +59,7 @@ jobs:
           name: Jest Tests
           path: ./typescript-demo/test-results/junit.xml
           reporter: jest-junit
+          fail-on-error: true
 
       # Run Cypress tests
       - name: Run Cypress tests
