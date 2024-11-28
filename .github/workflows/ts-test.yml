@@ -52,6 +52,18 @@ jobs:
         run: npm test -- --coverage
         working-directory: ./typescript-demo
 
+      # Generate Jest Coverage Comment
+      - name: Jest Coverage Comment
+        uses: greguintow/jest-coverage-comment@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-summary-path: ./typescript-demo/coverage/coverage-final.json
+          title: "Test Coverage Report"
+          summary-title: "Coverage Summary"
+          coverage-title: "Detailed Coverage Report"
+          create-new-comment: false
+          delete-old-comments: true
+
       # Run Cypress tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
