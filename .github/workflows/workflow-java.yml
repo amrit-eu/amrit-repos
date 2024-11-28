@@ -9,29 +9,29 @@ on:
       - java-demo/**
   pull_request:
     # Run for any pull requests
-    # paths:
-    #   - java-demo/**
+    paths:
+      - java-demo/**
   release:
     types: [created]
 
 jobs:
   java-linting:
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-lint.yml@latest
     with:
       context: java-demo
   java-testing:
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-test.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-java-test.yml@latest
     with:
       context: java-demo
   container-image-build:
     needs: [java-linting, java-testing]
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image.yml@latest
     with:
       context: java-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app
   container-image-security:
     needs: [container-image-build]
-    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@feature/shared-ci
+    uses: British-Oceanographic-Data-Centre/amrit-repos/.github/workflows/component-container-image-security.yml@latest
     with:
       context: java-demo
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app
