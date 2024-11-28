@@ -52,12 +52,15 @@ jobs:
         run: npm test -- --coverage
         working-directory: ./typescript-demo
 
-      # Generate Jest Test Report
-      - name: Generate Jest Test Report
-        uses: joshsedlacek/jest-test-report@v2
+      # Add Jest coverage comment to PR using Jest Coverage Report
+      - name: Jest Coverage Report
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: ./typescript-demo
+          coverage-file: ./typescript-demo/coverage/coverage-final.json  # Adjust path as necessary
+          custom-title: 'Jest Coverage Report'
+          annotations: coverage 
+          skip-step: all
 
       # Generate Jest Coverage Report
       - name: Generate Jest Coverage Report
