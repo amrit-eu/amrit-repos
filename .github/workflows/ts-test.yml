@@ -57,7 +57,7 @@ jobs:
         uses: joshsedlacek/jest-test-report@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: ./typescript-demo
+          working-directory: ./typescript-demo
 
       # Generate Jest Coverage Report
       - name: Generate Jest Coverage Report
@@ -65,7 +65,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           coverage-file: ./typescript-demo/coverage/lcov-report/index.html
-        working-directory: ./typescript-demo
+          working-directory: ./typescript-demo
 
       # Run Cypress tests
       - name: Run Cypress tests
