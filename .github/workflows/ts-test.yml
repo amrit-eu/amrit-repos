@@ -52,17 +52,20 @@ jobs:
         run: npm test -- --coverage
         working-directory: ./typescript-demo
 
-      # Generate Jest Coverage Comment
-      - name: Jest Coverage Comment
-        uses: greguintow/jest-coverage-comment@main
+      # Generate Jest Test Report
+      - name: Generate Jest Test Report
+        uses: joshsedlacek/jest-test-report@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-summary-path: ./typescript-demo/coverage/coverage-final.json
-          title: "Test Coverage Report"
-          summary-title: "Coverage Summary"
-          coverage-title: "Detailed Coverage Report"
-          create-new-comment: false
-          delete-old-comments: true
+        working-directory: ./typescript-demo
+
+      # Generate Jest Coverage Report
+      - name: Generate Jest Coverage Report
+        uses: arthurbarros/jest-coverage-report-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./typescript-demo
+          coverage-file: ./typescript-demo/coverage/lcov-report/index.html
 
       # Run Cypress tests
       - name: Run Cypress tests
