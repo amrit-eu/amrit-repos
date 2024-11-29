@@ -1,4 +1,4 @@
-FROM python:3.12 AS base
+FROM python:3.12-slim AS base
 # Common base image.
 LABEL org.opencontainers.image.authors="matcaz@noc.ac.uk"
 LABEL org.opencontainers.image.description="Example OCI image for a Python application."
@@ -11,8 +11,13 @@ LABEL org.opencontainers.image.vendor="Advance Marine Research Infrastructures T
 # Install Poetry for dependency management.
 ENV POETRY_HOME=/opt/poetry
 ENV PATH="${POETRY_HOME}/bin:${PATH}"
-RUN mkdir -p /opt/poetry/project /opt/poetry/bin
-RUN curl -sSL https://install.python-poetry.org | python -
+
+RUN \
+    apt -y update && \
+    apt -y install curl && \
+    apt clean && \
+    mkdir -p /opt/poetry/project /opt/poetry/bin && \
+    curl -sSL https://install.python-poetry.org | python -
 
 # Install dependencies.
 COPY pyproject.toml poetry*.lock README.md /opt/poetry/project/
