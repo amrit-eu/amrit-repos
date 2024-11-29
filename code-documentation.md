@@ -30,13 +30,13 @@ def my_odd_method(parm1: str, param2: int, param3: bool = false):
     
     return answer
 ```
-### vairbale nameing
+### Variable naming
 We can take the above example and make improvments by the use of explicit and descriptive names for methods and parameters, even if they are longer, to improve readability and reduce the need for comments.
 Clear naming makes code self-explanatory, minimizes ambiguity, and improves maintainability.
 
 #### A better example
 ```python
-def add_values_or_concatenate(calendar_day_number: str, month_number: int, param3: add_values = false) -> str:
+def add_values_or_concatenate(calendar_day_number: str, month_number: int, add_values: bool = false) -> str:
     """This is a silly example.
 
     # This method takes in a string and a integer and a boolean, if the boolean is false (Default) then the method joins both parameters together in a string. 
