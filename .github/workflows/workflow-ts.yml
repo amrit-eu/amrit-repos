@@ -11,9 +11,6 @@ on:
     # Run for any pull requests
     paths:
       - typescript-demo/**
-  # TODO : Do we have to keep that ?!
-  # schedule:
-  #   - cron: '*/15 * * * *'
   release:
     types: [created]
 
