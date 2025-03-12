@@ -13,10 +13,15 @@ required to verify the signature.
 
 https://gitlab.com/-/snippets/4819237
 
+## Testing
+
+With the API running, run the `client.py` script to retrieve and verify a response
 
 ## Development
 
 ### Running Locally
+
+Create a `keys` folder on the same level as the `app` folder and place the BODC private key file inside.
 
 `pip install -r requirements.txt`
 
