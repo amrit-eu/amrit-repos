@@ -1,7 +1,7 @@
 # OceanJSON Schemas
 
 A comprehensive JSON standard for operational oceanography data management.
-Integrated GOOS metadata JSON schemas based on the <a target="_blank" href="https://www.ocean-ops.org/docs/">OceanMeta</a> metadata standard.
+Integrated GOOS metadata JSON schemas based on the <a target="_blank" href="https://www.ocean-ops.org/meta/">OceanMeta</a> metadata standard.
 
 In operational oceanography, sharing data effectively is essential to improving our understanding of the ocean. To achieve this, the AMRIT project is introducing a standardized JSON format for platform metadata and data. This initiative will ensure data is easily shared, validated, and used by the global oceanographic community. This page explains the purpose, technology, and examples of our approach, designed for both technical and non-technical users.
 

@@ -1,6 +1,6 @@
 # OceanJSON
 
-Integrated GOOS metadata JSON schemas based on the <a target="_blank" href="https://www.ocean-ops.org/docs/">OceanMeta</a> metadata standard.
+Integrated GOOS metadata JSON schemas based on the <a target="_blank" href="https://www.ocean-ops.org/meta">OceanMeta</a> metadata standard.
 
 ## Goals
 
