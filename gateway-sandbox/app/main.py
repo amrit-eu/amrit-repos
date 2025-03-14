@@ -8,6 +8,7 @@ import json
 import os
 import dns.resolver
 import requests
+from requests.exceptions import ConnectionError
 
 
 app = FastAPI()
@@ -19,24 +20,31 @@ def read_peers_file(peer_names_file):
     return peers
 
 def retrieve_metadata_from_peer(peer_address):
-    api_response = requests.get(peer_address)
-    json = api_response.json()
+    try:
+        api_response = requests.get(peer_address)
+    except ConnectionError as e:
+        print(e)
+        return False
 
-    answers = dns.resolver.resolve(json["key"], 'TXT')
-    for answer in answers:
-        public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
-        signature = base64.b64decode(json["signature"])
-        key = load_pem_public_key(public_key_data.encode())
-        key.verify(signature, json["data"].encode()) # will raise InvalidSignature error if not verified
-        print(f"Data signature verified with key {json["key"]}")
-        return json
+    if api_response.status_code == 200:
+        json = api_response.json()
+
+        answers = dns.resolver.resolve(json["key"], 'TXT')
+        for answer in answers:
+            public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
+            signature = base64.b64decode(json["signature"])
+            key = load_pem_public_key(public_key_data.encode())
+            key.verify(signature, json["data"].encode()) # will raise InvalidSignature error if not verified
+            print(f"Data signature verified with key {json["key"]}")
+            return json
+    else:
+        return False
 
 
-@app.get("/retrieve_metadata")
-def retrieve_data():
-    peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), "peers.txt"))
-    for peer in peers:
-        data = retrieve_metadata_from_peer(peer)
+peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), "peers.txt"))
+for peer in peers:
+    data = retrieve_metadata_from_peer(peer)
+    if data:
         filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data.json")
         data_file = open(filepath, "w")
         data_file.write(json.dumps(data, sort_keys=True))
