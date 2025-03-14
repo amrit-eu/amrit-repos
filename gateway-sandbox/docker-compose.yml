@@ -9,19 +9,21 @@ services:
       - .:/app
       - ./dummy_data:/data
       - ./keys:/keys
+      - ./peers:/peers
     ports:
       - "80:80"
-#  gateway-api-2:
-#    build:
-#      dockerfile: ./Dockerfile
-#    command: --port 8080
-#    environment:
-#      - SERVICE_NUMBER=2
-#    volumes:
-#      - .:/app
-#      - ./dummy_data:/data
-#      - ./keys:/keys
-#    depends_on:
-#      - gateway-api-1
-#    ports:
-#      - "8080:8080"
+  gateway-api-2:
+    build:
+      dockerfile: ./Dockerfile
+    command: --port 8080
+    environment:
+      - SERVICE_NUMBER=2
+    volumes:
+      - .:/app
+      - ./dummy_data:/data
+      - ./keys:/keys
+      - ./peers:/peers
+    depends_on:
+      - gateway-api-1
+    ports:
+      - "8080:8080"

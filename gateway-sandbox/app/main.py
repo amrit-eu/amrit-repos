@@ -29,29 +29,35 @@ def retrieve_metadata_from_peer(peer_address):
     if api_response.status_code == 200:
         json = api_response.json()
 
-        answers = dns.resolver.resolve(json["key"], 'TXT')
-        for answer in answers:
-            public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
-            signature = base64.b64decode(json["signature"])
-            key = load_pem_public_key(public_key_data.encode())
-            key.verify(signature, json["data"].encode()) # will raise InvalidSignature error if not verified
-            print(f"Data signature verified with key {json['key']}")
-            return json
+        metadata_items = []
+        for item in json["data"]:
+            answers = dns.resolver.resolve(item["key"], 'TXT')
+            for answer in answers:
+                public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
+                signature = base64.b64decode(item["signature"])
+                key = load_pem_public_key(public_key_data.encode())
+                key.verify(signature, item["metadata"].encode()) # will raise InvalidSignature error if not verified
+                print(f"Data signature verified with key {item['key']}")
+                metadata_items.append(item)
+        return metadata_items
     else:
         return False
 
 
-peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), f"peers_{os.getenv('SERVICE_NUMBER', 1)}.txt"))
-print(f"Querying {len(peers)} peers.")
-for peer in peers:
-    data = retrieve_metadata_from_peer(peer)
-    if data:
-        filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
-        with open(filepath, "r") as data_file:
-            content = json.loads(data_file.read())
-        if not any(x for x in content if x["data"] == data):
-            with open(filepath, "w") as data_file:
-                data_file.write(json.dumps(data, sort_keys=True))
+@app.get("/retrieve_from_peers")
+def retrieve_from_peers():
+    peers = read_peers_file(os.path.join(f"/peers/peers_{os.getenv('SERVICE_NUMBER', 1)}.txt"))
+    print(f"Querying {len(peers)} peer{'' if len(peers) == 1 else 's'}")
+    for peer in peers:
+        data = retrieve_metadata_from_peer(peer)
+        if data:
+            filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
+            with open(filepath, "r") as data_file:
+                content = json.loads(data_file.read())
+            if not any(x for x in content["data"] if x["metadata"] == data["metadata"]):
+                content["data"] = content["data"] + data
+                with open(filepath, "w") as data_file:
+                    data_file.write(json.dumps(content, sort_keys=True))
 
 
 @app.get("/query")
