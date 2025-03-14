@@ -9,6 +9,8 @@ services:
       - .:/app
       - ./dummy_data:/data
       - ./keys:/keys
+    ports:
+      - "80:80"
 #  gateway-api-2:
 #    build:
 #      dockerfile: ./Dockerfile
@@ -21,3 +23,5 @@ services:
 #      - ./keys:/keys
 #    depends_on:
 #      - gateway-api-1
+#    ports:
+#      - "8080:8080"

@@ -21,7 +21,7 @@ def read_peers_file(peer_names_file):
 
 def retrieve_metadata_from_peer(peer_address):
     try:
-        api_response = requests.get(peer_address)
+        api_response = requests.get(f"{peer_address}/query")
     except ConnectionError as e:
         print(e)
         return False
@@ -42,19 +42,28 @@ def retrieve_metadata_from_peer(peer_address):
 
 
 peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), f"peers_{os.getenv('SERVICE_NUMBER', 1)}.txt"))
+print(f"Querying {len(peers)} peers.")
 for peer in peers:
     data = retrieve_metadata_from_peer(peer)
     if data:
-        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data.json")
-        with open(filepath, "w") as data_file:
+        filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
+        with open(filepath, "r") as data_file:
             content = json.loads(data_file.read())
-            if not any(x for x in content if x["data"] == data):
+        if not any(x for x in content if x["data"] == data):
+            with open(filepath, "w") as data_file:
                 data_file.write(json.dumps(data, sort_keys=True))
 
 
-@app.get("/")
+@app.get("/query")
+def read_data():
+    with open(f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json", "r") as data_file:
+        return json.loads(data_file.read())
+
+
+@app.get("/read_in_data")
 def read_root():
-    with open(f"/dummy_data/test_{os.getenv('SERVICE_NUMBER', 1)}.json", "w") as data_file:
+    print("Reading in data")
+    with open(f"/data/data_in.json", "r") as data_file:
         dummy_metadata = json.dumps(data_file.read(), sort_keys=True)
 
     with open("/keys/private_key.pem", "rb") as key_file:
@@ -80,7 +89,16 @@ def read_root():
     json_payload = {
         "author": "bodc.ac.uk",
         "key": "bd20c3bc-c2d5-4f98-bbec-413bd63cedd4.keys.bodc.uk",
-        "data": dummy_metadata,
+        "metadata": dummy_metadata,
         "signature": jsonable_signature
     }
+
+    filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
+    with open(filepath, "r") as data_file:
+        stored_data = json.loads(data_file.read())
+    if not any(x for x in stored_data["data"] if x["metadata"] == json_payload["metadata"]):
+        stored_data["data"].append(json_payload)
+        with open(filepath, "w") as data_file:
+            data_file.write(json.dumps(stored_data, sort_keys=True))
+
     return JSONResponse(content=json_payload)
