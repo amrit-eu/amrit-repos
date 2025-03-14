@@ -1,0 +1,10 @@
+services:
+  gateway-api-1:
+    build:
+      dockerfile: ./Dockerfile
+    environment:
+      - PORT=8080
+    volumes:
+      - .:/app
+      - ./dummy_data:/data
+      - ./keys:/keys

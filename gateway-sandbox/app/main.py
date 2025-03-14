@@ -35,7 +35,7 @@ def retrieve_metadata_from_peer(peer_address):
             signature = base64.b64decode(json["signature"])
             key = load_pem_public_key(public_key_data.encode())
             key.verify(signature, json["data"].encode()) # will raise InvalidSignature error if not verified
-            print(f"Data signature verified with key {json["key"]}")
+            print(f"Data signature verified with key {json['key']}")
             return json
     else:
         return False
@@ -46,16 +46,18 @@ for peer in peers:
     data = retrieve_metadata_from_peer(peer)
     if data:
         filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data.json")
-        data_file = open(filepath, "w")
-        data_file.write(json.dumps(data, sort_keys=True))
-        data_file.close()
+        with open(filepath, "w") as data_file:
+            content = json.loads(data_file.read())
+            if not any(x for x in content if x["data"] == data):
+                data_file.write(json.dumps(data, sort_keys=True))
 
 
 @app.get("/")
 def read_root():
-    dummy_metadata = json.dumps({"hello": "world"}, sort_keys=True)
+    with open("/dummy_data/test_1.json", "w") as data_file:
+        dummy_metadata = json.dumps(data_file.read(), sort_keys=True)
 
-    with open("keys/private_key.pem", "rb") as key_file:
+    with open("/keys/private_key.pem", "rb") as key_file:
         private_key = serialization.load_pem_private_key(
             key_file.read(),
             password=None

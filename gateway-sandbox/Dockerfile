@@ -1,11 +1,9 @@
-FROM docker-repo.bodc.me/bodc/python:latest
+FROM python:3.9
 
 #Add metadata
 LABEL "description"="Testing JWS for AMRIT"
 LABEL "author"="British Oceanographic Data Centre (BODC)"
 LABEL "base image"="Base python Image"
-
-RUN pip3 install --upgrade pip
 
 # switch working directory
 WORKDIR /app
@@ -19,3 +17,5 @@ COPY ./requirements.txt /requirements.txt
 # install the dependencies and packages in the requirements file
 RUN pip install --no-cache-dir -r requirements.txt
 
+ENTRYPOINT ["fastapi", "run", "app/main.py"]
+CMD ["--port", "80"]
