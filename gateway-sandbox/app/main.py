@@ -53,11 +53,10 @@ def retrieve_from_peers():
         if data:
             filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
             with open(filepath, "r") as data_file:
-                content = json.loads(data_file.read())
-            if not any(x for x in content["data"] if x["metadata"] == data["metadata"]):
-                content["data"] = content["data"] + data
-                with open(filepath, "w") as data_file:
-                    data_file.write(json.dumps(content, sort_keys=True))
+                local_content = json.loads(data_file.read())
+            local_content["data"] = local_content["data"] + data
+            with open(filepath, "w") as data_file:
+                data_file.write(json.dumps(local_content, sort_keys=True))
 
 
 @app.get("/query")
