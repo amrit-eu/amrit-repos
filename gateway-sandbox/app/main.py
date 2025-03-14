@@ -41,7 +41,7 @@ def retrieve_metadata_from_peer(peer_address):
         return False
 
 
-peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), "peers.txt"))
+peers = read_peers_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), f"peers_{os.getenv('SERVICE_NUMBER', 1)}.txt"))
 for peer in peers:
     data = retrieve_metadata_from_peer(peer)
     if data:
@@ -54,7 +54,7 @@ for peer in peers:
 
 @app.get("/")
 def read_root():
-    with open("/dummy_data/test_1.json", "w") as data_file:
+    with open(f"/dummy_data/test_{os.getenv('SERVICE_NUMBER', 1)}.json", "w") as data_file:
         dummy_metadata = json.dumps(data_file.read(), sort_keys=True)
 
     with open("/keys/private_key.pem", "rb") as key_file:
