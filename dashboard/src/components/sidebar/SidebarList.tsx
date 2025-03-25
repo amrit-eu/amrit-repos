@@ -1,4 +1,13 @@
-import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+'use client';
+
+import {
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { iconMapping, SidebarOption } from '../../types/types';
 
 interface SidebarListProps {
@@ -10,46 +19,66 @@ interface SidebarListProps {
   open: boolean;
 }
 
-const SidebarList: React.FC<SidebarListProps> = ({ category, options, selectedOption, setSelectedOption, darkMode, open }) => {
+const SidebarList: React.FC<SidebarListProps> = ({
+  category,
+  options,
+  selectedOption,
+  setSelectedOption,
+  darkMode,
+  open,
+}) => {
+  const theme = useTheme();
+
   return (
     <>
-      {category && (
+      {category && open && (
         <Typography
-          variant="subtitle2"
+          variant="caption"
           sx={{
-            fontSize: '0.8rem',
-            marginBottom: '0px',
-            paddingLeft: '17px',
-            paddingTop: '14px',
-            height: '38px',
-            color: darkMode ? "#03a9f4" : "#009af4",
+            pl: 2,
+            pt: 2,
+            color: theme.palette.primary.main,
+            fontWeight: 600,
           }}
         >
-          {open ? category : ''}
+          {category}
         </Typography>
       )}
 
-      <List sx={{ padding: 0 }}>
-        {options.map(option => (
-          <ListItem
-            key={option}
-            sx={{
-              height: '40px',
-              cursor: 'pointer',
-              color: selectedOption === option ? (darkMode ? "#03a9f4" : "#009af4") : 'inherit',
-              backgroundColor: selectedOption === option ? (darkMode ? '#333' : '#f0f0f0') : 'inherit',
-              '&:hover': {
-                backgroundColor: darkMode ? '#555' : '#f5f5f5',
-              },
-            }}
-            onClick={() => setSelectedOption(option)}
-          >
-            <ListItemIcon sx={{ color: selectedOption === option ? (darkMode ? "#03a9f4" : "#009af4") : 'inherit' }}>
-              {iconMapping[option]}
-            </ListItemIcon>
-            {open && <ListItemText primary={option} />}
-          </ListItem>
-        ))}
+      <List disablePadding>
+        {options.map((option) => {
+          const isSelected = selectedOption === option;
+
+          return (
+            <ListItemButton
+              key={option}
+              selected={isSelected}
+              onClick={() => setSelectedOption(option)}
+              sx={{
+                height: 48,
+                // px: open ? 2 : 1,
+                justifyContent: open ? 'initial' : 'center',
+                color: isSelected ? theme.palette.primary.main : 'inherit',
+                '&:hover': {
+                  bgcolor: theme.palette.action.hover,
+                },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  ml: "4px",
+                  justifyContent: 'center',
+                  color: isSelected ? theme.palette.primary.main : 'inherit',
+                }}
+              >
+                {iconMapping[option]}
+              </ListItemIcon>
+              {open && <ListItemText primary={option} />}
+            </ListItemButton>
+          );
+        })}
       </List>
     </>
   );

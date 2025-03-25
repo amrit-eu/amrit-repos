@@ -10,7 +10,6 @@ const Home: React.FC = () => {
 
   return (
     <Box sx={{
-      height: 'calc(100vh - 64px)',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -22,11 +21,11 @@ const Home: React.FC = () => {
       margin: '0 auto'
     }}>
 		
-		<Box sx={{ marginTop: 0, width: '100%', maxWidth: '600px' }}>
-            <Typography variant="h5" sx={{ marginTop: 0, marginBottom: 0, marginRight: 0 }}>
-                    Alerts dashboard
-            </Typography>
-        </Box>
+		  <Box sx={{ marginTop: 0, width: '100%', maxWidth: '600px', mt: 4 }}>
+        <Typography variant="h5" sx={{ marginTop: 0, marginBottom: 0, marginRight: 0 }}>
+          Alerts dashboard
+        </Typography>
+      </Box>
 
     </Box>
   );

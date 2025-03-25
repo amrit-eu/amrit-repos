@@ -1,39 +1,42 @@
+'use client';
+
 import { Drawer, Box } from '@mui/material';
-import SidebarList from './SidebarList'; 
-import { SidebarOption } from '../../types/types'; 
+import SidebarList from './SidebarList';
+import { SidebarOption } from '../../types/types';
 
 interface SidebarProps {
   darkMode: boolean;
-  toggleDarkMode: () => void;
   selectedOption: SidebarOption;
   setSelectedOption: (option: SidebarOption) => void;
-  setSearchText: (text: string) => void;
   open: boolean;
-  setOpen: (open: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ darkMode, selectedOption, setSelectedOption, open }) => {
+const drawerWidth = 280;
+const collapsedWidth = 64;
 
-
+const Sidebar: React.FC<SidebarProps> = ({
+  darkMode,
+  selectedOption,
+  setSelectedOption,
+  open,
+}) => {
   return (
-	<Drawer
-		variant="permanent"
-		open={open}
-		sx={{
-			width: open ? 280 : 60,
-			flexShrink: 0,
-			'& .MuiDrawer-paper': {
-				width: open ? 280 : 60,
-				transition: 'width 0.3s',
-				overflowX: 'hidden'
-			},
-		}}
-	>
-
-		
-      <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', marginTop: '74px' }}>
-
-        {/* Home, Interactive Map, and Log In options */}
+    <Drawer
+      variant="permanent"
+      open={open}
+      aria-label="Sidebar Navigation"
+      sx={{
+        width: open ? drawerWidth : collapsedWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: open ? drawerWidth : collapsedWidth,
+          transition: 'width 0.3s',
+          overflowX: 'hidden',
+          borderRight: '1px solid rgba(0,0,0,0.1)',
+        },
+      }}
+    >
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', mt: '64px' }}>
         <SidebarList
           category=""
           options={['Home', 'Alerts']}
@@ -42,7 +45,6 @@ const Sidebar: React.FC<SidebarProps> = ({ darkMode, selectedOption, setSelected
           darkMode={darkMode}
           open={open}
         />
-
       </Box>
     </Drawer>
   );

@@ -1,38 +1,51 @@
-import { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Grid, Button, useTheme } from '@mui/material';
+'use client';
 
-interface HomeProps {
-	setSearchText: (text: string) => void;
-}
-  
+import { Box, Typography, Button, useTheme } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
-const Home: React.FC<HomeProps> = ({ setSearchText }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [currentMessage, setCurrentMessage] = useState('');
+const Home: React.FC = () => {
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
-
 
   return (
-    <Box sx={{
-      height: 'calc(100vh - 64px)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 2,
-      paddingBottom: 0,
-      textAlign: 'center',
-      maxWidth: '1200px',
-      margin: '0 auto'
-    }}>
-		
-      <Box sx={{ marginTop: 0, width: '100%', maxWidth: '700px' }}>
-        <Typography variant="h5" sx={{ marginTop: 0, marginBottom: 0, marginRight: 0 }}>
-              These dashboards are a free to use, collaborative project.<br/> <a href="https://github.com/British-Oceanographic-Data-Centre/amrit-repos" target="_blank">Join us on GitHub!</a>
-        </Typography>
-      </Box>
+    <Box
+      sx={{
+        height: 'calc(100vh - 124px)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        px: 2,
+        textAlign: 'center',
+        maxWidth: '1200px',
+        mx: 'auto',
+      }}
+    >
+      <Box sx={{ width: '100%', maxWidth: '700px', mb: 4 }}>
+        <Box component="img"
+          src="/favicon.png"
+          alt="AMRIT logo"
+          sx={{
+            height: 86,
+            mb: 2,
+          }}
+        />
 
+        <Typography variant="h6" sx={{ mb: 3 }}>
+          OceanBoards is a collaborative AMRIT project.
+        </Typography>
+
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<GitHubIcon />}
+          href="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Join us on GitHub
+        </Button>
+      </Box>
     </Box>
   );
 };

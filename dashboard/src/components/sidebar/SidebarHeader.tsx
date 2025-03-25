@@ -1,24 +1,32 @@
-import { IconButton, Box } from '@mui/material';
+'use client';
+
+import { IconButton, Box, useTheme } from '@mui/material';
 import { ChevronLeft, Menu as MenuIcon } from '@mui/icons-material';
 
 interface SidebarHeaderProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  darkMode: boolean;
 }
 
-const SidebarHeader: React.FC<SidebarHeaderProps> = ({ open, setOpen, darkMode }) => {
+const SidebarHeader: React.FC<SidebarHeaderProps> = ({ open, setOpen }) => {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '16px 9px 6px 9px',
-        color: darkMode ? "#03a9f4" : "#009af4",
+        px: 1.5,
+        py: 1,
+        color: theme.palette.primary.main,
       }}
     >
-      <IconButton onClick={() => setOpen(!open)}>
+      <IconButton
+        onClick={() => setOpen(!open)}
+        aria-label={open ? 'Collapse sidebar' : 'Expand sidebar'}
+        size="small"
+      >
         {open ? <ChevronLeft /> : <MenuIcon />}
       </IconButton>
     </Box>

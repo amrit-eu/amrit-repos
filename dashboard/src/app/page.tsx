@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useRef, useMemo } from 'react';
-import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { useState, useRef, useEffect } from 'react';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import MainTopbar from '../components/MainTopbar';
 import Sidebar from '../components/sidebar/Sidebar';
 import Home from '../components/Home';
 import Alerts from '../components/Alerts';
 import { SidebarOption } from '../types/types';
+import ThemeRegistry from '../theme/ThemeRegistry';
 
 export default function DashboardPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -15,34 +16,15 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchActive, setSearchActive] = useState(false);
 
-  const sidebarSearchRef = useRef<HTMLInputElement>(null);
+  const isMobile = useMediaQuery('(max-width:900px)');
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        typography: {
-          fontFamily: 'Montserrat, sans-serif',
-        },
-        palette: {
-          mode: darkMode ? 'dark' : 'light',
-        },
-        breakpoints: {
-          values: {
-            xs: 0,
-            sm: 900,
-            md: 1200,
-            lg: 1500,
-            xl: 2500,
-          },
-        },
-      }),
-    [darkMode]
-  );
+  useEffect(() => {
+    if (isMobile) setSidebarOpen(false);
+  }, [isMobile]);
+  
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-
+    <ThemeRegistry mode={darkMode ? 'dark' : 'light'}>
       <MainTopbar
         darkMode={darkMode}
         toggleDarkMode={() => setDarkMode((prev) => !prev)}
@@ -53,8 +35,17 @@ export default function DashboardPage() {
         onSearchBlur={() => setSearchActive(false)}
       />
 
-      <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', width: '100vw', mt: '64px' }}>
+      <Box
+        component="div"
+        sx={{
+          display: 'flex',
+          height: 'calc(100vh - 64px)',
+          width: '100vw',
+          mt: '64px',
+        }}
+      >
         <Box
+          component="aside"
           sx={{
             width: sidebarOpen ? 280 : 60,
             transition: 'width 0.3s',
@@ -65,12 +56,9 @@ export default function DashboardPage() {
         >
           <Sidebar
             darkMode={darkMode}
-            toggleDarkMode={() => setDarkMode((prev) => !prev)}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
-            setSearchText={setSearchText}
             open={sidebarOpen}
-            setOpen={setSidebarOpen}
           />
         </Box>
 
@@ -78,21 +66,19 @@ export default function DashboardPage() {
           component="main"
           sx={{
             flexGrow: 1,
-            p: 0,
+            p: 2,
             overflow: 'auto',
             height: 'calc(100vh - 64px)',
             width: '100%',
           }}
         >
-          {searchActive ? (
-            <div>Search results for: {searchText}</div>
-          ) : selectedOption === 'Alerts' ? (
+          {selectedOption === 'Alerts' ? (
             <Alerts />
           ) : (
-            <Home setSearchText={setSearchText} />
+            <Home />
           )}
         </Box>
       </Box>
-    </ThemeProvider>
+    </ThemeRegistry>
   );
 }
