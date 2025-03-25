@@ -1,0 +1,15 @@
+name: Dashboard Test
+
+on:
+  push:
+    paths:
+      - 'dashboard/**'
+  pull_request:
+    paths:
+      - 'dashboard/**'
+
+jobs:
+  test:
+    uses: .github/workflows/component-java-test.yml@main
+    with:
+      context: dashboard

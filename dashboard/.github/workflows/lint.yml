@@ -1,0 +1,15 @@
+name: Dashboard Lint
+
+on:
+  push:
+    paths:
+      - 'dashboard/**'
+  pull_request:
+    paths:
+      - 'dashboard/**'
+
+jobs:
+  lint:
+    uses: .github/workflows/component-ts-lint.yml@main
+    with:
+      context: dashboard

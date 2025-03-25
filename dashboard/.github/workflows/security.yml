@@ -1,0 +1,15 @@
+name: Dashboard Security
+
+on:
+  push:
+    paths:
+      - 'dashboard/**'
+  pull_request:
+    paths:
+      - 'dashboard/**'
+
+jobs:
+  bearer:
+    uses: .github/workflows/component-ts-security.yml@main
+    with:
+      context: dashboard
