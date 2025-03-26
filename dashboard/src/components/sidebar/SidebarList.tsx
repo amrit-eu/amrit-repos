@@ -8,25 +8,19 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { usePathname, useRouter } from 'next/navigation';
 import { iconMapping, SidebarOption } from '../../types/types';
 
 interface SidebarListProps {
   category: string;
   options: SidebarOption[];
-  selectedOption: SidebarOption;
-  setSelectedOption: (option: SidebarOption) => void;
-  darkMode: boolean;
   open: boolean;
 }
 
-const SidebarList: React.FC<SidebarListProps> = ({
-  category,
-  options,
-  selectedOption,
-  setSelectedOption,
-  open,
-}) => {
+const SidebarList: React.FC<SidebarListProps> = ({ category, options, open }) => {
   const theme = useTheme();
+  const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <>
@@ -46,13 +40,14 @@ const SidebarList: React.FC<SidebarListProps> = ({
 
       <List disablePadding>
         {options.map((option) => {
-          const isSelected = selectedOption === option;
+          const path = option === 'Home' ? '/' : `/${option.toLowerCase()}`;
+          const isSelected = pathname === path;
 
           return (
             <ListItemButton
               key={option}
               selected={isSelected}
-              onClick={() => setSelectedOption(option)}
+              onClick={() => router.push(path)}
               sx={{
                 height: 48,
                 justifyContent: open ? 'initial' : 'center',
@@ -66,7 +61,7 @@ const SidebarList: React.FC<SidebarListProps> = ({
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : 'auto',
-                  ml: "4px",
+                  ml: '4px',
                   justifyContent: 'center',
                   color: isSelected ? theme.palette.primary.main : 'inherit',
                 }}

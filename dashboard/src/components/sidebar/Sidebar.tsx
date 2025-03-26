@@ -6,8 +6,6 @@ import { SidebarOption } from '../../types/types';
 
 interface SidebarProps {
   darkMode: boolean;
-  selectedOption: SidebarOption;
-  setSelectedOption: (option: SidebarOption) => void;
   open: boolean;
 }
 
@@ -15,9 +13,6 @@ const drawerWidth = 280;
 const collapsedWidth = 64;
 
 const Sidebar: React.FC<SidebarProps> = ({
-  darkMode,
-  selectedOption,
-  setSelectedOption,
   open,
 }) => {
   return (
@@ -40,9 +35,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         <SidebarList
           category=""
           options={['Home', 'Alerts']}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-          darkMode={darkMode}
           open={open}
         />
       </Box>
