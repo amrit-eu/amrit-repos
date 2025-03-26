@@ -10,7 +10,6 @@ import {
   Button,
   useTheme,
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import DarkModeToggle from './DarkModeToggle';
@@ -18,7 +17,6 @@ import DarkModeToggle from './DarkModeToggle';
 interface MainTopbarProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
-  setSearchText: (text: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   onSearchFocus: () => void;
@@ -28,11 +26,8 @@ interface MainTopbarProps {
 const MainTopbar: React.FC<MainTopbarProps> = ({
   darkMode,
   toggleDarkMode,
-  setSearchText,
   sidebarOpen,
   setSidebarOpen,
-  onSearchFocus,
-  onSearchBlur,
 }) => {
   const theme = useTheme();
 
@@ -54,7 +49,6 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
           px: 1,
         }}
       >
-        {/* Left side: Sidebar toggle + Logo */}
         <Box sx={{ display: 'flex', alignItems: 'center', pl: { xs: 2, sm: 0 } }}>
           <IconButton
             edge="start"
@@ -65,7 +59,6 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
             {sidebarOpen ? <ChevronLeft /> : <MenuIcon />}
           </IconButton>
 
-          {/* OceanBoards logo */}
           <Typography
             variant="h6"
             noWrap

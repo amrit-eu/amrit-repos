@@ -25,8 +25,9 @@ const Home: React.FC = () => {
           src="/favicon.png"
           alt="AMRIT logo"
           sx={{
-            height: 86,
+            height: 100,
             mb: 2,
+
           }}
         />
 

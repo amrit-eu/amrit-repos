@@ -56,7 +56,6 @@ const SidebarList: React.FC<SidebarListProps> = ({
               onClick={() => setSelectedOption(option)}
               sx={{
                 height: 48,
-                // px: open ? 2 : 1,
                 justifyContent: open ? 'initial' : 'center',
                 color: isSelected ? theme.palette.primary.main : 'inherit',
                 '&:hover': {
