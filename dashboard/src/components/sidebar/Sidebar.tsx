@@ -27,6 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           transition: 'width 0.3s',
           overflowX: 'hidden',
           borderRight: '1px solid rgba(0,0,0,0.1)',
+          boxShadow: 1,
         },
       }}
     >
