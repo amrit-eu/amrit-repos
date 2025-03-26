@@ -1,5 +1,6 @@
-import { Box, Typography } from '@mui/material';
+'use client';
 
+import { Box, Typography } from '@mui/material';
 
 const Home: React.FC = () => {
 

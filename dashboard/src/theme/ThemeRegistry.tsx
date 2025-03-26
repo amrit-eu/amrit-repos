@@ -19,7 +19,7 @@ export default function ThemeRegistry({
       palette: {
         mode,
         primary: {
-          main: '#4DB1B5',
+          main: mode === 'light' ? '#007b8a' : '#4DB1B5',
           contrastText: mode === 'dark' ? '#000000' : '#ffffff',
         },
         secondary: {
