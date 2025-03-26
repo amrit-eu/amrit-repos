@@ -1,12 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Grid, Button, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 
 const Home: React.FC = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [currentMessage, setCurrentMessage] = useState('');
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
 
   return (
     <Box sx={{

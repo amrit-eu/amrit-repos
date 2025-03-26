@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, useMediaQuery } from '@mui/material';
 import MainTopbar from '../components/MainTopbar';
 import Sidebar from '../components/sidebar/Sidebar';
 import Home from '../components/Home';
@@ -12,9 +12,7 @@ import ThemeRegistry from '../theme/ThemeRegistry';
 export default function DashboardPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [selectedOption, setSelectedOption] = useState<SidebarOption>('Home');
-  const [searchText, setSearchText] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [searchActive, setSearchActive] = useState(false);
 
   const isMobile = useMediaQuery('(max-width:900px)');
 
@@ -28,11 +26,8 @@ export default function DashboardPage() {
       <MainTopbar
         darkMode={darkMode}
         toggleDarkMode={() => setDarkMode((prev) => !prev)}
-        setSearchText={setSearchText}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
-        onSearchFocus={() => setSearchActive(true)}
-        onSearchBlur={() => setSearchActive(false)}
       />
 
       <Box

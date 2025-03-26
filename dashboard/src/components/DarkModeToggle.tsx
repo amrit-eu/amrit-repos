@@ -1,6 +1,6 @@
 'use client';
 
-import { IconButton, Tooltip, useTheme } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 
 interface DarkModeToggleProps {
@@ -9,7 +9,6 @@ interface DarkModeToggleProps {
 }
 
 const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ darkMode, toggleDarkMode }) => {
-  const theme = useTheme();
 
   return (
     <Tooltip title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>

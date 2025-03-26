@@ -19,8 +19,6 @@ interface MainTopbarProps {
   toggleDarkMode: () => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
-  onSearchFocus: () => void;
-  onSearchBlur: () => void;
 }
 
 const MainTopbar: React.FC<MainTopbarProps> = ({

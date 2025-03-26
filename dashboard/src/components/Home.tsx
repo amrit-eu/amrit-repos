@@ -1,10 +1,9 @@
 'use client';
 
-import { Box, Typography, Button, useTheme } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Home: React.FC = () => {
-  const theme = useTheme();
 
   return (
     <Box

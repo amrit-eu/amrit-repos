@@ -24,7 +24,6 @@ const SidebarList: React.FC<SidebarListProps> = ({
   options,
   selectedOption,
   setSelectedOption,
-  darkMode,
   open,
 }) => {
   const theme = useTheme();
