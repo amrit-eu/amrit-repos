@@ -1,4 +1,4 @@
-name: TypeScript Workflow
+name: Dashboard Workflow
 
 on:
   push:
