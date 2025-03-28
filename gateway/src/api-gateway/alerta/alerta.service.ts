@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosRequestConfig } from 'axios';
 import { Request} from 'express';
@@ -7,10 +7,12 @@ import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from 'src/
 
 @Injectable()
 export class AlertaService {
+    private readonly logger = new Logger(AlertaService.name, { timestamp: true })
 
-constructor(
+    constructor(
         private readonly httpService: HttpService,
-        private readonly configService: ConfigService,    
+        private readonly configService: ConfigService,
+          
     ) {}
 
     /**
@@ -24,6 +26,8 @@ constructor(
      */
     async alertaProxyRequest(req: Request) : Promise<any>
      {  
+        this.logger.log(`Proxy ${req.method} request to Alerta API`);
+
         // get env variables for Alerta API :
         const ALERTA_HOST = this.configService.getOrThrow<string>('ALERTA_HOST');
         const ALERTA_READ_API_KEY = this.configService.getOrThrow<string>('ALERTA_READ_API_KEY');

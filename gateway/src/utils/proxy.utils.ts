@@ -43,7 +43,7 @@ export async function proxyHttpRequest<T = unknown>(httpService: HttpService, co
 export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: string, baseProxyPath: string) {
   const method = req.method.toLowerCase();
   const params = req.query;
-  const headers = { ...cleanProxyHeaders(req.headers), host:host  }; // change host and add alerta API key
+  const headers = { ...cleanProxyHeaders(req.headers), host:host  }; // change host
   const data = req.body as Record<string, any>
 
   // build url to forward to :
