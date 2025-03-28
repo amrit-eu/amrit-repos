@@ -32,6 +32,7 @@ export class ApiGatewayService {
 
         //build axiosRequestConfig with source request parameters :
         const config: AxiosRequestConfig = this.buildAxiosRequestConfigFromSourceRequest(req, ALERTA_HOST, ALERTA_READ_API_KEY);
+        
         // make request to Alerta api
         const {data}=  await firstValueFrom(
             this.httpService.request<unknown>(config).pipe(
