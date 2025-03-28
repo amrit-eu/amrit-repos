@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ApiGatewayModule } from './api-gateway/api-gateway.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [],
+  imports: [ApiGatewayModule, ConfigModule.forRoot({isGlobal: true,})],
   controllers: [AppController],
   providers: [AppService],
 })
