@@ -64,7 +64,7 @@ export class ApiGatewayService {
 
         // build url to forward to :
         const baseProxyPath = '/api/alerta';
-        const url = `https://${HOST}/api` + req.url.replace(baseProxyPath, '');
+        const url = `https://${HOST}/api` + req.url.replace(baseProxyPath, '');        
 
         // configure the axios request from the source request & api's url
         const config: AxiosRequestConfig = {

@@ -3,7 +3,7 @@ import { ApiGatewayService } from './api-gateway.service';
 import { Request } from 'express';
 
 
-@Controller('api')
+@Controller()
 export class ApiGatewayController {
     constructor(private readonly apiGatewayService: ApiGatewayService) {}
 
