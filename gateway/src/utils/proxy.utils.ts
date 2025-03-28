@@ -47,7 +47,7 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: str
   const data = req.body as Record<string, any>
 
   // build url to forward to :
-  const url = `https://${host}/api` + req.url.replace(baseProxyPath, '');        
+  const url = `https://${host}/api` + req.url.replace("/"+baseProxyPath, '');
 
   // configure the axios request from the source request & api's url
   const config: AxiosRequestConfig = {

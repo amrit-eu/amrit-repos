@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosRequestConfig } from 'axios';
 import { Request} from 'express';
-import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from 'src/utils/proxy.utils';
+import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../../utils/proxy.utils';
 
 @Injectable()
 export class AlertaService {

@@ -19,10 +19,10 @@ jobs:
     uses: ./.github/workflows/component-ts-lint.yml
     with:
       context: gateway
-#   ts-test:
-#     uses: ./.github/workflows/component-ts-test.yml
-#     with:
-#       context: gateway
+  ts-test:
+    uses: ./.github/workflows/component-ts-test.yml
+    with:
+      context: gateway
   ts-security:
     uses: ./.github/workflows/component-ts-security.yml
     with:
