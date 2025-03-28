@@ -23,6 +23,7 @@ jobs:
     uses: ./.github/workflows/component-ts-test.yml
     with:
       context: gateway
+      run-cypress: false
   ts-security:
     uses: ./.github/workflows/component-ts-security.yml
     with:
