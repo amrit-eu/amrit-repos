@@ -1,10 +1,9 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { catchError, firstValueFrom } from 'rxjs';
 import { Request} from 'express';
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import {  AxiosRequestConfig } from 'axios';
 import { ConfigService } from '@nestjs/config';
-import { cleanProxyHeaders } from '../utils/proxy.utils';
+import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../utils/proxy.utils';
 
 
 @Injectable()
@@ -31,50 +30,15 @@ export class ApiGatewayService {
         const ALERTA_READ_API_KEY = this.configService.getOrThrow<string>('ALERTA_READ_API_KEY');
 
         //build axiosRequestConfig with source request parameters :
-        const config: AxiosRequestConfig = this.buildAxiosRequestConfigFromSourceRequest(req, ALERTA_HOST, ALERTA_READ_API_KEY);
-        
+        const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, ALERTA_HOST, 'api/alerta');
+        // add Alerta API KEY to headers :
+        config.headers={...config.headers, Authorization: `Key ${ALERTA_READ_API_KEY}` }
+
         // make request to Alerta api
-        const {data}=  await firstValueFrom(
-            this.httpService.request<unknown>(config).pipe(
-                catchError((error : AxiosError) => {
-                    const status = error.response?.status || 500;
-                    const message = error.response?.data || { message: 'Unexpected error' };
-                    throw new HttpException(message, status);
-                })
-            )
-        );     
+        const data = proxyHttpRequest<unknown>(this.httpService, config);
+
+        // here can add some logic if needed (ex : change Alert model with a mapper)
         
         return data;
     }   
-
-
-    /**
-     * Builds an AxiosRequestConfig from the incoming HTTP request.
-     * 
-     * @param req - Incoming Express/NestJS request object.
-     * @param HOST - target Host
-     * @param READ_API_KEY - API key to include in Authorization header
-     * @returns AxiosRequestConfig
-     */
-    private buildAxiosRequestConfigFromSourceRequest(req: Request, HOST: string, API_KEY: string) {
-        const method = req.method.toLowerCase();
-        const params = req.query;
-        const headers = { ...cleanProxyHeaders(req.headers), host: HOST, Authorization: `Key ${API_KEY}` }; // change host and add alerta API key
-        const data = req.body as Record<string, any>
-
-        // build url to forward to :
-        const baseProxyPath = '/api/alerta';
-        const url = `https://${HOST}/api` + req.url.replace(baseProxyPath, '');        
-
-        // configure the axios request from the source request & api's url
-        const config: AxiosRequestConfig = {
-            method,
-            url,
-            headers,
-            params,
-            data
-        };
-
-        return config;
-    }
 }
