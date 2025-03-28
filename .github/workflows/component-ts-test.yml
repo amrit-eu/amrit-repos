@@ -52,5 +52,5 @@ jobs:
           working-directory: ./${{ inputs.context }}
           wait-on: http://localhost:3000
           wait-on-timeout: 60
-          spec: cypress/e2e/**/*.cy.js
+          spec: cypress/e2e/**/*.cy.{js,ts}
           browser: chrome
