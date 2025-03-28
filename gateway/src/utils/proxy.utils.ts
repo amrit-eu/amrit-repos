@@ -40,14 +40,15 @@ export async function proxyHttpRequest<T = unknown>(httpService: HttpService, co
      * @param baseProxyPath - base Path on gateway. ex: 'api/alerta', 'api/auth'.
      * @returns AxiosRequestConfig
      */
-export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: string, baseProxyPath: string) {
+export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: string, baseProxyPath: string, targetPath: string) {
   const method = req.method.toLowerCase();
   const params = req.query;
   const headers = { ...cleanProxyHeaders(req.headers), host:host  }; // change host
   const data = req.body as Record<string, any>
 
   // build url to forward to :
-  const url = `https://${host}/api` + req.url.replace("/"+baseProxyPath, '');
+  const path = req.url.replace(`/${baseProxyPath}`, targetPath);
+  const url = `https://${host}${path}`;
 
   // configure the axios request from the source request & api's url
   const config: AxiosRequestConfig = {

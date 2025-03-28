@@ -4,16 +4,20 @@ import { ConfigService } from '@nestjs/config';
 import { AxiosRequestConfig } from 'axios';
 import { Request} from 'express';
 import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../../utils/proxy.utils';
+import { createProxyRouteMap, ProxyRouteMap } from '../../utils/proxy.routes';
 
 @Injectable()
 export class AlertaService {
     private readonly logger = new Logger(AlertaService.name, { timestamp: true })
+	private readonly proxyRoutes: ProxyRouteMap;
 
     constructor(
         private readonly httpService: HttpService,
         private readonly configService: ConfigService,
           
-    ) {}
+    )  {
+		this.proxyRoutes = createProxyRouteMap(this.configService);
+	  }
 
     /**
      * For '/api/alert' endpoint, proxies incomming HTTP request to Alerta API.
@@ -28,14 +32,23 @@ export class AlertaService {
      {  
         this.logger.log(`Proxy ${req.method} request to Alerta API`);
 
-        // get env variables for Alerta API :
-        const ALERTA_HOST = this.configService.getOrThrow<string>('ALERTA_HOST');
-        const ALERTA_READ_API_KEY = this.configService.getOrThrow<string>('ALERTA_READ_API_KEY');
+		const route = this.proxyRoutes['api/alerta'];
+		if (!route) {
+			throw new Error(`No proxy route config found for 'api/alerta'`);
+		}
+
+		const { host, targetPath, authHeader } = route;
 
         //build axiosRequestConfig with source request parameters and target host parameter :
-        const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, ALERTA_HOST, 'api/alerta');
+        const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, host, 'api/alerta', targetPath);
+
         // add Alerta API KEY to headers :
-        config.headers={...config.headers, Authorization: `Key ${ALERTA_READ_API_KEY}` }
+        if (authHeader) {
+          config.headers = {
+            ...config.headers,
+            Authorization: authHeader,
+          };
+		    }
 
         // make request to Alerta api
         const data = proxyHttpRequest<unknown>(this.httpService, config);
