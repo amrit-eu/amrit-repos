@@ -1,15 +1,14 @@
-import {  Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { Request} from 'express';
-import {  AxiosRequestConfig } from 'axios';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../utils/proxy.utils';
-
+import { AxiosRequestConfig } from 'axios';
+import { Request} from 'express';
+import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from 'src/utils/proxy.utils';
 
 @Injectable()
-export class ApiGatewayService {
+export class AlertaService {
 
-    constructor(
+constructor(
         private readonly httpService: HttpService,
         private readonly configService: ConfigService,    
     ) {}
@@ -29,7 +28,7 @@ export class ApiGatewayService {
         const ALERTA_HOST = this.configService.getOrThrow<string>('ALERTA_HOST');
         const ALERTA_READ_API_KEY = this.configService.getOrThrow<string>('ALERTA_READ_API_KEY');
 
-        //build axiosRequestConfig with source request parameters :
+        //build axiosRequestConfig with source request parameters and target host parameter :
         const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, ALERTA_HOST, 'api/alerta');
         // add Alerta API KEY to headers :
         config.headers={...config.headers, Authorization: `Key ${ALERTA_READ_API_KEY}` }
@@ -37,8 +36,10 @@ export class ApiGatewayService {
         // make request to Alerta api
         const data = proxyHttpRequest<unknown>(this.httpService, config);
 
-        // here can add some logic if needed (ex : change Alert model with a mapper)
+        //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
         
         return data;
     }   
+
+
 }
