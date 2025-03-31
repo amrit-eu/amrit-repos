@@ -3,7 +3,7 @@ import { AlertaController } from './alerta.controller';
 import { AlertaService } from './alerta.service';
 import {Request} from 'express';
 import { HttpModule } from '@nestjs/axios';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 describe('AlertaController', () => {
   let alertaController: AlertaController;
