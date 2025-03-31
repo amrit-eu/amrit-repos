@@ -9,7 +9,6 @@ export class AlertaController {
 
     @All('*')
     alertaProxy(@Req() req: Request) {
-        console.log("here")
         return this.alertaService.alertaProxyRequest(req);
     }
 
