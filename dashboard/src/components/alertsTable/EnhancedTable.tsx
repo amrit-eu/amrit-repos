@@ -28,7 +28,7 @@ const EnhancedTable = () => {
       async function fetchAlertData() {
         setLoading(true);
         try {
-          const alertsData: Promise<AlertApiResponse> = getAlerts(["open"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
+          const alertsData: Promise<AlertApiResponse> = getAlerts(["open","ack"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
           const data = await alertsData;
           if (isLatestRequest) { 
             setAlertsApiResponseData(data);
