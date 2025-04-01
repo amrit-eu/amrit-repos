@@ -1,89 +1,57 @@
 'use client';
 
 import { Order } from '@/types/types';
-import { Box, Checkbox, FormControlLabel, Paper, Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
+import { Box, Checkbox, CircularProgress, FormControlLabel, Paper, Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
-import getAllOpenAlerts from '@/lib/fetchAlerts';
-
-//Tables sorting functions :
-// function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-//     if (b[orderBy] < a[orderBy]) {
-//       return -1;
-//     }
-//     if (b[orderBy] > a[orderBy]) {
-//       return 1;
-//     }
-//     return 0;
-//   }
-// function getComparator<Key extends keyof any>(
-//     order: Order,
-//     orderBy: Key,
-//   ): (
-//     a: { [key in Key]: number | string },
-//     b: { [key in Key]: number | string },
-//   ) => number {
-//     return order === 'desc'
-//       ? (a, b) => descendingComparator(a, b, orderBy)
-//       : (a, b) => -descendingComparator(a, b, orderBy);
-//   }
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    const aValue = a[orderBy];
-    const bValue = b[orderBy];
-
-    if (aValue === undefined && bValue === undefined) return 0;
-    if (typeof aValue === 'object' || typeof bValue === 'object' ) return 0;
-    if (aValue === undefined) return 1;
-    if (bValue === undefined) return -1;
-
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
-  function getComparator<Key extends keyof any>( order: Order, orderBy: Key,): (a: { [key in Key]?: number | string |undefined | object},b: { [key in Key]?: number | string |undefined | object }, ) => number {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-
+import getAlerts from '@/lib/fetchAlerts';
 
 
 const EnhancedTable = () => {
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Alert>('lastReceiveTime');
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [loading, setLoading] = useState(false);
-  const [alertsData, setAlertsData] = useState<Alert[]>([]);
+  const [alertsApiResponseData, setAlertsApiResponseData] = useState<AlertApiResponse>();
 
 
     // fetch alerts data
     useEffect(() => {   
-      
+      let isLatestRequest = true; 
+      const controller = new AbortController();
+      const signal = controller.signal;
+
       async function fetchAlertData() {
         setLoading(true);
         try {
-          const alertsData: Promise<AlertApiResponse> = getAllOpenAlerts(page+1, rowsPerPage);
+          const alertsData: Promise<AlertApiResponse> = getAlerts(["open"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
           const data = await alertsData;
-          setAlertsData(data.alerts);
+          if (isLatestRequest) { 
+            setAlertsApiResponseData(data);
+          }
         } catch (error) {
-          console.error(error);
+          if (error instanceof Error && error.name !== 'AbortError') {
+            console.error(error);
+          }
+          
         } finally {
-          setLoading(false);
+          if (isLatestRequest) { 
+            setLoading(false);
+          }
         }
       }
 
-      fetchAlertData();    
-    }, [page, rowsPerPage])
+      fetchAlertData();
+      
+      return () => {
+        isLatestRequest = false; 
+        controller.abort();
+      };    
+    }, [page, rowsPerPage, orderBy, order])
     
 
 
@@ -98,8 +66,8 @@ const EnhancedTable = () => {
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = alertsData.map((n) => n.id);
+    if (event.target.checked && alertsApiResponseData?.alerts) {
+      const newSelected = alertsApiResponseData.alerts.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -107,8 +75,7 @@ const EnhancedTable = () => {
   };
 
   const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
-        const selectedIndex = selected.indexOf(id);
-   // const selectedIndex = selected.findIndex(item => item===id );
+    const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
@@ -141,25 +108,34 @@ const EnhancedTable = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - alertsData.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      [...alertsData]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage],
-  );
-
+    page > 0 && alertsApiResponseData ? Math.max(0, (1 + page) * rowsPerPage - alertsApiResponseData.total) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
+
+      {loading && (
+        <Box sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          zIndex: 1,
+        }}>
+          <CircularProgress />
+        </Box>
+      )}
+
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={alertsData.length}
+          count={alertsApiResponseData?.total ?? 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -169,7 +145,7 @@ const EnhancedTable = () => {
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? 'small' : 'medium'}      
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -177,10 +153,11 @@ const EnhancedTable = () => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={alertsData.length}
+              rowCount={alertsApiResponseData?.alerts.length ?? 0}
             />
+            
             <TableBody>
-              {visibleRows.map((alert, index) => {
+              {(alertsApiResponseData?.alerts ?? []).map((alert, index) => {
                 const isItemSelected = selected.includes(alert.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -198,10 +175,7 @@ const EnhancedTable = () => {
                     <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
+                        checked={isItemSelected}                        
                       />
                     </TableCell>
                     <TableCell
@@ -212,6 +186,7 @@ const EnhancedTable = () => {
                     >
                       {alert.resource}
                     </TableCell>
+                    {/*TO DO, improvment : make the column name and order customizable based on Alert type  */}
                     <TableCell align="left" >{alert.severity}</TableCell>
                     <TableCell align="left">{alert.status}</TableCell>
                     <TableCell align="left">{alert.event}</TableCell>

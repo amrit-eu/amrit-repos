@@ -1,6 +1,7 @@
-import { IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import React from 'react'
 
@@ -41,24 +42,32 @@ const EnhancedTableToolbar = ({numSelected} : EnhancedTableToolbarProps) => {
           Alerts
         </Typography>
       )}
-      <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+      {numSelected > 0 ? (
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center'
+          }}>
+
+          <Tooltip title="Add a note">
+            <IconButton>
+              <NoteAddIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+                   
+        </Box>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-      )} */}
+      )}
     </Toolbar>
   )
 }

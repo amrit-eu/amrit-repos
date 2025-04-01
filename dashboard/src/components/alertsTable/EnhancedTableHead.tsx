@@ -4,10 +4,6 @@ import { visuallyHidden } from '@mui/utils';
 import React from 'react'
 
 
-  
-
-  
-  
 
 interface HeadCell {
     disablePadding: boolean;
@@ -28,6 +24,7 @@ interface EnhancedTableProps {
 const EnhancedTableHead = ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }: EnhancedTableProps) => {
 
 
+  // TO DO, improvment : make the column name and order customizable based on Alert type
   const headCells: readonly HeadCell[] = [
     {
       id: 'resource',
