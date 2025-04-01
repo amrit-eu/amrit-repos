@@ -1,16 +1,11 @@
-import { Box, Typography } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box } from '@mui/material';
 import getAllOpenAlerts from '@/lib/fetchAlerts';
-import EnhancedTable from './enhancedTable/EnhancedTable';
+import EnhancedTable from './alert_table/EnhancedTable';
 
 
-const Alerts = async () => {
+const Alerts = () => {
 
-  // fetch alerts data
-  const alertsData: Promise<AlertApiResponse> = getAllOpenAlerts();
-  const data = await alertsData;
-  const alerts=data.alerts;
-    
+ 
 
 
 
@@ -19,7 +14,7 @@ const Alerts = async () => {
   return (
     <Box sx={{ width: '100%', padding:2 }}>
 		
-    <EnhancedTable alerts={alerts}/>
+    <EnhancedTable/>
 
     </Box>
   );

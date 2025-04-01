@@ -2,9 +2,10 @@
 
 import { Order } from '@/types/types';
 import { Box, Checkbox, FormControlLabel, Paper, Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import EnhancedTableHead from './EnhancedAlertsTableHead';
+import EnhancedTableHead from './EnhancedTableHead';
+import getAllOpenAlerts from '@/lib/fetchAlerts';
 
 //Tables sorting functions :
 // function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -52,17 +53,38 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
 
-interface EnhancedTableProps {
-    alerts : Alert[]
-}
 
-const EnhancedTable = ({alerts} : EnhancedTableProps) => {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Alert>('lastReceiveTime');
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+
+const EnhancedTable = () => {
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof Alert>('lastReceiveTime');
+  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [loading, setLoading] = useState(false);
+  const [alertsData, setAlertsData] = useState<Alert[]>([]);
+
+
+    // fetch alerts data
+    useEffect(() => {   
+      
+      async function fetchAlertData() {
+        setLoading(true);
+        try {
+          const alertsData: Promise<AlertApiResponse> = getAllOpenAlerts(page+1, rowsPerPage);
+          const data = await alertsData;
+          setAlertsData(data.alerts);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      fetchAlertData();    
+    }, [page, rowsPerPage])
+    
 
 
   
@@ -77,7 +99,7 @@ const EnhancedTable = ({alerts} : EnhancedTableProps) => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = alerts.map((n) => n.id);
+      const newSelected = alertsData.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -119,11 +141,11 @@ const EnhancedTable = ({alerts} : EnhancedTableProps) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - alerts.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - alertsData.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      [...alerts]
+      [...alertsData]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage],
@@ -137,7 +159,7 @@ const EnhancedTable = ({alerts} : EnhancedTableProps) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={alerts.length}
+          count={alertsData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -155,7 +177,7 @@ const EnhancedTable = ({alerts} : EnhancedTableProps) => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={alerts.length}
+              rowCount={alertsData.length}
             />
             <TableBody>
               {visibleRows.map((alert, index) => {
