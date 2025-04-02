@@ -1,5 +1,4 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import React from 'react'
 
 const baseUrl = ALERTA_API_BASE_URL;
 

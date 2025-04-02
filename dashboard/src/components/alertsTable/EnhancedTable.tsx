@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import getAlerts from '@/lib/fetchAlerts';
+import { Alert, AlertApiResponse } from '@/types/alert';
 
 
 const EnhancedTable = () => {
@@ -28,14 +29,13 @@ const EnhancedTable = () => {
       async function fetchAlertData() {
         setLoading(true);
         try {
-          const alertsData: Promise<AlertApiResponse> = getAlerts(["open","ack"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
-          const data = await alertsData;
+          const alertsData = await getAlerts(["open","ack"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
           if (isLatestRequest) { 
-            setAlertsApiResponseData(data);
+            setAlertsApiResponseData(alertsData);
           }
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
-            console.error(error);
+            console.error('Error when fetching Alerts data :', error.message);
           }
           
         } finally {

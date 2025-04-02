@@ -1,4 +1,4 @@
-type Alert = {
+export type Alert = {
 
     // id of alert given by ALerta
     id:string
@@ -101,7 +101,7 @@ type Alert = {
 }
 
 
-type AlertApiResponse = {
+export type AlertApiResponse = {
     alerts: Alert[];
     autoRefresh: boolean;
     lastTime: string;

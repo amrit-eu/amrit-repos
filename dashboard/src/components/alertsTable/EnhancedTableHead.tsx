@@ -1,3 +1,4 @@
+import { Alert } from '@/types/alert';
 import { Order } from '@/types/types';
 import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
