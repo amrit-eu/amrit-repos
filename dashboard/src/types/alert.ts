@@ -101,14 +101,17 @@ export type Alert = {
 }
 
 
-export type AlertApiResponse = {
-    alerts: Alert[];
-    autoRefresh: boolean;
+export type AlertApiResponse = AlertCountApiResponse & {
+    alerts: Alert[];   
     lastTime: string;
     more: boolean;
     page: number;
     pageSize: number;
-    pages: number;
+    pages: number;   
+  };
+
+  export type AlertCountApiResponse = {  
+    autoRefresh: boolean;
     severityCounts: Record<string, number>;
     status: string;
     statusCounts: Record<string, number>;

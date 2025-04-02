@@ -15,6 +15,8 @@ export default function ThemeRegistry({
     return createTheme({
       typography: {
         fontFamily: 'Lexend, sans-serif',
+        fontWeightMedium:500,
+        fontWeightRegular:400,
       },
       palette: {
         mode,

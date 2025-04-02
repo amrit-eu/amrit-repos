@@ -1,5 +1,5 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import { AlertApiResponse } from '@/types/alert';
+import { AlertApiResponse, AlertCountApiResponse } from '@/types/alert';
 
 const baseUrl = ALERTA_API_BASE_URL;
 
@@ -16,4 +16,14 @@ export default async function getAlerts(status:Array<string> = ["open"], page:nu
   if (!res.ok) throw new Error ("failed to fetch Alert data");
 
   return res.json();
+}
+
+
+export  async function getAlertCount () : Promise<AlertCountApiResponse> {
+  const res = await fetch(`${baseUrl}/alerts/count`);
+
+  if (!res.ok) throw new Error ("failed to fetch Alert data");
+
+  return res.json();
+
 }

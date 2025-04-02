@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Alerts from '../../components/Alerts';
+import Alerts from '../../components/alerts/Alerts';
 
 export const metadata: Metadata = {
   title: 'OceanBoards - Alerts',
