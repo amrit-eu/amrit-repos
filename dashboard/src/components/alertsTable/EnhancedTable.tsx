@@ -35,7 +35,7 @@ const EnhancedTable = () => {
           }
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
-            console.error('Error when fetching Alerts data :', error.message);
+            console.error('An error occurred while fetching alerts.');
           }
           
         } finally {
