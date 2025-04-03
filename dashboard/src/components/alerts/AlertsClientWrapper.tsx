@@ -2,8 +2,8 @@
 import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import AlertTopbar from './AlertTopbar'
-import EnhancedTable from './alertsTable/EnhancedTable'
 import { Alert } from '@/types/alert'
+import AlertsTable from './AlertsTable'
 
 
 
@@ -49,7 +49,8 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
         <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters}/>
 
             
-        <EnhancedTable selectedFilters = {selectedFilters}/>
+        {/* <EnhancedTable selectedFilters = {selectedFilters}/> */}
+        <AlertsTable selectedFilters={selectedFilters}/>
 
     </Box>
   )

@@ -2,14 +2,15 @@ import { Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import React from 'react'
 
-interface EnhancedTableToolbarProps {
+interface AlertsTableToolbarProps {
     numSelected: number;
   }
 
-const EnhancedTableToolbar = ({numSelected} : EnhancedTableToolbarProps) => {
+  // TO DO : must be a "toolbarLayout" with a children contianing the tools needed
+
+const AlertsTableToolbar = ({numSelected} : AlertsTableToolbarProps) => {
   return (
     <Toolbar
       sx={[
@@ -42,7 +43,7 @@ const EnhancedTableToolbar = ({numSelected} : EnhancedTableToolbarProps) => {
           Alerts
         </Typography>
       )}
-      {numSelected > 0 ? (
+      {numSelected > 0 && (
         <Box sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -61,15 +62,9 @@ const EnhancedTableToolbar = ({numSelected} : EnhancedTableToolbarProps) => {
           </Tooltip>
                    
         </Box>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      ) }
     </Toolbar>
   )
 }
 
-export default EnhancedTableToolbar
+export default AlertsTableToolbar

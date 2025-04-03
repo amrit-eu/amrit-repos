@@ -89,6 +89,9 @@ export type Alert = {
 
   lastReceiveTime: string
 
+  duplicateCount?: number
+
+
   /**
    * number of seconds before alert is considered stale
    */

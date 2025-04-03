@@ -46,7 +46,7 @@ const MultiSelectChip = ({datalist, selectedItems, onFilterChange, filterName} :
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-chip-label">{filterName}</InputLabel>
-        <Select
+        <Select 
           labelId="multiple-chip-label"
           id="multiple-chip"
           multiple
