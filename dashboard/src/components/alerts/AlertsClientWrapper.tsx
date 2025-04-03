@@ -39,6 +39,7 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
           ...prev,
           [filterKey]: values,
         }));        
+        console.log(selectedFilters)
       };
 
 
@@ -48,7 +49,7 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
         <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters}/>
 
             
-        <EnhancedTable/>
+        <EnhancedTable selectedFilters = {selectedFilters}/>
 
     </Box>
   )

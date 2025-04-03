@@ -9,7 +9,12 @@ import getAlerts from '@/lib/fetchAlerts';
 import { Alert, AlertApiResponse } from '@/types/alert';
 
 
-const EnhancedTable = () => {
+interface EnhancedTableProps {
+  selectedFilters: Partial<Record<keyof Alert, string[]>>
+}
+
+
+const EnhancedTable = ({selectedFilters} : EnhancedTableProps) => {
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Alert>('lastReceiveTime');
   const [selected, setSelected] = useState<readonly string[]>([]);
@@ -29,7 +34,7 @@ const EnhancedTable = () => {
       async function fetchAlertData() {
         setLoading(true);
         try {
-          const alertsData = await getAlerts(["open","ack"],page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
+          const alertsData = await getAlerts(selectedFilters,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
           if (isLatestRequest) { 
             setAlertsApiResponseData(alertsData);
           }
@@ -51,7 +56,7 @@ const EnhancedTable = () => {
         isLatestRequest = false; 
         controller.abort();
       };    
-    }, [page, rowsPerPage, orderBy, order])
+    }, [page, rowsPerPage, orderBy, order, selectedFilters])
     
 
 

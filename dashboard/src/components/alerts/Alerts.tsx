@@ -1,6 +1,4 @@
 import { Box } from '@mui/material';
-import EnhancedTable from './alertsTable/EnhancedTable';
-import AlertTopbar from './AlertTopbar';
 import { getAlertCount } from '@/lib/fetchAlerts';
 import AlertsClientWrapper from './AlertsClientWrapper';
 
