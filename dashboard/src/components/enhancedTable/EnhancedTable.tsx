@@ -3,7 +3,7 @@
 import { Order } from '@/types/types';
 import { Box,  CircularProgress, FormControlLabel,  Paper, Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
 import React, {  useState } from 'react'
-import EnhancedTableToolbar from '../alerts/AlertsTableToolbar';
+import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableRow from './EnhancedTableRow';
 
@@ -25,12 +25,13 @@ interface EnhancedTableProps<T extends HasId > {
   data: Array<T>
   totalCount: number
   colmunsTodisplay: Array<keyof T>
-  optionnalAdditionalMoreInfoColumns? : Array<keyof T>  
+  optionnalAdditionalMoreInfoColumns? : Array<keyof T> 
+  toolbarActions? :  React.ReactNode;
 
 }
 
 
-function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, colmunsTodisplay, totalCount, optionnalAdditionalMoreInfoColumns  } : EnhancedTableProps<T>) {
+function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, colmunsTodisplay, totalCount, optionnalAdditionalMoreInfoColumns, toolbarActions  } : EnhancedTableProps<T>) {
   
   const [selected, setSelected] = useState<readonly string[]>([]); 
   const [dense, setDense] = useState(false);
@@ -111,7 +112,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
       )}
 
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} toolbarActions={toolbarActions} />
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -161,7 +162,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label="Dense table"
       />
     </Box>
   )

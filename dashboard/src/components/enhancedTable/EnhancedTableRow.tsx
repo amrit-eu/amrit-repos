@@ -14,8 +14,6 @@ interface EnhancedTableRowProps<T> {
 
 }
 
-
-
 function EnhancedTableRow<T> ({rowData, colmunsTodisplay, isItemSelected, handleClickOnRow, rowId, optionnalAdditionalMoreInfoColumns}: EnhancedTableRowProps<T>) {
 
 const [open, setOpen] = React.useState(false); // state for collapse table
@@ -36,7 +34,10 @@ const [open, setOpen] = React.useState(false); // state for collapse table
                 <IconButton
                     aria-label="expand row"
                     size="small"
-                    onClick={() => setOpen(!open)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // don't want to select row when clicking on expand/collapse "more info" table button
+                      setOpen(!open)
+                    }}
                 >
                  {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
@@ -60,21 +61,9 @@ const [open, setOpen] = React.useState(false); // state for collapse table
               >
                 {String(rowData[columnKey])}
               </TableCell>
-            ))}
-            {/* <TableCell
-                component="th"
-                id={`enhanced-table-checkbox-${rowId}`}
-                scope="row"
-                padding="none"
-                >
-                {String(rowData[0])}
-            </TableCell>
-            {rowData.map((row, index) => {
-                if(index!==0) {
-                    return (<TableCell key={`row-data-${index}`} align="left" >{String(row)}</TableCell>)
-                }
-            })} */}
+            ))}   
         </TableRow>
+
         {/*  Collapsing table part */}
         {optionnalAdditionalMoreInfoColumns &&
         <TableRow>

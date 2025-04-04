@@ -5,6 +5,7 @@ import AlertsClientWrapper from './AlertsClientWrapper';
 
 const Alerts = async () => {
   // fetch filters data here (server side) :
+  // TO DO : make filters configurable
   const alertsCountData = getAlertCount();
   const counts = await alertsCountData;
 

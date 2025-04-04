@@ -1,8 +1,9 @@
 'use client';
 import { Alert } from '@/types/alert';
-import { AppBar, Toolbar, useTheme } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import React from 'react'
 import MultiSelectChip from '../MultiSelectChip';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 interface AlertTopBarProps {
     filtersData: Partial<Record<keyof Alert, string[]>>
@@ -36,6 +37,11 @@ const AlertTopbar = ({filtersData, onFilterChange, selectedFilters }: AlertTopBa
             gap: 2,            
             }}           
         >
+            <Tooltip title="Filter list">
+                <IconButton>
+                    <FilterListIcon />
+                </IconButton>
+            </Tooltip>
             {Object.entries(filtersData).map(([key, valuesList])=><MultiSelectChip key={key} datalist={valuesList} filterName={key} selectedItems={selectedFilters[key as keyof Alert] ?? []} onFilterChange={onFilterChange}  /> )}
 
             </Toolbar>

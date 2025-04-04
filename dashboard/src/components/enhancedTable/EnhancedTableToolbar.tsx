@@ -1,16 +1,15 @@
-import { Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Box,  Toolbar,  Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import DeleteIcon from '@mui/icons-material/Delete';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
+
 import React from 'react'
 
-interface AlertsTableToolbarProps {
+interface EnhancedTableToolbarProps {
     numSelected: number;
+    toolbarActions? : React.ReactNode;
   }
 
-  // TO DO : must be a "toolbarLayout" with a children contianing the tools needed
 
-const AlertsTableToolbar = ({numSelected} : AlertsTableToolbarProps) => {
+const EnhancedTableToolbar = ({numSelected, toolbarActions} : EnhancedTableToolbarProps) => {
   return (
     <Toolbar
       sx={[
@@ -43,28 +42,19 @@ const AlertsTableToolbar = ({numSelected} : AlertsTableToolbarProps) => {
           Alerts
         </Typography>
       )}
-      {numSelected > 0 && (
+      {numSelected > 0 && toolbarActions && (
         <Box sx={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center'
           }}>
 
-          <Tooltip title="Add a note">
-            <IconButton>
-              <NoteAddIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-                   
+            {toolbarActions}    
+
         </Box>
       ) }
     </Toolbar>
   )
 }
 
-export default AlertsTableToolbar
+export default EnhancedTableToolbar

@@ -47,9 +47,7 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
         <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters}/>
-
-            
-        {/* <EnhancedTable selectedFilters = {selectedFilters}/> */}
+           
         <AlertsTable selectedFilters={selectedFilters}/>
 
     </Box>
