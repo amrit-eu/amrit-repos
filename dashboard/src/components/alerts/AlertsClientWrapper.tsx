@@ -39,7 +39,6 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
           ...prev,
           [filterKey]: values,
         }));        
-        console.log(selectedFilters)
       };
 
 
