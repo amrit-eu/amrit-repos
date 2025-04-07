@@ -82,7 +82,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
                                 align={col.align ?? 'left'}
                                 sx={{fontWeight: 'bold'}}
                               >
-                                {String(col.label)}
+                                {col.label ?? String(col.key)}
                               </TableCell>)
                          )}                        
                       </TableRow>
