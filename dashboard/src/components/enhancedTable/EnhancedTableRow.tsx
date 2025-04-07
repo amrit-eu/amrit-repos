@@ -1,20 +1,20 @@
-import { Box, Checkbox, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Checkbox, Chip, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React from 'react'
-import { camelCaseToTitle } from '@/utils/formatString';
+import { TableViewConfig } from '@/config/tableConfigs';
 
 interface EnhancedTableRowProps<T> {
     rowData: T
-    colmunsTodisplay: Array<keyof T>
+    columnsConfig: TableViewConfig<T>
     isItemSelected: boolean
     handleClickOnRow:  (event: React.MouseEvent<unknown>, id: string) => void
     rowId: string
-    optionnalAdditionalMoreInfoColumns? : Array<keyof T>
+   
 
 }
 
-function EnhancedTableRow<T> ({rowData, colmunsTodisplay, isItemSelected, handleClickOnRow, rowId, optionnalAdditionalMoreInfoColumns}: EnhancedTableRowProps<T>) {
+function EnhancedTableRow<T> ({rowData, columnsConfig, isItemSelected, handleClickOnRow, rowId}: EnhancedTableRowProps<T>) {
 
 const [open, setOpen] = React.useState(false); // state for collapse table
   return (
@@ -29,7 +29,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
             selected={isItemSelected}
             sx={{ cursor: 'pointer' }}
         >
-            {optionnalAdditionalMoreInfoColumns &&
+            {columnsConfig.moreInfoColumns &&
              <TableCell>
                 <IconButton
                     aria-label="expand row"
@@ -51,23 +51,23 @@ const [open, setOpen] = React.useState(false); // state for collapse table
             </TableCell>
             
 
-            {colmunsTodisplay.map((columnKey, index) => (
+            {columnsConfig.mainColumns.map((col, index) => (
                 <TableCell
-                key={`${String(columnKey)}-${rowId}`}
+                key={`${String(col.key)}-${rowId}`}
                 component={index === 0 ? 'th' : undefined}
                 scope={index === 0 ? 'row' : undefined}
                 padding={index === 0 ? 'none' : undefined}
                 align={index !== 0 ? 'left' : undefined}
               >
-                {String(rowData[columnKey])}
+                {col.chipColor ? <Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'default'  }/> : String(rowData[col.key])}
               </TableCell>
             ))}   
         </TableRow>
 
         {/*  Collapsing table part */}
-        {optionnalAdditionalMoreInfoColumns &&
+        {columnsConfig.moreInfoColumns &&
         <TableRow>
-            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colmunsTodisplay.length + 1 }>
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={columnsConfig.mainColumns.length + 1 }>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <Box sx={{ margin: 1 }}>
                   <Typography variant="h6" gutterBottom component="div">
@@ -76,27 +76,27 @@ const [open, setOpen] = React.useState(false); // state for collapse table
                   <Table size="small" aria-label="purchases">
                     <TableHead>
                       <TableRow>
-                        {optionnalAdditionalMoreInfoColumns.map((columnName, index) => 
+                        {columnsConfig.moreInfoColumns.map((col, index) => 
                             (<TableCell
                                 key={`additional-rowHeader-${index}`}
-                                align={index === 0 ? 'left' : 'right'}
+                                align={col.align ?? 'left'}
                                 sx={{fontWeight: 'bold'}}
                               >
-                                {camelCaseToTitle(String(columnName))}
+                                {String(col.label)}
                               </TableCell>)
                          )}                        
                       </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow key={`additional-row-${rowId}`}>
-                            {optionnalAdditionalMoreInfoColumns.map((columnName, index) => (
+                            {columnsConfig.moreInfoColumns.map((col, index) => (
                                 <TableCell
                                 key={`additional-cell-${rowId}-${index}`}
                                 {...(index === 0
                                 ? { component: 'th', scope: 'row' }
-                                : { align: 'right' })}
+                                : { align: col.align ?? 'left' })}
                             >
-                                {String(rowData[columnName])}
+                                 {col.chipColor ? <Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'info'  }/> : String(rowData[col.key])}
                             </TableCell>
                             ))}
                         </TableRow>

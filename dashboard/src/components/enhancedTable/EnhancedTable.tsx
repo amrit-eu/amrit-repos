@@ -6,6 +6,7 @@ import React, {  useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableRow from './EnhancedTableRow';
+import { TableViewConfig } from '@/config/tableConfigs';
 
 
 interface HasId {
@@ -24,14 +25,13 @@ interface EnhancedTableProps<T extends HasId > {
   loading : boolean
   data: Array<T>
   totalCount: number
-  colmunsTodisplay: Array<keyof T>
-  optionnalAdditionalMoreInfoColumns? : Array<keyof T> 
+  colmunsConfiguration: TableViewConfig<T>  
   toolbarActions? :  React.ReactNode;
 
 }
 
 
-function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, colmunsTodisplay, totalCount, optionnalAdditionalMoreInfoColumns, toolbarActions  } : EnhancedTableProps<T>) {
+function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions  } : EnhancedTableProps<T>) {
   
   const [selected, setSelected] = useState<readonly string[]>([]); 
   const [dense, setDense] = useState(false);
@@ -135,7 +135,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={data.length ?? 0}
-              colmunsTodisplay={colmunsTodisplay}
+              columnsConfig={colmunsConfiguration}
             />
             
             <TableBody>
@@ -143,7 +143,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
                 const isItemSelected = selected.includes(rowData.id);
                 
                 return (
-                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} colmunsTodisplay={colmunsTodisplay} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} optionnalAdditionalMoreInfoColumns={optionnalAdditionalMoreInfoColumns} />
+                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} columnsConfig={colmunsConfiguration} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} />
                 );
               })}
               {emptyRows > 0 && (

@@ -1,10 +1,8 @@
+import { TableViewConfig } from '@/config/tableConfigs';
 import { Order } from '@/types/types';
-import { camelCaseToTitle } from '@/utils/formatString';
 import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import React from 'react'
-
-
 
 
 
@@ -15,57 +13,12 @@ interface EnhancedTableProps<T> {
     order: Order;
     orderBy: keyof T;
     rowCount: number;
-    colmunsTodisplay: Array<keyof T>
+    columnsConfig: TableViewConfig<T>
   }
 
-function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, colmunsTodisplay }: EnhancedTableProps<T>)  {
+function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig }: EnhancedTableProps<T>)  {
 
 
-  // const headCells: readonly HeadCell[] = [
-  //   {
-  //     id: 'resource',
-  //     numeric: false,
-  //     disablePadding: true,
-  //     label: 'Resource',
-  //   },
-  //   {
-  //     id: 'severity',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Severity',
-  //   },
-  //   {
-  //     id: 'status',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Status',
-  //   },
-  //   {
-  //     id: 'event',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Event',
-  //   },
-  //   {
-  //     id: 'value',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Value',
-  //   },
-  //   {
-  //     id: 'text',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Description',
-  //   },
-  //   {
-  //     id: 'lastReceiveTime',
-  //     numeric: false,
-  //     disablePadding: false,
-  //     label: 'Last Receive Time',
-  //   },    
-  // ];
-  
   
   const createSortHandler =
   (property: keyof T) => (event: React.MouseEvent<unknown>) => {
@@ -85,21 +38,21 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
           />
         </TableCell>
         
-        {colmunsTodisplay.map((headCell, index) => (
+        {columnsConfig.mainColumns.map(col => (
           <TableCell
             sx={{fontWeight: 'bold'}}
-            key={`headCell-${String(headCell)}`}
-            align={'left'} // TO DO : add a way to adapt in fonction of type of  value( numeric : right). Need to have the object data
-            padding={index === 0 ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell ? order : false}
+            key={`headCell-${String(col.key)}`}
+            align={col.align ?? 'left'} 
+            padding={col.padding ?? 'normal'}
+            sortDirection={orderBy === col.key ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell}
-              direction={orderBy === headCell ? order : 'asc'}
-              onClick={createSortHandler(headCell)}
+              active={orderBy === col.key}
+              direction={orderBy === col.key ? order : 'asc'}
+              onClick={createSortHandler(col.key)}
             >
-              {camelCaseToTitle(String(headCell))}
-              {orderBy === headCell ? (
+              {col.label ?? String(col.key)}
+              {orderBy === col.key ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>

@@ -5,9 +5,17 @@ import AlertsClientWrapper from './AlertsClientWrapper';
 
 const Alerts = async () => {
   // fetch filters data here (server side) :
-  // TO DO : make filters configurable
-  const alertsCountData = getAlertCount();
-  const counts = await alertsCountData;
+  let counts;
+  try {
+  counts = await getAlertCount();
+  
+  } catch {
+    counts = {
+      severityCounts: {},
+      statusCounts: {},
+    };  
+  }
+
 
   const filtersData = {
     severity: Object.entries(counts.severityCounts).map(([key, value])=> `${key} (${value})`),

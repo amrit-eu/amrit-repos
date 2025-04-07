@@ -13,9 +13,7 @@ interface AlertsTableProps {
 const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
 
   // load table configuration
-  const config = ALERTS_TABLE_CONFIG;
-  const COLUMNS_TO_DISPLAY = config.mainColumns.map(c => c.key);
-  const MORE_INFO_COLUMNS_TO_DISPLAY = config.moreInfoColumns?.map(c => c.key) ?? [];
+  const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
 
   //Table's states
   const [alertsApiResponseData, setAlertsApiResponseData] = useState<AlertApiResponse>();
@@ -59,7 +57,7 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
 
 
   return (
-    <EnhancedTable<Alert> orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0}  colmunsTodisplay={COLUMNS_TO_DISPLAY} optionnalAdditionalMoreInfoColumns={MORE_INFO_COLUMNS_TO_DISPLAY} toolbarActions={<AlertsTableToolbarActions/>}/>
+    <EnhancedTable<Alert> orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions/>} colmunsConfiguration={alertaColumnsConfig}/>
   )
 }
 
