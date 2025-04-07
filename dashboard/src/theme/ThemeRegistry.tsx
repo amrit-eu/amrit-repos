@@ -31,6 +31,8 @@ export default function ThemeRegistry({
           default: mode === 'dark' ? '#121212' : '#fdfdfd',
           paper: mode === 'dark' ? '#1E1E1E' : '#ffffff',
         },
+		primaryContainer: mode === 'light' ? '#d9f1f3' : '#205a5e',  // lighter bg
+		onPrimaryContainer: mode === 'light' ? '#006a7c' : '#e0f7f8', // high contrast text
       },
       shape: {
         borderRadius: 12,

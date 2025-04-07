@@ -46,7 +46,13 @@ const [open, setOpen] = React.useState(false); // state for collapse table
             <TableCell padding="checkbox">
                 <Checkbox
                     color="primary"
-                    checked={isItemSelected}                        
+                    checked={isItemSelected} 
+					slotProps={{
+						input: {
+						  'aria-label': 'Select row',
+						  'aria-labelledby': `row-${rowId}`,
+						},
+					}}               
                 />
             </TableCell>
             

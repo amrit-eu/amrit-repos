@@ -34,7 +34,13 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}            
+            onChange={onSelectAllClick}
+			slotProps={{
+				input: {
+				  'aria-label': 'Select all rows',
+				  'aria-labelledby': `row-all`,
+				},
+			}}             
           />
         </TableCell>
         

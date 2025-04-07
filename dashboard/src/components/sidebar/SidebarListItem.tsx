@@ -32,7 +32,8 @@ export default function SidebarListItem({ option, open }: SidebarListItemProps) 
         sx={{
           height: 48,
           justifyContent: open ? 'initial' : 'center',
-          color: isSelected ? theme.palette.primary.main : 'inherit',
+		  bgcolor: isSelected ? theme.palette.primaryContainer : 'transparent',
+		  color: isSelected ? theme.palette.onPrimaryContainer : 'inherit',
           '&:hover': {
             bgcolor: theme.palette.action.hover,
           },
@@ -44,7 +45,7 @@ export default function SidebarListItem({ option, open }: SidebarListItemProps) 
             mr: open ? 3 : 'auto',
             ml: '4px',
             justifyContent: 'center',
-            color: isSelected ? theme.palette.primary.main : 'inherit',
+            color: isSelected ? theme.palette.onPrimaryContainer : 'inherit',
           }}
         >
           {iconMapping[option]}
