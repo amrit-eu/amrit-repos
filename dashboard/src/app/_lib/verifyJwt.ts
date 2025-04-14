@@ -17,7 +17,7 @@ export async function verifyJwt(token: string | undefined =""): Promise<JWTVerif
     });
     return payload;
   } catch (err) {
-    console.error('JWT verification failed:', err);
+    console.error('JWT verification failed:', err.message);
     return null;
   }
 }
