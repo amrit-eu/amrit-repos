@@ -7,16 +7,14 @@ const JWKS = createRemoteJWKSet(new URL(AUTHSERVICE_API_BASE_URL+'/.well-known/j
 // But if we want to protect some front end route with user role for example, it is better to already plan a jwt verification here 
 export async function verifyJwt(token: string | undefined =""): Promise<JWTVerifyResult['payload'] | null> {
   try {
-    const safeToken = typeof token === 'string' ? token.trim() : '';
-    if (!safeToken) {
-      throw new Error('Invalid token');    
-    }
+    const safeToken = `${token ?? ''}`.trim() || 'invalid.token.value';
     
-    const { payload } = await jwtVerify(token, JWKS, {
+    
+    const { payload } = await jwtVerify(safeToken, JWKS, {
       algorithms: ['RS256'],
     });
     return payload;
-  } catch (err) {
+  } catch  {
     throw new Error('Token verification failed');
     
   }
