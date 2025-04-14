@@ -14,7 +14,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
-import { logout } from '@/app/_actions/auth';
 import LogOutButton from './LogOutButton';
 
 

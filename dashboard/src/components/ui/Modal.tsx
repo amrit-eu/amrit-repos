@@ -13,11 +13,19 @@ const Modal = ({children} : {children: React.ReactNode}) => {
     }
 
   return (    
-        <Dialog id="model" open={true} onClose={handleClose} slotProps={{ paper : {
+        <Dialog id="modal" open={true} onClose={handleClose} slotProps={{
+          backdrop: {
+            sx: {             
+              backdropFilter: 'blur(2px)',
+             
+            },
+          },
+           paper : {
             sx: {
               backgroundColor: 'transparent',
+              backgroundImage: 'none',
               boxShadow: 'none',
-              width: '100%',              
+              width: '100%',
             },
           }}}>
 

@@ -56,7 +56,7 @@ const LoginForm = () => {
         if (!isPending && state?.success) {
           router.back();    // To go back to current page after successful login   
         }
-      }, [isPending, state]);
+      }, [isPending, state, router]);
     
     const handleClickOpenForgetPassword = () => {
         setOpenForgetPassword(true);

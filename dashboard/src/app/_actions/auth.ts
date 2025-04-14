@@ -12,7 +12,15 @@ const schema = z.object({
 
   })
 
-export async function login(prevState: any, formData: FormData){
+  type LoginFormState = {
+    errors?: {
+      login?: string[];
+      password?: string[];
+    };
+    success?: boolean;
+  };
+
+export async function login(prevState: LoginFormState |undefined, formData: FormData){
     // controling email / password format
     const result = schema.safeParse(Object.fromEntries(formData));
 
