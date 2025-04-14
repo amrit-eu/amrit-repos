@@ -7,7 +7,8 @@ import { Public } from '../auth/public.decorator';
 export class AlertaController {
 
     constructor(private readonly alertaService: AlertaService) {}
-
+    
+    @Public()
     @Get('/alerts{/*path}')
     alertaGetAlertsProxy(@Req() req: Request) {
         return this.alertaService.alertaProxyRequest(req);

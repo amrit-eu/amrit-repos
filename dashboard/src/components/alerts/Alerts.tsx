@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { getAlertCount } from '@/lib/fetchAlerts';
 import AlertsClientWrapper from './AlertsClientWrapper';
 import { verifySession } from '@/app/_lib/session';
+import { getAlertCount } from '@/lib/alerta/getAlertsCount.server';
 
 
 const Alerts = async () => {

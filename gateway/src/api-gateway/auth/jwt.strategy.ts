@@ -43,25 +43,27 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         // May also put some logic here to retrieve more information on user, verify if the userId match a user in the database, look in a potential table of revoken token, etc.
         // ex :  authService.getUserDetails, etc.
         return { userId: payload.contactId, username: payload.sub, name: payload.name };
-    }
-
-    
+    }    
 }
-function extractTokenFromRequest(req: Request): string | null {
-    console.log ("get JWT")
+
+/**
+ * 
+ * @param req Extract the JWT from the incomming request. First look at Authorization header (Bearer ....).
+ * If Bearer null, extract the session cookie.
+ * @returns 
+ */
+export function extractTokenFromRequest(req: Request): string | null {    
     // 1. Try Authorization header
-    const authHeader = req.headers['authorization'];
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-        console.log(authHeader)
-      return authHeader.slice(7).trim(); // remove 'Bearer '
-    }
+    const JWTFromAuthHeaderFunction = ExtractJwt.fromAuthHeaderAsBearerToken();
+    if (JWTFromAuthHeaderFunction(req)) {
+        return JWTFromAuthHeaderFunction(req);
+    }  
   
     // 2. Try Cookie header
     const cookies = req.cookies;
     if (cookies && cookies['session']) {
-        console.log(cookies['session'])
         return cookies['session'];
-    }
+    } 
   
     return null;
   }

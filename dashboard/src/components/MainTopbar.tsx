@@ -15,6 +15,8 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
 import { logout } from '@/app/_actions/auth';
+import LogOutButton from './LogOutButton';
+
 
 interface MainTopbarProps {
   darkMode: boolean;
@@ -88,14 +90,12 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
         </Box>
 
         {/* Right side: Actions */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button  variant="contained" color="primary" sx={{ textTransform: 'none' }} onClick={() => logout()}>
-            Logout
-          </Button>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}> 
 
           <Button component={Link} variant="contained" color="primary" sx={{ textTransform: 'none' }} href='/login'>
             Login
           </Button>
+          <LogOutButton />          
           <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         </Box>
       </Toolbar>

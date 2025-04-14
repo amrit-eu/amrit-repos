@@ -38,3 +38,4 @@ export const verifySession = cache(async () => {
 
   return { isAuth: true, userId: payload?.contactId, username: payload?.name }
 })
+

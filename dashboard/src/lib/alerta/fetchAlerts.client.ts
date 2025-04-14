@@ -25,15 +25,6 @@ export default async function getAlerts(filters:Partial<Record<keyof Alert, stri
 }
 
 
-export  async function getAlertCount () : Promise<AlertCountApiResponse> {
-  const res = await fetch(`${baseUrl}/alerts/count`, {credentials: 'include'});
-
-  if (!res.ok) throw new Error ("failed to fetch Alert data");
-
-  return res.json();
-
-}
-
 
 /**
  * Transform the filters object  in a queryString. Clean values with a regex

@@ -12,10 +12,8 @@ export const getUser = cache(async () => {
 const session = await verifySession()
 if (!session) return null
 
-
 const authUser : AuthUserType = {"name":session.username, "contactId": session.userId}
 // could do other thing here like fetch user image, user subscriptions, etc....
-
 
 return authUser;
   })
