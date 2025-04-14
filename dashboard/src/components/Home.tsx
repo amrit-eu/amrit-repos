@@ -2,9 +2,15 @@ import { Box, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { verifySession } from '@/app/_lib/session';
 
-const Home: React.FC = async () => {
+type SessionProps = {
+  session?: {
+    isAuth: boolean;
+    userId: number | undefined;
+    username: string | undefined;
+  } | null;
+};
 
-  const session = await verifySession(); // get session to conditionnaly render this server component
+const Home= ({ session }: SessionProps) => { 
 
 
   return (
