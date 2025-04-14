@@ -1,6 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { verifySession } from '@/app/_lib/session';
 
 type SessionProps = {
   session?: {
