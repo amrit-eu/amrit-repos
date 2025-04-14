@@ -62,7 +62,7 @@ export function extractTokenFromRequest(req: Request): string | null {
     // 2. Try Cookie header
     const cookies = req.cookies;
     if (cookies && cookies['session']) {
-        return cookies['session'];
+        return cookies['session'] as string;
     } 
   
     return null;

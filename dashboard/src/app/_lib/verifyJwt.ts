@@ -16,8 +16,7 @@ export async function verifyJwt(token: string | undefined =""): Promise<JWTVerif
       algorithms: ['RS256'],
     });
     return payload;
-  } catch (err) {
-    console.error('JWT verification failed:', err.message);
+  } catch (err) {    
     return null;
   }
 }
