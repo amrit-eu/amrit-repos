@@ -1,7 +1,16 @@
 import { Box, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-const Home: React.FC = () => {
+type SessionProps = {
+  session?: {
+    isAuth: boolean;
+    userId: number | undefined;
+    username: string | undefined;
+  } | null;
+};
+
+const Home= ({ session }: SessionProps) => { 
+
 
   return (
     <Box
@@ -28,6 +37,10 @@ const Home: React.FC = () => {
           }}
         />
 
+        {session && 
+          <Typography variant="h6" sx={{ mb: 3 }}>
+            {`Welcome ${session.username} !`}
+          </Typography> }
         <Typography variant="h6" sx={{ mb: 3 }}>
           OceanBoards is a collaborative AMRIT project.
         </Typography>

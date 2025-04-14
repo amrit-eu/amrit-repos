@@ -7,8 +7,8 @@ import { buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../.
 import { createProxyRouteMap, ProxyRouteMap } from '../../utils/proxy.routes';
 
 @Injectable()
-export class AlertaService {
-    private readonly logger = new Logger(AlertaService.name, { timestamp: true })
+export class AlertaService {  
+  private readonly logger = new Logger(AlertaService.name, { timestamp: true })
 	private readonly proxyRoutes: ProxyRouteMap;
 
     constructor(
@@ -29,33 +29,25 @@ export class AlertaService {
      * @throws HttpException if Alerta API call fails.
      */
     async alertaProxyRequest(req: Request) : Promise<any>
+
      {  
-        this.logger.log(`Proxy ${req.method} request to Alerta API`);
+      this.logger.log(`Proxy ${req.method} request to Alerta API`);
+      const basePath = 'api/alerta'
 
-		const route = this.proxyRoutes['api/alerta'];
-		if (!route) {
-			throw new Error(`No proxy route config found for 'api/alerta'`);
-		}
+      const route = this.proxyRoutes[basePath];
+      if (!route) {
+        throw new Error(`No proxy route config found for ${basePath}`);
+      }
+		
+      //build axiosRequestConfig with source request parameters and target host parameter :
+      const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  basePath, route);
 
-		const { host, targetPath, authHeader } = route;
+      // make request to Alerta api
+      const data = proxyHttpRequest<unknown>(this.httpService, config);
 
-        //build axiosRequestConfig with source request parameters and target host parameter :
-        const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, host, 'api/alerta', targetPath);
-
-        // add Alerta API KEY to headers :
-        if (authHeader) {
-          config.headers = {
-            ...config.headers,
-            Authorization: authHeader,
-          };
-		    }
-
-        // make request to Alerta api
-        const data = proxyHttpRequest<unknown>(this.httpService, config);
-
-        //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
-        
-        return data;
+      //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
+      
+      return data;
     }   
 
 

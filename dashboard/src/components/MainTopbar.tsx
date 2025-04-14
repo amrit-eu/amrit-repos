@@ -13,6 +13,9 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import DarkModeToggle from './DarkModeToggle';
+import Link from 'next/link';
+import LogOutButton from './LogOutButton';
+
 
 interface MainTopbarProps {
   darkMode: boolean;
@@ -27,7 +30,7 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
   sidebarOpen,
   setSidebarOpen,
 }) => {
-  const theme = useTheme();
+  const theme = useTheme(); 
 
   return (
     <AppBar
@@ -86,10 +89,12 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
         </Box>
 
         {/* Right side: Actions */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button variant="contained" color="primary" sx={{ textTransform: 'none' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}> 
+
+          <Button component={Link} variant="contained" color="primary" sx={{ textTransform: 'none' }} href='/login'>
             Login
           </Button>
+          <LogOutButton />          
           <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         </Box>
       </Toolbar>

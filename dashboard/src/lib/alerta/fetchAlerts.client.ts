@@ -1,5 +1,5 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import { Alert, AlertApiResponse, AlertCountApiResponse } from '@/types/alert';
+import { Alert, AlertApiResponse } from '@/types/alert';
 
 const baseUrl = ALERTA_API_BASE_URL;
 
@@ -16,22 +16,14 @@ export default async function getAlerts(filters:Partial<Record<keyof Alert, stri
   const queryString = [filterQuery, sortByQuery, pagination].filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
 
   // fetch data
-  const res = await fetch(`${baseUrl}/alerts?${queryString}`, {signal});
+  const res = await fetch(`${baseUrl}/alerts?${queryString}`, {signal,
+    credentials: 'include'});
 
   if (!res.ok) throw new Error ("failed to fetch Alert data");
 
   return res.json();
 }
 
-
-export  async function getAlertCount () : Promise<AlertCountApiResponse> {
-  const res = await fetch(`${baseUrl}/alerts/count`);
-
-  if (!res.ok) throw new Error ("failed to fetch Alert data");
-
-  return res.json();
-
-}
 
 
 /**
