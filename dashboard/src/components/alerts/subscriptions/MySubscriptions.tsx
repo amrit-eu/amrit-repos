@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { verifySession } from '@/app/_lib/session';
 
 
@@ -7,7 +7,10 @@ const Alerts = async () => {
  
   return (
 	<Box sx={{ width: '100%', padding: 2 }}>
-	  My subscriptions dashboard coming soon
+	   	{session && 
+          <Typography variant="h6" sx={{ mb: 3 }}>
+            {`${session.username}'s subscriptions! Coming soon`}
+          </Typography> } 
 	</Box>
   );
 };

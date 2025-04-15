@@ -20,8 +20,7 @@ const sidebarOptions: SidebarOption[] = [
 		{ label: 'Alerts table', path: '/alerts/alerts-table' },
 		{ label: 'My subscriptions', path: '/alerts/my-subscriptions' },
 	  ],
-	},
-	{ label: 'Protected', path: '/protected' },
+	}
   ];
 
 const Sidebar: React.FC<SidebarProps> = ({
