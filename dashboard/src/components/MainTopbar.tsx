@@ -69,7 +69,8 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
               alignItems: 'center',
               ml: 1,
               fontWeight: 400,
-              fontSize: '1.5rem',
+			  mt: -0.4,
+              fontSize: '1.4rem',
               letterSpacing: '0.5px',
               color: theme.palette.primary.main,
             }}
