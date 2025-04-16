@@ -32,3 +32,10 @@ import {
     exp: number
     sub: string
   } | null;
+
+  export type TopicOption = {
+	id: number;
+	label: string;
+	parentId?: number | null;
+	children?: TopicOption[];
+  };

@@ -1,18 +1,10 @@
-import { Box, Typography } from '@mui/material';
-import { verifySession } from '@/app/_lib/session';
+import { fetchAlertSubscriptions } from '@/lib/alertSubscriptions/fetchSubscriptions.server';
+import MySubscriptionsClient from './MySubscriptionsClient';
 
+const MySubscriptions = async () => {
+  const subscriptions = await fetchAlertSubscriptions(); 
 
-const Alerts = async () => {
-  const session = await verifySession();
- 
-  return (
-	<Box sx={{ width: '100%', padding: 2 }}>
-	   	{session && 
-          <Typography variant="h6" sx={{ mb: 3 }}>
-            {`${session.username}'s subscriptions! Coming soon`}
-          </Typography> } 
-	</Box>
-  );
+  return <MySubscriptionsClient initialData={subscriptions} />;
 };
 
-export default Alerts;
+export default MySubscriptions;
