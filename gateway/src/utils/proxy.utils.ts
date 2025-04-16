@@ -121,6 +121,5 @@ export function cleanProxyHeaders(headers: IncomingHttpHeaders): Record<string, 
         config.headers = {
           ...config.headers,
           Authorization: `Bearer ${jwt}`,
-        };
-      
+        };      
     }
