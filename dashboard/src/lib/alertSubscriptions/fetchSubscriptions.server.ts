@@ -9,7 +9,7 @@ export async function fetchAlertSubscriptions(): Promise<AlertSubscription[]> {
   const session = cookieStore.get('session')?.value;
   const forwardedHeaders = await headers();
 
-  const res = await fetch(`${baseUrl}/alerts/subscriptions`, {
+  const res = await fetch(`${baseUrl}/oceanops/alerts/subscriptions`, {
     headers: {
       Cookie: `session=${session}`,
       'X-Forwarded-For': forwardedHeaders.get('x-forwarded-for') ?? '',

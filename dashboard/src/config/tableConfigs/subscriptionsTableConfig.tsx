@@ -22,6 +22,7 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 				<TopicSelectField
 				  value={row.topicId ?? null}
 				  onChange={(newId) => onUpdateField?.(row.id, 'topicId', newId)}
+				  sx={{ width: 400, ml: 2 }}
 				/>
 			  );
 			},

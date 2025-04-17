@@ -8,46 +8,51 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
   Switch,
   Stack,
 } from '@mui/material';
 import React, { useState } from 'react';
-
-type NewSubscriptionInput = {
-	topicId: number;
-	sendEmail: boolean;
-  };
-  
+import TopicSelectField from './TopicSelectField';
+import { AlertSubscription } from '@/types/alert-subscription';
 
 interface AddSubscriptionModalProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: (newSubscription: NewSubscriptionInput) => void;
+  onConfirm: (newSubscription: AlertSubscription) => void; 
+  contactId: number;
 }
 
-// improve this later with a real fetch from API
-const mockTopics = [
-  { id: 6, label: 'operational-beaching' },
-  { id: 9, label: 'operational-technical-battery' },
-  { id: 10, label: 'operational-technical-sensor' },
-  { id: 12, label: 'data-qc-feedback' },
-];
-
-const AddSubscriptionModal = ({ open, onClose, onConfirm }: AddSubscriptionModalProps) => {
-  const [topicId, setTopicId] = useState<number | ''>('');
+const AddSubscriptionModal = ({ open, onClose, onConfirm, contactId }: AddSubscriptionModalProps) => {
+  const [topicId, setTopicId] = useState<number | null>(null);
   const [sendEmail, setSendEmail] = useState<boolean>(false);
 
-  const handleSubmit = () => {
-    if (!topicId) return;
-
-    onConfirm({
-      topicId,
-      sendEmail,
-    });
+  const handleSubmit = async () => {
+	if (!topicId) return;
+  
+	const payload = {
+	  topicId,
+	  sendEmail,
+	  contactId,
+	};
+  
+	try {
+	  const res = await fetch('/api/post-subscription', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload),
+	  });
+  
+	  if (!res.ok) throw new Error('Failed to create subscription');
+  
+	  const created = await res.json();
+	  onConfirm(created);
+	  onClose();
+	} catch (err) {
+	  console.error(err);
+	  alert('Failed to add subscription.');
+	}
   };
+  
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -55,20 +60,9 @@ const AddSubscriptionModal = ({ open, onClose, onConfirm }: AddSubscriptionModal
 
       <DialogContent>
         <Stack spacing={3} mt={1}>
-          <FormControl fullWidth required>
-            <InputLabel>Topic</InputLabel>
-            <Select
-              label="Topic"
-              value={topicId}
-              onChange={(e) => setTopicId(Number(e.target.value))}
-            >
-              {mockTopics.map((t) => (
-                <MenuItem key={t.id} value={t.id}>
-                  {t.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+		<FormControl fullWidth required>
+			<TopicSelectField value={topicId} onChange={setTopicId} size="medium" />
+		</FormControl>
 
           <FormControlLabel
             control={

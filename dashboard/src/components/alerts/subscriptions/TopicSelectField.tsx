@@ -1,24 +1,23 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { MenuItem, Select } from '@mui/material';
+import { SxProps, Theme, MenuItem, Select } from '@mui/material';
 import { TopicOption } from '@/types/types';
+import { GATEWAY_BASE_URL } from '@/config/api-routes';
 
 interface Props {
   value: number | null;
   onChange: (newValue: number) => void;
+  size?: 'small' | 'medium';
+  sx?: SxProps<Theme>;
 }
 
+const baseUrl = GATEWAY_BASE_URL;
+
 const fetchTopicOptions = async (): Promise<TopicOption[]> => {
-  return [
-    { id: 6, label: 'operational-beaching', parentId: 4 },
-    { id: 9, label: 'operational-technical-battery', parentId: 4 },
-    { id: 10, label: 'operational-technical-sensor', parentId: 4 },
-    { id: 12, label: 'data-qc-feedback', parentId: null },
-    { id: 14, label: 'info-new-deployment', parentId: null },
-    { id: 17, label: 'request-ship-time', parentId: 14 },
-    { id: 4, label: 'Operational Technical', parentId: null },
-  ];
-};
+	const res = await fetch(`${baseUrl}/data/topics`);
+	if (!res.ok) throw new Error('Failed to fetch topics');
+	return await res.json();
+  };
 
 const buildTopicTree = (flatOptions: TopicOption[]): TopicOption[] => {
   const map = new Map<number, TopicOption & { children?: TopicOption[] }>();
@@ -38,7 +37,7 @@ const buildTopicTree = (flatOptions: TopicOption[]): TopicOption[] => {
   return roots;
 };
 
-const TopicSelectField = ({ value, onChange }: Props) => {
+const TopicSelectField = ({ value, size, onChange, sx }: Props) => {
   const [topics, setTopics] = useState<TopicOption[]>([]);
 
   useEffect(() => {
@@ -57,9 +56,13 @@ const TopicSelectField = ({ value, onChange }: Props) => {
     <Select
       value={value ?? ''}
       onChange={(e) => onChange(Number(e.target.value))}
-      size="small"
-      sx={{ width: 400, ml: 2 }}
+      size={size ?? 'small'}
+	  sx={{ ...sx }}
+	  displayEmpty
     >
+		<MenuItem disabled value="">
+		 <em>Select a topic</em>
+		</MenuItem>
       {renderOptions(topics)}
     </Select>
   );
