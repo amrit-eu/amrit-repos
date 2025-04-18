@@ -58,7 +58,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
         options = await res.json();
       }
     } catch  {
-      console.error(`Failed to fetch options for ${type}.`);
+      console.error(`Failed to fetch options.`);
     }
 
     setFilterOptions(options);
