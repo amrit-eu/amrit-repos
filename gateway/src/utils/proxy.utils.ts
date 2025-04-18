@@ -48,10 +48,10 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxy
   
 	// 🔐 Force content-type ONLY for methods with a body
 	const isBodyMethod = ['post', 'put', 'patch'].includes(method);
-	const data = isBodyMethod ? req.body : undefined;
+	const data = isBodyMethod ? req.body  as Record<string, any>: undefined;
 	
-	const contentTypeHeader =
-	  req.headers['content-type'] ?? 'application/json';
+	// const contentTypeHeader =
+	//   req.headers['content-type'] ?? 'application/json';
   
 	const headers = {
 		...cleanProxyHeaders(req.headers),

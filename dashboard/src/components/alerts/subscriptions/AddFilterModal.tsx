@@ -57,8 +57,8 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
         const res = await fetch('/api/gateway/severities');
         options = await res.json();
       }
-    } catch (err) {
-      console.error(`Failed to fetch options for ${type}`, err);
+    } catch  {
+      console.error(`Failed to fetch options for ${type}.`);
     }
 
     setFilterOptions(options);

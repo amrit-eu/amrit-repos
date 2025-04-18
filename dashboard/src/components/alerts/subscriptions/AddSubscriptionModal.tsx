@@ -47,8 +47,7 @@ const AddSubscriptionModal = ({ open, onClose, onConfirm, contactId }: AddSubscr
 	  const created = await res.json();
 	  onConfirm(created);
 	  onClose();
-	} catch (err) {
-	  console.error(err);
+	} catch {
 	  alert('Failed to add subscription.');
 	}
   };

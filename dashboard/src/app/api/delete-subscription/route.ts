@@ -31,7 +31,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ message: 'Deleted successfully' });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unexpected error during DELETE';
-    console.error('Error in DELETE route:', err);
+    console.error('Error in DELETE route.');
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

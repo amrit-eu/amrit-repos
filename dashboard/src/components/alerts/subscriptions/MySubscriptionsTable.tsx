@@ -19,11 +19,12 @@ type AlertSubscriptionRow = Omit<AlertSubscription, 'id'> & { id: string };
 const MySubscriptionsTable = ({ data, loading, onDelete  }: Props) => {
   const [openAddFilterForId, setOpenAddFilterForId] = useState<string | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleConfirmAddFilter = (filterType: string, value: FilterValue) => {
 	if (!openAddFilterForId) return;
   
 	// 👇 Implement real update logic here
-	console.log(`Add filter "${filterType}" with value:`, value, 'to row:', openAddFilterForId);
+	//console.log(`Add filter "${filterType}" with value:`, value, 'to row:', openAddFilterForId);
   
 	// Close modal
 	setOpenAddFilterForId(null);
@@ -36,8 +37,9 @@ const MySubscriptionsTable = ({ data, loading, onDelete  }: Props) => {
 	}, [data]);
 
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleToggleSwitch = (id: string, field: keyof AlertSubscriptionRow, newValue: boolean) => {
-	console.log('Toggle:', { id, field, newValue });
+	//console.log('Toggle:', { id, field, newValue });
   
 	// TODO: Update local state and/or make API call
   };

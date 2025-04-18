@@ -43,8 +43,8 @@ const MySubscriptionsClient = ({
 	  if (!res.ok) throw new Error('Failed to fetch subscriptions');
 	  const data: AlertSubscription[] = await res.json();
 	  setSubscriptions(data);
-	} catch (err) {
-	  console.error('Error fetching subscriptions:', err);
+	} catch  {
+	  console.error('Error fetching subscriptions.');
 	} finally {
 		setLoading(false);
 	}
@@ -65,8 +65,7 @@ const MySubscriptionsClient = ({
 		  
 		  showNotification('Subscription deleted successfully', 'success');
 		  await fetchSubscriptions();
-		} catch (err) {
-		  console.error(err);
+		} catch  {		
 		  showNotification('Failed to delete subscription', 'error');
 		}
 	  };

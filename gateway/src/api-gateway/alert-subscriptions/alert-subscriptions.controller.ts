@@ -7,18 +7,17 @@ export class AlertSubscriptionsController {
   constructor(private readonly service: AlertSubscriptionsService) {}
 
   @Get()
-  async handleGet(@Req() req: Request) {
+  handleGet(@Req() req: Request) {
     return this.service.proxyRequest(req);
   }
 
   @Post()
-  async handlePost(@Req() req: Request) {
-    console.log('🔥 POST req.body:', req.body); 
+  handlePost(@Req() req: Request) {
     return this.service.proxyRequest(req);
   }
 
   @Delete(':id')
-  async handleDelete(@Req() req: Request) {
+  handleDelete(@Req() req: Request) {
     return this.service.proxyRequest(req);
   }
 

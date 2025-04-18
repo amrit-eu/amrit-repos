@@ -31,8 +31,8 @@ import { cookies, headers } from 'next/headers';
   
 	if (!res.ok) {
 	  const errMsg = await res.text();
-	  console.error('POST failed:', errMsg);
-	  throw new Error('Failed to create subscription');
+	  console.error('POST failed.');
+	  throw new Error('Failed to create subscription : ' + errMsg);
 	}
   
 	return await res.json();
