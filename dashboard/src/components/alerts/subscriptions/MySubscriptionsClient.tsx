@@ -8,6 +8,7 @@ import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
 import Slide from '@mui/material/Slide';
 import type { SlideProps } from '@mui/material/Slide';
+import SnackbarAlert from '@/components/ui/SnackbarAlert';
 
 const SlideTransition = (props: SlideProps) => <Slide {...props} direction="left" />;
 
@@ -90,22 +91,13 @@ const MySubscriptionsClient = ({
         onConfirm={handleConfirm}
 		contactId={contactId}
       />
-		<Snackbar
-		open={notification.open}
-		autoHideDuration={4000}
-		onClose={() => setNotification(prev => ({ ...prev, open: false }))}
-		anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-		slots={{ transition: SlideTransition }}
-		>
-		<Alert
-			onClose={() => setNotification(prev => ({ ...prev, open: false }))}
+
+		<SnackbarAlert 
+			snackBarOpen={notification.open}
+			handleCloseSnackbar={ () => setNotification(prev => ({ ...prev, open: false }))}
+			message={notification.message}
 			severity={notification.severity}
-			variant="filled"
-			sx={{ width: '100%' }}
-		>
-			{notification.message}
-		</Alert>
-		</Snackbar>
+		/>		
     </Box>
   );
 };

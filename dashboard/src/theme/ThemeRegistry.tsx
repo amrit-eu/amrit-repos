@@ -42,13 +42,7 @@ export default function ThemeRegistry({
           defaultProps: {
             variant: 'contained',
           },
-        },
-        MuiSnackbar: {
-          defaultProps: {
-            autoHideDuration: 4000,
-            anchorOrigin: { vertical: 'top', horizontal: 'center' },
-          },
-        },
+        },        
       },
     });
   }, [mode]);
