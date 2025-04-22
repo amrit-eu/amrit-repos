@@ -4,7 +4,7 @@ import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
-import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs';
+import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 
 interface AlertsTableProps {
    selectedFilters: Partial<Record<keyof Alert, string[]>>

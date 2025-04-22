@@ -1,16 +1,13 @@
 'use client';
 
-import { Snackbar, Alert, Box, Button } from '@mui/material';
+import {  Box, Button } from '@mui/material';
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import AddSubscriptionModal from './AddSubscriptionModal';
 import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
-import Slide from '@mui/material/Slide';
-import type { SlideProps } from '@mui/material/Slide';
 import SnackbarAlert from '@/components/ui/SnackbarAlert';
 
-const SlideTransition = (props: SlideProps) => <Slide {...props} direction="left" />;
 
 const MySubscriptionsClient = ({
 	initialData,
