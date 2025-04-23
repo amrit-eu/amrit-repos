@@ -1,6 +1,6 @@
 
 interface TableColumnConfig<T> {
-	key: keyof T | string;
+	key: keyof T;
   label?: string;
   align?: 'left' | 'right' | 'center';
   padding?: 'none' | 'normal'
