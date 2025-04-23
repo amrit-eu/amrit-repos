@@ -1,3 +1,6 @@
+import { Alert } from "@/types/alert";
+import { TableViewConfig } from "../tableConfigs";
+
 export const ALERTS_TABLE_CONFIG: TableViewConfig<Alert> = {
     mainColumns: [
       { key: 'resource', label: "Resource", padding: 'none' },
