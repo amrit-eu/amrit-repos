@@ -1,0 +1,68 @@
+@prefix : <https://w3id.org/oceanmeta#> .
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    VariableSetup Class
+#################################################################
+
+oceanmeta:VariableSetup a owl:Class ;
+    rdfs:label "Variable Setup"@en ;
+    rdfs:comment "A configuration involving a sensor mounted on a platform and configured to measure a specific variable as part of a mission."@en ;
+    rdfs:subClassOf prov:Entity .
+
+#################################################################
+#    Properties
+#################################################################
+
+oceanmeta:usesSensor a owl:ObjectProperty ;
+    rdfs:label "Uses Sensor"@en ;
+    rdfs:comment "The sensor used in this variable setup."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range sosa:Sensor .
+
+oceanmeta:measuresVariable a owl:ObjectProperty ;
+    rdfs:label "Measures Variable"@en ;
+    rdfs:comment "The variable observed by the sensor during the mission."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range sosa:ObservableProperty .
+
+oceanmeta:mountedOnPlatform a owl:ObjectProperty ;
+    rdfs:label "Mounted on Platform"@en ;
+    rdfs:comment "The platform on which the sensor was installed."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range sosa:Platform .
+
+oceanmeta:linkedToMission a owl:ObjectProperty ;
+    rdfs:label "Part of Mission"@en ;
+    rdfs:comment "The mission in which this variable setup was used."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range oceanmeta:Mission .
+
+oceanmeta:startDate a owl:DatatypeProperty ;
+    rdfs:label "Start Date"@en ;
+    rdfs:comment "The start date of this variable setup’s operational period."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:dateTime .
+
+oceanmeta:endDate a owl:DatatypeProperty ;
+    rdfs:label "End Date"@en ;
+    rdfs:comment "The end date of this variable setup’s operational period (if known)."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:dateTime .
+
+#################################################################
+#    Example instance (optional, for testing)
+#################################################################
+
+# :vs001 a oceanmeta:VariableSetup ;
+#     oceanmeta:usesSensor :sensor123 ;
+#     oceanmeta:measuresVariable :temperature ;
+#     oceanmeta:mountedOnPlatform :platform001 ;
+#     oceanmeta:linkedToMission :missionABC ;
+#     oceanmeta:startDate "2023-06-01T00:00:00Z"^^xsd:dateTime ;
+#     oceanmeta:endDate "2023-08-15T00:00:00Z"^^xsd:dateTime .

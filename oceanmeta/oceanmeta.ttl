@@ -1,0 +1,20 @@
+@prefix : <https://w3id.org/oceanmeta#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/oceanmeta> a owl:Ontology ;
+    rdfs:label "OceanMeta Ontology"@en ;
+    dcterms:title "OceanMeta Ontology"@en ;
+    dcterms:description "A semantic web ontology for GOOS platform metadata (the OceanMeta Passport)."@en ;
+    dcterms:creator "OceanOPS / GOOS / IODE" ;
+    dcterms:created "2025-04-24"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    owl:versionIRI <https://w3id.org/oceanmeta/2025-04> ;
+    owl:imports
+        <https://w3id.org/oceanmeta/mission.ttl> ,
+        <https://w3id.org/oceanmeta/variable-setup.ttl> .
+
+# Optionally define additional metadata about the ontology itself here...

@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "oceanmeta": "https://w3id.org/oceanmeta#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "org": "http://www.w3.org/ns/org#",
+
+    "id": "@id",
+    "type": "@type",
+
+    "startDate": {
+      "@id": "prov:startedAtTime",
+      "@type": "xsd:dateTime"
+    },
+    "endDate": {
+      "@id": "prov:endedAtTime",
+      "@type": "xsd:dateTime"
+    },
+    "wigosId": {
+      "@id": "oceanmeta:wigosId",
+      "@type": "xsd:string"
+    },
+    "platform": {
+      "@id": "oceanmeta:hasPlatform",
+      "@type": "@id"
+    },
+    "deployment": {
+      "@id": "oceanmeta:hasDeployment",
+      "@type": "@id"
+    },
+    "program": {
+      "@id": "oceanmeta:hasProgram",
+      "@type": "@id"
+    },
+    "variableSetups": {
+      "@id": "oceanmeta:hasVariableSetup",
+      "@container": "@set",
+      "@type": "@id"
+    }
+  }
+}
