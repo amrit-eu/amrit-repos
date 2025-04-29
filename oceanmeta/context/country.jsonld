@@ -2,6 +2,10 @@
 	"@context": {
 	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
 	  "id": "oceanmeta:countryId",
+	  "dbId": {
+		"@id": "oceanmeta:dbId",
+		"@type": "xsd:integer"
+	  },
 	  "code": {
 		"@id": "oceanmeta:countryCode2",
 		"@type": "xsd:string"

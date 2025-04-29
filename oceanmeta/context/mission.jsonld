@@ -1,6 +1,10 @@
 {
 	"@context": {
 	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "dbId": {
+		"@id": "oceanmeta:dbId",
+		"@type": "xsd:integer"
+	  },
 	  "startTime": "http://www.w3.org/ns/prov#startedAtTime",
 	  "endTime": "http://www.w3.org/ns/prov#endedAtTime",
 	  "wigosId": {

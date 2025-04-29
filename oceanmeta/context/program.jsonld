@@ -2,6 +2,10 @@
 	"@context": {
 	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
 	  "id": "oceanmeta:programId",
+	  "dbId": {
+		"@id": "oceanmeta:dbId",
+		"@type": "xsd:integer"
+	  },
 	  "name": {
 		"@id": "oceanmeta:programName",
 		"@type": "xsd:string"
