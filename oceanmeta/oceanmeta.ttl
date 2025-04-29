@@ -8,13 +8,16 @@
 <https://w3id.org/oceanmeta> a owl:Ontology ;
     rdfs:label "OceanMeta Ontology"@en ;
     dcterms:title "OceanMeta Ontology"@en ;
-    dcterms:description "A semantic web ontology for GOOS platform metadata (the OceanMeta Passport)."@en ;
-    dcterms:creator "OceanOPS / GOOS / IODE" ;
+    dcterms:description "A semantic web ontology for GOOS metadata."@en ;
+    dcterms:creator "OceanOPS / GOOS / WMO" ;
     dcterms:created "2025-04-24"^^xsd:date ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     owl:versionIRI <https://w3id.org/oceanmeta/2025-04> ;
     owl:imports
         <https://w3id.org/oceanmeta/mission.ttl> ,
-        <https://w3id.org/oceanmeta/variable-setup.ttl> .
-
-# Optionally define additional metadata about the ontology itself here...
+        <https://w3id.org/oceanmeta/country.ttl> ,
+        <https://w3id.org/oceanmeta/program.ttl> ,
+        <https://w3id.org/oceanmeta/sensor.ttl> ,
+        <https://w3id.org/oceanmeta/sensor-model.ttl> ,
+        <https://w3id.org/oceanmeta/variable-setup.ttl> ,
+        <https://w3id.org/oceanmeta/variable.ttl> .

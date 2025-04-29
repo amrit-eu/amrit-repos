@@ -19,6 +19,12 @@ oceanmeta:VariableSetup a owl:Class ;
 #    Properties
 #################################################################
 
+oceanmeta:variableSetupId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:string ;
+    rdfs:label "Variable Setup ID"@en ;
+    rdfs:comment "Internal identifier for the variable setup."@en .
+
 oceanmeta:usesSensor a owl:ObjectProperty ;
     rdfs:label "Uses Sensor"@en ;
     rdfs:comment "The sensor used in this variable setup."@en ;
@@ -29,7 +35,7 @@ oceanmeta:measuresVariable a owl:ObjectProperty ;
     rdfs:label "Measures Variable"@en ;
     rdfs:comment "The variable observed by the sensor during the mission."@en ;
     rdfs:domain oceanmeta:VariableSetup ;
-    rdfs:range sosa:ObservableProperty .
+    rdfs:range oceanmeta:Variable .
 
 oceanmeta:mountedOnPlatform a owl:ObjectProperty ;
     rdfs:label "Mounted on Platform"@en ;
@@ -55,14 +61,3 @@ oceanmeta:endDate a owl:DatatypeProperty ;
     rdfs:domain oceanmeta:VariableSetup ;
     rdfs:range xsd:dateTime .
 
-#################################################################
-#    Example instance (optional, for testing)
-#################################################################
-
-# :vs001 a oceanmeta:VariableSetup ;
-#     oceanmeta:usesSensor :sensor123 ;
-#     oceanmeta:measuresVariable :temperature ;
-#     oceanmeta:mountedOnPlatform :platform001 ;
-#     oceanmeta:linkedToMission :missionABC ;
-#     oceanmeta:startDate "2023-06-01T00:00:00Z"^^xsd:dateTime ;
-#     oceanmeta:endDate "2023-08-15T00:00:00Z"^^xsd:dateTime .

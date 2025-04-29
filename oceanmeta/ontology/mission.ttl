@@ -38,7 +38,7 @@ oceanmeta:hasPlatform a owl:ObjectProperty ;
     rdfs:label "Involved Platform"@en ;
     rdfs:comment "The physical platform used in the mission."@en ;
     rdfs:domain oceanmeta:Mission ;
-    rdfs:range sosa:Platform .
+    rdfs:range oceanmeta:Platform .
 
 # Deployment
 oceanmeta:hasDeployment a owl:ObjectProperty ;
@@ -60,22 +60,3 @@ oceanmeta:hasVariableSetup a owl:ObjectProperty ;
     rdfs:comment "A configuration used during the mission involving a sensor, platform, and observed variable."@en ;
     rdfs:domain oceanmeta:Mission ;
     rdfs:range oceanmeta:VariableSetup .
-
-#################################################################
-#    Related Classes (Declared for completeness)
-#################################################################
-
-oceanmeta:Deployment a owl:Class ;
-    rdfs:label "Deployment"@en ;
-    rdfs:comment "An activity during which a platform or sensor is deployed for observation or measurement."@en ;
-    rdfs:subClassOf prov:Activity .
-
-oceanmeta:Program a owl:Class ;
-    rdfs:label "Program"@en ;
-    rdfs:comment "An organizational or funding body affiliated with one or more missions."@en ;
-    rdfs:subClassOf org:Organization .
-
-oceanmeta:VariableSetup a owl:Class ;
-    rdfs:label "Variable Setup"@en ;
-    rdfs:comment "A configuration involving a sensor, variable, and platform used during a mission."@en ;
-    rdfs:subClassOf prov:Entity .
