@@ -1,4 +1,4 @@
-@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .

@@ -1,5 +1,4 @@
-@prefix : <https://w3id.org/oceanmeta#> .
-@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
