@@ -16,10 +16,10 @@ import SubmitPlatforms from './components/pages/passports/Workflow';
 function AppContent({ darkMode, setSelectedOption }: { darkMode: boolean; setSelectedOption: (option: string) => void }) {
   const location = useLocation();
   const isOceanMetaPage = location.pathname === '/intro' || location.pathname === '';
-  const isPassportsPage = location.pathname === '/passports';
-  const isOceanApiPage = location.pathname === '/oceanapi';
+  const isPassportsPage = location.pathname === '/passport';
+  const isOceanApiPage = location.pathname === '/api';
   const isRequestIdsPage = location.pathname === '/preregister';
-  const isOceanJsonPage = location.pathname === '/oceanjson';
+  const isOceanJsonPage = location.pathname === '/json';
 
   return (
     <Box
@@ -40,10 +40,10 @@ function AppContent({ darkMode, setSelectedOption }: { darkMode: boolean; setSel
 			<Route path="/ontology" element={<Ontology darkMode={darkMode} />} />
 			<Route path="/dictionary" element={<Dictionary darkMode={darkMode} />} />
 			<Route path="/code-tables" element={<CodeTables darkMode={darkMode} />} />
-			<Route path="/passports" element={<Passports darkMode={darkMode} />} />
-			<Route path="/oceanjson" element={<OceanJSON darkMode={darkMode} />} />
-			<Route path="/oceancsv" element={<OceanCsv darkMode={darkMode} />} />
-			<Route path="/oceanapi" element={<OceanAPI darkMode={darkMode} />} />
+			<Route path="/passport" element={<Passports darkMode={darkMode} />} />
+			<Route path="/json" element={<OceanJSON darkMode={darkMode} />} />
+			<Route path="/csv" element={<OceanCsv darkMode={darkMode} />} />
+			<Route path="/api" element={<OceanAPI darkMode={darkMode} />} />
 			<Route path="/workflow" element={<SubmitPlatforms darkMode={darkMode} />} />
 			<Route path="/preregister" element={<RequestIds darkMode={darkMode} />} />
 			<Route path="/" element={<Navigate to="/intro" replace />} />

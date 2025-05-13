@@ -66,7 +66,7 @@ const OceanCsv: React.FC<PageProps> = ({ darkMode }) => {
 					}}
 					onClick={() => handleRowClick(index)}
                 >
-                  <TableCell sx={{color: darkMode ? '#ffa36a' : '#ffa36a', fontSize: '15px', paddingBottom: 0, paddingTop: 0 }}><strong>{row.headerCode}</strong></TableCell>
+                  <TableCell sx={{color: darkMode ? '#f38417' : '#f38417', fontSize: '15px', paddingBottom: 0, paddingTop: 0 }}><strong>{row.headerCode}</strong></TableCell>
                   <TableCell sx={{paddingBottom: 0, paddingTop: 0 }}>{row.fieldTypeCode}</TableCell>
                   <TableCell sx={{paddingBottom: 0, paddingTop: 0, fontSize: '15px', fontFamily: 'Montserrat' }}>{row.propertyPath}</TableCell>
 				  <TableCell sx={{paddingBottom: 0, paddingTop: 0 }}>
