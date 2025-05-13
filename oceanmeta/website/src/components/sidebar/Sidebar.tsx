@@ -28,7 +28,7 @@ const sidebarSections = [
   {
     category: "PASSPORTS",
     options: [
-		{ label: "Passports", path: "passports" },
+		{ label: "Passport", path: "passport" },
       	{ label: "Workflow", path: "workflow"},
 		{ label: "Pre-register", path: "preregister" }
     ]

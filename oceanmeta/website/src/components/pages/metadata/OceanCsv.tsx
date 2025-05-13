@@ -35,11 +35,7 @@ const OceanCsv: React.FC<PageProps> = ({ darkMode }) => {
       </Typography>
 
       <Typography variant="h5" sx={{ fontWeight: 500, marginBottom: 2 }}>
-        CSV Headers for Passport Metadata
-      </Typography>
-
-      <Typography paragraph sx={{ maxWidth: 800, textAlign: 'center' }}>
-        You can submit mission metadata through the file uploader module in the dashboard using the following CSV headers:
+        CSV Headers for Passport Metadata properties
       </Typography>
 
       <TableContainer component={Paper} sx={{ maxWidth: 1200, backgroundColor: darkMode ? '#2c2c2c' : '#fff', minWidth: '70vw' }}>
@@ -68,7 +64,7 @@ const OceanCsv: React.FC<PageProps> = ({ darkMode }) => {
                 >
                   <TableCell sx={{color: darkMode ? '#f38417' : '#f38417', fontSize: '15px', paddingBottom: 0, paddingTop: 0 }}><strong>{row.headerCode}</strong></TableCell>
                   <TableCell sx={{paddingBottom: 0, paddingTop: 0 }}>{row.fieldTypeCode}</TableCell>
-                  <TableCell sx={{paddingBottom: 0, paddingTop: 0, fontSize: '15px', fontFamily: 'Montserrat' }}>{row.propertyPath}</TableCell>
+                  <TableCell sx={{paddingBottom: 0, paddingTop: 0, fontSize: '15px', fontFamily: 'Lexend' }}>{row.propertyPath}</TableCell>
 				  <TableCell sx={{paddingBottom: 0, paddingTop: 0 }}>
 					<Box
 					sx={{

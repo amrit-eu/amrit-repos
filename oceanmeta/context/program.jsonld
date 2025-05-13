@@ -1,20 +1,20 @@
 {
 	"@context": {
-	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
-	  "id": "oceanmeta:programId",
+	  "goos": "https://www.ocean-ops.org/goos#",
+	  "id": "goos:programId",
 	  "dbId": {
-		"@id": "oceanmeta:dbId",
+		"@id": "goos:dbId",
 		"@type": "xsd:integer"
 	  },
 	  "name": {
-		"@id": "oceanmeta:programName",
+		"@id": "goos:programName",
 		"@type": "xsd:string"
 	  },
 	  "country": {
-		"@id": "oceanmeta:hasCountry",
+		"@id": "goos:hasCountry",
 		"@type": "@id"
 	  },
-	  "@vocab": "oceanmeta:",
+	  "@vocab": "goos:",
 	  "xsd": "http://www.w3.org/2001/XMLSchema#"
 	}
   }

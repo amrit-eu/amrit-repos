@@ -1,15 +1,15 @@
 {
 	"@context": {
-	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "goos": "https://www.ocean-ops.org/goos#",
 	  "serialNumber": {
-		"@id": "oceanmeta:serialNumber",
+		"@id": "goos:serialNumber",
 		"@type": "xsd:string"
 	  },
 	  "model": {
-		"@id": "oceanmeta:hasModel",
+		"@id": "goos:hasModel",
 		"@type": "@id"
 	  },
-	  "@vocab": "oceanmeta:",
+	  "@vocab": "goos:",
 	  "xsd": "http://www.w3.org/2001/XMLSchema#"
 	}
   }

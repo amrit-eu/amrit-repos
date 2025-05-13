@@ -1,33 +1,33 @@
 {
 	"@context": {
-	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "goos": "https://www.ocean-ops.org/goos#",
 	  "dbId": {
-		"@id": "oceanmeta:dbId",
+		"@id": "goos:dbId",
 		"@type": "xsd:integer"
 	  },
 	  "startTime": "http://www.w3.org/ns/prov#startedAtTime",
 	  "endTime": "http://www.w3.org/ns/prov#endedAtTime",
 	  "wigosId": {
-		"@id": "oceanmeta:wigosId",
+		"@id": "goos:wigosId",
 		"@type": "xsd:string"
 	  },
 	  "platform": {
-		"@id": "oceanmeta:hasPlatform",
+		"@id": "goos:hasPlatform",
 		"@type": "@id"
 	  },
 	  "deployment": {
-		"@id": "oceanmeta:hasDeployment",
+		"@id": "goos:hasDeployment",
 		"@type": "@id"
 	  },
 	  "program": {
-		"@id": "oceanmeta:hasProgram",
+		"@id": "goos:hasProgram",
 		"@type": "@id"
 	  },
 	  "variableSetup": {
-		"@id": "oceanmeta:hasVariableSetup",
+		"@id": "goos:hasVariableSetup",
 		"@type": "@id"
 	  },
-	  "@vocab": "oceanmeta:",
+	  "@vocab": "goos:",
 	  "xsd": "http://www.w3.org/2001/XMLSchema#"
 	}
   }

@@ -1,21 +1,21 @@
 {
 	"@context": {
-	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "goos": "https://www.ocean-ops.org/goos#",
 	  "xsd": "http://www.w3.org/2001/XMLSchema#",
-  	  "id": "oceanmeta:sensorModelId",
+  	  "id": "goos:sensorModelId",
 	  "dbId": {
-		"@id": "oceanmeta:dbId",
+		"@id": "goos:dbId",
 		"@type": "xsd:integer"
 	  },
 	  "name": {
-		"@id": "oceanmeta:sensorModelName",
+		"@id": "goos:sensorModelName",
 		"@type": "xsd:string"
 	  },
 	  "supportsVariable": {
-		"@id": "oceanmeta:supportsVariable",
+		"@id": "goos:supportsVariable",
 		"@type": "@id"
 	  },
-	  "@vocab": "oceanmeta:"
+	  "@vocab": "goos:"
 	}
   }
   

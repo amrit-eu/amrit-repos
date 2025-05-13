@@ -6,7 +6,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
   return (
     <Box sx={{ padding: 4, maxWidth: '1200px', textAlign: 'center', justifyContent: 'center' }}>
       <Typography variant="h2" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4", marginBottom: 2 }}>
-        The GOOS Passport
+        The GOOS Mission Passport
       </Typography>
 
       {/* Two Panels Above the Image */}
@@ -27,7 +27,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
 			<Grid item xs={12} md={5} sx={{ display: 'flex', justifyContent: 'center' ,paddingRight: "0px" }}>
 				<Box
 				component="img"
-				src="/meta/img/passport.png" // Update the path to your image
+				src="/meta/img/passportFlat.png" // Update the path to your image
 				alt="Passport"
 				sx={{
 					width: '180px', // Fixed width for the image
@@ -53,7 +53,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
       <Box sx={{ display: 'flex', justifyContent: 'center', marginY: 4 }}>
         <Box
           component="img"
-          src="/meta/img/passport_concept_map.png"
+          src="/meta/img/passport_concept_map2.png"
           alt="Passport Concept Map"
           sx={{ width: '100%', height: 'auto', maxWidth: '1200px' }}
         />

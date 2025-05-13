@@ -8,7 +8,7 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
       {/* Page Title */}
       <Typography variant="h3" noWrap sx={{ fontWeight: 500, color: darkMode ? "#FF6F61" : "#FF6F61", marginBottom: 4 }}>
         
-        <Typography variant="h3" component="span" sx={{ fontWeight: '600' }}>
+        <Typography variant="h3" component="span" sx={{ fontWeight: '600', color: darkMode ? "#ffa36a" : "#ffa36a", marginBottom: 2 }}>
           JSON
         </Typography>
       </Typography>
