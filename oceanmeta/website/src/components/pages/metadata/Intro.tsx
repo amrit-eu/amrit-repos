@@ -2,6 +2,7 @@ import { Box, Typography, Paper, Grid, Container } from '@mui/material';
 import { PageProps } from '../PageProps';
 import { motion, useAnimation } from 'framer-motion';
 import { IntegrationInstructions, AutoAwesome, Sync, FactCheck } from '@mui/icons-material';
+import Highlight from './Highlight';
 
 interface OceanMetaProps extends PageProps {
   setSelectedOption: (option: string) => void; // Needed to switch pages
@@ -38,10 +39,8 @@ const OceanMeta: React.FC<OceanMetaProps> = ({ darkMode }) => {
                 fontSize: { xs: '2rem', md: '2.5rem', lg: '4rem' }, // Responsive font size
               }}
             >
-              Ocean
-              <Typography variant="h3" component="span" sx={{ fontWeight: '600',  fontSize: { xs: '2rem', md: '2.5rem', lg: '4rem' } }}>
-                Meta
-              </Typography>
+              The GOOS Metadata Standard 
+              
             </Typography>
             <Typography
               variant="h6"
@@ -51,7 +50,18 @@ const OceanMeta: React.FC<OceanMetaProps> = ({ darkMode }) => {
                 fontSize: { xs: '1rem', md: '1.5rem' }, // Responsive font size
               }}
             >
-              A Metadata Standard for the Global Ocean Observation System
+              A Unified Metadata Standard for the{' '} 
+			   <Typography
+              sx={{
+                fontWeight: 400,
+				backgroundColor: '#f38417', 
+                fontSize: { xs: '1rem', md: '1.5rem' }, // Responsive font size
+				px: 1, 
+				py:0.5,
+				color: '#ffffff',
+				borderRadius: '2px',
+				display: 'inline',
+              }}>Global Ocean Observation System</Typography>
             </Typography>
           </Box>
         </motion.div>
@@ -69,20 +79,23 @@ const OceanMeta: React.FC<OceanMetaProps> = ({ darkMode }) => {
                 elevation={0}
                 sx={{
                   padding: { xs: 2, md: 4 },
-                  color: darkMode ? '#e0e0e0' : '#333',
+                //   color: darkMode ? '#e0e0e0' : '#333',
                   backgroundColor: darkMode ? 'transparent' : '#fff',
                 }}
               >
-                <Typography variant="body1" sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, mb: 2 }}>
-                  <strong>OceanMeta</strong> is a comprehensive, integrated <strong>metadata standard</strong> designed to enhance the
-                  <strong> interoperability</strong> and <strong>consistency</strong> of operational oceanographic observing efforts metadata.
+                <Typography sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, 
+        fontWeight: 600,mb: 2 }}>
+                  The<Highlight> GOOS Metadata Standard</Highlight> is a comprehensive, unified standard designed to enhance the
+                  <Highlight> interoperability</Highlight>, <Highlight> discoverability</Highlight> and <Highlight>consistency</Highlight> of operational oceanographic observing efforts metadata.
                 </Typography>
-                <Typography variant="body1" sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, mb: 2 }}>
-                  This standard ensures that ocean observing platforms are documented with <strong>rich, machine-readable metadata</strong>,
-                  enabling <strong>traceability, integration, and discovery</strong>.
+                <Typography sx={{ fontSize: { xs: '1rem', md: '1.1rem' },
+        fontWeight: 600, mb: 2 }}>
+                  This standard ensures that ocean observing platforms are documented with <Highlight>rich, machine-readable metadata</Highlight>,
+                  enabling traceability, integration, and discovery.
                 </Typography>
-                <Typography variant="body1" sx={{ fontSize: { xs: '1rem', md: '1.1rem' } }}>
-                  It aligns with <strong>global standards</strong> and incorporates <strong>best practices</strong> from the operational oceanography community.
+                <Typography sx={{
+        fontWeight: 600, fontSize: { xs: '1rem', md: '1.1rem' } }}>
+                  It aligns with <Highlight>global standards</Highlight> and incorporates <Highlight>best practices</Highlight> from the operational oceanography community.
                 </Typography>
               </Paper>
             </motion.div>
@@ -94,7 +107,7 @@ const OceanMeta: React.FC<OceanMetaProps> = ({ darkMode }) => {
               src="https://www.ocean-ops.org/static/images/oceanops/logos/oceanops-earth-md.png"
               alt="OceanMeta Illustration"
               style={{
-                width: '90%',
+                width: '70%',
                 height: 'auto',
                 padding: '30px',
               }}
@@ -127,9 +140,9 @@ const OceanMeta: React.FC<OceanMetaProps> = ({ darkMode }) => {
             <Grid container spacing={3} justifyContent="center">
               {[
                 { icon: <IntegrationInstructions sx={{ color: "#FF6F61" }} fontSize="large" />, text: "Standardised Metadata Ontology and Definitions" },
-                { icon: <Sync sx={{ color: "#b5fb63" }} fontSize="large" />, text: "Interoperability between GOOS applications" },
-                { icon: <FactCheck sx={{ color: "#ffde79" }} fontSize="large" />, text: "Standardised format: OceanJSON Schema " },
-                { icon: <AutoAwesome sx={{ color: "#2196F3" }} fontSize="large" />, text: "Automated Validation & Quality Control" },
+                { icon: <Sync sx={{ color: "#4bda3d" }} fontSize="large" />, text: "Interoperability between GOOS applications" },
+                { icon: <FactCheck sx={{ color: "#ffde79" }} fontSize="large" />, text: "Discoverability: ODIS Compatible JSON Schemas" },
+                { icon: <AutoAwesome sx={{ color: "#2196F3" }} fontSize="large" />, text: "Validation & Quality Control of JSON and CSV formats" },
               ].map(({ icon, text }, index) => (
                 <Grid item xs={12} sm={6} md={3} key={index}>
                   <Paper

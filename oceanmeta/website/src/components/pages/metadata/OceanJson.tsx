@@ -7,18 +7,18 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
     <Box sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Page Title */}
       <Typography variant="h3" noWrap sx={{ fontWeight: 500, color: darkMode ? "#FF6F61" : "#FF6F61", marginBottom: 4 }}>
-        Ocean
+        
         <Typography variant="h3" component="span" sx={{ fontWeight: '600' }}>
           JSON
         </Typography>
       </Typography>
 
       <Typography variant="h4" noWrap sx={{ fontWeight: 500, color: darkMode ? "#e0e0e0" : "#333", marginBottom: 4 }}>
-        The JSON Schema for OceanMeta
+        JSON Schemas and JSON-LD for Passport Metadata
       </Typography>
 
       <Typography variant="h5" sx={{ maxWidth: 800, textAlign: 'center', color: darkMode ? '#e0e0e0' : '#333', marginBottom: 2 }}>
-        The OceanMeta metadata standard has a standard JSON format to allow communication between GOOS nodes.
+        The GOOS Metadata Standard has it's standard JSON format to allow communication between GOOS nodes.
       </Typography>
 
 		<Typography variant="h5" sx={{ maxWidth: 800, textAlign: 'center', color: darkMode ? '#e0e0e0' : '#333', marginBottom: 4 }}>
@@ -31,7 +31,7 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
           Public access
         </Typography>
         <Typography variant="h5">
-          The OceanJSON Schemas and Context are published here.
+          Schemas and Context are published here.
 		</Typography>
 		<ul>
           <li>
@@ -87,10 +87,7 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
         </Typography>
 		<br />
         <Typography paragraph>
-          The OceanJSON project is actively developed and maintained on GitHub.
-        </Typography>
-        <Typography paragraph>
-          We encourage contributions from the community! Here’s how you can help:
+          We encourage contributions from the community in our GitHub! Here’s how you can help:
         </Typography>
         <ul>
           <li>

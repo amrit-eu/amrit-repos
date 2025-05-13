@@ -8,7 +8,7 @@ export const lightTheme = createTheme({
     },
   },
 	typography: {
-		fontFamily: 'Montserrat, sans-serif',
+		fontFamily: 'Lexend, sans-serif',
 		h1: {
 			fontWeight: 600, 
 		},
@@ -36,7 +36,7 @@ export const darkTheme = createTheme({
   },
   
   typography: {
-		fontFamily: 'Montserrat, sans-serif',
+		fontFamily: 'Lexend, sans-serif',
 		h1: {
 			fontWeight: 600, 
 		},

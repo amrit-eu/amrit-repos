@@ -31,11 +31,11 @@ const OceanCsv: React.FC<PageProps> = ({ darkMode }) => {
   return (
     <Box sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h3" sx={{ fontWeight: 500, color: darkMode ? "#ffa36a" : "#ffa36a", marginBottom: 2 }}>
-        Ocean<strong>CSV</strong>
+        <strong>CSV</strong>
       </Typography>
 
       <Typography variant="h5" sx={{ fontWeight: 500, marginBottom: 2 }}>
-        Submitting Mission Metadata via CSV
+        CSV Headers for Passport Metadata
       </Typography>
 
       <Typography paragraph sx={{ maxWidth: 800, textAlign: 'center' }}>
@@ -46,9 +46,9 @@ const OceanCsv: React.FC<PageProps> = ({ darkMode }) => {
         <Table sx={{ border: '2px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: darkMode ? '#438cb0' : '#aae3ff', color: darkMode ? '#ffffff' : '#000000de' }}>
-              <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}>OceanCSV Header Code</TableCell>
+              <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}>CSV Header Code</TableCell>
               <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}>Field Type</TableCell>
-              <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}>OceanJSON Property Path</TableCell>
+              <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}>JSON Passport Property Path</TableCell>
               <TableCell sx={{ color: darkMode ? '#ffffff' : '#282828de', fontWeight: 'bold', fontSize: '16px' }}></TableCell>
             </TableRow>
           </TableHead>

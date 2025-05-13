@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { DarkModeSharp, LightModeSharp } from '@mui/icons-material';
 
 interface DarkModeToggleProps {
   darkMode: boolean;
@@ -11,7 +11,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ darkMode, toggleDarkMod
   return (
     <List>
       <ListItem sx={{ cursor: 'pointer' }} onClick={toggleDarkMode}>
-        <ListItemIcon>{darkMode ? <Brightness7 /> : <Brightness4 />}</ListItemIcon>
+        <ListItemIcon>{darkMode ? <LightModeSharp /> : <DarkModeSharp />}</ListItemIcon>
         {open && <ListItemText primary={darkMode ? 'Light Mode' : 'Dark Mode'} />}
       </ListItem>
     </List>

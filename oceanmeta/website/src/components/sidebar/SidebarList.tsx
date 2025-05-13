@@ -28,7 +28,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ category, options, selectedOp
             paddingLeft: '17px',
             paddingTop: '14px',
             height: '42px',
-            color: darkMode ? "#e68e56" : "#e68e56", // Gold in dark mode
+            color: darkMode ? "#f38417" : "#f38417", 
             textTransform: 'uppercase',
           }}
         >

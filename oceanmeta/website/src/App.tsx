@@ -54,7 +54,7 @@ function AppContent({ darkMode, setSelectedOption }: { darkMode: boolean; setSel
 }
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>('OceanMeta');
 
   const theme = createTheme({

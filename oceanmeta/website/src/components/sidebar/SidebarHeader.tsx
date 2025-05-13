@@ -28,9 +28,9 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ open, darkMode }) => {
           />
         )}
         <Typography variant="h6" noWrap sx={{ display: open ? 'block' : 'none' }}>
-          Ocean
-          <Typography variant="h6" component="span" sx={{ fontWeight: '600' }}>
-            Meta
+         
+          <Typography variant="h6" component="span" sx={{ fontWeight: '500' }}>
+             GOOS Metadata
           </Typography>
         </Typography>
       </Box>

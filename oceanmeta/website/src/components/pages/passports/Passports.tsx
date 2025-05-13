@@ -6,7 +6,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
   return (
     <Box sx={{ padding: 4, maxWidth: '1200px', textAlign: 'center', justifyContent: 'center' }}>
       <Typography variant="h2" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4", marginBottom: 2 }}>
-        Passports
+        The GOOS Passport
       </Typography>
 
       {/* Two Panels Above the Image */}
@@ -17,7 +17,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
 			{/* Text Section */}
 			<Grid item xs={12} md={7}>
 				<Typography variant="h5" sx={{ fontSize: "1.2rem" }}>
-				For each mission, OceanOPS issues a <strong>Platform Mission Passport</strong> with a unique identifier (WIGOS-ID).
+				For each mission, OceanOPS issues a <strong>GOOS Passport</strong> with a unique identifier (WIGOS-ID).
 				<br /><br /><br />
 				A platform mission represents a defined period for an observing platform during which it collects and transmits data in alignment with GOOS objectives.
 				</Typography>
@@ -41,7 +41,7 @@ const Passports: React.FC<PageProps> = ({ darkMode }) => {
         <Grid item xs={12} md={5}>
           <Box sx={{ padding: 1, borderRadius: 2 }}>
             <Typography variant="h5" sx={{fontSize: "1.15rem"}}>
-              Just like a passport tracks a person’s identity, movements, and official records, the Platform Mission Passport serves as a comprehensive record of an observing platform’s journey throughout its mission lifecycle.
+              Just like a passport tracks a person’s identity, movements, and official records, the GOOS Passport serves as a comprehensive record of an observing platform’s journey throughout its mission lifecycle.
               <br /><br />
               It provides a globally recognized identity (WIGOS-ID) and ensures that every deployment is properly documented from preparation to termination.
             </Typography>

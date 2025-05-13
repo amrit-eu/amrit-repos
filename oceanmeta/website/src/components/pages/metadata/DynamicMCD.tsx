@@ -94,7 +94,7 @@ export default function DynamicMCD({ darkMode }: { darkMode: boolean }) {
 					  <li key={index} style={{ fontSize: '11px', fontFamily: 'Consolas, Courier New, monospace', textAlign: 'left' }}>
 						{`${field.code}: ${field.title} `}
 						{field.type && (
-						  <span style={{ color: '#7d12ff', fontFamily: 'Arial', fontStyle: 'italic', fontWeight: 'bold', fontSize: '9px' }}>
+						  <span style={{ color: '#007BFF', fontFamily: 'Arial', fontStyle: 'italic', fontWeight: 'bold', fontSize: '9px' }}>
 							{field.type}
 						  </span>
 						)}
@@ -108,23 +108,23 @@ export default function DynamicMCD({ darkMode }: { darkMode: boolean }) {
 			},
 			position: { x: 0, y: 0 },
 			style: {
-			  border: isSelected ? '3px solid #9c27b0' : isDirect ? '2px solid #9c27b0' : isSecondDegree ? '2px solid #ff4081' : '1px solid #007BFF',
+			  border: isSelected ? '3px solid rgb(255, 142, 29)' : isDirect ? '2px solid #faaa5c' : isSecondDegree ? '2px solid #007BFF' : '1px solid #007BFF',
 			  borderRadius: '8px',
 			  padding: '10px',
 			  backgroundColor: darkMode
 				? isSelected
-				  ? '#6a1b9a'
+				  ? '#faaa5c'
 				  : isDirect
-				  ? '#7b1fa2'
+				  ? '#faaa5c'
 				  : isSecondDegree
-				  ? '#1e1e2f'
+				  ? '#252526'
 				  : '#252526'
 				: isSelected
-				? '#e1bee7'
+				? '#faaa5c'
 				: isDirect
-				? '#d1c4e9'
+				? '#faaa5c'
 				: isSecondDegree
-				? '#f3e5f5'
+				? '#ffffff'
 				: '#ffffff',
 			  color: darkMode ? '#fff' : '#000',
 			  minWidth: nodeWidth,
@@ -135,7 +135,7 @@ export default function DynamicMCD({ darkMode }: { darkMode: boolean }) {
   
 		const edges = schema.relationships.map((rel: { source: string; target: string }) => {
 		  const isDirectConnection = selectedNodeId && (rel.source === selectedNodeId || rel.target === selectedNodeId);
-		  const isIndirectConnection =
+		  const isIndirectConnection = 
 			directConnections.includes(rel.source) || directConnections.includes(rel.target);
   
 		  return {
@@ -144,8 +144,8 @@ export default function DynamicMCD({ darkMode }: { darkMode: boolean }) {
 			target: rel.target,
 			animated: true,
 			style: {
-			  stroke: isDirectConnection ? '#9c27b0' : isIndirectConnection ? '#ff4081' : darkMode ? '#aaa' : '#444',
-			  strokeWidth: isDirectConnection ? 3 : isIndirectConnection ? 2 : 1.5,
+			  stroke: isDirectConnection ? '#f38417' : darkMode ? '#aaa' : '#444',
+			  strokeWidth: isDirectConnection ? 3 : isIndirectConnection ? 1.5 : 1.5,
 			  transition: '0.3s',
 			},
 		  };

@@ -20,9 +20,9 @@ const sidebarSections = [
       { label: "Ontology", path: "ontology" },
       { label: "Dictionary", path: "dictionary" },
       { label: "Code Tables", path: "code-tables" },
-      { label: "OceanJSON", path: "oceanjson" },
-      { label: "OceanCSV", path: "oceancsv" },
-      { label: "OceanAPI", path: "oceanapi" },
+      { label: "JSON", path: "oceanjson" },
+      { label: "CSV", path: "oceancsv" },
+      { label: "API", path: "oceanapi" },
     ]
   },
   {
