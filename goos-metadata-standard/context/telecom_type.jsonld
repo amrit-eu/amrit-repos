@@ -1,0 +1,17 @@
+{
+	"@context": {
+	  "goos": "https://www.ocean-ops.org/goosmeta#",
+	  "id": "goos:telecomTypeId",
+	  "dbId": {
+		"@id": "goos:dbId",
+		"@type": "xsd:integer"
+	  },
+	  "typeName": {
+		"@id": "goos:telecomTypeName",
+		"@type": "xsd:string"
+	  },
+	  "@vocab": "goos:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  
