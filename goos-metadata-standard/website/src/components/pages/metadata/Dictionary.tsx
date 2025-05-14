@@ -188,10 +188,10 @@ const handlePreview = async (
 						sx={{
 						cursor: 'pointer',
 						backgroundColor: expanded === cls.id
-							? '#ffdca9' // light orange for selected
+							? (darkMode ? '#9e7e50' : '#ffdca9') // light orange for selected
 							: darkMode ? '#263238' : '#f5f5f5',
 						'&:hover': {
-							backgroundColor: '#fff8e1', // faint orange on hover
+							backgroundColor: (darkMode ? '#c2a274' : '#fff8e1'), // faint orange on hover
 						},
 						transition: 'background-color 0.2s ease-in-out',
 						}}
