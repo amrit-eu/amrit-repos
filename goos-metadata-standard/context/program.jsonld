@@ -1,0 +1,21 @@
+{
+	"@context": {
+	  "goos": "https://www.ocean-ops.org/goosmeta#",
+	  "id": "goos:programId",
+	  "dbId": {
+		"@id": "goos:dbId",
+		"@type": "xsd:integer"
+	  },
+	  "name": {
+		"@id": "goos:programName",
+		"@type": "xsd:string"
+	  },
+	  "country": {
+		"@id": "goos:hasCountry",
+		"@type": "@id"
+	  },
+	  "@vocab": "goos:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  
