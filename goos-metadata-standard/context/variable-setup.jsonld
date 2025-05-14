@@ -1,0 +1,31 @@
+{
+	"@context": {
+	  "goos": "https://www.ocean-ops.org/goosmeta#",
+	  "id": "goos:variableSetupId",
+	  "dbId": {
+		"@id": "goos:dbId",
+		"@type": "xsd:integer"
+	  },
+	  "variable": {
+		"@id": "goos:observesVariable",
+		"@type": "@id"
+	  },
+	  "sensor": {
+		"@id": "goos:usesSensor",
+		"@type": "@id"
+	  },
+	  "platform": {
+		"@id": "goos:mountedOnPlatform",
+		"@type": "@id"
+	  },
+	  "mission": {
+		"@id": "goos:linkedToMission",
+		"@type": "@id"
+	  },
+	  "startTime": "http://www.w3.org/ns/prov#startedAtTime",
+	  "endTime": "http://www.w3.org/ns/prov#endedAtTime",
+	  "@vocab": "goos:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  
