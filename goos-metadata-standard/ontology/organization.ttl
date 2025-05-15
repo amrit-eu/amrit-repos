@@ -5,7 +5,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
-#    Organization Class (was: Agency)
+#    Organization Class (corresponds to OceanOPS database Agency)
 #################################################################
 
 goos:Organization a owl:Class ;
