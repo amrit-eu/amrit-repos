@@ -1,0 +1,71 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+#    GOOS Mission Class
+#################################################################
+
+goos:GOOSMission a owl:Class ;
+    rdfs:label "GOOS Mission"@en ;
+    rdfs:comment "An ocean observation mission representing the planned, active, or completed action of using a platform to collect and transmit data in alignment with GOOS objectives."@en ;
+    rdfs:subClassOf schema:Action .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Start and end time (inherited from schema.org)
+schema:startTime a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+schema:endTime a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+# Mission ID
+goos:missionId a owl:DatatypeProperty ;
+    rdfs:label "Mission ID"@en ;
+    rdfs:comment "The unique internal Mission ID (e.g. OceanOPS ptfId)."@en ;
+    rdfs:domain goos:Mission ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:identifier .
+
+# WIGOS ID
+goos:wigosId a owl:DatatypeProperty ;
+    rdfs:label "WIGOS Identifier"@en ;
+    rdfs:comment "The unique WIGOS ID associated with this mission."@en ;
+    rdfs:domain goos:Mission ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:identifier .
+
+# Platform (instrument used) (inherited from schema.org)
+schema:instrument a owl:ObjectProperty ;
+    rdfs:range goos:Platform .
+
+# Program (responsible party) (inherited from schema.org)
+schema:provider a owl:ObjectProperty ;
+    rdfs:range goos:Program .
+
+# Resulting dataset or observation archive (inherited from schema.org)
+schema:result a owl:ObjectProperty ;
+    rdfs:range goos:Dataset . 
+
+# Status of the mission (inherited from schema.org)
+schema:actionStatus a owl:DatatypeProperty ;
+    rdfs:range schema:ActionStatusType .
+
+# Activation/Deployment (custom property)
+goos:hasActivation a owl:ObjectProperty ;
+    rdfs:label "Activation/Deployment Activity"@en ;
+    rdfs:comment "The activation/deployment operation performed as part of this mission."@en ;
+    rdfs:domain goos:Mission ;
+    rdfs:range goos:Activation .
+
+# Variable Setups
+goos:hasVariableSetup a owl:ObjectProperty ;
+    rdfs:label "Variable Setup"@en ;
+    rdfs:comment "A configuration used during the mission involving a sensor, platform, and observed variable."@en ;
+    rdfs:domain goos:Mission ;
+    rdfs:range goos:VariableSetup .

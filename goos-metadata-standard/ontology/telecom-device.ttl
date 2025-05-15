@@ -1,0 +1,36 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    TelecomDevice Class
+#################################################################
+
+goos:TelecomDevice a owl:Class ;
+    rdfs:label "Telecommunication Device"@en ;
+    rdfs:comment "A device or communication endpoint used to transmit observational data from a platform, typically identified by a phone number or IMEI."@en ;
+    rdfs:subClassOf schema:ContactPoint .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:telecomNumber a owl:DatatypeProperty ;
+    rdfs:label "Telecom Number"@en ;
+    rdfs:comment "The phone number or contact identifier used for communication."@en ;
+    rdfs:domain goos:TelecomDevice ;
+    rdfs:range xsd:string .
+
+goos:telecomIMEI a owl:DatatypeProperty ;
+    rdfs:label "IMEI"@en ;
+    rdfs:comment "The International Mobile Equipment Identity (IMEI) number assigned to the telecom device."@en ;
+    rdfs:domain goos:TelecomDevice ;
+    rdfs:range xsd:string .
+
+goos:usesTechnology a owl:ObjectProperty ;
+    rdfs:label "Uses Technology"@en ;
+    rdfs:comment "The telecommunication technology used by this device (e.g., IRIDIUM, GSM, VHF)."@en ;
+    rdfs:domain goos:TelecomDevice ;
+    rdfs:range goos:TelecomTechnology .

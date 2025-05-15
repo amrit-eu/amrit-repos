@@ -1,0 +1,32 @@
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+#    Location and GeoCoordinates
+#################################################################
+
+schema:location a owl:ObjectProperty ;
+    rdfs:label "Location"@en ;
+    rdfs:comment "The place where something occurs or is located."@en ;
+    rdfs:range schema:Place .
+
+schema:geo a owl:ObjectProperty ;
+    rdfs:label "Geographic Coordinates"@en ;
+    rdfs:comment "The geographic coordinates of a place."@en ;
+    rdfs:domain schema:Place ;
+    rdfs:range schema:GeoCoordinates .
+
+schema:latitude a owl:DatatypeProperty ;
+    rdfs:label "Latitude"@en ;
+    rdfs:range xsd:double .
+
+schema:longitude a owl:DatatypeProperty ;
+    rdfs:label "Longitude"@en ;
+    rdfs:range xsd:double .
+
+schema:elevation a owl:DatatypeProperty ;
+    rdfs:label "Elevation"@en ;
+    rdfs:comment "Height or depth in meters relative to sea level."@en ;
+    rdfs:range xsd:double .
