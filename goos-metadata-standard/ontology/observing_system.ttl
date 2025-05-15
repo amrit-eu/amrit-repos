@@ -1,0 +1,38 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    ObservingSystem Class
+#################################################################
+
+goos:ObservingSystem a owl:Class ;
+    rdfs:label "Observing System"@en ;
+    rdfs:comment "One of the eight high-level GOOS/WIGOS observing systems. These systems group together ocean observing missions by instrumentation or operational framework."@en ;
+    rdfs:subClassOf schema:Intangible .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:observingSystemId a owl:DatatypeProperty ;
+    rdfs:domain goos:ObservingSystem ;
+    rdfs:range xsd:string ;
+    rdfs:label "Observing System ID"@en ;
+    rdfs:comment "Internal identifier for the observing system."@en .
+
+goos:observingSystemName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain goos:ObservingSystem ;
+    rdfs:range xsd:string ;
+    rdfs:label "Observing System Name"@en ;
+    rdfs:comment "Official name of the observing system."@en .
+
+goos:observingSystemDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain goos:ObservingSystem ;
+    rdfs:range xsd:string ;
+    rdfs:label "Observing System Description"@en ;
+    rdfs:comment "Description of the scope and role of this observing system."@en .

@@ -11,7 +11,7 @@
 goos:TelecomDevice a owl:Class ;
     rdfs:label "Telecommunication Device"@en ;
     rdfs:comment "A device or communication endpoint used to transmit observational data from a platform, typically identified by a phone number or IMEI."@en ;
-    rdfs:subClassOf schema:ContactPoint .
+    rdfs:subClassOf schema:Product .
 
 #################################################################
 #    Properties

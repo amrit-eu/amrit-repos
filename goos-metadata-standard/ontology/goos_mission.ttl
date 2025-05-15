@@ -52,9 +52,12 @@ schema:provider a owl:ObjectProperty ;
 schema:result a owl:ObjectProperty ;
     rdfs:range goos:Dataset . 
 
-# Status of the mission (inherited from schema.org)
-schema:actionStatus a owl:DatatypeProperty ;
-    rdfs:range schema:ActionStatusType .
+# Current status of mission (custom property because actionStatus is limited to four terms only - may be applicable in the future)
+goos:hasStatus a owl:ObjectProperty ;
+    rdfs:domain goos:OceanObservationMission ;
+    rdfs:range goos:StatusType ;
+    rdfs:label "Status"@en ;
+    rdfs:comment "The current status of the mission from a controlled vocabulary of GOOS status terms."@en .
 
 # Activation/Deployment (custom property)
 goos:hasActivation a owl:ObjectProperty ;

@@ -1,0 +1,59 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    OrganizationContribution Class
+#################################################################
+
+goos:OrganizationContribution a owl:Class ;
+    rdfs:subClassOf schema:Role ;
+    rdfs:label "Organization Contribution"@en ;
+    rdfs:comment "A specific contribution by an organization to either a GOOS Mission or a WIGOS Program, playing a defined role."@en .
+
+goos:hasOrganization a owl:ObjectProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range goos:Organization ;
+    rdfs:label "Has Organization"@en ;
+    rdfs:comment "The organization making the contribution."@en ;
+    owl:equivalentProperty schema:member .
+
+goos:hasTargetProgram a owl:ObjectProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range goos:WigosProgram ;
+    rdfs:label "Target Program"@en ;
+    rdfs:comment "The WIGOS Program to which the organization contributes (used only if not targeting a Mission)."@en ;
+    owl:equivalentProperty schema:memberOf .
+
+goos:hasTargetMission a owl:ObjectProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range goos:OceanObservationMission ;
+    rdfs:label "Target Mission"@en ;
+    rdfs:comment "The GOOS Mission to which the organization contributes (used only if not targeting a Program)."@en .
+
+goos:hasOrganizationRole a owl:ObjectProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range goos:OrganizationRole ;
+    rdfs:label "Has Role"@en ;
+    rdfs:comment "The role played by the organization in the contribution."@en ;
+    owl:equivalentProperty schema:roleName .
+
+goos:contributionDescription a owl:DatatypeProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range xsd:string ;
+    rdfs:label "Contribution Description"@en ;
+    rdfs:comment "Optional free-text description of the contribution."@en .
+
+goos:contributionStartDate a owl:DatatypeProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Start Date"@en ;
+    rdfs:comment "The date the contribution began."@en .
+
+goos:contributionEndDate a owl:DatatypeProperty ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "End Date"@en ;
+    rdfs:comment "The date the contribution ended, if applicable."@en .

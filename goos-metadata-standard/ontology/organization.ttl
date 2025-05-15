@@ -1,0 +1,38 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Organization Class (was: Agency)
+#################################################################
+
+goos:Organization a owl:Class ;
+    rdfs:subClassOf schema:Organization ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment "Any entity (public, private, institutional, or commercial) involved in ocean observation activities, including agencies, manufacturers, operators, and funders."@en .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:organizationId a owl:DatatypeProperty ;
+    rdfs:domain goos:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization ID"@en ;
+    rdfs:comment "Internal identifier for the organization."@en .
+
+goos:organizationName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain goos:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization Name"@en ;
+    rdfs:comment "Full official name of the organization."@en .
+
+goos:organizationDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain goos:Organization ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization Description"@en ;
+    rdfs:comment "Description of the organization's mandate or role."@en .

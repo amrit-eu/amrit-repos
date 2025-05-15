@@ -10,7 +10,7 @@
 
 goos:Activation a owl:Class ;
     rdfs:label "Platform Activation"@en ;
-    rdfs:comment "The act of releasing or enabling a platform to begin data collection and transmission at sea."@en ;
+    rdfs:comment "The act of releasing or enabling a platform to begin mission of data collection and transmission at sea."@en ;
     rdfs:subClassOf schema:ActivateAction .
 
 #################################################################

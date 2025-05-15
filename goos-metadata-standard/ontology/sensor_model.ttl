@@ -38,3 +38,10 @@ goos:supportsVariable a owl:ObjectProperty ;
     rdfs:range goos:Variable ;
     rdfs:label "Supports Variable"@en ;
     rdfs:comment "A variable that this sensor model is capable of observing."@en .
+
+goos:hasManufacturer a owl:ObjectProperty ;
+    rdfs:label "Has Manufacturer"@en ;
+    rdfs:comment "The organization that manufactures this sensor model."@en ;
+    rdfs:domain goos:SensorModel ;
+    rdfs:range goos:Organization ;
+    rdfs:subPropertyOf schema:manufacturer .

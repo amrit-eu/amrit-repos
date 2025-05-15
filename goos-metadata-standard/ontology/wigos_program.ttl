@@ -41,3 +41,9 @@ goos:hasCountry a owl:ObjectProperty ;
     rdfs:subPropertyOf schema:addressCountry ;
     rdfs:domain goos:WIGOSProgram ;
     rdfs:range goos:Country .
+
+goos:hasOrganizationContribution a owl:ObjectProperty ;
+    rdfs:label "Organization Contribution"@en ;
+    rdfs:comment "A contribution made by an organization to this WIGOS Program, including its role and duration."@en ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range goos:OrganizationContribution .

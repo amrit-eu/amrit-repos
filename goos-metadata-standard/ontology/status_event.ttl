@@ -1,0 +1,43 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+#################################################################
+#    StatusEvent Class
+#################################################################
+
+goos:StatusEvent a owl:Class ;
+    rdfs:label "Status Event"@en ;
+    rdfs:comment "An event representing a change in the status of a mission, platform, or related entity."@en ;
+    rdfs:subClassOf schema:Event .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:statusType a owl:ObjectProperty ;
+    rdfs:label "Status Type"@en ;
+    rdfs:comment "The assigned status represented as a concept from a controlled vocabulary."@en ;
+    rdfs:domain goos:StatusEvent ;
+    rdfs:range goos:StatusType .
+
+goos:statusDate a owl:DatatypeProperty ;
+    rdfs:label "Status Date"@en ;
+    rdfs:comment "The date and time when the status was assigned."@en ;
+    rdfs:domain goos:StatusEvent ;
+    rdfs:range xsd:dateTime .
+
+goos:statusComment a owl:DatatypeProperty ;
+    rdfs:label "Status Comment"@en ;
+    rdfs:comment "Optional explanation or justification for the status assignment."@en ;
+    rdfs:domain goos:StatusEvent ;
+    rdfs:range xsd:string .
+
+goos:assignedBy a owl:ObjectProperty ;
+    rdfs:label "Assigned By"@en ;
+    rdfs:comment "The agent (person or software) that assigned the status."@en ;
+    rdfs:domain goos:StatusEvent ;
+    rdfs:range schema:Person, schema:Organization, schema:SoftwareApplication .

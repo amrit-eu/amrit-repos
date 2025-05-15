@@ -1,0 +1,38 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    OrganizationRole Class
+#################################################################
+
+goos:OrganizationRole a owl:Class ;
+    rdfs:subClassOf schema:DefinedTerm ;
+    rdfs:label "Organization Role"@en ;
+    rdfs:comment "A controlled vocabulary of roles that organizations may play within a WIGOS or GOOS program context (e.g., funder, operator, DAC)."@en .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:organizationRoleId a owl:DatatypeProperty ;
+    rdfs:domain goos:OrganizationRole ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization Role ID"@en ;
+    rdfs:comment "Internal identifier for the organization role."@en .
+
+goos:organizationRoleName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain goos:OrganizationRole ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization Role Name"@en ;
+    rdfs:comment "Label of the role the organization plays (e.g., Operating Agency, Funding Agency)."@en .
+
+goos:organizationRoleDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain goos:OrganizationRole ;
+    rdfs:range xsd:string ;
+    rdfs:label "Organization Role Description"@en ;
+    rdfs:comment "Description of the function or responsibility represented by this role."@en .

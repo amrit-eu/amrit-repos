@@ -1,0 +1,45 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+#################################################################
+#    PlatformType Class
+#################################################################
+
+goos:PlatformType a owl:Class ;
+    rdfs:label "Platform Type"@en ;
+    rdfs:comment "A functional category of observation platforms such as Float, Wave Glider, or Tide Guage."@en ;
+    rdfs:subClassOf schema:DefinedTerm .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:platformTypeId a owl:DatatypeProperty ;
+    rdfs:domain goos:PlatformType ;
+    rdfs:range xsd:string ;
+    rdfs:label "Platform Type ID"@en ;
+    rdfs:comment "Internal identifier for the platform type."@en .
+
+goos:platformTypeName a owl:DatatypeProperty ;
+    rdfs:domain goos:PlatformType ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:label "Platform Type Name"@en ;
+    rdfs:comment "Name of the platform type (e.g., Argo Float, Glider)."@en .
+
+goos:platformTypeDescription a owl:DatatypeProperty ;
+    rdfs:domain goos:PlatformType ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:label "Platform Type Description"@en ;
+    rdfs:comment "Description of the general characteristics or use of this platform type."@en .
+
+goos:hasFamily a owl:ObjectProperty ;
+    rdfs:domain goos:PlatformType ;
+    rdfs:range goos:PlatformFamily ;
+    rdfs:label "Has Platform Family"@en ;
+    rdfs:comment "The broader platform family to which this type belongs (e.g., Subsurface Profiler, Moored Buoy or Fixed Station)."@en .

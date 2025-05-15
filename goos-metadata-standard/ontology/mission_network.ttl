@@ -1,0 +1,50 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    MissionNetwork Class
+#################################################################
+
+goos:MissionNetwork a owl:Class ;
+    rdfs:label "Mission Network"@en ;
+    rdfs:comment "A virtual or thematic grouping of missions and platforms, often representing regional arrays, shared scientific goals, or collaborative initiatives. May be nested under a broader Observing System."@en ;
+    rdfs:subClassOf schema:Intangible .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:missionNetworkId a owl:DatatypeProperty ;
+    rdfs:domain goos:MissionNetwork ;
+    rdfs:range xsd:string ;
+    rdfs:label "Mission Network ID"@en ;
+    rdfs:comment "Internal identifier for the mission network."@en .
+
+goos:missionNetworkName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain goos:MissionNetwork ;
+    rdfs:range xsd:string ;
+    rdfs:label "Mission Network Name"@en ;
+    rdfs:comment "Official name of the mission network."@en .
+
+goos:missionNetworkDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain goos:MissionNetwork ;
+    rdfs:range xsd:string ;
+    rdfs:label "Mission Network Description"@en ;
+    rdfs:comment "Free-text description of the mission network’s scope or purpose."@en .
+
+goos:hasParentSystem a owl:ObjectProperty ;
+    rdfs:domain goos:MissionNetwork ;
+    rdfs:range goos:ObservingSystem ;
+    rdfs:label "Parent Observing System"@en ;
+    rdfs:comment "The observing system to which this mission network belongs."@en .
+
+goos:hasMission a owl:ObjectProperty ;
+    rdfs:domain goos:MissionNetwork ;
+    rdfs:range goos:OceanObservationMission ;
+    rdfs:label "Has Mission"@en ;
+    rdfs:comment "A mission associated with this mission network."@en .
