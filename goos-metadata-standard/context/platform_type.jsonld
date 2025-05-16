@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "PlatformType": "goos:PlatformType",
+
+    "platformTypeId": {
+      "@id": "goos:platformTypeId",
+      "@type": "xsd:string"
+    },
+    "platformTypeName": {
+      "@id": "goos:platformTypeName",
+      "@type": "xsd:string"
+    },
+    "platformTypeDescription": {
+      "@id": "goos:platformTypeDescription",
+      "@type": "xsd:string"
+    },
+    "hasFamily": {
+      "@id": "goos:hasFamily",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "location": {
+      "@id": "schema:location",
+      "@type": "@id"
+    },
+    "geo": {
+      "@id": "schema:geo",
+      "@type": "@id"
+    },
+    "latitude": {
+      "@id": "schema:latitude",
+      "@type": "xsd:double"
+    },
+    "longitude": {
+      "@id": "schema:longitude",
+      "@type": "xsd:double"
+    },
+    "elevation": {
+      "@id": "schema:elevation",
+      "@type": "xsd:double"
+    }
+  }
+}

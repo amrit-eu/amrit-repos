@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/organization.schema.json",
+  "title": "Organization",
+  "description": "Any entity (public, private, institutional, or commercial) involved in ocean observation activities, including agencies, manufacturers, operators, and funders.",
+  "type": "object",
+  "properties": {
+    "organizationId": {
+      "type": "string",
+      "description": "Internal identifier for the organization."
+    },
+    "organizationName": {
+      "type": "string",
+      "description": "Full official name of the organization."
+    },
+    "organizationDescription": {
+      "type": "string",
+      "description": "Description of the organization's mandate or role."
+    }
+  },
+  "required": ["organizationId", "organizationName"]
+}

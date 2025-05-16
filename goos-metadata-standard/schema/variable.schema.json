@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/variable.schema.json",
+  "title": "Variable",
+  "description": "A measurable oceanographic property, such as temperature, salinity, or current, corresponding to SOSA ObservableProperty.",
+  "type": "object",
+  "properties": {
+    "variableId": {
+      "type": "string",
+      "description": "Internal identifier for the variable."
+    },
+    "variableName": {
+      "type": "string",
+      "description": "Human-readable name of the variable (e.g., Temperature, Salinity)."
+    },
+    "variableDescription": {
+      "type": "string",
+      "description": "A textual description of what this variable represents or how it's measured."
+    }
+  }
+}

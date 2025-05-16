@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "OrganizationRole": "goos:OrganizationRole",
+    "organizationRoleId": {
+      "@id": "goos:organizationRoleId",
+      "@type": "xsd:string"
+    },
+    "organizationRoleName": {
+      "@id": "goos:organizationRoleName",
+      "@type": "xsd:string"
+    },
+    "organizationRoleDescription": {
+      "@id": "goos:organizationRoleDescription",
+      "@type": "xsd:string"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "Organization": "goos:Organization",
+    "organizationId": {
+      "@id": "goos:organizationId",
+      "@type": "xsd:string"
+    },
+    "organizationName": {
+      "@id": "goos:organizationName",
+      "@type": "xsd:string"
+    },
+    "organizationDescription": {
+      "@id": "goos:organizationDescription",
+      "@type": "xsd:string"
+    }
+  }
+}

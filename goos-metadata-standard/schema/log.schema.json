@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/log.schema.json",
+  "title": "Mission Log",
+  "description": "A log containing records of updates, status changes, and quality control events associated with a mission.",
+  "type": "object",
+  "properties": {
+    "hasStatusHistory": {
+      "type": "array",
+      "items": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schemas/status_event.schema.json"
+      },
+      "description": "List of recorded status changes over time"
+    },
+    "hasUpdateEntry": {
+      "type": "array",
+      "items": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schemas/update_entry.schema.json"
+      },
+      "description": "List of updates applied to the mission"
+    },
+    "hasQualityCheck": {
+      "type": "array",
+      "items": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schemas/quality_control_entry.schema.json"
+      },
+      "description": "Quality control entries associated with the mission"
+    }
+  }
+}

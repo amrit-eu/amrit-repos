@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/telecom_device.schema.json",
+  "title": "Telecommunication Device",
+  "description": "A device or communication endpoint used to transmit observational data from a platform, typically identified by a phone number or IMEI.",
+  "type": "object",
+  "properties": {
+    "telecomNumber": {
+      "type": "string",
+      "description": "The phone number or contact identifier used for communication."
+    },
+    "telecomIMEI": {
+      "type": "string",
+      "description": "The International Mobile Equipment Identity (IMEI) number assigned to the telecom device."
+    },
+    "usesTechnology": {
+      "type": "string",
+      "description": "The URI of the telecommunication technology used (e.g., IRIDIUM, GSM, VHF)."
+    }
+  }
+}

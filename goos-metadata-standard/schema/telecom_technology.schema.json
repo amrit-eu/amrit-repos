@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/telecom_technology.schema.json",
+  "title": "Telecommunication Technology",
+  "description": "A classification of the telecommunications method or system used for transmitting observational data (e.g., IRIDIUM, ARGOS, GSM).",
+  "type": "object",
+  "properties": {
+    "telecomTechnologyId": {
+      "type": "string",
+      "description": "Internal identifier for the telecom technology."
+    },
+    "telecomTechnologyName": {
+      "type": "string",
+      "description": "Name of the telecom technology (e.g., Iridium, GSM)."
+    }
+  }
+}

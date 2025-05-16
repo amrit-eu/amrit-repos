@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/observation_setup.schema.json",
+  "title": "Observation Setup",
+  "description": "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable.",
+  "type": "object",
+  "properties": {
+    "observationSetupId": {
+      "type": "string",
+      "description": "Internal identifier for the observation setup."
+    },
+    "observesVariable": {
+      "type": "string",
+      "format": "uri",
+      "description": "The variable this sensor setup is intended to measure."
+    },
+    "usesSensor": {
+      "type": "string",
+      "format": "uri",
+      "description": "The sensor that was configured for this observation setup."
+    },
+    "hostPlatform": {
+      "type": "string",
+      "format": "uri",
+      "description": "The platform on which the sensor was installed."
+    },
+    "partOfMission": {
+      "type": "string",
+      "format": "uri",
+      "description": "The mission in which this observation setup was used."
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the observation setup became active."
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the observation setup was deactivated or removed."
+    }
+  },
+  "required": ["observationSetupId", "observesVariable", "usesSensor", "hostPlatform", "partOfMission", "startTime"]
+}

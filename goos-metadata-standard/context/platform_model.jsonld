@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "PlatformModel": "goos:PlatformModel",
+
+    "platformModelId": {
+      "@id": "goos:platformModelId",
+      "@type": "xsd:string"
+    },
+    "platformModelName": {
+      "@id": "goos:platformModelName",
+      "@type": "xsd:string"
+    },
+    "platformModelDescription": {
+      "@id": "goos:platformModelDescription",
+      "@type": "xsd:string"
+    },
+    "belongsToType": {
+      "@id": "goos:belongsToType",
+      "@type": "@id"
+    },
+    "hasManufacturer": {
+      "@id": "goos:hasManufacturer",
+      "@type": "@id"
+    }
+  }
+}

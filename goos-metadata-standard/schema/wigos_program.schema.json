@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/wigos_program.schema.json",
+  "title": "WIGOS Program",
+  "description": "A country-affiliated or institutional entity contributing to WIGOS through the execution of ocean observation missions and platform operations.",
+  "type": "object",
+  "properties": {
+    "wigosProgramId": {
+      "type": "string",
+      "description": "Internal identifier for the WIGOS Program."
+    },
+    "programName": {
+      "type": "string",
+      "description": "Name of the WIGOS Program."
+    },
+    "programDescription": {
+      "type": "string",
+      "description": "Description of the WIGOS Program's objectives and scope."
+    },
+    "hasCountry": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the associated country."
+    },
+    "hasOrganizationContribution": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of an OrganizationContribution made to this WIGOS Program."
+    }
+  }
+}

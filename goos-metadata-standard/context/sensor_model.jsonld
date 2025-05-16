@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "SensorModel": "goos:SensorModel",
+
+    "sensorModelId": {
+      "@id": "goos:sensorModelId",
+      "@type": "xsd:string"
+    },
+    "sensorModelName": {
+      "@id": "goos:sensorModelName",
+      "@type": "xsd:string"
+    },
+    "supportsVariable": {
+      "@id": "goos:supportsVariable",
+      "@type": "@id"
+    },
+    "hasManufacturer": {
+      "@id": "goos:hasManufacturer",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/platform_type.schema.json",
+  "title": "Platform Type",
+  "description": "A functional category of observation platforms such as Float, Wave Glider, or Tide Guage.",
+  "type": "object",
+  "properties": {
+    "platformTypeId": {
+      "type": "string",
+      "description": "Internal identifier for the platform type."
+    },
+    "platformTypeName": {
+      "type": "string",
+      "description": "Name of the platform type (e.g., Argo Float, Glider)."
+    },
+    "platformTypeDescription": {
+      "type": "string",
+      "description": "Description of the general characteristics or use of this platform type."
+    },
+    "hasFamily": {
+      "type": "string",
+      "format": "uri",
+      "description": "The broader platform family to which this type belongs (e.g., Subsurface Profiler, Moored Buoy, or Fixed Station)."
+    }
+  },
+  "required": ["platformTypeId", "platformTypeName"]
+}

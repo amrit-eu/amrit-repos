@@ -10,7 +10,7 @@
 
 goos:ObservingSystem a owl:Class ;
     rdfs:label "Observing System"@en ;
-    rdfs:comment "One of the eight high-level GOOS/WIGOS observing systems. These systems group together ocean observing missions by instrumentation or operational framework."@en ;
+    rdfs:comment "One of the high-level GOOS/WIGOS observing systems (eg. Argo, DBCP or OceanSITES). These systems group together ocean observing missions by instrumentation or operational framework."@en ;
     rdfs:subClassOf schema:Intangible .
 
 #################################################################

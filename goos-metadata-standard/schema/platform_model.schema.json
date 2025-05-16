@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/platform_model.schema.json",
+  "title": "Platform Model",
+  "description": "A standardized manufactured design of an observation platform, such as an Argo float model, glider type, or buoy type.",
+  "type": "object",
+  "properties": {
+    "platformModelId": {
+      "type": "string",
+      "description": "Internal identifier for the platform model."
+    },
+    "platformModelName": {
+      "type": "string",
+      "description": "The common name of the platform model (e.g., APEX, SVP-B)."
+    },
+    "platformModelDescription": {
+      "type": "string",
+      "description": "Textual description of the model's design or purpose."
+    },
+    "belongsToType": {
+      "type": "string",
+      "format": "uri",
+      "description": "The broader platform type this model belongs to (e.g., Float, Wave Glider, or Tide Guage)."
+    },
+    "hasManufacturer": {
+      "type": "string",
+      "format": "uri",
+      "description": "The organization that manufactures this platform model."
+    }
+  },
+  "required": ["platformModelId", "platformModelName"]
+}

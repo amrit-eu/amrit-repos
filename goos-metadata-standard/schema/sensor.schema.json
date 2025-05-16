@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/sensor.schema.json",
+  "title": "Sensor",
+  "description": "The physical instrument installed on a platform. A physical device capable of sensing or measuring an observable property.",
+  "type": "object",
+  "properties": {
+    "serialNumber": {
+      "type": "string",
+      "description": "Serial number of the sensor as provided by the manufacturer."
+    },
+    "hasModel": {
+      "type": "string",
+      "format": "uri",
+      "description": "The model or type of sensor, linking to a SensorModel resource."
+    }
+  },
+  "required": ["serialNumber", "hasModel"]
+}

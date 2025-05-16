@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "Platform": "goos:Platform",
+
+    "platformRef": {
+      "@id": "goos:platformRef",
+      "@type": "xsd:string"
+    },
+    "serialNumber": {
+      "@id": "goos:serialNumber",
+      "@type": "xsd:string"
+    },
+    "hasTelecom": {
+      "@id": "goos:hasTelecom",
+      "@type": "@id"
+    },
+    "hasModel": {
+      "@id": "goos:hasModel",
+      "@type": "@id"
+    }
+  }
+}

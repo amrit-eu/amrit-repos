@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "WIGOSProgram": "goos:WIGOSProgram",
+
+    "wigosProgramId": {
+      "@id": "goos:wigosProgramId",
+      "@type": "xsd:string"
+    },
+    "programName": {
+      "@id": "goos:programName",
+      "@type": "xsd:string"
+    },
+    "programDescription": {
+      "@id": "goos:programDescription",
+      "@type": "xsd:string"
+    },
+    "hasCountry": {
+      "@id": "goos:hasCountry",
+      "@type": "@id"
+    },
+    "hasOrganizationContribution": {
+      "@id": "goos:hasOrganizationContribution",
+      "@type": "@id"
+    }
+  }
+}

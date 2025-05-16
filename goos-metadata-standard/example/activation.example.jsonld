@@ -1,0 +1,23 @@
+{
+  "@context": "https://www.ocean-ops.org/goosmeta/context/activation.jsonld",
+  "@id": "https://www.ocean-ops.org/resource/activation/ACT123456",
+  "@type": "goos:Activation",
+
+  "startTime": "2024-10-05T10:30:00Z",
+
+  "location": {
+    "@type": "schema:Place",
+    "geo": {
+      "@type": "schema:GeoCoordinates",
+      "latitude": 45.0,
+      "longitude": -30.5,
+      "elevation": -6.0
+    }
+  },
+
+  "deployedByShip": {
+    "@id": "https://www.ocean-ops.org/resource/ship/RV1234",
+    "@type": "goos:Ship",
+    "name": "RV Ocean Explorer"
+  }
+}

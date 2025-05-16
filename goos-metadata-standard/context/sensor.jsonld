@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "schema": "https://schema.org/",
+
+    "Sensor": "goos:Sensor",
+
+    "serialNumber": {
+      "@id": "goos:serialNumber",
+      "@type": "xsd:string"
+    },
+    "hasModel": {
+      "@id": "goos:hasModel",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/platform.schema.json",
+  "title": "Platform",
+  "description": "An instrumented system or device deployed in the environment for observation, monitoring, or data collection.",
+  "type": "object",
+  "properties": {
+    "platformRef": {
+      "type": "string",
+      "description": "Reference identifier for the platform."
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Manufacturer-assigned serial number for the platform."
+    },
+    "hasTelecom": {
+      "type": "string",
+      "format": "uri",
+      "description": "Telecommunication information associated with the platform."
+    },
+    "hasModel": {
+      "type": "string",
+      "format": "uri",
+      "description": "The specific model or manufactured design of the platform."
+    }
+  },
+  "required": ["platformRef"]
+}

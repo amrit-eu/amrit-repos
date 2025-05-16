@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "ObservationSetup": "goos:ObservationSetup",
+    "observationSetupId": "goos:observationSetupId",
+    "observesVariable": {
+      "@id": "goos:observesVariable",
+      "@type": "@id"
+    },
+    "usesSensor": {
+      "@id": "goos:usesSensor",
+      "@type": "@id"
+    },
+    "hostPlatform": {
+      "@id": "goos:hostPlatform",
+      "@type": "@id"
+    },
+    "partOfMission": {
+      "@id": "goos:partOfMission",
+      "@type": "@id"
+    },
+    "startTime": {
+      "@id": "goos:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "goos:endTime",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "Log": "goos:Log",
+    "hasStatusHistory": {
+      "@id": "goos:hasStatusHistory",
+      "@type": "@id"
+    },
+    "hasUpdateEntry": {
+      "@id": "goos:hasUpdateEntry",
+      "@type": "@id"
+    },
+    "hasQualityCheck": {
+      "@id": "goos:hasQualityCheck",
+      "@type": "@id"
+    }
+  }
+}
