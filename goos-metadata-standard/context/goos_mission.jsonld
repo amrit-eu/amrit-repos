@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+
+    "@vocab": "https://www.ocean-ops.org/goosmeta#",
+
+    "GOOSMission": "goos:GOOSMission",
+
+    "startTime": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "schema:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "missionId": {
+      "@id": "goos:missionId",
+      "@type": "xsd:string"
+    },
+    "wigosId": {
+      "@id": "goos:wigosId",
+      "@type": "xsd:string"
+    },
+    "instrument": {
+      "@id": "schema:instrument",
+      "@type": "@id"
+    },
+    "provider": {
+      "@id": "schema:provider",
+      "@type": "@id"
+    },
+    "result": {
+      "@id": "schema:result",
+      "@type": "@id"
+    },
+    "hasStatus": {
+      "@id": "goos:hasStatus",
+      "@type": "@id"
+    },
+    "hasActivation": {
+      "@id": "goos:hasActivation",
+      "@type": "@id"
+    },
+    "hasObservationSetup": {
+      "@id": "goos:hasObservationSetup",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,21 +1,26 @@
 {
-	"@context": {
-	  "goos": "https://www.ocean-ops.org/goosmeta#",
-	  "id": "goos:countryId",
-	  "dbId": {
-		"@id": "goos:dbId",
-		"@type": "xsd:integer"
-	  },
-	  "code": {
-		"@id": "goos:countryCode2",
-		"@type": "xsd:string"
-	  },
-	  "name": {
-		"@id": "goos:countryName",
-		"@type": "xsd:string"
-	  },
-	  "@vocab": "goos:",
-	  "xsd": "http://www.w3.org/2001/XMLSchema#"
-	}
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "Country": "goos:Country",
+
+    "countryId": {
+      "@id": "goos:countryId",
+      "@type": "xsd:string"
+    },
+    "countryCode2": {
+      "@id": "goos:countryCode2",
+      "@type": "xsd:string"
+    },
+    "countryName": {
+      "@id": "goos:countryName",
+      "@type": "xsd:string"
+    },
+
+    "name": "schema:name",
+    "notation": "skos:notation",
+
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   }
-  
+}
