@@ -62,10 +62,10 @@
 		},
 		{
 			"id": "VSP",
-			"label": "OBSERVATION SETUP",
+			"label": "SENSOR SETUP",
 			"definition": "A configuration of sensor + variable during a mission.",
 			"fields": [
-				{ "code": "VSP-01", "title": "observationSetupId", "type": "" },
+				{ "code": "VSP-01", "title": "sensorSetupId", "type": "" },
 				{ "code": "VSP-02", "title": "observesVariable", "type": "VAR" },
 				{ "code": "VSP-03", "title": "usesSensor", "type": "SEN" },
 				{ "code": "VSP-04", "title": "hostPlatform", "type": "PLA" },
@@ -292,7 +292,7 @@
 		{"source": "MIS", "target": "ACT", "label": "activation"},
 		{"source": "MIS", "target": "RET", "label": "deactivation"},
 		{"source": "MIS", "target": "OBS", "label": "observations"},
-		{"source": "MIS", "target": "OSP", "label": "observation_setups"},
+		{"source": "MIS", "target": "OSP", "label": "sensor_setups"},
 		{"source": "MIS", "target": "LOG", "label": "log"},
 		{"source": "MIS", "target": "STA", "label": "status"},
 		{"source": "MIS", "target": "NET", "label": "mission_network"},

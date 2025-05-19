@@ -1,5 +1,5 @@
-goos:ObservationSetup a owl:Class ;
-    rdfs:label "Observation Setup"@en ;
+goos:SensorSetup a owl:Class ;
+    rdfs:label "Sensor Setup"@en ;
     rdfs:comment "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable."@en ;
     rdfs:subClassOf ssn:Deployment .
 
@@ -7,46 +7,46 @@ goos:ObservationSetup a owl:Class ;
 #    Properties
 #################################################################
 
-goos:observationSetupId a owl:DatatypeProperty ;
-    rdfs:domain goos:ObservationSetup ;
+goos:sensorSetupId a owl:DatatypeProperty ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range xsd:string ;
-    rdfs:label "Observation Setup ID"@en ;
-    rdfs:comment "Internal identifier for the observation setup."@en .
+    rdfs:label "Sensor Setup ID"@en ;
+    rdfs:comment "Internal identifier for the sensor setup."@en .
 
 goos:observesVariable a owl:ObjectProperty ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range goos:Variable ;
     rdfs:label "Observes Variable"@en ;
     rdfs:comment "The variable this sensor setup is intended to measure."@en .
 
 goos:usesSensor a owl:ObjectProperty ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range goos:Sensor ;
     rdfs:label "Uses Sensor"@en ;
-    rdfs:comment "The sensor that was configured for this observation setup."@en .
+    rdfs:comment "The sensor that was configured for this sensor setup."@en .
 
 goos:hostPlatform a owl:ObjectProperty ;
     rdfs:label "Mounted on Platform"@en ;
     rdfs:comment "The platform on which the sensor was installed."@en ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range sosa:Platform .
 
 goos:partOfMission a owl:ObjectProperty ;
     rdfs:label "Part of Mission"@en ;
-    rdfs:comment "The mission in which this observation setup was used."@en ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:comment "The mission in which this sensor setup was used."@en ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range goos:Mission .
 
 goos:startTime a owl:DatatypeProperty ;
     rdfs:subPropertyOf prov:startedAtTime ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range xsd:dateTime ;
     rdfs:label "Start Time"@en ;
-    rdfs:comment "Time when the observation setup became active."@en .
+    rdfs:comment "Time when the sensor setup became active."@en .
 
 goos:endTime a owl:DatatypeProperty ;
     rdfs:subPropertyOf prov:endedAtTime ;
-    rdfs:domain goos:ObservationSetup ;
+    rdfs:domain goos:SensorSetup ;
     rdfs:range xsd:dateTime ;
     rdfs:label "End Time"@en ;
-    rdfs:comment "Time when the observation setup was deactivated or removed."@en .
+    rdfs:comment "Time when the sensor setup was deactivated or removed."@en .

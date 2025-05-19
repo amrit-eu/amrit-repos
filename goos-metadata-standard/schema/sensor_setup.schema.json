@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.ocean-ops.org/goosmeta/schemas/observation_setup.schema.json",
-  "title": "Observation Setup",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/sensor_setup.schema.json",
+  "title": "Sensor Setup",
   "description": "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable.",
   "type": "object",
   "properties": {
-    "observationSetupId": {
+    "sensorSetupId": {
       "type": "string",
-      "description": "Internal identifier for the observation setup."
+      "description": "Internal identifier for the sensor setup."
     },
     "observesVariable": {
       "type": "string",
@@ -17,7 +17,7 @@
     "usesSensor": {
       "type": "string",
       "format": "uri",
-      "description": "The sensor that was configured for this observation setup."
+      "description": "The sensor that was configured for this sensor setup."
     },
     "hostPlatform": {
       "type": "string",
@@ -27,18 +27,18 @@
     "partOfMission": {
       "type": "string",
       "format": "uri",
-      "description": "The mission in which this observation setup was used."
+      "description": "The mission in which this sensor setup was used."
     },
     "startTime": {
       "type": "string",
       "format": "date-time",
-      "description": "Time when the observation setup became active."
+      "description": "Time when the sensor setup became active."
     },
     "endTime": {
       "type": "string",
       "format": "date-time",
-      "description": "Time when the observation setup was deactivated or removed."
+      "description": "Time when the sensor setup was deactivated or removed."
     }
   },
-  "required": ["observationSetupId", "observesVariable", "usesSensor", "hostPlatform", "partOfMission", "startTime"]
+  "required": ["sensorSetupId", "observesVariable", "usesSensor", "hostPlatform", "partOfMission", "startTime"]
 }

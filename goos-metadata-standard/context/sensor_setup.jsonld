@@ -6,8 +6,8 @@
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
-    "ObservationSetup": "goos:ObservationSetup",
-    "observationSetupId": "goos:observationSetupId",
+    "SensorSetup": "goos:SensorSetup",
+    "sensorId": "goos:sensorSetupId",
     "observesVariable": {
       "@id": "goos:observesVariable",
       "@type": "@id"

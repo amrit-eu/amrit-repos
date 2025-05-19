@@ -73,9 +73,9 @@ goos:hasActivation a owl:ObjectProperty ;
     rdfs:domain goos:GOOSMission ;
     rdfs:range goos:Activation .
 
-# Observation Setups
-goos:hasObservationSetup a owl:ObjectProperty ;
-    rdfs:label "Observation Setup"@en ;
+# Sensor Setups
+goos:hasSensorSetup a owl:ObjectProperty ;
+    rdfs:label "Sensor Setup"@en ;
     rdfs:comment "A configuration used during the mission involving a sensor, platform, and observed variable."@en ;
     rdfs:domain goos:GOOSMission ;
-    rdfs:range goos:ObservationSetup .
+    rdfs:range goos:SensorSetup .

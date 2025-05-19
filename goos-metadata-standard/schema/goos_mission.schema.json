@@ -52,7 +52,7 @@
     "hasObservationSetup": {
       "type": "array",
       "items": {
-        "$ref": "https://www.ocean-ops.org/goosmeta/schema/observation_setup.schema.json"
+        "$ref": "https://www.ocean-ops.org/goosmeta/schema/sensor_setup.schema.json"
       }
     }
   },

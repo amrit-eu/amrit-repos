@@ -139,7 +139,7 @@ const handlePreview = async (
       fileName = `${classId}.jsonld`;
       break;
     case 'schema':
-      folder = 'schemas';
+      folder = 'schema';
       fileName = `${classId}.schema.json`;
       break;
   }
@@ -214,7 +214,7 @@ const handlePreview = async (
 						<IconButton
 							size="small"
 							component="a"
-							href={`https://www.ocean-ops.org/goosmeta/${ext === 'schema' ? 'schemas' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
+							href={`https://www.ocean-ops.org/goosmeta/${ext === 'schema' ? 'schema' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
@@ -225,7 +225,7 @@ const handlePreview = async (
 						<IconButton
 							size="small"
 							component="a"
-							href={`https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/goos-metadata-standard/${ext === 'schema' ? 'schemas' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
+							href={`https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/goos-metadata-standard/${ext === 'schema' ? 'schema' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
