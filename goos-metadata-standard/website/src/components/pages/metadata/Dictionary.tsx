@@ -54,9 +54,15 @@ const getLinks = (classId: string) => {
     },
     {
       ext: 'schema',
-      folder: 'schemas',
+      folder: 'schema',
       label: 'JSON Schema',
       color: '#ffa726',
+    },
+    {
+      ext: 'example',
+      folder: 'example',
+      label: 'JSON Examples',
+      color: '#bfa583',
     },
   ];
 
@@ -83,7 +89,7 @@ const getLinks = (classId: string) => {
             <IconButton
               size="small"
               component="a"
-              href={`https://www.ocean-ops.org/goosmeta/${folder}/${classId}.${ext === 'schema' ? 'schema.json' : ext}`}
+              href={`https://www.ocean-ops.org/goosmeta/${folder}/${classId}.${ext === 'schema' ? 'schema.json' : folder === 'example' ? 'example.jsonld' : ext}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -133,7 +139,7 @@ const handlePreview = async (
       fileName = `${classId}.jsonld`;
       break;
     case 'schema':
-      folder = 'schemas';
+      folder = 'schema';
       fileName = `${classId}.schema.json`;
       break;
   }
@@ -152,8 +158,6 @@ const handlePreview = async (
   }
 };
 
-
-
   useEffect(() => {
     fetch(`${BASE_PATH}/data/mcd.json`)
       .then((response) => response.json())
@@ -163,11 +167,93 @@ const handlePreview = async (
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h2" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4" }}>
+      <Typography variant="h3" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4" }}>
         Dictionary
       </Typography>
+
+
+
+
+
+	  <Box sx={{     
+		mt: 4,
+    mb: 4,
+    p: 2,
+    px: 4,
+    display: 'inline-block',
+    backgroundColor: darkMode ? '#1e3a4d' : '#e3f2fd',
+    borderLeft: '5px solid #2196f3',
+    borderRadius: 2,
+    maxWidth: 900,
+    textAlign: 'left',}}>
+			<Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+				What is the GOOS Passport?
+			</Typography>
+			<Typography variant="body1" sx={{ mb: 2 }}>
+				The GOOS Passport is the central concept of the GOOS Metadata Standard. <br/>It represents a validated metadata record 
+				for an ocean observation mission. <br/> It has <strong>GOOS Mission</strong> as its root class and a clearly bounded set 
+				of related classes. 
+			</Typography>
+
+			<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+				{[
+				{ id: 'goos_passport', ext: 'schema', label: 'JSON Schema', color: '#ffa726' },
+				{ id: 'goos_passport.example', ext: 'jsonld', label: 'Example JSON-LD', color: '#66bb6a' },
+				].map(({ id, ext, label, color }) => (
+				<Card key={id} sx={{ minWidth: 200, border: `2px solid ${color}`, borderRadius: 2, boxShadow: 1 }}>
+					<CardContent sx={{ p: 1 }}>
+					<Typography
+						variant="subtitle2"
+						sx={{ fontWeight: 600, color, mb: 1, textAlign: 'center' }}
+					>
+						{label}
+					</Typography>
+					<Divider sx={{ mb: 1 }} />
+					<Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
+						<Tooltip title={`Published ${label}`}>
+						<IconButton
+							size="small"
+							component="a"
+							href={`https://www.ocean-ops.org/goosmeta/${ext === 'schema' ? 'schema' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<LaunchIcon fontSize="small" />
+						</IconButton>
+						</Tooltip>
+						<Tooltip title={`GitHub ${label}`}>
+						<IconButton
+							size="small"
+							component="a"
+							href={`https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/goos-metadata-standard/${ext === 'schema' ? 'schema' : 'example'}/${id}.${ext === 'schema' ? 'schema.json' : 'jsonld'}`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<GitHubIcon fontSize="small" />
+						</IconButton>
+						</Tooltip>
+						<Tooltip title={`Preview ${label}`}>
+						<IconButton
+							size="small"
+							onClick={() =>
+							handlePreview(id, ext as 'ttl' | 'jsonld' | 'schema')
+							}
+						>
+							<VisibilityIcon fontSize="small" />
+						</IconButton>
+						</Tooltip>
+					</Box>
+					</CardContent>
+				</Card>
+				))}
+			</Box>
+		</Box>
+
+
+
+
 		  <Typography variant="h5" noWrap sx={{ fontWeight: 500, color: darkMode ? "#e0e0e0" : "#333" }}>
-			  Expand a class to explore its properties, relationships and related code files
+			  Expand a class to explore its properties, relationships and related code files:
 		  </Typography>
       <TableContainer component={Paper} sx={{ marginTop: 4 }}>
         <Table>
@@ -211,7 +297,7 @@ const handlePreview = async (
 								{cls.label} definition: {cls.definition}
 							</Typography>
 							<Box sx={{ mt: 1, display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-								{getLinks(cls.label.toLowerCase())}
+								{getLinks(cls.label.toLowerCase().replace(' ', '_'))}
 							</Box>
 							<Box sx={{ mt: 4 }}>
 								<Typography variant="h6" sx={{ mb: 1 }}>

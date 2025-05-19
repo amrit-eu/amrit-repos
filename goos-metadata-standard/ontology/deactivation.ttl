@@ -1,0 +1,47 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Deactivation Class
+#################################################################
+
+goos:Deactivation a owl:Class ;
+    rdfs:label "Platform Deactivation"@en ;
+    rdfs:comment "The act of retrieving or deactivating a platform at the end of its operational mission at sea."@en ;
+    rdfs:subClassOf schema:DeactivateAction .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Deactivation Start Time
+schema:startTime a owl:DatatypeProperty ;
+    rdfs:label "Start Time"@en ;
+    rdfs:comment "The date and time when the platform deactivation or retrieval began."@en ;
+    rdfs:domain goos:Deactivation ;
+    rdfs:range xsd:dateTime .
+
+# Deactivation Location
+schema:location a owl:ObjectProperty ;
+    rdfs:label "Location"@en ;
+    rdfs:comment "The geographic location where the platform was deactivated or retrieved."@en ;
+    rdfs:domain goos:Deactivation ;
+    rdfs:range schema:Place .
+
+# Retrieval Ship
+goos:retrievedByShip a owl:ObjectProperty ;
+    rdfs:label "Retrieval Ship"@en ;
+    rdfs:comment "The ship involved in the retrieval or deactivation of the platform."@en ;
+    rdfs:domain goos:Deactivation ;
+    rdfs:range goos:Ship ;
+    rdfs:subPropertyOf schema:agent .
+
+# Deactivation ID
+goos:deactivationId a owl:DatatypeProperty ;
+    rdfs:label "Deactivation ID"@en ;
+    rdfs:comment "Internal identifier for the deactivation event."@en ;
+    rdfs:domain goos:Deactivation ;
+    rdfs:range xsd:string .

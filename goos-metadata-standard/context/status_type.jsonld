@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+
+    "StatusType": "goos:StatusType",
+
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@type": "xsd:string"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@type": "xsd:string"
+    }
+  }
+}

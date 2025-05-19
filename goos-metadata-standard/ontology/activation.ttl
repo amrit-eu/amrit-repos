@@ -1,0 +1,40 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Activation Class
+#################################################################
+
+goos:Activation a owl:Class ;
+    rdfs:label "Platform Activation"@en ;
+    rdfs:comment "The act of releasing or enabling a platform to begin mission of data collection and transmission at sea."@en ;
+    rdfs:subClassOf schema:ActivateAction .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Start time of activation (inherited from schema)
+schema:startTime a owl:DatatypeProperty ;
+    rdfs:label "Start Time"@en ;
+    rdfs:comment "The date and time the platform activation started."@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:domain goos:Activation .
+
+# Location of activation (inherited from schema)
+schema:location a owl:ObjectProperty ;
+    rdfs:label "Location"@en ;
+    rdfs:comment "The geographic location where the platform was activated (deployed)."@en ;
+    rdfs:domain goos:Activation ;
+    rdfs:range schema:Place .
+
+# Ship that performed the activation
+goos:deployedByShip a owl:ObjectProperty ;
+    rdfs:label "Deployment Ship"@en ;
+    rdfs:comment "The ship involved in the platform activation."@en ;
+    rdfs:domain goos:Activation ;
+    rdfs:range goos:Ship ;
+    rdfs:subPropertyOf schema:agent .

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/status_type.schema.json",
+  "title": "Status Type",
+  "description": "A controlled concept representing a status in the lifecycle of a mission or platform.",
+  "type": "object",
+  "properties": {
+    "prefLabel": {
+      "type": "string",
+      "description": "Preferred label for this status concept (e.g., 'Planned', 'Operational')."
+    },
+    "definition": {
+      "type": "string",
+      "description": "A textual definition explaining the meaning of the status concept."
+    }
+  },
+  "required": ["prefLabel", "definition"]
+}

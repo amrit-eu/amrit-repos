@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/activation.schema.json",
+  "title": "Activation",
+  "description": "The act of releasing or enabling a platform to begin mission of data collection and transmission at sea.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:Activation"
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The unique URI identifier for this activation."
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the platform activation started."
+    },
+    "location": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the place where the platform was activated."
+    },
+    "deployedByShip": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the ship involved in the activation."
+    }
+  },
+  "required": ["@type", "startTime", "location"],
+  "additionalProperties": false
+}

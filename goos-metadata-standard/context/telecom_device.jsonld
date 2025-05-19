@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "TelecomDevice": "goos:TelecomDevice",
+
+    "telecomNumber": {
+      "@id": "goos:telecomNumber",
+      "@type": "xsd:string"
+    },
+    "telecomIMEI": {
+      "@id": "goos:telecomIMEI",
+      "@type": "xsd:string"
+    },
+    "usesTechnology": {
+      "@id": "goos:usesTechnology",
+      "@type": "@id"
+    }
+  }
+}

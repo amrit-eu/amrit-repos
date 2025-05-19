@@ -12,7 +12,7 @@
 goos:Sensor a owl:Class ;
     rdfs:label "Sensor"@en ;
     rdfs:comment "The physical instrument installed on a platform. A physical device capable of sensing or measuring an observable property. Subclass of sosa:Sensor."@en ;
-    rdfs:subClassOf sosa:Sensor .
+    rdfs:subClassOf sosa:Sensor, schema:Product .
 
 #################################################################
 #    Properties

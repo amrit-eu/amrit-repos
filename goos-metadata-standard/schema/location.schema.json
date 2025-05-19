@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/location.schema.json",
+  "title": "Location",
+  "description": "A place and its geographic coordinates, used for referencing the position of an observation or event.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "$ref": "#/$defs/Place"
+    }
+  },
+  "$defs": {
+    "Place": {
+      "type": "object",
+      "properties": {
+        "geo": {
+          "$ref": "#/$defs/GeoCoordinates"
+        }
+      },
+      "required": ["geo"]
+    },
+    "GeoCoordinates": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "elevation": {
+          "type": "number",
+          "description": "Height or depth in meters relative to sea level"
+        }
+      },
+      "required": ["latitude", "longitude"]
+    }
+  }
+}

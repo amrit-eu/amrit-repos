@@ -1,0 +1,52 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    PlatformModel Class
+#################################################################
+
+goos:PlatformModel a owl:Class ;
+    rdfs:label "Platform Model"@en ;
+    rdfs:comment "A standardized manufactured design of an observation platform, such as an Argo float model, glider type, or buoy type."@en ;
+    rdfs:subClassOf schema:ProductModel .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:platformModelId a owl:DatatypeProperty ;
+    rdfs:label "Platform Model ID"@en ;
+    rdfs:comment "Internal identifier for the platform model."@en ;
+    rdfs:domain goos:PlatformModel ;
+    rdfs:range xsd:string .
+
+goos:platformModelName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:label "Platform Model Name"@en ;
+    rdfs:comment "The common name of the platform model (e.g., APEX, SVP-B)."@en ;
+    rdfs:domain goos:PlatformModel ;
+    rdfs:range xsd:string .
+
+goos:platformModelDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:label "Platform Model Description"@en ;
+    rdfs:comment "Textual description of the model's design or purpose."@en ;
+    rdfs:domain goos:PlatformModel ;
+    rdfs:range xsd:string .
+
+goos:belongsToType a owl:ObjectProperty ;
+    rdfs:label "Belongs to Type"@en ;
+    rdfs:comment "The broader platform type this model belongs to (e.g., Float, Wave Glider, or Tide Guage)."@en ;
+    rdfs:domain goos:PlatformModel ;
+    rdfs:range goos:PlatformType .
+
+goos:hasManufacturer a owl:ObjectProperty ;
+    rdfs:label "Has Manufacturer"@en ;
+    rdfs:comment "The organization that manufactures this platform model."@en ;
+    rdfs:domain goos:PlatformModel ;
+    rdfs:range goos:Organization ;
+    rdfs:subPropertyOf schema:manufacturer .
+

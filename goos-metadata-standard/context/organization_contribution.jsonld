@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "OrganizationContribution": "goos:OrganizationContribution",
+    "hasOrganization": {
+      "@id": "goos:hasOrganization",
+      "@type": "@id"
+    },
+    "hasTargetProgram": {
+      "@id": "goos:hasTargetProgram",
+      "@type": "@id"
+    },
+    "hasTargetMission": {
+      "@id": "goos:hasTargetMission",
+      "@type": "@id"
+    },
+    "hasOrganizationRole": {
+      "@id": "goos:hasOrganizationRole",
+      "@type": "@id"
+    },
+    "contributionDescription": {
+      "@id": "goos:contributionDescription",
+      "@type": "xsd:string"
+    },
+    "contributionStartDate": {
+      "@id": "goos:contributionStartDate",
+      "@type": "xsd:dateTime"
+    },
+    "contributionEndDate": {
+      "@id": "goos:contributionEndDate",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

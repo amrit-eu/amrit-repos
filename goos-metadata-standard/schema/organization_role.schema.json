@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/organization_role.schema.json",
+  "title": "Organization Role",
+  "description": "A controlled vocabulary of roles that organizations may play within a WIGOS or GOOS program context (e.g., funder, operator, DAC).",
+  "type": "object",
+  "properties": {
+    "organizationRoleId": {
+      "type": "string",
+      "description": "Internal identifier for the organization role."
+    },
+    "organizationRoleName": {
+      "type": "string",
+      "description": "Label of the role the organization plays (e.g., Operating Agency, Funding Agency)."
+    },
+    "organizationRoleDescription": {
+      "type": "string",
+      "description": "Description of the function or responsibility represented by this role."
+    }
+  },
+  "required": ["organizationRoleId", "organizationRoleName"]
+}

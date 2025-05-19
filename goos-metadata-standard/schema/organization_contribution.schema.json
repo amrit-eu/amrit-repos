@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/organization_contribution.schema.json",
+  "title": "Organization Contribution",
+  "description": "A specific contribution by an organization to either a GOOS Mission or a WIGOS Program, playing a defined role.",
+  "type": "object",
+  "properties": {
+    "hasOrganization": {
+      "type": "string",
+      "format": "uri",
+      "description": "The organization making the contribution."
+    },
+    "hasTargetProgram": {
+      "type": "string",
+      "format": "uri",
+      "description": "The WIGOS Program to which the organization contributes."
+    },
+    "hasTargetMission": {
+      "type": "string",
+      "format": "uri",
+      "description": "The GOOS Mission to which the organization contributes."
+    },
+    "hasOrganizationRole": {
+      "type": "string",
+      "format": "uri",
+      "description": "The role played by the organization in the contribution."
+    },
+    "contributionDescription": {
+      "type": "string",
+      "description": "Optional free-text description of the contribution."
+    },
+    "contributionStartDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date the contribution began."
+    },
+    "contributionEndDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date the contribution ended, if applicable."
+    }
+  },
+  "anyOf": [
+    { "required": ["hasTargetProgram"] },
+    { "required": ["hasTargetMission"] }
+  ],
+  "required": ["hasOrganization", "hasOrganizationRole"]
+}

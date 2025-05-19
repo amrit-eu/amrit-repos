@@ -1,0 +1,33 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+#    StatusType Class
+#################################################################
+
+goos:StatusType a owl:Class ;
+    rdfs:label "Status Type"@en ;
+    rdfs:comment "A controlled concept representing a status in the lifecycle of a mission or platform."@en ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+#    Instances of StatusType
+#################################################################
+
+goos:Planned a goos:StatusType ;
+    skos:prefLabel "Planned"@en ;
+    skos:definition "The mission or platform is scheduled but not yet started."@en .
+
+goos:Operational a goos:StatusType ;
+    skos:prefLabel "Active"@en ;
+    skos:definition "The mission or platform is currently operational."@en .
+
+goos:Inactive a goos:StatusType ;
+    skos:prefLabel "Inactive"@en ;
+    skos:definition "Operations are suspended temporarily halted but may resume."@en .
+
+goos:Closed a goos:StatusType ;
+    skos:prefLabel "Closed"@en ;
+    skos:definition "The mission or platform has ended prematurely or been cancelled."@en .

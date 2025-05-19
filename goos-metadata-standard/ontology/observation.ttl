@@ -1,0 +1,55 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Observation Class
+#################################################################
+
+goos:Observation a owl:Class ;
+    rdfs:label "Observation"@en ;
+    rdfs:comment "A single data point measured by a sensor, including variable, location, timestamp, and optional dataset reference."@en ;
+    rdfs:subClassOf sosa:Observation .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Observed Variable
+goos:observedVariable a owl:ObjectProperty ;
+    rdfs:label "Observed Variable"@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range goos:Variable ;
+    rdfs:comment "The environmental variable measured (e.g., sea temperature, salinity)."@en .
+
+# Observation Date
+goos:observationDate a owl:DatatypeProperty ;
+    rdfs:label "Observation Date"@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:comment "The date and time when the observation was made."@en .
+
+# Latitude/Longitude using Location class
+schema:location a owl:ObjectProperty ;
+    rdfs:label "Location"@en ;
+    rdfs:comment "The place where the observation was made."@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range schema:Place .
+
+# Used Sensor
+goos:madeBySensor a owl:ObjectProperty ;
+    rdfs:label "Sensor"@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range goos:Sensor ;
+    rdfs:subPropertyOf sosa:madeBySensor ;
+    rdfs:comment "The sensor that produced the observation."@en .
+
+# Dataset URL (Optional direct link)
+goos:dataURL a owl:DatatypeProperty ;
+    rdfs:label "Data URL"@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range xsd:anyURI ;
+    rdfs:comment "Direct URL to the observation or related data in a repository."@en .

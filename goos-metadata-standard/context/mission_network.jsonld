@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "MissionNetwork": "goos:MissionNetwork",
+    "missionNetworkId": "goos:missionNetworkId",
+    "missionNetworkName": {
+      "@id": "goos:missionNetworkName",
+      "@type": "xsd:string"
+    },
+    "missionNetworkDescription": {
+      "@id": "goos:missionNetworkDescription",
+      "@type": "xsd:string"
+    },
+    "hasParentSystem": {
+      "@id": "goos:hasParentSystem",
+      "@type": "@id"
+    },
+    "hasMission": {
+      "@id": "goos:hasMission",
+      "@type": "@id"
+    }
+  }
+}

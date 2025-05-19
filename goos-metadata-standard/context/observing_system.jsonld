@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "ObservingSystem": "goos:ObservingSystem",
+    "observingSystemId": "goos:observingSystemId",
+    "observingSystemName": {
+      "@id": "goos:observingSystemName",
+      "@type": "xsd:string"
+    },
+    "observingSystemDescription": {
+      "@id": "goos:observingSystemDescription",
+      "@type": "xsd:string"
+    }
+  }
+}

@@ -39,3 +39,11 @@ goos:hasTelecom a owl:ObjectProperty ;
     rdfs:range goos:Telecom ;
     rdfs:label "Has Telecom"@en ;
     rdfs:comment "Telecommunication information associated with the platform."@en .
+
+# Associated Platform Model
+goos:hasModel a owl:ObjectProperty ;
+    rdfs:label "Has Platform Model"@en ;
+    rdfs:comment "The specific model or manufactured design of the platform."@en ;
+    rdfs:domain goos:Platform ;
+    rdfs:range goos:PlatformModel .
+

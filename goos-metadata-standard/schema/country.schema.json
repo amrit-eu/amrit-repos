@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/country.schema.json",
+  "title": "Country",
+  "description": "United Nations member state or a group of states such as European Union.",
+  "type": "object",
+  "properties": {
+    "@type": {
+      "const": "goos:Country"
+    },
+    "countryId": {
+      "type": "string",
+      "description": "Internal database identifier for the country."
+    },
+    "countryCode2": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 code for the country."
+    },
+    "countryName": {
+      "type": "string",
+      "description": "Full English name of the country."
+    }
+  },
+  "required": ["@type", "countryId", "countryName"],
+  "additionalProperties": false
+}

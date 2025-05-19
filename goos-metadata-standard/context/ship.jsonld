@@ -1,33 +1,33 @@
 {
-	"@context": {
-	  "goos": "https://www.ocean-ops.org/goosmeta#",
-	  "id": "goos:shipId",
-	  "dbId": {
-		"@id": "goos:dbId",
-		"@type": "xsd:integer"
-	  },
-	  "name": {
-		"@id": "goos:shipName",
-		"@type": "xsd:string"
-	  },
-	  "icesCode": {
-		"@id": "goos:icesCode",
-		"@type": "xsd:string"
-	  },
-      "callSign": {
-		"@id": "goos:callSign",
-		"@type": "xsd:string"
-	  },
-      "imoNumber": {
-		"@id": "goos:imoNumber",
-		"@type": "xsd:string"
-	  },
-      "flagCountry": {
-		"@id": "goos:hasFlagCountry",
-		"@type": "@id"
-	  },
-	  "@vocab": "goos:",
-	  "xsd": "http://www.w3.org/2001/XMLSchema#"
-	}
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "Ship": "goos:Ship",
+
+    "shipId": {
+      "@id": "goos:shipId",
+      "@type": "xsd:string"
+    },
+    "shipName": {
+      "@id": "goos:shipName",
+      "@type": "xsd:string"
+    },
+    "icesCode": {
+      "@id": "goos:icesCode",
+      "@type": "xsd:string"
+    },
+    "callSign": {
+      "@id": "goos:callSign",
+      "@type": "xsd:string"
+    },
+    "imoNumber": {
+      "@id": "goos:imoNumber",
+      "@type": "xsd:string"
+    },
+    "hasFlagCountry": {
+      "@id": "goos:hasFlagCountry",
+      "@type": "@id"
+    }
   }
-  
+}

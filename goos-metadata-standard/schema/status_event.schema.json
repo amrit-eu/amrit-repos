@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/status_event.schema.json",
+  "title": "Status Event",
+  "description": "An event representing a change in the status of a mission, platform, or related entity.",
+  "type": "object",
+  "properties": {
+    "statusType": {
+      "type": "string",
+      "format": "uri",
+      "description": "The assigned status represented as a concept from a controlled vocabulary."
+    },
+    "statusDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time when the status was assigned."
+    },
+    "statusComment": {
+      "type": "string",
+      "description": "Optional explanation or justification for the status assignment."
+    },
+    "assignedBy": {
+      "type": "string",
+      "format": "uri",
+      "description": "The agent (person, organization, or software) that assigned the status."
+    }
+  },
+  "required": ["statusType", "statusDate"]
+}

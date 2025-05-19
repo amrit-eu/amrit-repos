@@ -1,0 +1,32 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Log Class (container)
+#################################################################
+
+goos:Log a owl:Class ;
+    rdfs:label "Mission Log"@en ;
+    rdfs:comment "A log containing records of updates, status changes, and quality control events associated with a mission."@en ;
+    rdfs:subClassOf schema:CreativeWork .
+
+goos:hasStatusHistory a owl:ObjectProperty ;
+    rdfs:domain goos:Log ;
+    rdfs:range goos:StatusEvent ;
+    rdfs:label "Status History"@en ;
+    rdfs:comment "The list of recorded status changes over time."@en .
+
+goos:hasUpdateEntry a owl:ObjectProperty ;
+    rdfs:domain goos:Log ;
+    rdfs:range goos:UpdateEntry ;
+    rdfs:label "Update Entry"@en ;
+    rdfs:comment "An update action applied to the mission data."@en .
+
+goos:hasQualityCheck a owl:ObjectProperty ;
+    rdfs:domain goos:Log ;
+    rdfs:range goos:QualityControlEntry ;
+    rdfs:label "Quality Control Entry"@en ;
+    rdfs:comment "An observation or review regarding the quality of the mission data."@en .

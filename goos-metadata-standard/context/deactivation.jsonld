@@ -1,0 +1,26 @@
+{
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+
+    "@vocab": "https://www.ocean-ops.org/goosmeta#",
+
+    "Deactivation": "goos:Deactivation",
+    "deactivationId": {
+      "@id": "goos:deactivationId",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "location": {
+      "@id": "schema:location",
+      "@type": "@id"
+    },
+    "retrievedByShip": {
+      "@id": "goos:retrievedByShip",
+      "@type": "@id"
+    }
+  }
+}

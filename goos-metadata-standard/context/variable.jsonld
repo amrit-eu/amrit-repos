@@ -1,21 +1,22 @@
 {
-	"@context": {
-	  "goos": "https://www.ocean-ops.org/goosmeta#",
-	  "id": "goos:variableId",
-	  "dbId": {
-		"@id": "goos:dbId",
-		"@type": "xsd:integer"
-	  },
-	  "name": {
-		"@id": "goos:variableName",
-		"@type": "xsd:string"
-	  },
-	  "description": {
-		"@id": "goos:variableDescription",
-		"@type": "xsd:string"
-	  },
-	  "@vocab": "goos:",
-	  "xsd": "http://www.w3.org/2001/XMLSchema#"
-	}
+  "@context": {
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "schema": "https://schema.org/",
+
+    "Variable": "goos:Variable",
+
+    "variableId": {
+      "@id": "goos:variableId",
+      "@type": "xsd:string"
+    },
+    "variableName": {
+      "@id": "goos:variableName",
+      "@type": "xsd:string"
+    },
+    "variableDescription": {
+      "@id": "goos:variableDescription",
+      "@type": "xsd:string"
+    }
   }
-  
+}

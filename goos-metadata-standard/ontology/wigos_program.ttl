@@ -1,0 +1,49 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    WIGOS Program Class
+#################################################################
+
+goos:WIGOSProgram a owl:Class ;
+    rdfs:label "WIGOS Program"@en ;
+    rdfs:comment "A country-affiliated or institutional entity contributing to WIGOS through the execution of ocean observation missions and platform operations."@en ;
+    rdfs:subClassOf schema:Organization .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:wigosProgramId a owl:DatatypeProperty ;
+    rdfs:label "WIGOS Program ID"@en ;
+    rdfs:comment "Internal identifier for the WIGOS Program."@en ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range xsd:string .
+
+goos:programName a owl:DatatypeProperty ;
+    rdfs:label "Program Name"@en ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range xsd:string .
+
+goos:programDescription a owl:DatatypeProperty ;
+    rdfs:label "Program Description"@en ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range xsd:string .
+
+goos:hasCountry a owl:ObjectProperty ;
+    rdfs:label "Associated Country"@en ;
+    rdfs:comment "The country to which this WIGOS Program is affiliated."@en ;
+    rdfs:subPropertyOf schema:addressCountry ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range goos:Country .
+
+goos:hasOrganizationContribution a owl:ObjectProperty ;
+    rdfs:label "Organization Contribution"@en ;
+    rdfs:comment "A contribution made by an organization to this WIGOS Program, including its role and duration."@en ;
+    rdfs:domain goos:WIGOSProgram ;
+    rdfs:range goos:OrganizationContribution .

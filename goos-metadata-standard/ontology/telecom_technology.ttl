@@ -1,0 +1,31 @@
+@prefix goos: <https://www.ocean-ops.org/goosmeta#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    TelecomTechnology Class
+#################################################################
+
+goos:TelecomTechnology a owl:Class ;
+    rdfs:label "Telecommunication Technology"@en ;
+    rdfs:comment "A classification of the telecommunications method or system used for transmitting observational data (e.g., IRIDIUM, ARGOS, GSM)."@en ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+#    Properties
+#################################################################
+
+goos:telecomTechnologyId a owl:DatatypeProperty ;
+    rdfs:label "Technology ID"@en ;
+    rdfs:comment "Internal identifier for the telecom technology."@en ;
+    rdfs:domain goos:TelecomTechnology ;
+    rdfs:range xsd:string .
+
+goos:telecomTechnologyName a owl:DatatypeProperty ;
+    rdfs:label "Technology Name"@en ;
+    rdfs:comment "Name of the telecom technology (e.g., Iridium, GSM)."@en ;
+    rdfs:subPropertyOf skos:prefLabel ;
+    rdfs:domain goos:TelecomTechnology ;
+    rdfs:range xsd:string .

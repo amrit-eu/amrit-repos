@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Drawer, Box } from '@mui/material';
 import SidebarHeader from './SidebarHeader';
 import SidebarList from './SidebarList';
 import DarkModeToggle from './DarkModeToggle';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Drawer, Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 interface SidebarProps {
   darkMode: boolean;
@@ -36,61 +37,88 @@ const sidebarSections = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ darkMode, toggleDarkMode, selectedOption, setSelectedOption }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Sync selectedOption with URL on load
+  // Sync selectedOption with URL
   useEffect(() => {
     const currentOption = sidebarSections
       .flatMap(section => section.options)
       .find(option => option.path === location.pathname);
-
-    if (currentOption) {
-      setSelectedOption(currentOption.label);
-    }
+    if (currentOption) setSelectedOption(currentOption.label);
   }, [location, setSelectedOption]);
 
   return (
-    <Drawer
-      variant="permanent"
-      open={open}
-      sx={{
-        width: open ? 280 : 60,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: open ? 280 : 60,
-          transition: 'width 0.3s',
-          overflowX: 'hidden',
-        },
-      }}
-    >
-      <SidebarHeader open={open} setOpen={setOpen} darkMode={darkMode} />
+    <>
+      {/* Only show toggle button on xs/sm/md screens */}
+      {isSmallScreen && (
+        <IconButton
+          onClick={() => setOpen(true)}
+          sx={{
+            position: 'fixed',
+            top: 12,
+            left: 12,
+            zIndex: theme.zIndex.drawer + 1,
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: 'rgba(0,0,0,0.5)',
+            },
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+      )}
 
-      <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        {sidebarSections.map(({ category, options }) => (
-          <SidebarList
-            key={category}
-            category={category}
-            options={options}
-            selectedOption={selectedOption}
-            setSelectedOption={(option) => {
-              setSelectedOption(option);
-              const selectedPath = options.find(o => o.label === option)?.path;
-              if (selectedPath) navigate(selectedPath);
-            }}
-            darkMode={darkMode}
-            open={open}
-          />
-        ))}
+      <Drawer
+        variant={isSmallScreen ? 'temporary' : 'permanent'}
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{
+          width: { xs: 220, md: 280 },
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: { xs: 220, md: 280 },
+            transition: 'width 0.3s',
+            overflowX: 'hidden',
+            zIndex: isSmallScreen ? theme.zIndex.drawer + 2 : 'auto',
+          },
+        }}
+      >
+        <SidebarHeader open={!isSmallScreen || open} setOpen={setOpen} darkMode={darkMode} />
 
-        {/* Push Dark Mode Toggle to the bottom */}
-        <Box sx={{ marginTop: 'auto' }}>
-          <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} open={open} />
+        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          {sidebarSections.map(({ category, options }) => (
+            <SidebarList
+              key={category}
+              category={category}
+              options={options}
+              selectedOption={selectedOption}
+              setSelectedOption={(option) => {
+                setSelectedOption(option);
+                const selectedPath = options.find(o => o.label === option)?.path;
+                if (selectedPath) {
+                  navigate(selectedPath);
+                  if (isSmallScreen) setOpen(false); // Close menu on selection
+                }
+              }}
+              darkMode={darkMode}
+              open={!isSmallScreen || open}
+            />
+          ))}
+
+          <Box sx={{ marginTop: 'auto' }}>
+            <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} open={!isSmallScreen || open} />
+          </Box>
         </Box>
-      </Box>
-    </Drawer>
+      </Drawer>
+    </>
   );
 };
+
 
 export default Sidebar;

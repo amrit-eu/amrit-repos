@@ -15,6 +15,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ open, darkMode }) => {
         alignItems: 'center',
         padding: '16px 9px 6px 9px',
         color: darkMode ? "#03a9f4" : "#009af4",
+		
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -29,7 +30,15 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ open, darkMode }) => {
         )} */}
         <Typography variant="h6" noWrap sx={{ display: open ? 'block' : 'none' }}>
          
-          <Typography variant="h6" component="span" sx={{ fontWeight: '600', fontSize: '17px', ml:1 }}>
+          <Typography variant="h6" component="span" sx={{ 
+			 	 fontWeight: 600,
+				fontSize: '17px',
+				ml: 1,
+				maxWidth: { xs: '130px', md: 'none' },
+				display: 'inline-block',
+				whiteSpace: { xs: 'normal', md: 'nowrap' },
+				overflowWrap: 'break-word',
+		  }}>
              GOOS Metadata Standard
           </Typography>
         </Typography>

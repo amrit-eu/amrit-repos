@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/ship.schema.json",
+  "title": "Ship",
+  "description": "A ship that deployed the platform, or served as the platform's installation or operation base.",
+  "type": "object",
+  "properties": {
+    "shipId": {
+      "type": "string",
+      "description": "Internal database identifier for the ship."
+    },
+    "shipName": {
+      "type": "string",
+      "description": "Full name of the ship."
+    },
+    "icesCode": {
+      "type": "string",
+      "description": "Identifier assigned to the ship by ICES."
+    },
+    "callSign": {
+      "type": "string",
+      "description": "Radio call sign of the ship."
+    },
+    "imoNumber": {
+      "type": "string",
+      "description": "IMO number of the ship."
+    },
+    "hasFlagCountry": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the country under which the ship is registered."
+    }
+  },
+  "required": ["shipId", "shipName"]
+}
