@@ -45,12 +45,15 @@ const Sidebar: React.FC<SidebarProps> = ({ darkMode, toggleDarkMode, selectedOpt
   const location = useLocation();
 
   // Sync selectedOption with URL
-  useEffect(() => {
-    const currentOption = sidebarSections
-      .flatMap(section => section.options)
-      .find(option => option.path === location.pathname);
-    if (currentOption) setSelectedOption(currentOption.label);
-  }, [location, setSelectedOption]);
+useEffect(() => {
+  const currentPath = location.pathname.replace(/^\/+/, ''); // remove leading slash(es)
+  const currentOption = sidebarSections
+    .flatMap(section => section.options)
+    .find(option => option.path === currentPath);
+  if (currentOption) {
+    setSelectedOption(currentOption.label);
+  }
+}, [location, setSelectedOption]);
 
   return (
     <>

@@ -338,18 +338,18 @@
 							"required": ["latitude", "longitude"],
 							"properties": {
 								"latitude": {
-								"type": "number",
-								"minimum": -90,
-								"maximum": 90
+									"type": "number",
+									"minimum": -90,
+									"maximum": 90
 								},
 								"longitude": {
-								"type": "number",
-								"minimum": -180,
-								"maximum": 180
+									"type": "number",
+									"minimum": -180,
+									"maximum": 180
 								},
 								"elevation": {
-								"type": "number",
-								"description": "Height or depth in meters relative to sea level"
+									"type": "number",
+									"description": "Height or depth in meters relative to sea level"
 								}
 							}
 							}
@@ -426,18 +426,18 @@
 						"required": ["latitude", "longitude"],
 						"properties": {
 							"latitude": {
-							"type": "number",
-							"minimum": -90,
-							"maximum": 90
+								"type": "number",
+								"minimum": -90,
+								"maximum": 90
 							},
 							"longitude": {
-							"type": "number",
-							"minimum": -180,
-							"maximum": 180
+								"type": "number",
+								"minimum": -180,
+								"maximum": 180
 							},
 							"elevation": {
-							"type": "number",
-							"description": "Height or depth in meters relative to sea level"
+								"type": "number",
+								"description": "Height or depth in meters relative to sea level"
 							}
 						}
 						}

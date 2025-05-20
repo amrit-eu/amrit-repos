@@ -16,7 +16,6 @@ const OceanAPI: React.FC<PageProps> = ({ darkMode }) => {
 	<br/><br/>
 	The passport API will ingest and serve Passport JSON.<br/>
 	  This functionality is coming soon and will be documented here.<br/>
-	  In the meantime, the API documentation is <a target="_blank" href="https://www.ocean-ops.org/api/help/">here</a>
   </Box>
   );
 };
