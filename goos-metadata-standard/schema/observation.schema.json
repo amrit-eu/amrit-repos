@@ -5,6 +5,24 @@
   "description": "An observation recording a variable at a location and time, made by a sensor.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:Observation",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
+    },
     "variable": {
       "type": "string",
       "format": "uri",

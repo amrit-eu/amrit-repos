@@ -17,6 +17,13 @@ goos:TelecomDevice a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this telecom device."@en ;
+    rdfs:domain goos:TelecomDevice ;
+    rdfs:range xsd:string .
+
 goos:telecomNumber a owl:DatatypeProperty ;
     rdfs:label "Telecom Number"@en ;
     rdfs:comment "The phone number or contact identifier used for communication."@en ;

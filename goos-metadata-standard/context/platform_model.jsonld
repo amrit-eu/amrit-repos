@@ -4,9 +4,8 @@
     "schema": "https://schema.org/",
 
     "PlatformModel": "goos:PlatformModel",
-
     "id": {
-      "@id": "goos:platformModelId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

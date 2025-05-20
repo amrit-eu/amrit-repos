@@ -7,16 +7,21 @@
   "properties": {
     "@context": {
       "type": ["string", "object"],
-      "description": "The JSON-LD context."
+      "description": "The JSON-LD context defining term mappings."
     },
     "@type": {
       "type": "string",
-      "const": "goos:Activation"
+      "const": "goos:Activation",
+      "description": "The JSON-LD type of the resource."
     },
     "@id": {
       "type": "string",
       "format": "uri",
-      "description": "The unique URI identifier for this activation."
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
     },
     "startTime": {
       "type": "string",

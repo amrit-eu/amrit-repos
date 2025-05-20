@@ -3,59 +3,556 @@
     "$id": "https://www.ocean-ops.org/goosmeta/schema/passport.schema.json",
     "title": "GOOS Passport",
     "type": "object",
-    "required": ["@type", "missionId", "startTime"],
+    "required": ["@type", "id"],
     "properties": {
-      "@context": {
-        "type": ["string", "object"]
-      },
-      "@type": {
-        "type": "string",
-        "const": "GOOSMission"
-      },
-      "missionId": {
-        "type": "string",
-        "description": "The unique internal Mission ID (e.g. OceanOPS ptfId)."
-      },
-      "wigosId": {
-        "type": "string",
-        "description": "The unique WIGOS ID associated with this mission."
-      },
-      "startTime": {
-        "type": "string",
-        "format": "date-time",
-        "description": "ISO date-time when the mission began."
-      },
-      "endTime": {
-        "type": "string",
-        "format": "date-time",
-        "description": "ISO date-time when the mission ended."
-      },
-      "instrument": {
-        "$ref": "https://www.ocean-ops.org/goosmeta/schema/platform.schema.json"
-      },
-      "provider": {
-        "$ref": "https://www.ocean-ops.org/goosmeta/schema/wigos_program.schema.json"
-      },
-      "result": {
-        "type": "array",
-        "description": "Observations collected during this mission.",
-        "items": {
-          "$ref": "https://www.ocean-ops.org/goosmeta/schema/observation.schema.json"
-        }
-      },
-      "status": {
-        "$ref": "https://www.ocean-ops.org/goosmeta/schema/status_type.schema.json"
-      },
-      "activation": {
-        "$ref": "https://www.ocean-ops.org/goosmeta/schema/activation.schema.json"
-      },
-      "observationSetup": {
-        "type": "array",
-        "items": {
-          "$ref": "https://www.ocean-ops.org/goosmeta/schema/sensor_setup.schema.json"
-        }
-      }
+		"@context": {
+			"type": ["string", "object"],
+			"description": "The JSON-LD context defining term mappings."
+		},
+		"@type": {
+			"type": "string",
+			"const": "goos:GOOSMission",
+			"description": "The JSON-LD type of the resource."
+		},
+		"@id": {
+			"type": "string",
+			"format": "uri",
+			"description": "The globally unique URI identifier for this resource."
+		},
+		"id": {
+			"type": "string",
+			"description": "The class-specific persistent identifier (PID)"
+		},
+		"wigosId": {
+			"type": "string",
+			"description": "The unique WIGOS ID associated with this mission."
+		},
+		"startTime": {
+			"type": "string",
+			"format": "date-time",
+			"description": "ISO date-time when the mission began."
+		},
+		"endTime": {
+			"type": "string",
+			"format": "date-time",
+			"description": "ISO date-time when the mission ended."
+		},
+		"instrument": {
+			"type": "object",
+			"properties": {
+				"@context": {
+					"type": ["string", "object"],
+					"description": "The JSON-LD context defining term mappings."
+				},
+				"@type": {
+					"type": "string",
+					"const": "goos:Platform",
+					"description": "The JSON-LD type of the resource."
+				},
+				"@id": {
+					"type": "string",
+					"format": "uri",
+					"description": "The globally unique URI identifier for this resource."
+				},
+				"id": {
+					"type": "string",
+					"description": "The class-specific persistent identifier (PID)"
+				},
+				"ref": {
+					"type": "string",
+					"description": "Reference identifier for the platform."
+				},
+				"serialNumber": {
+					"type": "string",
+					"description": "Manufacturer-assigned serial number for the platform."
+				},
+				"telecom": {
+					"type": "object",
+					"properties": {
+						"@context": {
+							"type": ["string", "object"],
+							"description": "The JSON-LD context defining term mappings."
+						},
+						"@type": {
+							"type": "string",
+							"const": "goos:TelecomDevice",
+							"description": "The JSON-LD type of the resource."
+						},
+						"@id": {
+							"type": "string",
+							"format": "uri",
+							"description": "The globally unique URI identifier for this resource."
+						},
+						"id": {
+							"type": "string",
+							"description": "The class-specific persistent identifier (PID)"
+						},
+						"number": {
+							"type": "string",
+							"description": "The phone number or contact identifier used for communication."
+						},
+						"imei": {
+							"type": "string",
+							"description": "The International Mobile Equipment Identity (IMEI) number assigned to the telecom device."
+						},
+						"technology": {
+							"type": "object",
+							"properties": {
+								"@context": {
+									"type": ["string", "object"],
+									"description": "The JSON-LD context defining term mappings."
+								},
+								"@type": {
+									"type": "string",
+									"const": "goos:TelecomTechnology",
+									"description": "The JSON-LD type of the resource."
+								},
+								"@id": {
+									"type": "string",
+									"format": "uri",
+									"description": "The globally unique URI identifier for this resource."
+								},
+								"id": {
+									"type": "string",
+									"description": "The class-specific persistent identifier (PID)"
+								},
+								"name": {
+									"type": "string",
+									"description": "Name of the telecom technology (e.g., Iridium, GSM)."
+								}
+							}
+						}
+					}
+				},
+				"model": {
+					"type": "object",
+					"properties": {
+						"@context": {
+							"type": ["string", "object"],
+							"description": "The JSON-LD context defining term mappings."
+						},
+						"@type": {
+							"type": "string",
+							"const": "goos:PlatformModel",
+							"description": "The JSON-LD type of the resource."
+						},
+						"@id": {
+							"type": "string",
+							"format": "uri",
+							"description": "The globally unique URI identifier for this resource."
+						},
+						"id": {
+							"type": "string",
+							"description": "The class-specific persistent identifier (PID)"
+						},
+						"name": {
+							"type": "string",
+							"description": "The common name of the platform model (e.g., APEX, SVP-B)."
+						},
+						"type": {
+							"type": "object",
+							"properties": {
+								"@context": {
+									"type": ["string", "object"],
+									"description": "The JSON-LD context defining term mappings."
+								},
+								"@type": {
+									"type": "string",
+									"const": "goos:PlatformType",
+									"description": "The JSON-LD type of the resource."
+								},
+								"@id": {
+									"type": "string",
+									"format": "uri",
+									"description": "The globally unique URI identifier for this resource."
+								},
+								"id": {
+									"type": "string",
+									"description": "The class-specific persistent identifier (PID)"
+								},
+								"name": {
+									"type": "string",
+									"description": "Name of the platform type (e.g., Argo Float, Glider)."
+								}
+							}
+						},
+						"manufacturer": {
+							"type": "object",
+							"properties": {
+								"@context": {
+									"type": ["string", "object"],
+									"description": "The JSON-LD context defining term mappings."
+								},
+								"@type": {
+									"type": "string",
+									"const": "goos:Organization",
+									"description": "The JSON-LD type of the resource."
+								},
+								"@id": {
+									"type": "string",
+									"format": "uri",
+									"description": "The globally unique URI identifier for this resource."
+								},
+								"id": {
+									"type": "string",
+									"description": "The class-specific persistent identifier (PID)"
+								},
+								"name": {
+									"type": "string",
+									"description": "Full official name of the organization."
+								},
+								"description": {
+									"type": "string",
+									"description": "Description of the organization's mandate or role."
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"provider": {
+			"type": "object",
+			"properties": {
+				"@context": {
+					"type": ["string", "object"],
+					"description": "The JSON-LD context defining term mappings."
+				},
+				"@type": {
+					"type": "string",
+					"const": "goos:WIGOSProgram",
+					"description": "The JSON-LD type of the resource."
+				},
+				"@id": {
+					"type": "string",
+					"format": "uri",
+					"description": "The globally unique URI identifier for this resource."
+				},
+				"id": {
+					"type": "string",
+					"description": "The class-specific persistent identifier (PID)"
+				},
+				"name": {
+					"type": "string",
+					"description": "Name of the WIGOS Program."
+				},
+				"country": {
+					"type": "object",
+					"properties": {
+						"@context": {
+							"type": ["string", "object"],
+							"description": "The JSON-LD context defining term mappings."
+						},
+						"@type": {
+							"type": "string",
+							"const": "goos:Country",
+							"description": "The JSON-LD type of the resource."
+						},
+						"@id": {
+							"type": "string",
+							"format": "uri",
+							"description": "The globally unique URI identifier for this resource."
+						},
+						"id": {
+							"type": "string",
+							"description": "The class-specific persistent identifier (PID)"
+						},
+						"code2": {
+							"type": "string",
+							"description": "ISO 3166-1 alpha-2 code for the country."
+						},
+						"name": {
+							"type": "string",
+							"description": "Full English name of the country."
+						}
+					}
+				}
+			}
+		},
+		"result": {
+			"type": "array",
+			"description": "Observations collected during this mission.",
+			"items": {
+				"type": "object",
+				"properties": {
+					"@context": {
+						"type": ["string", "object"],
+						"description": "The JSON-LD context defining term mappings."
+					},
+					"@type": {
+						"type": "string",
+						"const": "goos:Observation",
+						"description": "The JSON-LD type of the resource."
+					},
+					"@id": {
+						"type": "string",
+						"format": "uri",
+						"description": "The globally unique URI identifier for this resource."
+					},
+					"id": {
+						"type": "string",
+						"description": "The class-specific persistent identifier (PID)"
+					},
+					"variable": {
+						"type": "object",
+						"properties": {
+							"@context": {
+								"type": ["string", "object"],
+								"description": "The JSON-LD context defining term mappings."
+							},
+							"@type": {
+								"type": "string",
+								"const": "goos:Variable",
+								"description": "The JSON-LD type of the resource."
+							},
+							"@id": {
+								"type": "string",
+								"format": "uri",
+								"description": "The globally unique URI identifier for this resource."
+							},
+							"id": {
+								"type": "string",
+								"description": "The class-specific persistent identifier (PID)"
+							},
+							"name": {
+								"type": "string",
+								"description": "Human-readable name of the variable (e.g., Temperature, Salinity)."
+							},
+							"description": {
+								"type": "string",
+								"description": "A textual description of what this variable represents or how it's measured."
+							}
+						}
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time of the observation."
+					},
+					"location": {
+						"type": "object",
+						"required": ["geo"],
+						"properties": {
+							"geo": {
+							"type": "object",
+							"required": ["latitude", "longitude"],
+							"properties": {
+								"latitude": {
+								"type": "number",
+								"minimum": -90,
+								"maximum": 90
+								},
+								"longitude": {
+								"type": "number",
+								"minimum": -180,
+								"maximum": 180
+								},
+								"elevation": {
+								"type": "number",
+								"description": "Height or depth in meters relative to sea level"
+								}
+							}
+							}
+						}
+					},
+					"dataURL": {
+						"type": "string",
+						"format": "uri",
+						"description": "URL to the observation data."
+					}
+				}
+			}
+		},
+		"status": {
+			"type": "object",
+			"properties": {
+				"@context": {
+					"type": ["string", "object"],
+					"description": "The JSON-LD context defining term mappings."
+				},
+				"@type": {
+					"type": "string",
+					"const": "goos:StatusType",
+					"description": "The JSON-LD type of the resource."
+				},
+				"@id": {
+					"type": "string",
+					"format": "uri",
+					"description": "The globally unique URI identifier for this resource."
+				},
+				"id": {
+					"type": "string",
+					"description": "The class-specific persistent identifier (PID)"
+				},
+				"prefLabel": {
+					"type": "string",
+					"description": "Preferred label for this status concept (e.g., 'Planned', 'Operational')."
+				}
+			}
+		},
+		"activation": {
+			"type": "object",
+			"required": ["@type", "@id", "id"],
+			"properties": {
+				"@context": {
+					"type": ["string", "object"],
+					"description": "The JSON-LD context defining term mappings."
+				},
+				"@type": {
+					"type": "string",
+					"const": "goos:Activation",
+					"description": "The JSON-LD type of the resource."
+				},
+				"@id": {
+					"type": "string",
+					"format": "uri",
+					"description": "The globally unique URI identifier for this resource."
+				},
+				"id": {
+					"type": "string",
+					"description": "The class-specific persistent identifier (PID)"
+				},
+				"startTime": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The date and time the platform activation started."
+				},
+				"location": {
+					"type": "object",
+					"required": ["geo"],
+					"properties": {
+						"geo": {
+						"type": "object",
+						"required": ["latitude", "longitude"],
+						"properties": {
+							"latitude": {
+							"type": "number",
+							"minimum": -90,
+							"maximum": 90
+							},
+							"longitude": {
+							"type": "number",
+							"minimum": -180,
+							"maximum": 180
+							},
+							"elevation": {
+							"type": "number",
+							"description": "Height or depth in meters relative to sea level"
+							}
+						}
+						}
+					}
+				},
+				"ship": {
+					"type": "object",
+					"properties": {
+						"@context": {
+							"type": ["string", "object"],
+							"description": "The JSON-LD context defining term mappings."
+						},
+						"@type": {
+							"type": "string",
+							"const": "goos:Ship",
+							"description": "The JSON-LD type of the resource."
+						},
+						"@id": {
+							"type": "string",
+							"format": "uri",
+							"description": "The globally unique URI identifier for this resource."
+						},
+						"id": {
+							"type": "string",
+							"description": "The class-specific persistent identifier (PID)"
+						},
+						"name": {
+							"type": "string",
+							"description": "Full name of the ship."
+						},
+						"icesCode": {
+							"type": "string",
+							"description": "Identifier assigned to the ship by ICES."
+						},
+						"callSign": {
+							"type": "string",
+							"description": "Radio call sign of the ship."
+						},
+						"imoNumber": {
+							"type": "string",
+							"description": "IMO number of the ship."
+						}
+				}
+			}
+		},
+		"deactivation": {
+			"type": "object",
+			"properties": {
+				"@context": {
+					"type": ["string", "object"],
+					"description": "The JSON-LD context defining term mappings."
+				},
+				"@type": {
+					"type": "string",
+					"const": "goos:Deactivation",
+					"description": "The JSON-LD type of the resource."
+				},
+				"@id": {
+					"type": "string",
+					"format": "uri",
+					"description": "The globally unique URI identifier for this resource."
+				},
+				"id": {
+					"type": "string",
+					"description": "The class-specific persistent identifier (PID)"
+				},
+				"startTime": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The date and time the platform deactivation started."
+				}
+			}
+		},
+		"sensorSetup": {
+			"type": "array",
+			"items": {
+				"properties": {
+					"@context": {
+						"type": ["string", "object"],
+						"description": "The JSON-LD context defining term mappings."
+					},
+					"@type": {
+						"type": "string",
+						"const": "goos:SensorSetup",
+						"description": "The JSON-LD type of the resource."
+					},
+					"@id": {
+						"type": "string",
+						"format": "uri",
+						"description": "The globally unique URI identifier for this resource."
+					},
+					"id": {
+						"type": "string",
+						"description": "The class-specific persistent identifier (PID)"
+					},
+					"observesVariable": {
+						"type": "string",
+						"format": "uri",
+						"description": "The variable this sensor setup is intended to measure."
+					},
+					"sensor": {
+						"type": "string",
+						"format": "uri",
+						"description": "The sensor that was configured for this sensor setup."
+					},
+					"platform": {
+						"type": "string",
+						"format": "uri",
+						"description": "The platform on which the sensor was installed."
+					}
+				}
+			}
+		}
     },
     "additionalProperties": false
   }
+}
   

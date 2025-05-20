@@ -4,10 +4,11 @@
     "schema": "https://schema.org/",
     "goos": "https://www.ocean-ops.org/goosmeta#",
 
-    "@vocab": "https://www.ocean-ops.org/goosmeta#",
-
     "GOOSMission": "goos:GOOSMission",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "startTime": {
       "@id": "schema:startTime",
       "@type": "xsd:dateTime"
@@ -15,10 +16,6 @@
     "endTime": {
       "@id": "schema:endTime",
       "@type": "xsd:dateTime"
-    },
-    "missionId": {
-      "@id": "goos:missionId",
-      "@type": "xsd:string"
     },
     "wigosId": {
       "@id": "goos:wigosId",

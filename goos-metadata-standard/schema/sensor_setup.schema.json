@@ -5,9 +5,23 @@
   "description": "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:SensorSetup",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
       "type": "string",
-      "description": "Internal identifier for the sensor setup."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "observesVariable": {
       "type": "string",

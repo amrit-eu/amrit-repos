@@ -5,9 +5,23 @@
   "description": "A functional category of observation platforms such as Float, Wave Glider, or Tide Guage.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:PlatformType",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
       "type": "string",
-      "description": "Internal identifier for the platform type."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "name": {
       "type": "string",

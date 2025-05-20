@@ -7,7 +7,7 @@
 
     "Activation": "goos:Activation",
     "id": {
-      "@id": "goos:activationId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "startTime": {

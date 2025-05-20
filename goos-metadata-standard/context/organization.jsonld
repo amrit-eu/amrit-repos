@@ -5,7 +5,7 @@
 
     "Organization": "goos:Organization",
     "id": {
-      "@id": "goos:organizationId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

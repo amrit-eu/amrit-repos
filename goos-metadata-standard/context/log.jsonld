@@ -2,7 +2,12 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
+	
     "Log": "goos:Log",
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "statusHistory": {
       "@id": "goos:hasStatusHistory",
       "@type": "@id"

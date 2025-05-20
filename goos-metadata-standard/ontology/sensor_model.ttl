@@ -17,12 +17,12 @@ goos:SensorModel a owl:Class ;
 #    Properties
 #################################################################
 
-# Sensor Model ID
-goos:sensorModelId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this sensor model."@en ;
     rdfs:domain goos:SensorModel ;
-    rdfs:range xsd:string ;
-    rdfs:label "Sensor Model ID"@en ;
-    rdfs:comment "Internal or URI identifier for the sensor model."@en .
+    rdfs:range xsd:string .
 
 # Sensor Model Name
 goos:sensorModelName a owl:DatatypeProperty ;

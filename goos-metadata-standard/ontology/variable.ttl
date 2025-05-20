@@ -18,12 +18,12 @@ goos:Variable a owl:Class ;
 #    Properties
 #################################################################
 
-# Variable ID
-goos:variableId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this variable."@en ;
     rdfs:domain goos:Variable ;
-    rdfs:range xsd:string ;
-    rdfs:label "Variable ID"@en ;
-    rdfs:comment "Internal identifier for the variable."@en .
+    rdfs:range xsd:string .
 
 # Variable Name
 goos:variableName a owl:DatatypeProperty ;

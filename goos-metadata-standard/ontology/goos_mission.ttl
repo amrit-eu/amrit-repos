@@ -17,6 +17,13 @@ goos:GOOSMission a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this mission."@en ;
+    rdfs:domain goos:GOOSMission ;
+    rdfs:range xsd:string .
+
 # Start and end time (inherited from schema.org)
 schema:startTime a owl:DatatypeProperty ;
     rdfs:domain goos:GOOSMission ;
@@ -25,14 +32,6 @@ schema:startTime a owl:DatatypeProperty ;
 schema:endTime a owl:DatatypeProperty ;
     rdfs:domain goos:GOOSMission ;
     rdfs:range xsd:dateTime .
-
-# Mission ID
-goos:missionId a owl:DatatypeProperty ;
-    rdfs:label "Mission ID"@en ;
-    rdfs:comment "The unique internal Mission ID (e.g. OceanOPS ptfId)."@en ;
-    rdfs:domain goos:GOOSMission ;
-    rdfs:range xsd:string ;
-    rdfs:subPropertyOf schema:identifier .
 
 # WIGOS ID
 goos:wigosId a owl:DatatypeProperty ;

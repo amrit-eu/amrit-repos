@@ -10,11 +10,12 @@ goos:Country a owl:Class ;
     rdfs:comment "United Nations member state or a group of states such as European Union."@en ;
     rdfs:subClassOf schema:Country .
 
-goos:countryId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this country."@en ;
     rdfs:domain goos:Country ;
-    rdfs:range xsd:string ;
-    rdfs:label "Country ID"@en ;
-    rdfs:comment "Internal database identifier for the country."@en .
+    rdfs:range xsd:string .
 
 goos:countryCode2 a owl:DatatypeProperty ;
     rdfs:subPropertyOf skos:notation ;

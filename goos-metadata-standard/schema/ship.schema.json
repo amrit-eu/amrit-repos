@@ -5,9 +5,23 @@
   "description": "A ship that deployed the platform, or served as the platform's installation or operation base.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:Ship",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
       "type": "string",
-      "description": "Internal database identifier for the ship."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "name": {
       "type": "string",

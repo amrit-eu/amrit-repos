@@ -1,10 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://www.ocean-ops.org/goosmeta/schemas/telecom_device.schema.json",
-  "title": "Telecommunication Device",
+  "title": "Telecom Device",
   "description": "A device or communication endpoint used to transmit observational data from a platform, typically identified by a phone number or IMEI.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:TelecomDevice",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
+    },
     "number": {
       "type": "string",
       "description": "The phone number or contact identifier used for communication."

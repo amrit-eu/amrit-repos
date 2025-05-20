@@ -5,9 +5,8 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "TelecomTechnology": "goos:TelecomTechnology",
-
     "id": {
-      "@id": "goos:telecomTechnologyId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

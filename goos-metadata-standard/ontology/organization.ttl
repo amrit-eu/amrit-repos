@@ -17,11 +17,12 @@ goos:Organization a owl:Class ;
 #    Properties
 #################################################################
 
-goos:organizationId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this organization."@en ;
     rdfs:domain goos:Organization ;
-    rdfs:range xsd:string ;
-    rdfs:label "Organization ID"@en ;
-    rdfs:comment "Internal identifier for the organization."@en .
+    rdfs:range xsd:string .
 
 goos:organizationName a owl:DatatypeProperty ;
     rdfs:subPropertyOf schema:name ;

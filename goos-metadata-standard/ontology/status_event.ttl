@@ -18,6 +18,13 @@ goos:StatusEvent a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this status event."@en ;
+    rdfs:domain goos:StatusEvent ;
+    rdfs:range xsd:string .
+
 goos:statusType a owl:ObjectProperty ;
     rdfs:label "Status Type"@en ;
     rdfs:comment "The assigned status represented as a concept from a controlled vocabulary."@en ;

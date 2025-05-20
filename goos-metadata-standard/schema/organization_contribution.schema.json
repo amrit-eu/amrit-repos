@@ -5,6 +5,24 @@
   "description": "A specific contribution by an organization to either a GOOS Mission or a WIGOS Program, playing a defined role.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:OrganizationContribution",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
+    },
     "organization": {
       "type": "string",
       "format": "uri",

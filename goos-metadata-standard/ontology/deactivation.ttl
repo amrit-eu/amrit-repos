@@ -17,6 +17,13 @@ goos:Deactivation a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this deactivation."@en ;
+    rdfs:domain goos:Deactivation ;
+    rdfs:range xsd:string .
+
 # Deactivation Start Time
 schema:startTime a owl:DatatypeProperty ;
     rdfs:label "Start Time"@en ;
@@ -39,9 +46,4 @@ goos:retrievedByShip a owl:ObjectProperty ;
     rdfs:range goos:Ship ;
     rdfs:subPropertyOf schema:agent .
 
-# Deactivation ID
-goos:deactivationId a owl:DatatypeProperty ;
-    rdfs:label "Deactivation ID"@en ;
-    rdfs:comment "Internal identifier for the deactivation event."@en ;
-    rdfs:domain goos:Deactivation ;
-    rdfs:range xsd:string .
+

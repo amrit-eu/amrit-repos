@@ -18,6 +18,13 @@ goos:Sensor a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this sensor."@en ;
+    rdfs:domain goos:Sensor ;
+    rdfs:range xsd:string .
+
 # Serial Number
 goos:serialNumber a owl:DatatypeProperty ;
     rdfs:domain goos:Sensor ;

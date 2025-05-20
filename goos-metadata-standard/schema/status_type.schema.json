@@ -5,6 +5,24 @@
   "description": "A controlled concept representing a status in the lifecycle of a mission or platform.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:StatusType",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
+    },
     "prefLabel": {
       "type": "string",
       "description": "Preferred label for this status concept (e.g., 'Planned', 'Operational')."

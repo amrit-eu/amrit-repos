@@ -8,8 +8,8 @@
 
     "SensorSetup": "goos:SensorSetup",
     "id": {
-    "@id": "goos:sensorSetupId",
-    "@type": "xsd:string"
+      "@id": "goos:id",
+      "@type": "xsd:string"
     },
     "observesVariable": {
       "@id": "goos:observesVariable",

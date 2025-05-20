@@ -1,26 +1,44 @@
 {
-  "@context": {
-    "goos": "https://www.ocean-ops.org/goosmeta#",
-    "schema": "https://schema.org/",
-
-    "@vocab": "https://www.ocean-ops.org/goosmeta#",
-
-    "Deactivation": "goos:Deactivation",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.ocean-ops.org/goosmeta/schemas/deactivation.schema.json",
+  "title": "Deactivation",
+  "description": "The act of retrieving or deactivating a platform to end its mission.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:Deactivation",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
-      "@id": "goos:deactivationId",
-      "@type": "xsd:string"
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
     },
     "startTime": {
-      "@id": "schema:startTime",
-      "@type": "xsd:dateTime"
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the platform deactivation started."
     },
     "location": {
-      "@id": "schema:location",
-      "@type": "@id"
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the place where the platform was cdactivated."
     },
     "ship": {
-      "@id": "goos:retrievedByShip",
-      "@type": "@id"
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the ship involved in the cdactivation."
     }
-  }
+  },
+  "required": ["@type", "startTime", "location"],
+  "additionalProperties": false
 }

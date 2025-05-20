@@ -5,7 +5,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "StatusEvent": "goos:StatusEvent",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "type": {
       "@id": "goos:statusType",
       "@type": "@id"

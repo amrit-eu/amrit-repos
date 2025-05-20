@@ -6,7 +6,7 @@
 
     "ObservingSystem": "goos:ObservingSystem",
     "id": {
-      "@id": "goos:observingSystemId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

@@ -18,6 +18,13 @@ goos:Observation a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this observation."@en ;
+    rdfs:domain goos:Observation ;
+    rdfs:range xsd:string .
+
 # Observed Variable
 goos:observedVariable a owl:ObjectProperty ;
     rdfs:label "Observed Variable"@en ;

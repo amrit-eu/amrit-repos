@@ -17,9 +17,10 @@ goos:WIGOSProgram a owl:Class ;
 #    Properties
 #################################################################
 
-goos:wigosProgramId a owl:DatatypeProperty ;
-    rdfs:label "WIGOS Program ID"@en ;
-    rdfs:comment "Internal identifier for the WIGOS Program."@en ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this WIGOS program."@en ;
     rdfs:domain goos:WIGOSProgram ;
     rdfs:range xsd:string .
 

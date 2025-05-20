@@ -6,9 +6,8 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Variable": "goos:Variable",
-
     "id": {
-      "@id": "goos:variableId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

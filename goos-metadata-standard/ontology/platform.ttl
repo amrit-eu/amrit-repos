@@ -18,6 +18,13 @@ goos:Platform a owl:Class ;
  #    Properties
  #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this platform."@en ;
+    rdfs:domain goos:Platform ;
+    rdfs:range xsd:string .
+
 # Platform Reference
 goos:platformRef a owl:DatatypeProperty ;
     rdfs:domain goos:Platform ;

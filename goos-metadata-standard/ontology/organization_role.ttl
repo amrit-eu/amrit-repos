@@ -17,11 +17,12 @@ goos:OrganizationRole a owl:Class ;
 #    Properties
 #################################################################
 
-goos:organizationRoleId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this organization role."@en ;
     rdfs:domain goos:OrganizationRole ;
-    rdfs:range xsd:string ;
-    rdfs:label "Organization Role ID"@en ;
-    rdfs:comment "Internal identifier for the organization role."@en .
+    rdfs:range xsd:string .
 
 goos:organizationRoleName a owl:DatatypeProperty ;
     rdfs:subPropertyOf schema:name ;

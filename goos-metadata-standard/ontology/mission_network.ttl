@@ -17,11 +17,12 @@ goos:MissionNetwork a owl:Class ;
 #    Properties
 #################################################################
 
-goos:missionNetworkId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this network."@en ;
     rdfs:domain goos:MissionNetwork ;
-    rdfs:range xsd:string ;
-    rdfs:label "Mission Network ID"@en ;
-    rdfs:comment "Internal identifier for the mission network."@en .
+    rdfs:range xsd:string .
 
 goos:missionNetworkName a owl:DatatypeProperty ;
     rdfs:subPropertyOf schema:name ;
