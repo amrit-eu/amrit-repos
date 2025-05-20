@@ -5,19 +5,19 @@
 
     "SensorModel": "goos:SensorModel",
 
-    "sensorModelId": {
+    "id": {
       "@id": "goos:sensorModelId",
       "@type": "xsd:string"
     },
-    "sensorModelName": {
+    "name": {
       "@id": "goos:sensorModelName",
       "@type": "xsd:string"
     },
-    "supportsVariable": {
+    "variable": {
       "@id": "goos:supportsVariable",
       "@type": "@id"
     },
-    "hasManufacturer": {
+    "manufacturer": {
       "@id": "goos:hasManufacturer",
       "@type": "@id"
     }

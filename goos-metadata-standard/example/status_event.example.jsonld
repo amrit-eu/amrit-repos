@@ -1,0 +1,33 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "StatusEvent": "goos:StatusEvent",
+  
+      "type": {
+        "@id": "goos:statusType",
+        "@type": "@id"
+      },
+      "date": {
+        "@id": "goos:statusDate",
+        "@type": "xsd:dateTime"
+      },
+      "comment": {
+        "@id": "goos:statusComment",
+        "@type": "xsd:string"
+      },
+      "assignedBy": {
+        "@id": "goos:assignedBy",
+        "@type": "@id"
+      }
+    },
+    "@id": "https://www.ocean-ops.org/goosmeta/status_event/evt-001",
+    "@type": "goos:StatusEvent",
+    "type": "https://www.ocean-ops.org/goosmeta/status/Active",
+    "date": "2024-11-15T14:30:00Z",
+    "comment": "Activated after successful deployment.",
+    "assignedBy": "https://www.ocean-ops.org/goosmeta/person/agent-01"
+  }
+  

@@ -9,7 +9,7 @@
       "type": "string",
       "description": "Serial number of the sensor as provided by the manufacturer."
     },
-    "hasModel": {
+    "model": {
       "type": "string",
       "format": "uri",
       "description": "The model or type of sensor, linking to a SensorModel resource."

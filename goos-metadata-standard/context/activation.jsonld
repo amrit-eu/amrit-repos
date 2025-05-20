@@ -5,10 +5,11 @@
     "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
-    "type": "@type",
-    "id": "@id",
-
     "Activation": "goos:Activation",
+    "id": {
+      "@id": "goos:activationId",
+      "@type": "xsd:string"
+    },
     "startTime": {
       "@id": "schema:startTime",
       "@type": "xsd:dateTime"
@@ -17,7 +18,7 @@
       "@id": "schema:location",
       "@type": "@id"
     },
-    "deployedByShip": {
+    "ship": {
       "@id": "goos:deployedByShip",
       "@type": "@id"
     }

@@ -2,21 +2,26 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
     "MissionNetwork": "goos:MissionNetwork",
-    "missionNetworkId": "goos:missionNetworkId",
-    "missionNetworkName": {
+    "id": {
+      "@id": "goos:missionNetworkId",
+      "@type": "xsd:string"
+    },
+    "name": {
       "@id": "goos:missionNetworkName",
       "@type": "xsd:string"
     },
-    "missionNetworkDescription": {
+    "description": {
       "@id": "goos:missionNetworkDescription",
       "@type": "xsd:string"
     },
-    "hasParentSystem": {
+    "parentSystem": {
       "@id": "goos:hasParentSystem",
       "@type": "@id"
     },
-    "hasMission": {
+    "mission": {
       "@id": "goos:hasMission",
       "@type": "@id"
     }

@@ -3,18 +3,19 @@
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "sosa": "http://www.w3.org/ns/sosa/",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Variable": "goos:Variable",
 
-    "variableId": {
+    "id": {
       "@id": "goos:variableId",
       "@type": "xsd:string"
     },
-    "variableName": {
+    "name": {
       "@id": "goos:variableName",
       "@type": "xsd:string"
     },
-    "variableDescription": {
+    "description": {
       "@id": "goos:variableDescription",
       "@type": "xsd:string"
     }

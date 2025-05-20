@@ -5,15 +5,15 @@
   "description": "One of the eight high-level GOOS/WIGOS observing systems. These systems group together ocean observing missions by instrumentation or operational framework.",
   "type": "object",
   "properties": {
-    "observingSystemId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the observing system."
     },
-    "observingSystemName": {
+    "name": {
       "type": "string",
       "description": "Official name of the observing system."
     },
-    "observingSystemDescription": {
+    "description": {
       "type": "string",
       "description": "Description of the scope and role of this observing system."
     }

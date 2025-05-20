@@ -43,13 +43,13 @@
         "$ref": "https://www.ocean-ops.org/goosmeta/schema/observation.schema.json"
       }
     },
-    "hasStatus": {
+    "status": {
       "$ref": "https://www.ocean-ops.org/goosmeta/schema/status_type.schema.json"
     },
-    "hasActivation": {
+    "activation": {
       "$ref": "https://www.ocean-ops.org/goosmeta/schema/activation.schema.json"
     },
-    "hasObservationSetup": {
+    "observationSetup": {
       "type": "array",
       "items": {
         "$ref": "https://www.ocean-ops.org/goosmeta/schema/sensor_setup.schema.json"

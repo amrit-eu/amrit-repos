@@ -5,19 +5,19 @@
   "description": "A functional category of observation platforms such as Float, Wave Glider, or Tide Guage.",
   "type": "object",
   "properties": {
-    "platformTypeId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the platform type."
     },
-    "platformTypeName": {
+    "name": {
       "type": "string",
       "description": "Name of the platform type (e.g., Argo Float, Glider)."
     },
-    "platformTypeDescription": {
+    "description": {
       "type": "string",
       "description": "Description of the general characteristics or use of this platform type."
     },
-    "hasFamily": {
+    "family": {
       "type": "string",
       "format": "uri",
       "description": "The broader platform family to which this type belongs (e.g., Subsurface Profiler, Moored Buoy, or Fixed Station)."

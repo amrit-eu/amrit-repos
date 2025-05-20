@@ -5,15 +5,15 @@
   "description": "Any entity (public, private, institutional, or commercial) involved in ocean observation activities, including agencies, manufacturers, operators, and funders.",
   "type": "object",
   "properties": {
-    "organizationId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the organization."
     },
-    "organizationName": {
+    "name": {
       "type": "string",
       "description": "Full official name of the organization."
     },
-    "organizationDescription": {
+    "description": {
       "type": "string",
       "description": "Description of the organization's mandate or role."
     }

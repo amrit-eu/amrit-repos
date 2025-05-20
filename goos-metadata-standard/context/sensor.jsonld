@@ -3,6 +3,7 @@
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "sosa": "http://www.w3.org/ns/sosa/",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Sensor": "goos:Sensor",
 
@@ -10,7 +11,7 @@
       "@id": "goos:serialNumber",
       "@type": "xsd:string"
     },
-    "hasModel": {
+    "model": {
       "@id": "goos:hasModel",
       "@type": "@id"
     }

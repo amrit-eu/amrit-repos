@@ -5,24 +5,24 @@
   "description": "A country-affiliated or institutional entity contributing to WIGOS through the execution of ocean observation missions and platform operations.",
   "type": "object",
   "properties": {
-    "wigosProgramId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the WIGOS Program."
     },
-    "programName": {
+    "name": {
       "type": "string",
       "description": "Name of the WIGOS Program."
     },
-    "programDescription": {
+    "description": {
       "type": "string",
       "description": "Description of the WIGOS Program's objectives and scope."
     },
-    "hasCountry": {
+    "country": {
       "type": "string",
       "format": "uri",
       "description": "URI of the associated country."
     },
-    "hasOrganizationContribution": {
+    "organizationContribution": {
       "type": "string",
       "format": "uri",
       "description": "URI of an OrganizationContribution made to this WIGOS Program."

@@ -7,20 +7,23 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "SensorSetup": "goos:SensorSetup",
-    "sensorId": "goos:sensorSetupId",
+    "id": {
+    "@id": "goos:sensorSetupId",
+    "@type": "xsd:string"
+    },
     "observesVariable": {
       "@id": "goos:observesVariable",
       "@type": "@id"
     },
-    "usesSensor": {
+    "sensor": {
       "@id": "goos:usesSensor",
       "@type": "@id"
     },
-    "hostPlatform": {
+    "platform": {
       "@id": "goos:hostPlatform",
       "@type": "@id"
     },
-    "partOfMission": {
+    "mission": {
       "@id": "goos:partOfMission",
       "@type": "@id"
     },

@@ -5,7 +5,7 @@
 
     "Platform": "goos:Platform",
 
-    "platformRef": {
+    "ref": {
       "@id": "goos:platformRef",
       "@type": "xsd:string"
     },
@@ -13,11 +13,11 @@
       "@id": "goos:serialNumber",
       "@type": "xsd:string"
     },
-    "hasTelecom": {
+    "telecom": {
       "@id": "goos:hasTelecom",
       "@type": "@id"
     },
-    "hasModel": {
+    "model": {
       "@id": "goos:hasModel",
       "@type": "@id"
     }

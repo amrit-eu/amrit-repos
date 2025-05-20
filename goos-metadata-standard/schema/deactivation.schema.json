@@ -6,7 +6,7 @@
     "@vocab": "https://www.ocean-ops.org/goosmeta#",
 
     "Deactivation": "goos:Deactivation",
-    "deactivationId": {
+    "id": {
       "@id": "goos:deactivationId",
       "@type": "xsd:string"
     },
@@ -18,7 +18,7 @@
       "@id": "schema:location",
       "@type": "@id"
     },
-    "retrievedByShip": {
+    "ship": {
       "@id": "goos:retrievedByShip",
       "@type": "@id"
     }

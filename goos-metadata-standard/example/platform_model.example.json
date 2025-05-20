@@ -1,0 +1,37 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "PlatformModel": "goos:PlatformModel",
+  
+      "id": {
+        "@id": "goos:platformModelId",
+        "@type": "xsd:string"
+      },
+      "name": {
+        "@id": "goos:platformModelName",
+        "@type": "xsd:string"
+      },
+      "description": {
+        "@id": "goos:platformModelDescription",
+        "@type": "xsd:string"
+      },
+      "type": {
+        "@id": "goos:belongsToType",
+        "@type": "@id"
+      },
+      "manufacturer": {
+        "@id": "goos:hasManufacturer",
+        "@type": "@id"
+      }
+    },
+    "@type": "goos:PlatformModel",
+    "id": "apex-01",
+    "name": "APEX Float",
+    "description": "A commonly used profiling float model manufactured for the Argo program.",
+    "type": "https://www.ocean-ops.org/goosmeta#Float",
+    "manufacturer": "https://www.ocean-ops.org/goosmeta#Teledyne"
+  }
+  

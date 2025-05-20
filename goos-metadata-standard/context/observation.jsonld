@@ -6,11 +6,11 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Observation": "goos:Observation",
-    "observedVariable": {
+    "variable": {
       "@id": "goos:observedVariable",
       "@type": "@id"
     },
-    "observationDate": {
+    "date": {
       "@id": "goos:observationDate",
       "@type": "xsd:dateTime"
     },
@@ -18,7 +18,7 @@
       "@id": "schema:location",
       "@type": "@id"
     },
-    "madeBySensor": {
+    "sensor": {
       "@id": "goos:madeBySensor",
       "@type": "@id"
     },

@@ -1,0 +1,36 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "SensorModel": "goos:SensorModel",
+  
+      "id": {
+        "@id": "goos:sensorModelId",
+        "@type": "xsd:string"
+      },
+      "name": {
+        "@id": "goos:sensorModelName",
+        "@type": "xsd:string"
+      },
+      "variable": {
+        "@id": "goos:supportsVariable",
+        "@type": "@id"
+      },
+      "manufacturer": {
+        "@id": "goos:hasManufacturer",
+        "@type": "@id"
+      }
+    },
+    "@type": "goos:SensorModel",
+    "id": "SBE37-IM-001",
+    "name": "Sea-Bird SBE 37 IMP MicroCAT",
+    "variable": [
+      "https://www.ocean-ops.org/goosmeta/variable/temperature",
+      "https://www.ocean-ops.org/goosmeta/variable/salinity",
+      "https://www.ocean-ops.org/goosmeta/variable/conductivity"
+    ],
+    "manufacturer": "https://www.ocean-ops.org/goosmeta/organization/seabird"
+  }
+  

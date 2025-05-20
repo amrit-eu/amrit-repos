@@ -1,6 +1,7 @@
 {
   "@context": {
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "location": {
       "@id": "schema:location",
       "@type": "@id"

@@ -1,0 +1,32 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "Platform": "goos:Platform",
+  
+      "ref": {
+        "@id": "goos:platformRef",
+        "@type": "xsd:string"
+      },
+      "serialNumber": {
+        "@id": "goos:serialNumber",
+        "@type": "xsd:string"
+      },
+      "telecom": {
+        "@id": "goos:hasTelecom",
+        "@type": "@id"
+      },
+      "model": {
+        "@id": "goos:hasModel",
+        "@type": "@id"
+      }
+    },
+    "@type": "goos:Platform",
+    "ref": "ARGOX-0001",
+    "serialNumber": "SN-4321",
+    "telecom": "https://www.ocean-ops.org/goosmeta/telecom/iridium-123456789",
+    "model": "https://www.ocean-ops.org/goosmeta/platformModel/apex-01"
+  }
+  

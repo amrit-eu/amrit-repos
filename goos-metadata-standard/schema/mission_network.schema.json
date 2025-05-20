@@ -5,24 +5,24 @@
   "description": "A virtual or thematic grouping of missions and platforms, often representing regional arrays, shared scientific goals, or collaborative initiatives.",
   "type": "object",
   "properties": {
-    "missionNetworkId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the mission network."
     },
-    "missionNetworkName": {
+    "name": {
       "type": "string",
       "description": "Official name of the mission network."
     },
-    "missionNetworkDescription": {
+    "description": {
       "type": "string",
       "description": "Free-text description of the mission network’s scope or purpose."
     },
-    "hasParentSystem": {
+    "parentSystem": {
       "type": "string",
       "format": "uri",
       "description": "The observing system to which this mission network belongs."
     },
-    "hasMission": {
+    "mission": {
       "type": "array",
       "items": {
         "type": "string",

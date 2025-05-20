@@ -36,15 +36,15 @@
       "@id": "schema:result",
       "@type": "@id"
     },
-    "hasStatus": {
+    "status": {
       "@id": "goos:hasStatus",
       "@type": "@id"
     },
-    "hasActivation": {
+    "activation": {
       "@id": "goos:hasActivation",
       "@type": "@id"
     },
-    "hasObservationSetup": {
+    "observationSetup": {
       "@id": "goos:hasObservationSetup",
       "@type": "@id"
     }
