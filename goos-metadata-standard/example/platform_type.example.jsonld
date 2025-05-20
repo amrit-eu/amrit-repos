@@ -1,0 +1,32 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "PlatformType": "goos:PlatformType",
+  
+      "id": {
+        "@id": "goos:platformTypeId",
+        "@type": "xsd:string"
+      },
+      "name": {
+        "@id": "goos:platformTypeName",
+        "@type": "xsd:string"
+      },
+      "description": {
+        "@id": "goos:platformTypeDescription",
+        "@type": "xsd:string"
+      },
+      "family": {
+        "@id": "goos:hasFamily",
+        "@type": "@id"
+      }
+    },
+    "@type": "goos:PlatformType",
+    "id": "float",
+    "name": "Float",
+    "description": "A free-drifting autonomous profiler used for oceanographic observations, such as Argo floats.",
+    "family": "https://www.ocean-ops.org/goosmeta#SubsurfaceProfiler"
+  }
+  

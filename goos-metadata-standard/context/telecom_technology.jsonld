@@ -2,14 +2,15 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "TelecomTechnology": "goos:TelecomTechnology",
 
-    "telecomTechnologyId": {
+    "id": {
       "@id": "goos:telecomTechnologyId",
       "@type": "xsd:string"
     },
-    "telecomTechnologyName": {
+    "name": {
       "@id": "goos:telecomTechnologyName",
       "@type": "xsd:string"
     }

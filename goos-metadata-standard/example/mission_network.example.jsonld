@@ -1,0 +1,31 @@
+{
+    "@context": {
+      "@version": 1.1,
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "https://www.ocean-ops.org/resource/missionNetwork/MN123456",
+    "@type": "goos:MissionNetwork",
+    "id": "MN123456",
+    "name": "Atlantic Ocean Glider Network",
+    "description": "A regional initiative coordinating glider missions across the North Atlantic.",
+    "parentSystem": {
+      "@id": "https://www.ocean-ops.org/resource/observingSystem/OS7890",
+      "@type": "goos:ObservingSystem",
+      "name": "Atlantic Observing System"
+    },
+    "mission": [
+      {
+        "@id": "https://www.ocean-ops.org/resource/mission/MIS001",
+        "@type": "goos:OceanObservationMission",
+        "name": "Glider Mission Summer 2024"
+      },
+      {
+        "@id": "https://www.ocean-ops.org/resource/mission/MIS002",
+        "@type": "goos:OceanObservationMission",
+        "name": "Winter Deep Ocean Survey"
+      }
+    ]
+  }
+  

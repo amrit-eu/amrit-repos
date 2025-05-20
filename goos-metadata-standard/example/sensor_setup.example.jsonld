@@ -1,0 +1,49 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "ssn": "http://www.w3.org/ns/ssn/",
+      "sosa": "http://www.w3.org/ns/sosa/",
+      "prov": "http://www.w3.org/ns/prov#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "SensorSetup": "goos:SensorSetup",
+  
+      "id": {
+        "@id": "goos:sensorSetupId",
+        "@type": "xsd:string"
+      },
+      "observesVariable": {
+        "@id": "goos:observesVariable",
+        "@type": "@id"
+      },
+      "sensor": {
+        "@id": "goos:usesSensor",
+        "@type": "@id"
+      },
+      "platform": {
+        "@id": "goos:hostPlatform",
+        "@type": "@id"
+      },
+      "mission": {
+        "@id": "goos:partOfMission",
+        "@type": "@id"
+      },
+      "startTime": {
+        "@id": "goos:startTime",
+        "@type": "xsd:dateTime"
+      },
+      "endTime": {
+        "@id": "goos:endTime",
+        "@type": "xsd:dateTime"
+      }
+    },
+    "@type": "goos:SensorSetup",
+    "id": "setup-2024-001",
+    "observesVariable": "https://www.ocean-ops.org/goosmeta/variable/temperature",
+    "sensor": "https://www.ocean-ops.org/goosmeta/sensor/SBE37-IM-45",
+    "platform": "https://www.ocean-ops.org/goosmeta/platform/Buoy-XYZ",
+    "mission": "https://www.ocean-ops.org/goosmeta/mission/AR-2024-01",
+    "startTime": "2024-02-12T08:30:00Z",
+    "endTime": "2024-08-20T15:00:00Z"
+  }
+  

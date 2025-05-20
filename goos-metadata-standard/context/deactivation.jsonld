@@ -2,11 +2,12 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
-
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    
     "@vocab": "https://www.ocean-ops.org/goosmeta#",
 
     "Deactivation": "goos:Deactivation",
-    "deactivationId": {
+    "id": {
       "@id": "goos:deactivationId",
       "@type": "xsd:string"
     },
@@ -18,7 +19,7 @@
       "@id": "schema:location",
       "@type": "@id"
     },
-    "retrievedByShip": {
+    "ship": {
       "@id": "goos:retrievedByShip",
       "@type": "@id"
     }

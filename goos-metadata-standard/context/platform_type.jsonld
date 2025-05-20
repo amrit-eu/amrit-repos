@@ -5,19 +5,19 @@
 
     "PlatformType": "goos:PlatformType",
 
-    "platformTypeId": {
+    "id": {
       "@id": "goos:platformTypeId",
       "@type": "xsd:string"
     },
-    "platformTypeName": {
+    "name": {
       "@id": "goos:platformTypeName",
       "@type": "xsd:string"
     },
-    "platformTypeDescription": {
+    "description": {
       "@id": "goos:platformTypeDescription",
       "@type": "xsd:string"
     },
-    "hasFamily": {
+    "family": {
       "@id": "goos:hasFamily",
       "@type": "@id"
     }

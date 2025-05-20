@@ -5,11 +5,11 @@
   "description": "A ship that deployed the platform, or served as the platform's installation or operation base.",
   "type": "object",
   "properties": {
-    "shipId": {
+    "id": {
       "type": "string",
       "description": "Internal database identifier for the ship."
     },
-    "shipName": {
+    "name": {
       "type": "string",
       "description": "Full name of the ship."
     },
@@ -25,7 +25,7 @@
       "type": "string",
       "description": "IMO number of the ship."
     },
-    "hasFlagCountry": {
+    "flagCountry": {
       "type": "string",
       "format": "uri",
       "description": "URI of the country under which the ship is registered."

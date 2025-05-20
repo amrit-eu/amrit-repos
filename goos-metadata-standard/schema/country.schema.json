@@ -8,19 +8,19 @@
     "@type": {
       "const": "goos:Country"
     },
-    "countryId": {
+    "id": {
       "type": "string",
       "description": "Internal database identifier for the country."
     },
-    "countryCode2": {
+    "code2": {
       "type": "string",
       "description": "ISO 3166-1 alpha-2 code for the country."
     },
-    "countryName": {
+    "name": {
       "type": "string",
       "description": "Full English name of the country."
     }
   },
-  "required": ["@type", "countryId", "countryName"],
+  "required": ["@type", "id", "name"],
   "additionalProperties": false
 }

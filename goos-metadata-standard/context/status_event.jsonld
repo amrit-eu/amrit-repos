@@ -2,18 +2,19 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "StatusEvent": "goos:StatusEvent",
 
-    "statusType": {
+    "type": {
       "@id": "goos:statusType",
       "@type": "@id"
     },
-    "statusDate": {
+    "date": {
       "@id": "goos:statusDate",
       "@type": "xsd:dateTime"
     },
-    "statusComment": {
+    "comment": {
       "@id": "goos:statusComment",
       "@type": "xsd:string"
     },

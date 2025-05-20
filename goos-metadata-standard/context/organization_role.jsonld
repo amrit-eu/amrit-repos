@@ -4,15 +4,15 @@
     "schema": "https://schema.org/",
 
     "OrganizationRole": "goos:OrganizationRole",
-    "organizationRoleId": {
+    "id": {
       "@id": "goos:organizationRoleId",
       "@type": "xsd:string"
     },
-    "organizationRoleName": {
+    "name": {
       "@id": "goos:organizationRoleName",
       "@type": "xsd:string"
     },
-    "organizationRoleDescription": {
+    "description": {
       "@id": "goos:organizationRoleDescription",
       "@type": "xsd:string"
     }

@@ -1,0 +1,32 @@
+{
+    "@context": {
+      "@version": 1.1,
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "sosa": "http://www.w3.org/ns/sosa/",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "https://www.ocean-ops.org/resource/observation/OBS0001",
+    "@type": "goos:Observation",
+    "variable": {
+      "@id": "https://www.ocean-ops.org/resource/variable/seaTemperature",
+      "@type": "goos:Variable",
+      "name": "Sea Surface Temperature"
+    },
+    "date": "2024-08-12T15:00:00Z",
+    "location": {
+      "@type": "schema:Place",
+      "geo": {
+        "@type": "schema:GeoCoordinates",
+        "latitude": 42.5,
+        "longitude": -18.3
+      }
+    },
+    "sensor": {
+      "@id": "https://www.ocean-ops.org/resource/sensor/SEN1234",
+      "@type": "goos:Sensor",
+      "name": "CTD Sensor #5"
+    },
+    "dataURL": "https://data.ocean-ops.org/observations/OBS0001.csv"
+  }
+  

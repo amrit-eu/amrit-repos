@@ -5,15 +5,15 @@
   "description": "A controlled vocabulary of roles that organizations may play within a WIGOS or GOOS program context (e.g., funder, operator, DAC).",
   "type": "object",
   "properties": {
-    "organizationRoleId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the organization role."
     },
-    "organizationRoleName": {
+    "name": {
       "type": "string",
       "description": "Label of the role the organization plays (e.g., Operating Agency, Funding Agency)."
     },
-    "organizationRoleDescription": {
+    "description": {
       "type": "string",
       "description": "Description of the function or responsibility represented by this role."
     }

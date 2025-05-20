@@ -5,7 +5,7 @@
   "description": "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable.",
   "type": "object",
   "properties": {
-    "sensorSetupId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the sensor setup."
     },
@@ -14,17 +14,17 @@
       "format": "uri",
       "description": "The variable this sensor setup is intended to measure."
     },
-    "usesSensor": {
+    "sensor": {
       "type": "string",
       "format": "uri",
       "description": "The sensor that was configured for this sensor setup."
     },
-    "hostPlatform": {
+    "platform": {
       "type": "string",
       "format": "uri",
       "description": "The platform on which the sensor was installed."
     },
-    "partOfMission": {
+    "mission": {
       "type": "string",
       "format": "uri",
       "description": "The mission in which this sensor setup was used."

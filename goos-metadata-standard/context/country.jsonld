@@ -5,20 +5,19 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "Country": "goos:Country",
 
-    "countryId": {
+    "id": {
       "@id": "goos:countryId",
       "@type": "xsd:string"
     },
-    "countryCode2": {
+    "code2": {
       "@id": "goos:countryCode2",
       "@type": "xsd:string"
     },
-    "countryName": {
+    "name": {
       "@id": "goos:countryName",
       "@type": "xsd:string"
     },
 
-    "name": "schema:name",
     "notation": "skos:notation",
 
     "xsd": "http://www.w3.org/2001/XMLSchema#"

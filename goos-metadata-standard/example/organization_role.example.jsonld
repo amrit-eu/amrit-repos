@@ -1,0 +1,25 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "OrganizationRole": "goos:OrganizationRole",
+      "id": {
+        "@id": "goos:organizationRoleId",
+        "@type": "xsd:string"
+      },
+      "name": {
+        "@id": "goos:organizationRoleName",
+        "@type": "xsd:string"
+      },
+      "description": {
+        "@id": "goos:organizationRoleDescription",
+        "@type": "xsd:string"
+      }
+    },
+    "@type": "goos:OrganizationRole",
+    "id": "funder",
+    "name": "Funding Agency",
+    "description": "An organization responsible for financially supporting a GOOS or WIGOS activity."
+  }
+  

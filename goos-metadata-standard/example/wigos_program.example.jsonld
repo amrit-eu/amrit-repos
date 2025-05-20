@@ -1,0 +1,38 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "WIGOSProgram": "goos:WIGOSProgram",
+  
+      "id": {
+        "@id": "goos:wigosProgramId",
+        "@type": "xsd:string"
+      },
+      "name": {
+        "@id": "goos:programName",
+        "@type": "xsd:string"
+      },
+      "description": {
+        "@id": "goos:programDescription",
+        "@type": "xsd:string"
+      },
+      "country": {
+        "@id": "goos:hasCountry",
+        "@type": "@id"
+      },
+      "organizationContribution": {
+        "@id": "goos:hasOrganizationContribution",
+        "@type": "@id"
+      }
+    },
+    "@id": "https://www.ocean-ops.org/goosmeta/wigosProgram/FRA-METEORO",
+    "@type": "goos:WIGOSProgram",
+    "id": "FRA-METEORO",
+    "name": "Météo-France Ocean Observations Program",
+    "description": "A national program managed by Météo-France contributing to WIGOS through buoy deployments and upper-ocean data acquisition.",
+    "country": "https://www.ocean-ops.org/goosmeta/country/FRA",
+    "organizationContribution": "https://www.ocean-ops.org/goosmeta/organizationContribution/FRA-MF-2023"
+  }
+  

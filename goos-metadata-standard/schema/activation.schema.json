@@ -28,7 +28,7 @@
       "format": "uri",
       "description": "The URI of the place where the platform was activated."
     },
-    "deployedByShip": {
+    "ship": {
       "type": "string",
       "format": "uri",
       "description": "The URI of the ship involved in the activation."

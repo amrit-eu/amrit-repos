@@ -1,0 +1,35 @@
+{
+    "@type": "MissionLog",
+    "statusHistory": [
+      {
+        "@type": "StatusEvent",
+        "timestamp": "2024-11-01T10:30:00Z",
+        "status": "https://www.ocean-ops.org/goosmeta#Active",
+        "comment": "Mission activated successfully."
+      },
+      {
+        "@type": "StatusEvent",
+        "timestamp": "2025-01-15T16:45:00Z",
+        "status": "https://www.ocean-ops.org/goosmeta#Completed",
+        "comment": "Platform retrieved and mission marked as completed."
+      }
+    ],
+    "updateEntry": [
+      {
+        "@type": "UpdateEntry",
+        "timestamp": "2025-01-10T08:00:00Z",
+        "updatedBy": "https://www.ocean-ops.org/agent#jdoe",
+        "description": "Corrected deployment coordinates."
+      }
+    ],
+    "qualityCheck": [
+      {
+        "@type": "QualityControlEntry",
+        "timestamp": "2025-01-12T14:00:00Z",
+        "checkedBy": "https://www.ocean-ops.org/agent#qcmgr",
+        "result": "Passed",
+        "notes": "Data integrity confirmed for entire mission."
+      }
+    ]
+  }
+  

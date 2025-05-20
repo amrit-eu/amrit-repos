@@ -5,17 +5,17 @@
   "description": "An event representing a change in the status of a mission, platform, or related entity.",
   "type": "object",
   "properties": {
-    "statusType": {
+    "type": {
       "type": "string",
       "format": "uri",
       "description": "The assigned status represented as a concept from a controlled vocabulary."
     },
-    "statusDate": {
+    "date": {
       "type": "string",
       "format": "date-time",
       "description": "The date and time when the status was assigned."
     },
-    "statusComment": {
+    "comment": {
       "type": "string",
       "description": "Optional explanation or justification for the status assignment."
     },

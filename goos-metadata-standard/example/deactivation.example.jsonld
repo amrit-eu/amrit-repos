@@ -1,0 +1,25 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "schema": "https://schema.org/",
+      "@vocab": "https://www.ocean-ops.org/goosmeta#"
+    },
+    "@id": "https://www.ocean-ops.org/resource/deactivation/DEACT123456",
+    "@type": "Deactivation",
+    "id": "DEACT123456",
+    "startTime": "2025-05-20T14:00:00Z",
+    "location": {
+      "@type": "schema:Place",
+      "geo": {
+        "@type": "schema:GeoCoordinates",
+        "latitude": 47.12345,
+        "longitude": -15.67890
+      }
+    },
+    "ship": {
+      "@id": "https://www.ocean-ops.org/resource/ship/RV5678",
+      "@type": "goos:Ship",
+      "name": "RV Marine Retriever"
+    }
+  }
+  

@@ -2,14 +2,15 @@
   "@context": {
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Ship": "goos:Ship",
 
-    "shipId": {
+    "id": {
       "@id": "goos:shipId",
       "@type": "xsd:string"
     },
-    "shipName": {
+    "name": {
       "@id": "goos:shipName",
       "@type": "xsd:string"
     },
@@ -25,7 +26,7 @@
       "@id": "goos:imoNumber",
       "@type": "xsd:string"
     },
-    "hasFlagCountry": {
+    "flagCountry": {
       "@id": "goos:hasFlagCountry",
       "@type": "@id"
     }

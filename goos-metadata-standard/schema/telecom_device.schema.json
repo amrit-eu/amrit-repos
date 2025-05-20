@@ -5,15 +5,15 @@
   "description": "A device or communication endpoint used to transmit observational data from a platform, typically identified by a phone number or IMEI.",
   "type": "object",
   "properties": {
-    "telecomNumber": {
+    "number": {
       "type": "string",
       "description": "The phone number or contact identifier used for communication."
     },
-    "telecomIMEI": {
+    "imei": {
       "type": "string",
       "description": "The International Mobile Equipment Identity (IMEI) number assigned to the telecom device."
     },
-    "usesTechnology": {
+    "technology": {
       "type": "string",
       "description": "The URI of the telecommunication technology used (e.g., IRIDIUM, GSM, VHF)."
     }

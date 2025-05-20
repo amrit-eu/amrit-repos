@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.ocean-ops.org/goosmeta/schema/passport.schema.json",
+    "title": "GOOS Passport",
+    "type": "object",
+    "required": ["@type", "missionId", "startTime"],
+    "properties": {
+      "@context": {
+        "type": ["string", "object"]
+      },
+      "@type": {
+        "type": "string",
+        "const": "GOOSMission"
+      },
+      "missionId": {
+        "type": "string",
+        "description": "The unique internal Mission ID (e.g. OceanOPS ptfId)."
+      },
+      "wigosId": {
+        "type": "string",
+        "description": "The unique WIGOS ID associated with this mission."
+      },
+      "startTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO date-time when the mission began."
+      },
+      "endTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO date-time when the mission ended."
+      },
+      "instrument": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schema/platform.schema.json"
+      },
+      "provider": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schema/wigos_program.schema.json"
+      },
+      "result": {
+        "type": "array",
+        "description": "Observations collected during this mission.",
+        "items": {
+          "$ref": "https://www.ocean-ops.org/goosmeta/schema/observation.schema.json"
+        }
+      },
+      "status": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schema/status_type.schema.json"
+      },
+      "activation": {
+        "$ref": "https://www.ocean-ops.org/goosmeta/schema/activation.schema.json"
+      },
+      "observationSetup": {
+        "type": "array",
+        "items": {
+          "$ref": "https://www.ocean-ops.org/goosmeta/schema/sensor_setup.schema.json"
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+  

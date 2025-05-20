@@ -4,15 +4,15 @@
     "schema": "https://schema.org/",
 
     "Organization": "goos:Organization",
-    "organizationId": {
+    "id": {
       "@id": "goos:organizationId",
       "@type": "xsd:string"
     },
-    "organizationName": {
+    "name": {
       "@id": "goos:organizationName",
       "@type": "xsd:string"
     },
-    "organizationDescription": {
+    "description": {
       "@id": "goos:organizationDescription",
       "@type": "xsd:string"
     }

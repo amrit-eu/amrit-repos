@@ -4,31 +4,31 @@
     "schema": "https://schema.org/",
 
     "OrganizationContribution": "goos:OrganizationContribution",
-    "hasOrganization": {
+    "organization": {
       "@id": "goos:hasOrganization",
       "@type": "@id"
     },
-    "hasTargetProgram": {
+    "targetProgram": {
       "@id": "goos:hasTargetProgram",
       "@type": "@id"
     },
-    "hasTargetMission": {
+    "targetMission": {
       "@id": "goos:hasTargetMission",
       "@type": "@id"
     },
-    "hasOrganizationRole": {
+    "role": {
       "@id": "goos:hasOrganizationRole",
       "@type": "@id"
     },
-    "contributionDescription": {
+    "description": {
       "@id": "goos:contributionDescription",
       "@type": "xsd:string"
     },
-    "contributionStartDate": {
+    "startDate": {
       "@id": "goos:contributionStartDate",
       "@type": "xsd:dateTime"
     },
-    "contributionEndDate": {
+    "endDate": {
       "@id": "goos:contributionEndDate",
       "@type": "xsd:dateTime"
     }

@@ -5,15 +5,15 @@
   "description": "A specification or model of a sensor, describing the types of variables it can observe.",
   "type": "object",
   "properties": {
-    "sensorModelId": {
+    "id": {
       "type": "string",
       "description": "Internal or URI identifier for the sensor model."
     },
-    "sensorModelName": {
+    "name": {
       "type": "string",
       "description": "The commercial or technical name of the sensor model (e.g., Seabird SBE 37)."
     },
-    "supportsVariable": {
+    "variable": {
       "type": "array",
       "items": {
         "type": "string",
@@ -21,7 +21,7 @@
       },
       "description": "Variables that this sensor model can observe."
     },
-    "hasManufacturer": {
+    "manufacturer": {
       "type": "string",
       "format": "uri",
       "description": "The organization that manufactures this sensor model."

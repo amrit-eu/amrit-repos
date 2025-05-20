@@ -5,15 +5,15 @@
   "description": "A measurable oceanographic property, such as temperature, salinity, or current, corresponding to SOSA ObservableProperty.",
   "type": "object",
   "properties": {
-    "variableId": {
+    "id": {
       "type": "string",
       "description": "Internal identifier for the variable."
     },
-    "variableName": {
+    "name": {
       "type": "string",
       "description": "Human-readable name of the variable (e.g., Temperature, Salinity)."
     },
-    "variableDescription": {
+    "description": {
       "type": "string",
       "description": "A textual description of what this variable represents or how it's measured."
     }

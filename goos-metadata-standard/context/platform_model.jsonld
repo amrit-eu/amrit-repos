@@ -5,23 +5,23 @@
 
     "PlatformModel": "goos:PlatformModel",
 
-    "platformModelId": {
+    "id": {
       "@id": "goos:platformModelId",
       "@type": "xsd:string"
     },
-    "platformModelName": {
+    "name": {
       "@id": "goos:platformModelName",
       "@type": "xsd:string"
     },
-    "platformModelDescription": {
+    "description": {
       "@id": "goos:platformModelDescription",
       "@type": "xsd:string"
     },
-    "belongsToType": {
+    "type": {
       "@id": "goos:belongsToType",
       "@type": "@id"
     },
-    "hasManufacturer": {
+    "manufacturer": {
       "@id": "goos:hasManufacturer",
       "@type": "@id"
     }

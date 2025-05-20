@@ -1,0 +1,23 @@
+{
+    "@context": {
+      "goos": "https://www.ocean-ops.org/goosmeta#",
+      "sosa": "http://www.w3.org/ns/sosa/",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+  
+      "Sensor": "goos:Sensor",
+      "serialNumber": {
+        "@id": "goos:serialNumber",
+        "@type": "xsd:string"
+      },
+      "model": {
+        "@id": "goos:hasModel",
+        "@type": "@id"
+      }
+    },
+    "@id": "https://www.ocean-ops.org/goosmeta/sensor/SBE37-IM-45",
+    "@type": "goos:Sensor",
+    "serialNumber": "SBE37-IM-45-9981",
+    "model": "https://www.ocean-ops.org/goosmeta/sensorModel/SBE37-IM"
+  }
+  

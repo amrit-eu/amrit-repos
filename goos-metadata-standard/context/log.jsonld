@@ -3,15 +3,15 @@
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
     "Log": "goos:Log",
-    "hasStatusHistory": {
+    "statusHistory": {
       "@id": "goos:hasStatusHistory",
       "@type": "@id"
     },
-    "hasUpdateEntry": {
+    "updateEntry": {
       "@id": "goos:hasUpdateEntry",
       "@type": "@id"
     },
-    "hasQualityCheck": {
+    "qualityCheck": {
       "@id": "goos:hasQualityCheck",
       "@type": "@id"
     }
