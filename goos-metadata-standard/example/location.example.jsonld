@@ -1,36 +1,17 @@
 {
-    "@context": {
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "location": {
-        "@id": "schema:location",
-        "@type": "@id"
-      },
-      "geo": {
-        "@id": "schema:geo",
-        "@type": "@id"
-      },
-      "latitude": {
-        "@id": "schema:latitude",
-        "@type": "xsd:double"
-      },
-      "longitude": {
-        "@id": "schema:longitude",
-        "@type": "xsd:double"
-      },
-      "elevation": {
-        "@id": "schema:elevation",
-        "@type": "xsd:double"
-      }
-    },
-    "@id": "https://www.ocean-ops.org/goosmeta/location/sample-location",
-    "location": {
-      "@id": "https://www.ocean-ops.org/goosmeta/place/sample-place",
-      "geo": {
-        "@id": "https://www.ocean-ops.org/goosmeta/geo/sample-coordinates",
-        "latitude": 48.8566,
-        "longitude": 2.3522,
-        "elevation": 35
-      }
-    }
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/location/LOC001",
+  "@type": "schema:Place",
+
+  "geo": {
+    "@type": "schema:GeoCoordinates",
+    "latitude": 48.8584,
+    "longitude": 2.2945,
+    "elevation": 300.0
   }
+}

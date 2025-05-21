@@ -6,9 +6,9 @@
       "skos": "http://www.w3.org/2004/02/skos/core#",
       "xsd": "http://www.w3.org/2001/XMLSchema#"
     },
-    "@id": "https://www.ocean-ops.org/resource/country/FR",
+    "@id": "https://www.ocean-ops.org/resource/country/COU123456",
     "@type": "goos:Country",
-    "id": "FR",
+    "id": "COU123456",
     "code2": "FR",
     "name": "France"
   }

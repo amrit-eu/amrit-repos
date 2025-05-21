@@ -1,42 +1,22 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "Ship": "goos:Ship",
-      "id": {
-        "@id": "goos:shipId",
-        "@type": "xsd:string"
-      },
-      "name": {
-        "@id": "goos:shipName",
-        "@type": "xsd:string"
-      },
-      "icesCode": {
-        "@id": "goos:icesCode",
-        "@type": "xsd:string"
-      },
-      "callSign": {
-        "@id": "goos:callSign",
-        "@type": "xsd:string"
-      },
-      "imoNumber": {
-        "@id": "goos:imoNumber",
-        "@type": "xsd:string"
-      },
-      "flagCountry": {
-        "@id": "goos:hasFlagCountry",
-        "@type": "@id"
-      }
-    },
-    "@id": "https://www.ocean-ops.org/goosmeta/ship/FRANCE_2030",
-    "@type": "goos:Ship",
-    "id": "FRANCE_2030",
-    "name": "RV France 2030",
-    "icesCode": "F203",
-    "callSign": "FN2030",
-    "imoNumber": "9999999",
-    "flagCountry": "https://www.ocean-ops.org/goosmeta/country/FRA"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/ship/SHIP001",
+  "@type": "goos:Ship",
+
+  "id": "SHIP001",
+  "name": "RV Ocean Explorer",
+  "icesCode": "ABCD",
+  "callSign": "XYZ1234",
+  "imoNumber": "IMO9876543",
+
+  "flagCountry": {
+    "@id": "https://www.ocean-ops.org/resource/country/NOR",
+    "@type": "schema:Country",
+    "name": "Norway"
   }
-  
+}

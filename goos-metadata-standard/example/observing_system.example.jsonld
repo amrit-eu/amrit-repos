@@ -1,24 +1,14 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "id": {
-        "@id": "goos:observingSystemId",
-        "@type": "xsd:string"
-      },
-      "name": {
-        "@id": "goos:observingSystemName",
-        "@type": "xsd:string"
-      },
-      "description": {
-        "@id": "goos:observingSystemDescription",
-        "@type": "xsd:string"
-      }
-    },
-    "@type": "goos:ObservingSystem",
-    "id": "ARGO",
-    "name": "Argo",
-    "description": "The Argo program is a global array of over 3000 free-drifting profiling floats that measure the temperature and salinity of the upper 2000m of the ocean."
-  }
-  
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/system/SYS001",
+  "@type": "goos:ObservingSystem",
+
+  "id": "SYS001",
+  "name": "Global Ocean Observing System",
+  "description": "An international program coordinating global ocean observations to support scientific research and marine operations."
+}
