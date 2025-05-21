@@ -113,7 +113,7 @@ const getLinks = (classId: string) => {
           <Tooltip title={`Preview ${fileType}`}>
             <IconButton
               size="small"
-              onClick={() => handlePreview(classId, ext as 'ttl' | 'jsonld' | 'schema')}
+              onClick={() => handlePreview(classId, ext as 'ttl' | 'jsonld' | 'schema' | 'example')}
             >
               <VisibilityIcon fontSize="small" />
             </IconButton>
@@ -127,7 +127,7 @@ const getLinks = (classId: string) => {
 
 const handlePreview = async (
   classId: string,
-  ext: 'ttl' | 'jsonld' | 'schema'
+  ext: 'ttl' | 'jsonld' | 'schema' | 'example'
 ) => {
   let folder = '';
   let fileName = '';
@@ -144,6 +144,10 @@ const handlePreview = async (
     case 'schema':
       folder = 'schema';
       fileName = `${classId}.schema.json`;
+      break;
+    case 'example':
+      folder = 'example';
+      fileName = `${classId}.example.jsonld`;
       break;
   }
 
@@ -202,9 +206,9 @@ const handlePreview = async (
 			<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
 				{[
 				{ id: 'passport', ext: 'schema', label: 'JSON Schema', color: '#ffa726' },
-				{ id: 'passport.example', ext: 'jsonld', label: 'Example JSON-LD', color: '#66bb6a' },
+				{ id: 'passport', ext: 'example', label: 'Example JSON-LD', color: '#66bb6a' },
 				].map(({ id, ext, label, color }) => (
-				<Card key={id} sx={{ minWidth: 200, border: `2px solid ${color}`, borderRadius: 2, boxShadow: 1 }}>
+				<Card key={ext} sx={{ minWidth: 200, border: `2px solid ${color}`, borderRadius: 2, boxShadow: 1 }}>
 					<CardContent sx={{ p: 1 }}>
 					<Typography
 						variant="subtitle2"
@@ -240,7 +244,7 @@ const handlePreview = async (
 						<IconButton
 							size="small"
 							onClick={() =>
-							handlePreview(id, ext as 'ttl' | 'jsonld' | 'schema')
+							handlePreview(id, ext as 'ttl' | 'jsonld' | 'schema' | 'example')
 							}
 						>
 							<VisibilityIcon fontSize="small" />
