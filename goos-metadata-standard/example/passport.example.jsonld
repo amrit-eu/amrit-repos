@@ -4,7 +4,7 @@
 	"@id": "https://example.org/mission/123456",
 	"id": "MIS-123456",
 
-	"wigosId": "0-12345-ABCDE",
+	"wigosId": "0-22000-0-1601808",
 	"startTime": "2024-01-01T00:00:00Z",
 	"endTime": "2024-06-30T00:00:00Z",
 
@@ -12,8 +12,8 @@
 		"@context": "https://www.ocean-ops.org/goosmeta/context/platform.jsonld",
 		"@type": "goos:Platform",
 		"@id": "https://example.org/platform/APX123456",
-		"id": "PLA-001",
-		"ref": "ARGO-APEX-001",
+		"id": "APX123456",
+		"ref": "2900456",
 		"serialNumber": "SN123456",
 
 		"telecom": {
@@ -59,15 +59,15 @@
   	"provider": {
 		"@context": "https://www.ocean-ops.org/goosmeta/context/wigos_program.jsonld",
 		"@type": "goos:WIGOSProgram",
-		"@id": "https://example.org/program/meteo-france-argo",
-		"id": "WPR-MFARGO",
-		"name": "Météo-France Argo Program",
+		"@id": "https://example.org/program/argo-france",
+		"id": "WPR-ARGOFRANCE",
+		"name": "Argo France",
 
 		"country": {
 			"@context": "https://www.ocean-ops.org/goosmeta/context/country.jsonld",
 			"@type": "goos:Country",
 			"@id": "https://example.org/country/fr",
-			"id": "FR",
+			"id": "18789",
 			"code2": "FR",
 			"name": "France"
 		}
