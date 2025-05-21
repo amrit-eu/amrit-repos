@@ -5,16 +5,66 @@
 		"label": "GOOS Mission",
 		"definition": "A mission representing the operational deployment of a platform for ocean observation.",
 		"fields": [
-			{ "code": "MIS-01", "title": "id", "type": "string" },
-			{ "code": "MIS-02", "title": "wigosId", "type": "string" },
-			{ "code": "MIS-03", "title": "startTime", "type": "date" },
-			{ "code": "MIS-04", "title": "endTime", "type": "date" },
-			{ "code": "MIS-05", "title": "instrument", "type": "PLA" },
-			{ "code": "MIS-06", "title": "provider", "type": "WPR" },
-			{ "code": "MIS-07", "title": "result", "type": "OBS[ ]" },
-			{ "code": "MIS-08", "title": "status", "type": "STS" },
-			{ "code": "MIS-09", "title": "activation", "type": "ACT" },
-			{ "code": "MIS-10", "title": "sensorSetup", "type": "VSP[ ]" }
+			{
+				"code": "MIS-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this mission."
+			},
+			{
+				"code": "MIS-02",
+				"title": "wigosId",
+				"type": "string",
+				"definition": "The unique WIGOS ID associated with this mission."
+			},
+			{
+				"code": "MIS-03",
+				"title": "startTime",
+				"type": "date",
+				"definition": "The date and time at which the mission began."
+			},
+			{
+				"code": "MIS-04",
+				"title": "endTime",
+				"type": "date",
+				"definition": "The date and time at which the mission ended."
+			},
+			{
+				"code": "MIS-05",
+				"title": "instrument",
+				"type": "PLA",
+				"definition": "The platform or instrument used during the mission."
+			},
+			{
+				"code": "MIS-06",
+				"title": "provider",
+				"type": "WPR",
+				"definition": "The WIGOS program responsible for this mission."
+			},
+			{
+				"code": "MIS-07",
+				"title": "result",
+				"type": "OBS[ ]",
+				"definition": "The observations collected as a result of the mission."
+			},
+			{
+				"code": "MIS-08",
+				"title": "status",
+				"type": "STS",
+				"definition": "The current status of the mission from a controlled vocabulary of GOOS status terms."
+			},
+			{
+				"code": "MIS-09",
+				"title": "activation",
+				"type": "ACT",
+				"definition": "The activation/deployment operation performed as part of this mission."
+			},
+			{
+				"code": "MIS-10",
+				"title": "sensorSetup",
+				"type": "VSP[ ]",
+				"definition": "A configuration used during the mission involving a sensor, platform, and observed variable."
+			}
 		]
 		},
 		{
@@ -22,10 +72,30 @@
 		"label": "Activation",
 		"definition": "The act of releasing or enabling a platform to begin mission of data collection and transmission at sea.",
 		"fields": [
-			{ "code": "ACT-01", "title": "id", "type": "string" },
-			{ "code": "ACT-02", "title": "startTime", "type": "date" },
-			{ "code": "ACT-03", "title": "location", "type": "PLC" },
-			{ "code": "ACT-04", "title": "ship", "type": "SHP" }
+			{
+				"code": "ACT-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this activation."
+			},
+			{
+				"code": "ACT-02",
+				"title": "startTime",
+				"type": "date",
+				"definition": "The date and time the platform activation started."
+			},
+			{
+				"code": "ACT-03",
+				"title": "location",
+				"type": "PLC",
+				"definition": "The geographic location where the platform was activated (deployed)."
+			},
+			{
+				"code": "ACT-04",
+				"title": "ship",
+				"type": "SHP",
+				"definition": "The ship involved in the platform activation."
+			}
 		]
 		},
 		{
@@ -33,10 +103,30 @@
 		"label": "Deactivation",
 		"definition": "The act of retrieving or deactivating a platform to end its mission.",
 		"fields": [
-			{ "code": "DEA-01", "title": "id", "type": "string" },
-			{ "code": "DEA-02", "title": "startTime", "type": "date" },
-			{ "code": "DEA-03", "title": "location", "type": "PLC" },
-			{ "code": "DEA-04", "title": "ship", "type": "SHP" }
+			{
+				"code": "DEA-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this deactivation."
+			},
+			{
+				"code": "DEA-02",
+				"title": "startTime",
+				"type": "date",
+				"definition": "The date and time when the platform deactivation or retrieval began."
+			},
+			{
+				"code": "DEA-03",
+				"title": "location",
+				"type": "PLC",
+				"definition": "The geographic location where the platform was deactivated or retrieved."
+			},
+			{
+				"code": "DEA-04",
+				"title": "ship",
+				"type": "SHP",
+				"definition": "The ship involved in the retrieval or deactivation of the platform."
+			}
 		]
 		},
 		{
@@ -44,9 +134,24 @@
 		"label": "Country",
 		"definition": "United Nations member state or a group of states such as European Union.",
 		"fields": [
-			{ "code": "CNT-01", "title": "id", "type": "string" },
-			{ "code": "CNT-02", "title": "code2", "type": "string" },
-			{ "code": "CNT-03", "title": "name", "type": "string" }
+			{
+				"code": "CNT-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this country."
+			},
+			{
+				"code": "CNT-02",
+				"title": "code2",
+				"type": "string",
+				"definition": "ISO 3166-1 alpha-2 code for the country."
+			},
+			{
+				"code": "CNT-03",
+				"title": "name",
+				"type": "string",
+				"definition": "Full English name of the country."
+			}
 		]
 		},
 		{
@@ -54,12 +159,42 @@
 		"label": "Observation",
 		"definition": "An observation recording a variable at a location and time, made by a sensor.",
 		"fields": [
-			{ "code": "OBS-01", "title": "id", "type": "string" },
-			{ "code": "OBS-02", "title": "variable", "type": "VAR" },
-			{ "code": "OBS-03", "title": "date", "type": "date" },
-			{ "code": "OBS-04", "title": "location", "type": "PLC" },
-			{ "code": "OBS-05", "title": "sensor", "type": "SEN" },
-			{ "code": "OBS-06", "title": "dataURL", "type": "uri" }
+			{
+				"code": "OBS-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this observation."
+			},
+			{
+				"code": "OBS-02",
+				"title": "variable",
+				"type": "VAR",
+				"definition": "The environmental variable measured (e.g., sea temperature, salinity)."
+			},
+			{
+				"code": "OBS-03",
+				"title": "date",
+				"type": "date",
+				"definition": "The date and time when the observation was made."
+			},
+			{
+				"code": "OBS-04",
+				"title": "location",
+				"type": "PLC",
+				"definition": "The place where the observation was made."
+			},
+			{
+				"code": "OBS-05",
+				"title": "sensor",
+				"type": "SEN",
+				"definition": "The sensor that produced the observation."
+			},
+			{
+				"code": "OBS-06",
+				"title": "dataURL",
+				"type": "uri",
+				"definition": "Direct URL to the observation or related data in a repository."
+			}
 		]
 		},
 		{
@@ -67,13 +202,48 @@
 		"label": "Sensor Setup",
 		"definition": "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable. One setup = one sensor + one variable.",
 		"fields": [
-			{ "code": "VSP-01", "title": "id", "type": "string" },
-			{ "code": "VSP-02", "title": "observesVariable", "type": "VAR" },
-			{ "code": "VSP-03", "title": "sensor", "type": "SEN" },
-			{ "code": "VSP-04", "title": "platform", "type": "PLA" },
-			{ "code": "VSP-05", "title": "mission", "type": "MIS" },
-			{ "code": "VSP-06", "title": "startTime", "type": "date" },
-			{ "code": "VSP-07", "title": "endTime", "type": "date" }
+			{
+				"code": "VSP-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this sensor setup."
+			},
+			{
+				"code": "VSP-02",
+				"title": "observesVariable",
+				"type": "VAR",
+				"definition": "The variable this sensor setup is intended to measure."
+			},
+			{
+				"code": "VSP-03",
+				"title": "sensor",
+				"type": "SEN",
+				"definition": "The sensor that was configured for this sensor setup."
+			},
+			{
+				"code": "VSP-04",
+				"title": "platform",
+				"type": "PLA",
+				"definition": "The platform on which the sensor was installed."
+			},
+			{
+				"code": "VSP-05",
+				"title": "mission",
+				"type": "MIS",
+				"definition": "The mission in which this sensor setup was used."
+			},
+			{
+				"code": "VSP-06",
+				"title": "startTime",
+				"type": "date",
+				"definition": "Time when the sensor setup became active."
+			},
+			{
+				"code": "VSP-07",
+				"title": "endTime",
+				"type": "date",
+				"definition": "Time when the sensor setup was deactivated or removed."
+			}
 		]
 		},
 		{
@@ -81,9 +251,24 @@
 		"label": "Location",
 		"definition": "A place and its geographic coordinates, used for referencing the position of an observation or event.",
 		"fields": [
-			{ "code": "PLC-01", "title": "latitude", "type": "number" },
-			{ "code": "PLC-02", "title": "longitude", "type": "number" },
-			{ "code": "PLC-03", "title": "elevation", "type": "number" }
+			{
+				"code": "PLC-01",
+				"title": "latitude",
+				"type": "number",
+				"definition": "The north–south position of a point on the Earth's surface, in decimal degrees."
+			},
+			{
+				"code": "PLC-02",
+				"title": "longitude",
+				"type": "number",
+				"definition": "The east–west position of a point on the Earth's surface, in decimal degrees."
+			},
+			{
+				"code": "PLC-03",
+				"title": "elevation",
+				"type": "number",
+				"definition": "Height or depth in meters relative to sea level."
+			}
 		]
 		},
 		{
@@ -91,9 +276,24 @@
 		"label": "Status Type",
 		"definition": "A controlled concept representing a status in the lifecycle of a mission or platform.",
 		"fields": [
-			{ "code": "STS-01", "title": "id", "type": "string" },
-			{ "code": "STS-02", "title": "prefLabel", "type": "string" },
-			{ "code": "STS-03", "title": "definition", "type": "string" }
+			{
+				"code": "STS-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this status type."
+			},
+			{
+				"code": "STS-02",
+				"title": "prefLabel",
+				"type": "string",
+				"definition": "The preferred human-readable label for this status type (e.g., Planned, Active)."
+			},
+			{
+				"code": "STS-03",
+				"title": "definition",
+				"type": "string",
+				"definition": "A textual definition of the status type describing its meaning in the lifecycle of a mission or platform."
+			}
 		]
 		},
 		{
@@ -101,10 +301,30 @@
 		"label": "Mission Log",
 		"definition": "A log containing records of updates, status changes, and quality control events associated with a mission.",
 		"fields": [
-			{ "code": "LOG-01", "title": "id", "type": "string" },
-			{ "code": "LOG-02", "title": "statusHistory", "type": "STE[ ]" },
-			{ "code": "LOG-03", "title": "updateEntry", "type": "UPD[ ]" },
-			{ "code": "LOG-04", "title": "qualityCheck", "type": "QCE[ ]" }
+			{
+				"code": "LOG-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this mission log."
+			},
+			{
+				"code": "LOG-02",
+				"title": "statusHistory",
+				"type": "STE[ ]",
+				"definition": "The list of recorded status changes over time."
+			},
+			{
+				"code": "LOG-03",
+				"title": "updateEntry",
+				"type": "UPD[ ]",
+				"definition": "An update action applied to the mission data."
+			},
+			{
+				"code": "LOG-04",
+				"title": "qualityCheck",
+				"type": "QCE[ ]",
+				"definition": "An observation or review regarding the quality of the mission data."
+			}
 		]
 		},
 		{
@@ -112,11 +332,36 @@
 		"label": "Mission Network",
 		"definition": "A virtual or thematic grouping of missions and platforms, often representing regional arrays, shared scientific goals, or collaborative initiatives.",
 		"fields": [
-			{ "code": "NET-01", "title": "id", "type": "string" },
-			{ "code": "NET-02", "title": "name", "type": "string" },
-			{ "code": "NET-03", "title": "description", "type": "string" },
-			{ "code": "NET-04", "title": "parentSystem", "type": "SYS" },
-			{ "code": "NET-05", "title": "mission", "type": "MIS[ ]" }
+			{
+				"code": "NET-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this network."
+			},
+			{
+				"code": "NET-02",
+				"title": "name",
+				"type": "string",
+				"definition": "Official name of the mission network."
+			},
+			{
+				"code": "NET-03",
+				"title": "description",
+				"type": "string",
+				"definition": "Free-text description of the mission network’s scope or purpose."
+			},
+			{
+				"code": "NET-04",
+				"title": "parentSystem",
+				"type": "SYS",
+				"definition": "The observing system to which this mission network belongs."
+			},
+			{
+				"code": "NET-05",
+				"title": "mission",
+				"type": "MIS[ ]",
+				"definition": "A mission associated with this mission network."
+			}
 		]
 		},
 		{
@@ -124,9 +369,24 @@
 		"label": "Observing System",
 		"definition": "One of the high-level GOOS/WIGOS observing systems. These systems group together ocean observing missions by instrumentation or operational framework.",
 		"fields": [
-			{ "code": "SYS-01", "title": "id", "type": "string" },
-			{ "code": "SYS-02", "title": "name", "type": "string" },
-			{ "code": "SYS-03", "title": "description", "type": "string" }
+			{
+				"code": "SYS-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this observing system."
+			},
+			{
+				"code": "SYS-02",
+				"title": "name",
+				"type": "string",
+				"definition": "Official name of the observing system."
+			},
+			{
+				"code": "SYS-03",
+				"title": "description",
+				"type": "string",
+				"definition": "Description of the scope and role of this observing system."
+			}
 		]
 		},
 		{
@@ -134,11 +394,36 @@
 		"label": "WIGOS Program",
 		"definition": "A country-affiliated or institutional entity contributing to WIGOS through the execution of ocean observation missions and platform operations.",
 		"fields": [
-			{ "code": "WPR-01", "title": "id", "type": "string" },
-			{ "code": "WPR-02", "title": "name", "type": "string" },
-			{ "code": "WPR-03", "title": "description", "type": "string" },
-			{ "code": "WPR-04", "title": "country", "type": "CNT" },
-			{ "code": "WPR-05", "title": "organizationContribution", "type": "ORG" }
+			{
+				"code": "WPR-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this WIGOS program."
+			},
+			{
+				"code": "WPR-02",
+				"title": "name",
+				"type": "string",
+				"definition": "Official name of the WIGOS program."
+			},
+			{
+				"code": "WPR-03",
+				"title": "description",
+				"type": "string",
+				"definition": "Free-text description of the WIGOS program."
+			},
+			{
+				"code": "WPR-04",
+				"title": "country",
+				"type": "CNT",
+				"definition": "The country to which this WIGOS Program is affiliated."
+			},
+			{
+				"code": "WPR-05",
+				"title": "organizationContribution",
+				"type": "ORG",
+				"definition": "A contribution made by an organization to this WIGOS Program, including its role and duration."
+			}
 		]
 		},
 		{
@@ -146,14 +431,54 @@
 		"label": "Organization Contribution",
 		"definition": "A specific contribution by an organization to either a GOOS Mission or a WIGOS Program, playing a defined role.",
 		"fields": [
-			{ "code": "CON-01", "title": "id", "type": "string" },
-			{ "code": "CON-02", "title": "organization", "type": "ORG" },
-			{ "code": "CON-03", "title": "targetProgram", "type": "WPR" },
-			{ "code": "CON-04", "title": "targetMission", "type": "MIS" },
-			{ "code": "CON-05", "title": "role", "type": "ROL" },
-			{ "code": "CON-06", "title": "description", "type": "string" },
-			{ "code": "CON-07", "title": "startDate", "type": "date" },
-			{ "code": "CON-08", "title": "endDate", "type": "date" }
+			{
+				"code": "CON-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this contribution."
+			},
+			{
+				"code": "CON-02",
+				"title": "organization",
+				"type": "ORG",
+				"definition": "The organization making the contribution."
+			},
+			{
+				"code": "CON-03",
+				"title": "targetProgram",
+				"type": "WPR",
+				"definition": "The WIGOS Program to which the organization contributes (used only if not targeting a Mission)."
+			},
+			{
+				"code": "CON-04",
+				"title": "targetMission",
+				"type": "MIS",
+				"definition": "The GOOS Mission to which the organization contributes (used only if not targeting a Program)."
+			},
+			{
+				"code": "CON-05",
+				"title": "role",
+				"type": "ROL",
+				"definition": "The role played by the organization in the contribution."
+			},
+			{
+				"code": "CON-06",
+				"title": "description",
+				"type": "string",
+				"definition": "Optional free-text description of the contribution."
+			},
+			{
+				"code": "CON-07",
+				"title": "startDate",
+				"type": "date",
+				"definition": "The date the contribution began."
+			},
+			{
+				"code": "CON-08",
+				"title": "endDate",
+				"type": "date",
+				"definition": "The date the contribution ended, if applicable."
+			}
 		]
 		},
 		{
@@ -181,12 +506,42 @@
 		"label": "Ship",
 		"definition": "A ship that deployed the platform, or served as the platform's installation or operation base.",
 		"fields": [
-			{ "code": "SHP-01", "title": "id", "type": "string" },
-			{ "code": "SHP-02", "title": "name", "type": "string" },
-			{ "code": "SHP-03", "title": "icesCode", "type": "string" },
-			{ "code": "SHP-04", "title": "callSign", "type": "string" },
-			{ "code": "SHP-05", "title": "imoNumber", "type": "string" },
-			{ "code": "SHP-06", "title": "flagCountry", "type": "CNT" }
+			{
+				"code": "SHP-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this ship."
+			},
+			{
+				"code": "SHP-02",
+				"title": "name",
+				"type": "string",
+				"definition": "Full name of the ship."
+			},
+			{
+				"code": "SHP-03",
+				"title": "icesCode",
+				"type": "string",
+				"definition": "Identifier assigned to the ship by the International Council for the Exploration of the Sea (ICES)."
+			},
+			{
+				"code": "SHP-04",
+				"title": "callSign",
+				"type": "string",
+				"definition": "Radio call sign of the ship."
+			},
+			{
+				"code": "SHP-05",
+				"title": "imoNumber",
+				"type": "string",
+				"definition": "International Maritime Organization (IMO) number of the ship."
+			},
+			{
+				"code": "SHP-06",
+				"title": "flagCountry",
+				"type": "CNT",
+				"definition": "Country under which the ship is registered."
+			}
 		]
 		},
 		{
@@ -224,10 +579,30 @@
 		"label": "Sensor Model",
 		"definition": "A specification or model of a sensor, describing the types of variables it can observe.",
 		"fields": [
-			{ "code": "SMD-01", "title": "id", "type": "string" },
-			{ "code": "SMD-02", "title": "name", "type": "string" },
-			{ "code": "SMD-03", "title": "variable", "type": "VAR[ ]" },
-			{ "code": "SMD-04", "title": "manufacturer", "type": "ORG" }
+			{
+				"code": "SMD-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this sensor model."
+			},
+			{
+				"code": "SMD-02",
+				"title": "name",
+				"type": "string",
+				"definition": "The commercial or technical name of the sensor model (e.g., Seabird SBE 37)."
+			},
+			{
+				"code": "SMD-03",
+				"title": "variable",
+				"type": "VAR[ ]",
+				"definition": "A variable that this sensor model is capable of observing."
+			},
+			{
+				"code": "SMD-04",
+				"title": "manufacturer",
+				"type": "ORG",
+				"definition": "The organization that manufactures this sensor model."
+			}
 		]
 		},
 		{
@@ -257,11 +632,36 @@
 		"label": "Platform",
 		"definition": "An instrumented system or device deployed in the environment for observation, monitoring, or data collection.",
 		"fields": [
-			{ "code": "PLA-01", "title": "id", "type": "string" },
-			{ "code": "PLA-02", "title": "ref", "type": "string" },
-			{ "code": "PLA-03", "title": "serialNumber", "type": "string" },
-			{ "code": "PLA-04", "title": "telecom", "type": "TEL" },
-			{ "code": "PLA-05", "title": "model", "type": "PLM" }
+			{
+				"code": "PLA-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this platform."
+			},
+			{
+				"code": "PLA-02",
+				"title": "ref",
+				"type": "string",
+				"definition": "Reference identifier for the platform."
+			},
+			{
+				"code": "PLA-03",
+				"title": "serialNumber",
+				"type": "string",
+				"definition": "Manufacturer-assigned serial number for the platform."
+			},
+			{
+				"code": "PLA-04",
+				"title": "telecom",
+				"type": "TEL",
+				"definition": "Telecommunication information associated with the platform."
+			},
+			{
+				"code": "PLA-05",
+				"title": "model",
+				"type": "PLM",
+				"definition": "The specific model or manufactured design of the platform."
+			}
 		]
 		},
 		{
@@ -269,11 +669,36 @@
 		"label": "Platform Model",
 		"definition": "A standardized manufactured design of an observation platform, such as an Argo float model, glider type, or buoy type.",
 		"fields": [
-			{ "code": "PLM-01", "title": "id", "type": "string" },
-			{ "code": "PLM-02", "title": "name", "type": "string" },
-			{ "code": "PLM-03", "title": "description", "type": "string" },
-			{ "code": "PLM-04", "title": "type", "type": "PTY" },
-			{ "code": "PLM-05", "title": "manufacturer", "type": "ORG" }
+			{
+				"code": "PLM-01",
+				"title": "id",
+				"type": "string",
+				"definition": "A persistent, unique identifier (PID) for this platform model."
+			},
+			{
+				"code": "PLM-02",
+				"title": "name",
+				"type": "string",
+				"definition": "The common name of the platform model (e.g., APEX, SVP-B)."
+			},
+			{
+				"code": "PLM-03",
+				"title": "description",
+				"type": "string",
+				"definition": "Textual description of the model's design or purpose."
+			},
+			{
+				"code": "PLM-04",
+				"title": "type",
+				"type": "PTY",
+				"definition": "The broader platform type this model belongs to (e.g., Float, Wave Glider, or Tide Gauge)."
+			},
+			{
+				"code": "PLM-05",
+				"title": "manufacturer",
+				"type": "ORG",
+				"definition": "The organization that manufactures this platform model."
+			}
 		]
 		},
 		{

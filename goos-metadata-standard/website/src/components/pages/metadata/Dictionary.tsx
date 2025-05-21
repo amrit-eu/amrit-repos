@@ -307,7 +307,7 @@ const handlePreview = async (
 
 				{expanded === cls.id && (
 					<TableRow >
-					<TableCell colSpan={4} >
+					<TableCell colSpan={5} >
 						<Box sx={{ mb: 2 }}>
 							<Typography variant="h6" sx={{ fontWeight: 500 }}>
 								{cls.label} definition: {cls.definition}
@@ -334,7 +334,7 @@ const handlePreview = async (
 										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.code}</TableCell>
 										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.title}</TableCell>
 										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.type || ''}</TableCell>
-										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.definition || ''}</TableCell>
+										<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 300 }}>{field.definition || ''}</TableCell>
 									</TableRow>
 									))}
 								</TableBody>
