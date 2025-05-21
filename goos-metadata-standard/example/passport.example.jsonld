@@ -1,60 +1,170 @@
 {
-    "@context": {
-      "@version": 1.1,
-      "schema": "https://schema.org/",
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "@vocab": "https://www.ocean-ops.org/goosmeta#"
-    },
-    "@id": "https://www.ocean-ops.org/resource/mission/MISSION-2025-001",
-    "@type": "GOOSMission",
-    "missionId": "MISSION-2025-001",
-    "wigosId": "0-12345-0-ABC123",
-    "startTime": "2025-04-01T08:00:00Z",
-    "endTime": "2025-05-15T16:30:00Z",
-    "instrument": {
-      "@id": "https://www.ocean-ops.org/resource/platform/PLATFORM-789",
-      "@type": "Platform",
-      "name": "Argo Float 789"
-    },
-    "provider": {
-      "@id": "https://www.ocean-ops.org/resource/program/GUARD",
-      "@type": "WIGOSProgram",
-      "name": "Global Underwater Array for Rapid Deployment"
-    },
-    "status": {
-      "@id": "https://www.ocean-ops.org/resource/status/Active",
-      "@type": "StatusType",
-      "name": "Active"
-    },
-    "activation": {
-      "@id": "https://www.ocean-ops.org/resource/activation/ACT-2025-001",
-      "@type": "Activation",
-      "startTime": "2025-04-01T08:00:00Z",
-      "location": {
-        "@type": "schema:Place",
-        "geo": {
-          "@type": "schema:GeoCoordinates",
-          "latitude": -33.865143,
-          "longitude": 151.2099
-        }
-      }
-    },
-    "observationSetup": [
-      {
-        "@id": "https://www.ocean-ops.org/resource/setup/SETUP-001",
-        "@type": "SensorSetup",
-        "sensor": "CTD",
-        "variable": "temperature",
-        "platform": "PLATFORM-789"
-      }
-    ],
-    "result": [
-      {
-        "@id": "https://www.ocean-ops.org/resource/observation/OBS-456",
-        "@type": "Observation",
-        "observedProperty": "Sea Temperature",
-        "resultTime": "2025-04-15T12:00:00Z"
-      }
-    ]
-  }
-  
+	"@context": "https://www.ocean-ops.org/goosmeta/context/goos_mission.jsonld",
+	"@type": "goos:GOOSMission",
+	"@id": "https://example.org/mission/123456",
+	"id": "MIS-123456",
+
+	"wigosId": "0-22000-0-1601808",
+	"startTime": "2024-01-01T00:00:00Z",
+	"endTime": "2024-06-30T00:00:00Z",
+
+  	"instrument": {
+		"@context": "https://www.ocean-ops.org/goosmeta/context/platform.jsonld",
+		"@type": "goos:Platform",
+		"@id": "https://example.org/platform/APX123456",
+		"id": "APX123456",
+		"ref": "2900456",
+		"serialNumber": "SN123456",
+
+		"telecom": {
+			"@context": "https://www.ocean-ops.org/goosmeta/context/telecom_device.jsonld",
+			"@type": "goos:TelecomDevice",
+			"@id": "https://example.org/telecom/iridium-789",
+			"id": "TEL-789",
+			"number": "881612345678",
+			"imei": "300234010753370",
+			"technology": {
+				"@context": "https://www.ocean-ops.org/goosmeta/context/telecom_technology.jsonld",
+				"@type": "goos:TelecomTechnology",
+				"@id": "https://example.org/tech/iridium",
+				"id": "TECH-IRDM",
+				"name": "Iridium"
+			}
+		},
+
+		"model": {
+			"@context": "https://www.ocean-ops.org/goosmeta/context/platform_model.jsonld",
+			"@type": "goos:PlatformModel",
+			"@id": "https://example.org/platform_model/apex-sbe",
+			"id": "PLM-APEX-SBE",
+			"name": "APEX with SBE41",
+			"type": {
+				"@context": "https://www.ocean-ops.org/goosmeta/context/platform_type.jsonld",
+				"@type": "goos:PlatformType",
+				"@id": "https://example.org/platform_type/argo-float",
+				"id": "PTY-ARGO",
+				"name": "Argo Float"
+			},
+			"manufacturer": {
+				"@context": "https://www.ocean-ops.org/goosmeta/context/organization.jsonld",
+				"@type": "goos:Organization",
+				"@id": "https://example.org/org/teledyne",
+				"id": "ORG-TELEDYNE",
+				"name": "Teledyne Marine",
+				"description": "Manufacturer of marine sensors and platforms including APEX floats."
+			}
+		}
+	},
+
+  	"provider": {
+		"@context": "https://www.ocean-ops.org/goosmeta/context/wigos_program.jsonld",
+		"@type": "goos:WIGOSProgram",
+		"@id": "https://example.org/program/argo-france",
+		"id": "WPR-ARGOFRANCE",
+		"name": "Argo France",
+
+		"country": {
+			"@context": "https://www.ocean-ops.org/goosmeta/context/country.jsonld",
+			"@type": "goos:Country",
+			"@id": "https://example.org/country/fr",
+			"id": "18789",
+			"code2": "FR",
+			"name": "France"
+		}
+	},
+
+
+  	"result": [
+		{
+			"@context": "https://www.ocean-ops.org/goosmeta/context/observation.jsonld",
+			"@type": "goos:Observation",
+			"@id": "https://example.org/observation/temp001",
+			"id": "OBS-TEMP-001",
+
+			"variable": {
+				"@context": "https://www.ocean-ops.org/goosmeta/context/variable.jsonld",
+				"@type": "goos:Variable",
+				"@id": "https://example.org/variable/sea-temp",
+				"id": "VAR-TEMP",
+				"name": "Sea Temperature",
+				"description": "In-situ measurement of ocean temperature near the surface."
+			},
+
+			"date": "2024-02-15T06:30:00Z",
+
+			"location": {
+			"geo": {
+				"latitude": -32.05,
+				"longitude": 145.33,
+				"elevation": -5
+			}
+			},
+
+			"dataURL": "https://data.example.org/observations/argo/OBS-TEMP-001.csv"
+		}
+	],
+
+  	"status": {
+		"@context": "https://www.ocean-ops.org/goosmeta/context/status_type.jsonld",
+		"@type": "goos:StatusType",
+		"@id": "https://example.org/status/operational",
+		"id": "STS-OP",
+		"prefLabel": "Operational"
+	},
+
+  	"activation": {
+		"@context": "https://www.ocean-ops.org/goosmeta/context/activation.jsonld",
+		"@type": "goos:Activation",
+		"@id": "https://example.org/activation/act001",
+		"id": "ACT-001",
+		"startTime": "2024-01-01T12:00:00Z",
+		"location": {
+			"geo": {
+			"latitude": -30.25,
+			"longitude": 140.75,
+			"elevation": 0
+			}
+		},
+		"ship": {
+			"@context": "https://www.ocean-ops.org/goosmeta/context/ship.jsonld",
+			"@type": "goos:Ship",
+			"@id": "https://example.org/ship/thalassa",
+			"id": "SHP-THAL",
+			"name": "Thalassa",
+			"icesCode": "FR1234",
+			"callSign": "FTTH",
+			"imoNumber": "9231234"
+		}
+	},
+
+  	"deactivation": {
+		"@context": "https://www.ocean-ops.org/goosmeta/context/deactivation.jsonld",
+		"@type": "goos:Deactivation",
+		"@id": "https://example.org/deactivation/dea001",
+		"id": "DEA-001",
+		"startTime": "2024-06-30T09:00:00Z",
+		"location": {
+			"geo": {
+			"latitude": -28.00,
+			"longitude": 138.20,
+			"elevation": 0
+			}
+		}
+	},
+
+  	"sensorSetup": [
+		{
+			"@context": "https://www.ocean-ops.org/goosmeta/context/sensor_setup.jsonld",
+			"@type": "goos:SensorSetup",
+			"@id": "https://example.org/sensorSetup/vsp001",
+			"id": "VSP-001",
+			"observesVariable": "https://example.org/variable/sea-temp",
+			"sensor": "https://example.org/sensor/sbe37-001",
+			"platform": "https://example.org/platform/APX123456",
+			"mission": "https://example.org/mission/123456",
+			"startTime": "2024-01-01T12:00:00Z",
+			"endTime": "2024-06-30T00:00:00Z"
+		}
+	]
+
+}

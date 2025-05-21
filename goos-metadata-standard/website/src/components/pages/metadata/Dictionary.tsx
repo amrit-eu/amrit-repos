@@ -201,8 +201,8 @@ const handlePreview = async (
 
 			<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
 				{[
-				{ id: 'goos_passport', ext: 'schema', label: 'JSON Schema', color: '#ffa726' },
-				{ id: 'goos_passport.example', ext: 'jsonld', label: 'Example JSON-LD', color: '#66bb6a' },
+				{ id: 'passport', ext: 'schema', label: 'JSON Schema', color: '#ffa726' },
+				{ id: 'passport.example', ext: 'jsonld', label: 'Example JSON-LD', color: '#66bb6a' },
 				].map(({ id, ext, label, color }) => (
 				<Card key={id} sx={{ minWidth: 200, border: `2px solid ${color}`, borderRadius: 2, boxShadow: 1 }}>
 					<CardContent sx={{ p: 1 }}>
