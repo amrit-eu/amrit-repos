@@ -5,9 +5,8 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Ship": "goos:Ship",
-
     "id": {
-      "@id": "goos:shipId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

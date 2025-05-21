@@ -17,6 +17,13 @@ goos:Activation a owl:Class ;
 #    Properties
 #################################################################
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this activation."@en ;
+    rdfs:domain goos:Activation ;
+    rdfs:range xsd:string .
+
 # Start time of activation (inherited from schema)
 schema:startTime a owl:DatatypeProperty ;
     rdfs:label "Start Time"@en ;

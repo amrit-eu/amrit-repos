@@ -4,9 +4,8 @@
     "schema": "https://schema.org/",
 
     "SensorModel": "goos:SensorModel",
-
     "id": {
-      "@id": "goos:sensorModelId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

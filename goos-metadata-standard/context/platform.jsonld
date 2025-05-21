@@ -4,7 +4,10 @@
     "schema": "https://schema.org/",
 
     "Platform": "goos:Platform",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "ref": {
       "@id": "goos:platformRef",
       "@type": "xsd:string"

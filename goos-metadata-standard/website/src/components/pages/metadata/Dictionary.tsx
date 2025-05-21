@@ -5,7 +5,10 @@ import CodeModal from './CodeModal';
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { IconButton, Tooltip } from '@mui/material';
+import {  Tooltip } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 interface Field {
   code: string;
@@ -192,7 +195,8 @@ const handlePreview = async (
 			<Typography variant="body1" sx={{ mb: 2 }}>
 				The GOOS Passport is the central concept of the GOOS Metadata Standard. <br/>It represents a validated metadata record 
 				for an ocean observation mission. <br/> It has <strong>GOOS Mission</strong> as its root class and a clearly bounded set 
-				of related classes. 
+				of related classes. <br/> The Passport Schema includes only the relevant classes and properties.
+				<br/> For more details about Passports, visit the <a href="#/passport">Passports section</a>.
 			</Typography>
 
 			<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
@@ -259,10 +263,12 @@ const handlePreview = async (
         <Table>
           <TableHead>
             <TableRow  sx={{ backgroundColor: darkMode ? '#438cb0' : '#aae3ff', color: darkMode ? '#ffffff' : '#000000de' }}>
-              <TableCell><strong>Code</strong></TableCell>
-              <TableCell><strong>Name</strong></TableCell>
-              <TableCell><strong>Type</strong></TableCell>
-              <TableCell><strong>Definition</strong></TableCell>
+
+  			  <TableCell /> 
+              <TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Code</strong></TableCell>
+              <TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Name</strong></TableCell>
+              <TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Type</strong></TableCell>
+              <TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Definition</strong></TableCell>
             </TableRow>
           </TableHead>
 			<TableBody>
@@ -274,24 +280,34 @@ const handlePreview = async (
 						sx={{
 						cursor: 'pointer',
 						backgroundColor: expanded === cls.id
-							? (darkMode ? '#9e7e50' : '#ffdca9') // light orange for selected
+							? (darkMode ? '#9e7e50' : '#ffdca9')
 							: darkMode ? '#263238' : '#f5f5f5',
 						'&:hover': {
-							backgroundColor: (darkMode ? '#c2a274' : '#fff8e1'), // faint orange on hover
+							backgroundColor: (darkMode ? '#c2a274' : '#fff8e1'),
 						},
 						transition: 'background-color 0.2s ease-in-out',
 						}}
 					>
-						<TableCell>{cls.id}</TableCell>
-						<TableCell>{cls.label}</TableCell>
-						<TableCell>CLASS</TableCell>
-						<TableCell>{cls.definition || ''}</TableCell>
+						<TableCell width={48}>
+							<IconButton size="small">
+							{expanded === cls.id ? (
+								<KeyboardArrowUpIcon />
+							) : (
+								<KeyboardArrowDownIcon />
+							)}
+							</IconButton>
+						</TableCell>
+						<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 500, fontSize: '1rem' }}>{cls.id}</TableCell>
+  
+						<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 500, fontSize: '1rem' }}>{cls.label}</TableCell>
+						<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 400, fontSize: '0.9rem' }}>CLASS</TableCell>
+						<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 400, fontSize: '0.9rem' }}>{cls.definition || ''}</TableCell>
 					</TableRow>
 				</Tooltip>
 
 				{expanded === cls.id && (
 					<TableRow >
-					<TableCell colSpan={4} >
+					<TableCell colSpan={5} >
 						<Box sx={{ mb: 2 }}>
 							<Typography variant="h6" sx={{ fontWeight: 500 }}>
 								{cls.label} definition: {cls.definition}
@@ -306,19 +322,19 @@ const handlePreview = async (
 								<Table size="small" sx={{ border: '1px solid #ccc' }}>
 								<TableHead>
 									<TableRow sx={{ backgroundColor: darkMode ? '#37474f' : '#e3f2fd' }}>
-									<TableCell><strong>Code</strong></TableCell>
-									<TableCell><strong>Title</strong></TableCell>
-									<TableCell><strong>Type</strong></TableCell>
-									<TableCell><strong>Definition</strong></TableCell>
+									<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Code</strong></TableCell>
+									<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Title</strong></TableCell>
+									<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Type</strong></TableCell>
+									<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}><strong>Definition</strong></TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{cls.fields.map((field) => (
 									<TableRow key={field.code}>
-										<TableCell>{field.code}</TableCell>
-										<TableCell>{field.title}</TableCell>
-										<TableCell>{field.type || ''}</TableCell>
-										<TableCell>{field.definition || ''}</TableCell>
+										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.code}</TableCell>
+										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.title}</TableCell>
+										<TableCell sx={{ fontFamily: "'Lexend', sans-serif" }}>{field.type || ''}</TableCell>
+										<TableCell sx={{ fontFamily: "'Lexend', sans-serif", fontWeight: 300 }}>{field.definition || ''}</TableCell>
 									</TableRow>
 									))}
 								</TableBody>

@@ -4,6 +4,10 @@
     "schema": "https://schema.org/",
 
     "OrganizationContribution": "goos:OrganizationContribution",
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "organization": {
       "@id": "goos:hasOrganization",
       "@type": "@id"

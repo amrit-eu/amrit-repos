@@ -7,11 +7,12 @@ goos:SensorSetup a owl:Class ;
 #    Properties
 #################################################################
 
-goos:sensorSetupId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this sensor setup."@en ;
     rdfs:domain goos:SensorSetup ;
-    rdfs:range xsd:string ;
-    rdfs:label "Sensor Setup ID"@en ;
-    rdfs:comment "Internal identifier for the sensor setup."@en .
+    rdfs:range xsd:string .
 
 goos:observesVariable a owl:ObjectProperty ;
     rdfs:domain goos:SensorSetup ;

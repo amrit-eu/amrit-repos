@@ -3,10 +3,10 @@
     "goos": "https://www.ocean-ops.org/goosmeta#",
     "schema": "https://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
+	
     "Country": "goos:Country",
-
     "id": {
-      "@id": "goos:countryId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "code2": {

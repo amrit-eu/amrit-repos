@@ -17,11 +17,13 @@ goos:ObservingSystem a owl:Class ;
 #    Properties
 #################################################################
 
-goos:observingSystemId a owl:DatatypeProperty ;
+
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this observing system."@en ;
     rdfs:domain goos:ObservingSystem ;
-    rdfs:range xsd:string ;
-    rdfs:label "Observing System ID"@en ;
-    rdfs:comment "Internal identifier for the observing system."@en .
+    rdfs:range xsd:string .
 
 goos:observingSystemName a owl:DatatypeProperty ;
     rdfs:subPropertyOf schema:name ;

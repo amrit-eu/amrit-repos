@@ -5,9 +5,23 @@
   "description": "A specification or model of a sensor, describing the types of variables it can observe.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:SensorModel",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
       "type": "string",
-      "description": "Internal or URI identifier for the sensor model."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "name": {
       "type": "string",

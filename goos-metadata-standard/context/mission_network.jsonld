@@ -6,7 +6,7 @@
 
     "MissionNetwork": "goos:MissionNetwork",
     "id": {
-      "@id": "goos:missionNetworkId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

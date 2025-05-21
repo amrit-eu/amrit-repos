@@ -17,9 +17,10 @@ goos:TelecomTechnology a owl:Class ;
 #    Properties
 #################################################################
 
-goos:telecomTechnologyId a owl:DatatypeProperty ;
-    rdfs:label "Technology ID"@en ;
-    rdfs:comment "Internal identifier for the telecom technology."@en ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this telecom technology."@en ;
     rdfs:domain goos:TelecomTechnology ;
     rdfs:range xsd:string .
 

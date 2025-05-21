@@ -17,9 +17,10 @@ goos:PlatformModel a owl:Class ;
 #    Properties
 #################################################################
 
-goos:platformModelId a owl:DatatypeProperty ;
-    rdfs:label "Platform Model ID"@en ;
-    rdfs:comment "Internal identifier for the platform model."@en ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this platform model."@en ;
     rdfs:domain goos:PlatformModel ;
     rdfs:range xsd:string .
 

@@ -5,7 +5,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "StatusType": "goos:StatusType",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "prefLabel": {
       "@id": "skos:prefLabel",
       "@type": "xsd:string"

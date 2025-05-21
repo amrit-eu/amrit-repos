@@ -6,15 +6,22 @@
   "required": ["@type", "missionId", "startTime"],
   "properties": {
     "@context": {
-      "type": ["string", "object"]
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
     },
     "@type": {
       "type": "string",
-      "const": "GOOSMission"
+      "const": "goos:GOOSMission",
+      "description": "The JSON-LD type of the resource."
     },
-    "missionId": {
+    "@id": {
       "type": "string",
-      "description": "The unique internal Mission ID (e.g. OceanOPS ptfId)."
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
     },
     "wigosId": {
       "type": "string",
@@ -49,7 +56,7 @@
     "activation": {
       "$ref": "https://www.ocean-ops.org/goosmeta/schema/activation.schema.json"
     },
-    "observationSetup": {
+    "sensorSetup": {
       "type": "array",
       "items": {
         "$ref": "https://www.ocean-ops.org/goosmeta/schema/sensor_setup.schema.json"

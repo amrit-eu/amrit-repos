@@ -5,9 +5,8 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "WIGOSProgram": "goos:WIGOSProgram",
-
     "id": {
-      "@id": "goos:wigosProgramId",
+      "@id": "goos:id",
       "@type": "xsd:string"
     },
     "name": {

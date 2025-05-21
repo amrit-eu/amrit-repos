@@ -5,7 +5,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "TelecomDevice": "goos:TelecomDevice",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "number": {
       "@id": "goos:telecomNumber",
       "@type": "xsd:string"

@@ -13,6 +13,13 @@ goos:OrganizationContribution a owl:Class ;
     rdfs:label "Organization Contribution"@en ;
     rdfs:comment "A specific contribution by an organization to either a GOOS Mission or a WIGOS Program, playing a defined role."@en .
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this contribution."@en ;
+    rdfs:domain goos:OrganizationContribution ;
+    rdfs:range xsd:string .
+
 goos:hasOrganization a owl:ObjectProperty ;
     rdfs:domain goos:OrganizationContribution ;
     rdfs:range goos:Organization ;

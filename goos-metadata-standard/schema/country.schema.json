@@ -5,12 +5,23 @@
   "description": "United Nations member state or a group of states such as European Union.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
     "@type": {
-      "const": "goos:Country"
+      "type": "string",
+      "const": "goos:Country",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
     },
     "id": {
       "type": "string",
-      "description": "Internal database identifier for the country."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "code2": {
       "type": "string",

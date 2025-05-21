@@ -6,7 +6,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "Sensor": "goos:Sensor",
-
+    "id": {
+      "@id": "goos:id",
+      "@type": "xsd:string"
+    },
     "serialNumber": {
       "@id": "goos:serialNumber",
       "@type": "xsd:string"

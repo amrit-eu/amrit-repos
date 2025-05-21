@@ -18,12 +18,12 @@ goos:Ship a owl:Class ;
  #    Properties
  #################################################################
 
-# Ship ID
-goos:shipId a owl:DatatypeProperty ;
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this ship."@en ;
     rdfs:domain goos:Ship ;
-    rdfs:range xsd:string ;
-    rdfs:label "Ship ID"@en ;
-    rdfs:comment "Internal database identifier for the ship."@en .
+    rdfs:range xsd:string .
 
 # Ship Name
 goos:shipName a owl:DatatypeProperty ;

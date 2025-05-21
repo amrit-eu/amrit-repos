@@ -5,6 +5,24 @@
   "description": "An instrumented system or device deployed in the environment for observation, monitoring, or data collection.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:Platform",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
+    "id": {
+      "type": "string",
+      "description": "The class-specific persistent identifier (PID)"
+    },
     "ref": {
       "type": "string",
       "description": "Reference identifier for the platform."

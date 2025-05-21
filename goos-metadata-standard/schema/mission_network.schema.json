@@ -5,9 +5,23 @@
   "description": "A virtual or thematic grouping of missions and platforms, often representing regional arrays, shared scientific goals, or collaborative initiatives.",
   "type": "object",
   "properties": {
+    "@context": {
+      "type": ["string", "object"],
+      "description": "The JSON-LD context defining term mappings."
+    },
+    "@type": {
+      "type": "string",
+      "const": "goos:MissionNetwork",
+      "description": "The JSON-LD type of the resource."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The globally unique URI identifier for this resource."
+    },
     "id": {
       "type": "string",
-      "description": "Internal identifier for the mission network."
+      "description": "The class-specific persistent identifier (PID)"
     },
     "name": {
       "type": "string",

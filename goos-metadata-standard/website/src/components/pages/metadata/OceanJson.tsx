@@ -12,54 +12,23 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
           JSON
         </Typography>
       </Typography>
-
-      <Typography variant="h4" noWrap sx={{ fontWeight: 500, color: darkMode ? "#e0e0e0" : "#333", marginBottom: 4 }}>
-        JSON Schemas and JSON-LD for Passport Metadata
-      </Typography>
-
       <Typography variant="h5" sx={{ maxWidth: 800, textAlign: 'center', color: darkMode ? '#e0e0e0' : '#333', marginBottom: 2 }}>
-        The GOOS Metadata Standard has it's standard JSON format to allow communication between GOOS nodes.
+        The GOOS Metadata Standard uses standard JSON format to allow communication between GOOS nodes.
       </Typography>
 
-		<Typography variant="h5" sx={{ maxWidth: 800, textAlign: 'center', color: darkMode ? '#e0e0e0' : '#333', marginBottom: 4 }}>
+		<Typography variant="h5" sx={{ maxWidth: 800, textAlign: 'center', color: darkMode ? '#e0e0e0' : '#333', marginBottom: 0 }}>
 		JSON is lightweight, human-readable, and universally supported, 
 		making it ideal for seamless data exchange and integration across diverse systems.
 		</Typography>
 
-      <Box sx={{ maxWidth: 800, textAlign: 'left', mt: 4 }}>
-	  <Typography variant="h4" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4", mb: 2 }}>
-          Public access
-        </Typography>
-        <Typography variant="h5">
-          Schemas and Context are published here.
-		</Typography>
-		<ul>
-          <li>
-            <strong>JSON-LD context with schema URLs: </strong>
-            <Link href="https://www.ocean-ops.org/oceanjson/context.jsonld" target="_blank" rel="noopener" sx={{ color: darkMode ? "#03a9f4" : "#009af4" }}>
-				https://www.ocean-ops.org/oceanjson/context.jsonld
-            </Link>
-          </li>
-          <li>
-            <strong>Mission Schema: </strong>
-            <Link href="https://www.ocean-ops.org/oceanjson/schemas/Mission.schema.json" target="_blank" rel="noopener" sx={{ color: darkMode ? "#03a9f4" : "#009af4" }}>
-				https://www.ocean-ops.org/oceanjson/schemas/Mission.schema.json
-            </Link>
-          </li>
-          <li>
-            <strong>Platform Schema: </strong>
-            <Link href="https://www.ocean-ops.org/oceanjson/schemas/Platform.schema.json" target="_blank" rel="noopener" sx={{ color: darkMode ? "#03a9f4" : "#009af4" }}>
-				https://www.ocean-ops.org/oceanjson/schemas/Platform.schema.json
-            </Link>
-          </li>
-		  
-		</ul>
+      <Box sx={{ maxWidth: 800, textAlign: 'left', mt: 3 }}>
+	  
 		<br /><br />
         <Typography variant="h4" sx={{ fontWeight: 500, color: darkMode ? "#03a9f4" : "#009af4", mb: 2 }}>
           The Technology
         </Typography>
         <Typography paragraph>
-          OceanJSON uses two complementary technologies: <strong>JSON Schema</strong> and <strong>JSON-LD</strong>. Together, they provide both structure and semantic meaning to our data.
+          The metadata standard uses two complementary technologies: <strong>JSON Schema</strong> and <strong>JSON-LD</strong>. Together, they provide both structure and semantic meaning to our data.
         </Typography>
 
         <Typography variant="h5" sx={{ fontWeight: 600, mt: 2 }}>JSON Schema</Typography>
@@ -94,8 +63,8 @@ const OceanJson: React.FC<PageProps> = ({ darkMode }) => {
             <strong>Raise Issues:</strong> Found a bug or have a suggestion?
             <br />
             Please raise an issue on our{' '}
-            <Link href="https://github.com/OceanOPS/oceanjson" target="_blank" rel="noopener" sx={{ color: darkMode ? "#03a9f4" : "#009af4" }}>
-              OceanJSON GitHub Repository
+            <Link href="https://github.com/British-Oceanographic-Data-Centre/amrit-repos/tree/main/goos-metadata-standard" target="_blank" rel="noopener" sx={{ color: darkMode ? "#03a9f4" : "#009af4" }}>
+              GOOS Metadata Standard GitHub Repository
             </Link>.
           </li>
           <li>

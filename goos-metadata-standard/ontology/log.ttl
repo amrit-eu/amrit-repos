@@ -13,6 +13,13 @@ goos:Log a owl:Class ;
     rdfs:comment "A log containing records of updates, status changes, and quality control events associated with a mission."@en ;
     rdfs:subClassOf schema:CreativeWork .
 
+# Unique PID
+goos:id a owl:DatatypeProperty ;
+    rdfs:label "Unique ID"@en ;
+    rdfs:comment "A persistent, unique identifier (PID) for this mission log."@en ;
+    rdfs:domain goos:Log ;
+    rdfs:range xsd:string .
+
 goos:hasStatusHistory a owl:ObjectProperty ;
     rdfs:domain goos:Log ;
     rdfs:range goos:StatusEvent ;
