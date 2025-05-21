@@ -14,13 +14,13 @@
 
   "parentSystem": {
     "@id": "https://www.ocean-ops.org/resource/system/SYS001",
-    "@type": "goos:System",
+    "@type": "goos:ObservingSystem",
     "name": "Global Ocean Observing System"
   },
 
   "mission": {
     "@id": "https://www.ocean-ops.org/resource/mission/MIS123",
-    "@type": "goos:Mission",
+    "@type": "goos:GOOSMission",
     "name": "Atlantic Deep Current Survey",
     "startDate": "2023-03-15",
     "endDate": "2023-06-15"

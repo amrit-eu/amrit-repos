@@ -20,7 +20,7 @@
 
   "telecom": {
     "@id": "https://www.ocean-ops.org/resource/telecom/TCOM123",
-    "@type": "goos:Telecom",
+    "@type": "goos:TelecomDevice",
     "system": "Iridium",
     "identifier": "IR-100023456"
   }

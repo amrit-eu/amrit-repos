@@ -13,6 +13,7 @@
   "IMEI": "356789012345678",
   "technology": {
     "@id": "https://www.ocean-ops.org/resource/technology/4G",
+    "@type": "goos:TelecomTechnology",
     "name": "4G LTE"
   }
 }
