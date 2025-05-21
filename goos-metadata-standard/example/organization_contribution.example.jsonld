@@ -21,13 +21,13 @@
 
   "targetProgram": {
     "@id": "https://www.ocean-ops.org/resource/program/PRG789",
-    "@type": "goos:Program",
+    "@type": "goos:WIGOSProgram",
     "name": "Pacific Observing Program"
   },
 
   "targetMission": {
     "@id": "https://www.ocean-ops.org/resource/mission/MIS321",
-    "@type": "goos:Mission",
+    "@type": "goos:GOOSMission",
     "name": "South Pacific Float Deployment"
   },
 

@@ -13,7 +13,7 @@
 
   "variable": {
     "@id": "https://www.ocean-ops.org/resource/variable/temperature",
-    "@type": "goos:ObservedVariable",
+    "@type": "goos:Variable",
     "name": "Sea Water Temperature"
   },
 

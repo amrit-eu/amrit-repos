@@ -16,7 +16,7 @@
 
   "observesVariable": {
     "@id": "https://www.ocean-ops.org/resource/variable/salinity",
-    "@type": "goos:ObservedVariable",
+    "@type": "goos:Variable",
     "name": "Sea Water Salinity"
   },
 
@@ -34,7 +34,7 @@
 
   "mission": {
     "@id": "https://www.ocean-ops.org/resource/mission/MIS789",
-    "@type": "goos:Mission",
+    "@type": "goos:GOOSMission",
     "name": "North Atlantic Drift Campaign 2024"
   }
 }
