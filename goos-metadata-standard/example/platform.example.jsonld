@@ -1,32 +1,27 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "Platform": "goos:Platform",
-  
-      "ref": {
-        "@id": "goos:platformRef",
-        "@type": "xsd:string"
-      },
-      "serialNumber": {
-        "@id": "goos:serialNumber",
-        "@type": "xsd:string"
-      },
-      "telecom": {
-        "@id": "goos:hasTelecom",
-        "@type": "@id"
-      },
-      "model": {
-        "@id": "goos:hasModel",
-        "@type": "@id"
-      }
-    },
-    "@type": "goos:Platform",
-    "ref": "ARGOX-0001",
-    "serialNumber": "SN-4321",
-    "telecom": "https://www.ocean-ops.org/goosmeta/telecom/iridium-123456789",
-    "model": "https://www.ocean-ops.org/goosmeta/platformModel/apex-01"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/platform/PLT001",
+  "@type": "goos:Platform",
+
+  "id": "PLT001",
+  "ref": "ARGO-F12345",
+  "serialNumber": "SN-AX7890",
+
+  "model": {
+    "@id": "https://www.ocean-ops.org/resource/platform-model/PM001",
+    "@type": "goos:PlatformModel",
+    "name": "Argo Float APEX"
+  },
+
+  "telecom": {
+    "@id": "https://www.ocean-ops.org/resource/telecom/TCOM123",
+    "@type": "goos:Telecom",
+    "system": "Iridium",
+    "identifier": "IR-100023456"
   }
-  
+}

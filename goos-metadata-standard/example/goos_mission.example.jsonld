@@ -5,12 +5,12 @@
       "goos": "https://www.ocean-ops.org/goosmeta#",
       "@vocab": "https://www.ocean-ops.org/goosmeta#"
     },
-    "@id": "https://www.ocean-ops.org/resource/mission/MISSION-2025-001",
+    "@id": "https://www.ocean-ops.org/resource/mission/MIS123456",
     "@type": "GOOSMission",
-    "missionId": "MISSION-2025-001",
-    "wigosId": "0-12345-0-ABC123",
+    "id": "MIS123456",
     "startTime": "2025-04-01T08:00:00Z",
     "endTime": "2025-05-15T16:30:00Z",
+    "wigosId": "0-22000-0-ABC1234",
     "instrument": {
       "@id": "https://www.ocean-ops.org/resource/platform/PLATFORM-789",
       "@type": "Platform",
@@ -21,6 +21,14 @@
       "@type": "WIGOSProgram",
       "name": "Global Underwater Array for Rapid Deployment"
     },
+    "result": [
+      {
+        "@id": "https://www.ocean-ops.org/resource/observation/OBS-456",
+        "@type": "Observation",
+        "observedProperty": "Sea Temperature",
+        "resultTime": "2025-04-15T12:00:00Z"
+      }
+    ],
     "status": {
       "@id": "https://www.ocean-ops.org/resource/status/Active",
       "@type": "StatusType",
@@ -47,14 +55,7 @@
         "variable": "temperature",
         "platform": "PLATFORM-789"
       }
-    ],
-    "result": [
-      {
-        "@id": "https://www.ocean-ops.org/resource/observation/OBS-456",
-        "@type": "Observation",
-        "observedProperty": "Sea Temperature",
-        "resultTime": "2025-04-15T12:00:00Z"
-      }
     ]
+    
   }
   

@@ -1,26 +1,14 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "Organization": "goos:Organization",
-      "id": {
-        "@id": "goos:organizationId",
-        "@type": "xsd:string"
-      },
-      "name": {
-        "@id": "goos:organizationName",
-        "@type": "xsd:string"
-      },
-      "description": {
-        "@id": "goos:organizationDescription",
-        "@type": "xsd:string"
-      }
-    },
-    "@type": "goos:Organization",
-    "id": "cnrs-ifremer",
-    "name": "CNRS / IFREMER",
-    "description": "The CNRS and IFREMER collaborate on oceanographic research and contribute to observing systems like Argo and OceanSITES."
-  }
-  
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/organization/ORG456",
+  "@type": "goos:Organization",
+
+  "id": "ORG456",
+  "name": "Ocean Research Institute",
+  "description": "A scientific organization dedicated to advancing oceanographic knowledge and supporting global marine observation programs."
+}

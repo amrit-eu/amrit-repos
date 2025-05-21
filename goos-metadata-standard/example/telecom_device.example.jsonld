@@ -1,28 +1,18 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "TelecomDevice": "goos:TelecomDevice",
-  
-      "number": {
-        "@id": "goos:telecomNumber",
-        "@type": "xsd:string"
-      },
-      "IMEI": {
-        "@id": "goos:telecomIMEI",
-        "@type": "xsd:string"
-      },
-      "technology": {
-        "@id": "goos:usesTechnology",
-        "@type": "@id"
-      }
-    },
-    "@id": "https://www.ocean-ops.org/goosmeta/telecom/123456",
-    "@type": "goos:TelecomDevice",
-    "number": "+881612345678",
-    "IMEI": "300234060379310",
-    "technology": "https://www.ocean-ops.org/goosmeta/technology/IRIDIUM"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/telecom-device/TD001",
+  "@type": "goos:TelecomDevice",
+
+  "id": "TD001",
+  "number": "+1234567890",
+  "IMEI": "356789012345678",
+  "technology": {
+    "@id": "https://www.ocean-ops.org/resource/technology/4G",
+    "name": "4G LTE"
   }
-  
+}

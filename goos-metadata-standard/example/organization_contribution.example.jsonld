@@ -1,43 +1,39 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "OrganizationContribution": "goos:OrganizationContribution",
-      "organization": {
-        "@id": "goos:hasOrganization",
-        "@type": "@id"
-      },
-      "targetProgram": {
-        "@id": "goos:hasTargetProgram",
-        "@type": "@id"
-      },
-      "targetMission": {
-        "@id": "goos:hasTargetMission",
-        "@type": "@id"
-      },
-      "role": {
-        "@id": "goos:hasOrganizationRole",
-        "@type": "@id"
-      },
-      "description": {
-        "@id": "goos:contributionDescription",
-        "@type": "xsd:string"
-      },
-      "startDate": {
-        "@id": "goos:contributionStartDate",
-        "@type": "xsd:dateTime"
-      },
-      "endDate": {
-        "@id": "goos:contributionEndDate",
-        "@type": "xsd:dateTime"
-      }
-    },
-    "@type": "goos:OrganizationContribution",
-    "organization": "https://www.ocean-ops.org/goosmeta/org/WMO",
-    "targetProgram": "https://www.ocean-ops.org/goosmeta/program/WIGOS",
-    "role": "https://www.ocean-ops.org/goosmeta/role/LeadAgency",
-    "description": "WMO leads the coordination and governance of the WIGOS framework.",
-    "startDate": "2016-01-01T00:00:00Z"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/contribution/OC123",
+  "@type": "goos:OrganizationContribution",
+
+  "id": "OC123",
+  "description": "Financial and logistical support for deployment operations in the South Pacific.",
+  "startDate": "2023-01-01T00:00:00Z",
+  "endDate": "2023-12-31T23:59:59Z",
+
+  "organization": {
+    "@id": "https://www.ocean-ops.org/resource/organization/ORG456",
+    "@type": "goos:Organization",
+    "name": "Ocean Research Institute"
+  },
+
+  "targetProgram": {
+    "@id": "https://www.ocean-ops.org/resource/program/PRG789",
+    "@type": "goos:Program",
+    "name": "Pacific Observing Program"
+  },
+
+  "targetMission": {
+    "@id": "https://www.ocean-ops.org/resource/mission/MIS321",
+    "@type": "goos:Mission",
+    "name": "South Pacific Float Deployment"
+  },
+
+  "role": {
+    "@id": "https://www.ocean-ops.org/resource/role/funder",
+    "@type": "goos:OrganizationRole",
+    "label": "Funder"
   }
-  
+}

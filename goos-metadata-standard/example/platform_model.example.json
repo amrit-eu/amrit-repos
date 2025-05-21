@@ -1,37 +1,26 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "PlatformModel": "goos:PlatformModel",
-  
-      "id": {
-        "@id": "goos:platformModelId",
-        "@type": "xsd:string"
-      },
-      "name": {
-        "@id": "goos:platformModelName",
-        "@type": "xsd:string"
-      },
-      "description": {
-        "@id": "goos:platformModelDescription",
-        "@type": "xsd:string"
-      },
-      "type": {
-        "@id": "goos:belongsToType",
-        "@type": "@id"
-      },
-      "manufacturer": {
-        "@id": "goos:hasManufacturer",
-        "@type": "@id"
-      }
-    },
-    "@type": "goos:PlatformModel",
-    "id": "apex-01",
-    "name": "APEX Float",
-    "description": "A commonly used profiling float model manufactured for the Argo program.",
-    "type": "https://www.ocean-ops.org/goosmeta#Float",
-    "manufacturer": "https://www.ocean-ops.org/goosmeta#Teledyne"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/platform-model/PM001",
+  "@type": "goos:PlatformModel",
+
+  "id": "PM001",
+  "name": "Argo Float APEX",
+  "description": "Autonomous profiling float developed for global ocean observation as part of the Argo program.",
+
+  "type": {
+    "@id": "https://www.ocean-ops.org/resource/platform-type/float",
+    "@type": "goos:PlatformType",
+    "name": "Float"
+  },
+
+  "manufacturer": {
+    "@id": "https://www.ocean-ops.org/resource/organization/ORG789",
+    "@type": "goos:Organization",
+    "name": "Teledyne Marine"
   }
-  
+}

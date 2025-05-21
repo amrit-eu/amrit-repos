@@ -1,32 +1,20 @@
 {
-    "@context": {
-      "goos": "https://www.ocean-ops.org/goosmeta#",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-  
-      "PlatformType": "goos:PlatformType",
-  
-      "id": {
-        "@id": "goos:platformTypeId",
-        "@type": "xsd:string"
-      },
-      "name": {
-        "@id": "goos:platformTypeName",
-        "@type": "xsd:string"
-      },
-      "description": {
-        "@id": "goos:platformTypeDescription",
-        "@type": "xsd:string"
-      },
-      "family": {
-        "@id": "goos:hasFamily",
-        "@type": "@id"
-      }
-    },
-    "@type": "goos:PlatformType",
-    "id": "float",
-    "name": "Float",
-    "description": "A free-drifting autonomous profiler used for oceanographic observations, such as Argo floats.",
-    "family": "https://www.ocean-ops.org/goosmeta#SubsurfaceProfiler"
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/platform-type/PTFT123456",
+  "@type": "goos:PlatformType",
+
+  "id": "PTFT123456",
+  "name": "Float",
+  "description": "An autonomous drifting platform used to collect oceanographic data, typically at varying depths.",
+
+  "family": {
+    "@id": "https://www.ocean-ops.org/resource/platform-family/autonomous",
+    "@type": "goos:PlatformFamily",
+    "name": "Autonomous Platforms"
   }
-  
+}

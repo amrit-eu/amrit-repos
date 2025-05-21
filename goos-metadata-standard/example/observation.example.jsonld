@@ -8,6 +8,7 @@
     },
     "@id": "https://www.ocean-ops.org/resource/observation/OBS0001",
     "@type": "goos:Observation",
+    "id": "OBS0001",
     "variable": {
       "@id": "https://www.ocean-ops.org/resource/variable/seaTemperature",
       "@type": "goos:Variable",

@@ -1,35 +1,32 @@
 {
-    "@type": "MissionLog",
-    "statusHistory": [
-      {
-        "@type": "StatusEvent",
-        "timestamp": "2024-11-01T10:30:00Z",
-        "status": "https://www.ocean-ops.org/goosmeta#Active",
-        "comment": "Mission activated successfully."
-      },
-      {
-        "@type": "StatusEvent",
-        "timestamp": "2025-01-15T16:45:00Z",
-        "status": "https://www.ocean-ops.org/goosmeta#Completed",
-        "comment": "Platform retrieved and mission marked as completed."
-      }
-    ],
-    "updateEntry": [
-      {
-        "@type": "UpdateEntry",
-        "timestamp": "2025-01-10T08:00:00Z",
-        "updatedBy": "https://www.ocean-ops.org/agent#jdoe",
-        "description": "Corrected deployment coordinates."
-      }
-    ],
-    "qualityCheck": [
-      {
-        "@type": "QualityControlEntry",
-        "timestamp": "2025-01-12T14:00:00Z",
-        "checkedBy": "https://www.ocean-ops.org/agent#qcmgr",
-        "result": "Passed",
-        "notes": "Data integrity confirmed for entire mission."
-      }
-    ]
+  "@context": {
+    "@version": 1.1,
+    "goos": "https://www.ocean-ops.org/goosmeta#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://www.ocean-ops.org/resource/log/LOG001",
+  "@type": "goos:Log",
+
+  "id": "LOG001",
+
+  "statusHistory": {
+    "@type": "goos:Status",
+    "status": "deployed",
+    "date": "2024-10-05T10:30:00Z"
+  },
+
+  "updateEntry": {
+    "@type": "goos:Update",
+    "author": "John Doe",
+    "date": "2024-10-06T12:00:00Z",
+    "comment": "System successfully deployed and operational."
+  },
+
+  "qualityCheck": {
+    "@type": "goos:QualityCheck",
+    "performedBy": "QA Team",
+    "date": "2024-10-07T15:45:00Z",
+    "result": "passed"
   }
-  
+}
