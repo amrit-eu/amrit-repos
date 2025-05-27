@@ -1,19 +1,21 @@
 "use client";
 
 import { Dialog } from '@mui/material';
-import { useRouter } from 'next/navigation';
 
 import React from 'react'
 
-const Modal = ({children} : {children: React.ReactNode}) => {
-    const router = useRouter()
+interface ModalProps {
+  children:React.ReactNode
+  isModalOpen : boolean
+  handleClose : () => void
 
-    const handleClose = () => {
-        router.back()
-    }
+}
+
+const Modal = ({children, isModalOpen, handleClose} : ModalProps) => {
+   
 
   return (    
-        <Dialog id="modal" open={true} onClose={handleClose} slotProps={{
+        <Dialog id="modal" open={isModalOpen} onClose={handleClose} slotProps={{
           backdrop: {
             sx: {             
               backdropFilter: 'blur(2px)',
