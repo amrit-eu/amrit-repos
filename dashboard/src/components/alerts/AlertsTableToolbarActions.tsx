@@ -9,6 +9,7 @@ import SnackbarAlert from '../ui/SnackbarAlert';
 import { OverridableStringUnion } from '@mui/types';
 import actOnAlerts from '@/lib/alerta/actOnAlerts.client';
 import SubmitTextModal from '../SubmitTextModal';
+import addNoteOnAlerts from '@/lib/alerta/addNoteOnAlerts.client';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]
@@ -51,7 +52,33 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
         
     }
 
-    
+    const handleAddNoteToAlert = async ( noteText:string) : Promise<void> => {
+        setLoading(true);
+        try {
+            const results =  await addNoteOnAlerts(selected, noteText);
+            if (results.success > 0 && results.failed > 0) {
+                setResultsMessage(`Note was added successfully on ${results.success} alert${results.success === 1 ? '' : 's'} but not on ${results.failed} alert${results.failed === 1 ? '' : 's'}`);
+                setSnackBarSeverity("warning");
+                setSnackBarOpen(true);
+            } else if (results.success > 0) {
+                setResultsMessage(`Successfully added a note on ${results.success} alert${results.success === 1 ? '' : 's'}.`);
+                setSnackBarSeverity("success");
+                setSnackBarOpen(true);
+            } else {
+                setResultsMessage(`No note was added`);
+                setSnackBarSeverity("warning");
+                setSnackBarOpen(true);
+            }
+        } catch {
+            setResultsMessage(`Something went wrong while adding note on alerts.`);
+            setSnackBarSeverity("error");
+            setSnackBarOpen(true)
+        } finally {
+            setLoading(false)
+            onActionDone();
+            setAddNoteModalOpen(false)
+        }
+    }   
 
     const handleCloseSnackbar = () => {
         setSnackBarOpen(false)
@@ -91,7 +118,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
             </IconButton>
         </Tooltip>
 
-        <SubmitTextModal open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false) } onConfirm={() => {} } />
+        <SubmitTextModal title={`Add a note on ${selected.length} alert${selected.length > 1 ? 's':''}`} open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false)} onConfirm={handleAddNoteToAlert } pending={loading} />
 
    </>
   )

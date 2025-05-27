@@ -7,22 +7,36 @@ interface SubmitTextModalProps {
     open : boolean;
     onClose: () => void;
     onConfirm : (text :string) => void;
-
+    pending:boolean
+    title:string
 }
 
-const SubmitTextModal = ({open, onClose, onConfirm} :SubmitTextModalProps) => {
+// Simple non-controlled form
+const SubmitTextModal = ({open, onClose, onConfirm, pending, title} :SubmitTextModalProps) => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const note = formData.get('text') as string
+    onConfirm(note)    
+  }
+
   return (
     <Modal isModalOpen={open} handleClose={onClose}>
-      <DialogTitle padding={10}>Add a Note to x alert(s)</DialogTitle>
-      <DialogContent>
-        <TextField
-        label = "add a note"
-        fullWidth         />
-        
-      </DialogContent>
-      <DialogActions>
-        <SubmitButton>Add note</SubmitButton>
-      </DialogActions>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>
+          <TextField
+          label = "submit a text"
+          name="text" 
+          fullWidth
+          autoFocus         />
+          
+        </DialogContent>
+        <DialogActions>
+          <SubmitButton pending={pending}>Submit</SubmitButton>
+        </DialogActions>
+      </form>
       
     </Modal>
   )
