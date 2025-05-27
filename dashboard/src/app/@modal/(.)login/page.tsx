@@ -5,7 +5,7 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <RoutedModal>
+    <RoutedModal backgroundTransparent={true}>
         <LoginForm />
     </RoutedModal>
   )

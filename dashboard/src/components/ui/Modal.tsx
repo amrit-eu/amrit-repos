@@ -8,12 +8,13 @@ interface ModalProps {
   children:React.ReactNode
   isModalOpen : boolean
   handleClose : () => void
-
+  backgroundTransparent?: boolean
 }
 
-const Modal = ({children, isModalOpen, handleClose} : ModalProps) => {
+const Modal = ({children, isModalOpen, handleClose, backgroundTransparent = false} : ModalProps) => {
    
-
+  //use of a conditionnal transparent background was needed for the login form component and may be needed for other.
+  
   return (    
         <Dialog id="modal" open={isModalOpen} onClose={handleClose} slotProps={{
           backdrop: {
@@ -24,10 +25,14 @@ const Modal = ({children, isModalOpen, handleClose} : ModalProps) => {
           },
            paper : {
             sx: {
-              backgroundColor: 'transparent',
-              backgroundImage: 'none',
-              boxShadow: 'none',
               width: '100%',
+              ...( backgroundTransparent && {
+                backgroundColor: 'transparent',
+                backgroundImage: 'none',
+                boxShadow: 'none',
+                }
+              )          
+              
             },
           }}}>
 

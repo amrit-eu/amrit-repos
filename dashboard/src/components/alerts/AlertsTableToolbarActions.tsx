@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import SnackbarAlert from '../ui/SnackbarAlert';
 import { OverridableStringUnion } from '@mui/types';
 import actOnAlerts from '@/lib/alerta/actOnAlerts.client';
+import SubmitTextModal from '../SubmitTextModal';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]
@@ -18,7 +19,9 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
     const [resultsMessage, setResultsMessage] = useState<string |null>(null)
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [snackBarSeverity, setSnackBarSeverity] = useState<OverridableStringUnion<AlertColor, AlertPropsColorOverrides>>("success")
-    
+    // state for Add a note modal :
+    const [addNoteModalOpen, setAddNoteModalOpen] = useState(false);
+
     const handleAcknowledgeAlert = async (action : "ack" | "unack"): Promise<void> => {
         setLoading(true);
         try {
@@ -71,7 +74,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
         </Tooltip>
         
         <Tooltip title="Add a note">
-            <IconButton>
+            <IconButton onClick={() => setAddNoteModalOpen(true)} aria-label="Add note">
                 <NoteAddIcon />
             </IconButton>
         </Tooltip>
@@ -87,6 +90,9 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
                 <DeleteIcon />
             </IconButton>
         </Tooltip>
+
+        <SubmitTextModal open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false) } onConfirm={() => {} } />
+
    </>
   )
 }
