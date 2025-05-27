@@ -23,62 +23,45 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
     // state for Add a note modal :
     const [addNoteModalOpen, setAddNoteModalOpen] = useState(false);
 
-    const handleAcknowledgeAlert = async (action : "ack" | "unack"): Promise<void> => {
-        setLoading(true);
+    // TO DO : create a custom hook useAlertsAction which can be reuse in other components
+    const handleActOnAlerts = async (action: "ack" | "unack" | "note", noteText?:string) : Promise<void> => {
+        // which action to do :
+        const actionHandlers = {
+            ack: () => actOnAlerts(selected, 'ack'),
+            unack: () => actOnAlerts(selected, 'unack'),
+            note: () => addNoteOnAlerts(selected, noteText || ''),
+        };        
+        setLoading(true);        
         try {
-            const results =  await actOnAlerts(selected, action);
-            if (results.success > 0 && results.failed > 0) {
-                setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully ${action}nowledged but ${results.failed} ${results.failed === 1 ? 'was' : 'were'} not.`);
-                setSnackBarSeverity("warning");
-                setSnackBarOpen(true);
-            } else if (results.success > 0) {
-                setResultsMessage(`Successfully ${action}nowledged ${results.success} alert${results.success === 1 ? '' : 's'}.`);
-                setSnackBarSeverity("success");
-                setSnackBarOpen(true);
-            } else {
-                setResultsMessage(`No alert was ${action}nowledged`);
-                setSnackBarSeverity("warning");
-                setSnackBarOpen(true);
+             if (!actionHandlers[action]) {
+                throw new Error(`Unsupported action: ${action}`);                
             }
-            
-        } catch  {
-            setResultsMessage(`Something went wrong while ${action}nowledging alerts.`);
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true)
-        } finally {
-            setLoading(false)
-            onActionDone();           
-        }
-        
-    }
+            //act on alert :
+            const results = await actionHandlers[action]();
 
-    const handleAddNoteToAlert = async ( noteText:string) : Promise<void> => {
-        setLoading(true);
-        try {
-            const results =  await addNoteOnAlerts(selected, noteText);
+            // handle differents results :
             if (results.success > 0 && results.failed > 0) {
-                setResultsMessage(`Note was added successfully on ${results.success} alert${results.success === 1 ? '' : 's'} but not on ${results.failed} alert${results.failed === 1 ? '' : 's'}`);
+                setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully updated (${action}) but ${results.failed} ${results.failed === 1 ? 'was' : 'were'} not.`);
                 setSnackBarSeverity("warning");
-                setSnackBarOpen(true);
             } else if (results.success > 0) {
-                setResultsMessage(`Successfully added a note on ${results.success} alert${results.success === 1 ? '' : 's'}.`);
+                setResultsMessage(`Successfully updated (${action}) ${results.success} alert${results.success === 1 ? '' : 's'}.`);
                 setSnackBarSeverity("success");
-                setSnackBarOpen(true);
             } else {
-                setResultsMessage(`No note was added`);
-                setSnackBarSeverity("warning");
-                setSnackBarOpen(true);
+                setResultsMessage(`No alert was updated`);
+                setSnackBarSeverity("warning");               
             }
         } catch {
-            setResultsMessage(`Something went wrong while adding note on alerts.`);
+            setResultsMessage(`Something went wrong while ${action}nowledging alerts.`);
             setSnackBarSeverity("error");
-            setSnackBarOpen(true)
         } finally {
+            setSnackBarOpen(true)
             setLoading(false)
             onActionDone();
-            setAddNoteModalOpen(false)
+            if (action == 'note') {
+                setAddNoteModalOpen(false)
+            }
         }
-    }   
+    }
 
     const handleCloseSnackbar = () => {
         setSnackBarOpen(false)
@@ -89,19 +72,19 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
         <SnackbarAlert snackBarOpen={snackBarOpen} handleCloseSnackbar={handleCloseSnackbar } message={resultsMessage ?? ""} severity={snackBarSeverity}/>
         
         <Tooltip title="Acknowledge">
-            <IconButton onClick={() => handleAcknowledgeAlert("ack")} disabled={loading ? true : false}>
+            <IconButton onClick={() => handleActOnAlerts("ack")} disabled={loading} aria-label="Acknowledge alert">
                 <CheckIcon />
             </IconButton>
         </Tooltip>
 
         <Tooltip title="Unacknowledge">
-            <IconButton onClick={() => handleAcknowledgeAlert("unack")} disabled={loading ? true : false}>
+            <IconButton onClick={() => handleActOnAlerts("unack")} disabled={loading} aria-label="Acknowledge alert">
                 <UndoIcon />
             </IconButton>
         </Tooltip>
         
         <Tooltip title="Add a note">
-            <IconButton onClick={() => setAddNoteModalOpen(true)} aria-label="Add note">
+            <IconButton onClick={() => setAddNoteModalOpen(true)} disabled={loading} aria-label="Add note">
                 <NoteAddIcon />
             </IconButton>
         </Tooltip>
@@ -118,7 +101,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
             </IconButton>
         </Tooltip>
 
-        <SubmitTextModal title={`Add a note on ${selected.length} alert${selected.length > 1 ? 's':''}`} open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false)} onConfirm={handleAddNoteToAlert } pending={loading} />
+        <SubmitTextModal title={`Add a note on ${selected.length} alert${selected.length > 1 ? 's':''}`} open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false)} onConfirm={(textNote) => handleActOnAlerts("note",textNote) } pending={loading} />
 
    </>
   )
