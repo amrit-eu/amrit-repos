@@ -12,7 +12,7 @@ interface SubmitButtonProps {
 const SubmitButton = ({children, pending, fullwidth=true} :SubmitButtonProps ) => {
 
     // pending from useFormStatus not working because of a React bug : https://github.com/facebook/react/issues/30368 
-    // Using a props instead :
+    // Using a props instead.
     //const {pending} = useFormStatus(); 
 
     return (
