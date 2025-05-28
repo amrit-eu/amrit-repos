@@ -2,8 +2,14 @@ import { Button, CircularProgress } from '@mui/material'
 import React from 'react'
 //import { useFormStatus } from 'react-dom';
 
+interface SubmitButtonProps {
+    children:React.ReactNode;
+    pending : boolean
+    fullwidth?:boolean
+}
+
 // May be reusable in different form ? if not move to /components/login
-const SubmitButton = ({children, pending} : {children: React.ReactNode, pending:boolean}) => {
+const SubmitButton = ({children, pending, fullwidth=true} :SubmitButtonProps ) => {
 
     // pending from useFormStatus not working because of a React bug : https://github.com/facebook/react/issues/30368 
     // Using a props instead :
@@ -12,7 +18,7 @@ const SubmitButton = ({children, pending} : {children: React.ReactNode, pending:
     return (
         <Button
             type="submit"
-            fullWidth
+            fullWidth={fullwidth}
             variant="contained"
             disabled={pending}
             startIcon={pending ? <CircularProgress size={20} /> : null}              

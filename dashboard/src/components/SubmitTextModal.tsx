@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from './ui/Modal'
-import { DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { Button, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import SubmitButton from './SubmitButton';
 
 interface SubmitTextModalProps {
@@ -27,14 +27,16 @@ const SubmitTextModal = ({open, onClose, onConfirm, pending, title} :SubmitTextM
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <TextField
-          label = "submit a text"
+          label = "Comment on alert"
           name="text" 
           fullWidth
-          autoFocus         />
+          autoFocus
+          margin='dense'         />
           
         </DialogContent>
         <DialogActions>
-          <SubmitButton pending={pending}>Submit</SubmitButton>
+          <Button onClick={onClose}>Cancel</Button>
+          <SubmitButton pending={pending} fullwidth={false}>Submit</SubmitButton>           
         </DialogActions>
       </form>
       
