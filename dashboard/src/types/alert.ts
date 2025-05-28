@@ -115,7 +115,9 @@ type AlertRaw = {
    * whenever an alert changes severity or status then a list of key alert attributes are appended to the history log
    */
 
-  history?: HistoryEntry[] 
+  history: HistoryEntry[]
+
+  lastNote? : string
 
 }
 
@@ -128,7 +130,7 @@ type HistoryEntry = {
   event : string;
   severity: Severity;
   status: Status;
-  test:string;
+  text:string;
   type: ChangeType
   updateTime: string
   user: string
