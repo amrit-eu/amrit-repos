@@ -1,4 +1,4 @@
-import Home from '../components/Home';
+import Home from '../components/modules/home/Home';
 import { verifySession } from './_lib/session';
 
 export default async function HomePage() {

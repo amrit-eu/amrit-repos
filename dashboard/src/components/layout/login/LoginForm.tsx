@@ -5,10 +5,10 @@ import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import { Box, Button, Divider, FormControl, FormLabel, Link, TextField, Typography } from '@mui/material';
 import ForgotPassword from './ForgotPassword';
-import { GoogleIcon } from '../ui/CustomIcons';
+import { GoogleIcon } from '../../shared/icons/CustomIcons';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { login } from '../../app/_actions/auth';
-import SubmitButton from '../SubmitButton';
+import { login } from '../../../app/_actions/auth';
+import SubmitButton from '../../shared/buttons/SubmitButton';
 import { useRouter } from 'next/navigation';
 
 const Card = styled(MuiCard)(({ theme }) => ({

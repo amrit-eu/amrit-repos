@@ -1,6 +1,6 @@
 
-import LoginForm from '@/components/login/LoginForm'
-import RoutedModal from '@/components/ui/RoutedModal'
+import LoginForm from '@/components/layout/login/LoginForm'
+import RoutedModal from '@/components/shared/modals/RoutedModal'
 import React from 'react'
 
 const Login = () => {

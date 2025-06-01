@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
-import LogOutButton from './LogOutButton';
+import LogOutButton from './login/LogOutButton';
 
 
 interface MainTopbarProps {

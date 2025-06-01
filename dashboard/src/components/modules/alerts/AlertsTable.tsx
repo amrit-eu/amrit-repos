@@ -2,7 +2,7 @@ import getAlerts from '@/lib/alerta/fetchAlerts.client';
 import { Alert, AlertApiResponse } from '@/types/alert'
 import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
-import EnhancedTable from '../enhancedTable/EnhancedTable';
+import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';

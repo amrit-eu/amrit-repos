@@ -1,6 +1,6 @@
 'use client';
 
-import SectionTabs, { SectionTab } from '@/components/SectionTabs';
+import SectionTabs, { SectionTab } from '@/components/layout/SectionTabs';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import StarIcon from '@mui/icons-material/Star';
 

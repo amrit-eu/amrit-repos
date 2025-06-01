@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import MainTopbar from '../components/MainTopbar';
-import Sidebar from '../components/sidebar/Sidebar';
+import MainTopbar from '../components/layout/MainTopbar';
+import Sidebar from '../components/layout/sidebar/Sidebar';
 import ThemeRegistry from '../theme/ThemeRegistry';
 
 export default function LayoutClient({ children }: { children: React.ReactNode }) {

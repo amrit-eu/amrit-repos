@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import { iconMapping, SidebarItem } from '../../types/types';
+import { iconMapping, SidebarItem } from '../../../types/types';
 import HoverPreview from './HoverPreview';
 import { useState, useEffect } from 'react';
 

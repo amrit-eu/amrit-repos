@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AddSubscriptionModal from './AddSubscriptionModal';
 import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
-import SnackbarAlert from '@/components/ui/SnackbarAlert';
+import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
 
 
 const MySubscriptionsClient = ({
