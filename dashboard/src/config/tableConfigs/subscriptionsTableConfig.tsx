@@ -3,7 +3,7 @@ import { AlertSubscription } from '@/types/alert-subscription';
 import { Chip, Stack, Switch, Button } from '@mui/material';
 import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import TopicSelectField from '@/components/alerts/subscriptions/TopicSelectField';
+import TopicSelectField from '@/components/modules/subscriptions/TopicSelectField';
 
 export type AlertSubscriptionRow = Omit<AlertSubscription, 'id'> & { 
 	id: string

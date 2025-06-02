@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import MySubscriptions from '../../../components/alerts/subscriptions/MySubscriptions';
-import AlertsTabs from '../../../components/alerts/AlertsTabs';
+import MySubscriptions from '../../../components/modules/subscriptions/MySubscriptions';
+import AlertsTabs from '../../../components/modules/alerts/AlertsTabs';
 
 export const metadata: Metadata = {
   title: 'OceanBoards - Alerts',

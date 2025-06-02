@@ -2,7 +2,7 @@
 
 import { Drawer, Box } from '@mui/material';
 import SidebarList from './SidebarList';
-import type { SidebarOption } from '../../types/types';
+import type { SidebarOption } from '../../../types/types';
 
 interface SidebarProps {
   darkMode: boolean;

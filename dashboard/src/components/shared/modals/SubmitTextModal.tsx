@@ -1,7 +1,7 @@
 import React from 'react'
-import Modal from './ui/Modal'
+import Modal from './Modal'
 import { Button, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../buttons/SubmitButton';
 
 interface SubmitTextModalProps {
     open : boolean;

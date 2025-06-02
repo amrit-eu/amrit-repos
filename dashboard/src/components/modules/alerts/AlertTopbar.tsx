@@ -2,7 +2,7 @@
 import { Alert } from '@/types/alert';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import React from 'react'
-import MultiSelectChip from '../ui/MultiSelectChip';
+import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';

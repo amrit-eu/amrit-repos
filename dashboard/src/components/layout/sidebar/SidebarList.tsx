@@ -13,7 +13,7 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useState } from 'react';
 import SidebarListItem from './SidebarListItem';
-import { SidebarOption, iconMapping } from '../../types/types';
+import { SidebarOption, iconMapping } from '../../../types/types';
 import HoverPreview from './HoverPreview';
 
 interface SidebarListProps {

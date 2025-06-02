@@ -5,8 +5,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import UndoIcon from '@mui/icons-material/Undo';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
-import SnackbarAlert from '../ui/SnackbarAlert';
-import SubmitTextModal from '../SubmitTextModal';
+import SnackbarAlert from '../../shared/feedback/SnackbarAlert';
+import SubmitTextModal from '../../shared/modals/SubmitTextModal';
 import { useAlertActions } from '@/hooks/useAlertActions';
 
 type AlertsTableToolbarActionsProps = {

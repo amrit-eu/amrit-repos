@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import EditableTable from '../../editableTable/EditableTable';
+import EditableTable from '../../shared/tables/editableTable/EditableTable';
 import { AlertSubscription } from '@/types/alert-subscription';
 import { subscriptionsTableConfig } from '@/config/tableConfigs/subscriptionsTableConfig';
 import AddFilterModal from './AddFilterModal';
