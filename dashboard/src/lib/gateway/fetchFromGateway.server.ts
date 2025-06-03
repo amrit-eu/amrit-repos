@@ -28,8 +28,6 @@ export async function fetchFromGateway<T>({
   });
 
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error(`${method} ${path} failed:`, errorText);
     throw new Error(`Gateway request failed: ${res.status} ${res.statusText}`);
   }
 

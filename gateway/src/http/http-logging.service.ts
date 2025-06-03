@@ -16,9 +16,7 @@ export class HttpLoggingService implements OnModuleInit {
           data: config.data,
         };
 
-        console.log('🌍 Outgoing request:', log);
       } catch (err) {
-        console.warn('⚠️ Could not log request:', config.url, err);
       }
 
       return config;

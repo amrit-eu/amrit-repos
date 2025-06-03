@@ -58,7 +58,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
         options = ALERT_SEVERITY_OPTIONS;
       }
     } catch  {
-      console.error(`Failed to fetch options.`);
+      
     }
 
     setFilterOptions(options);

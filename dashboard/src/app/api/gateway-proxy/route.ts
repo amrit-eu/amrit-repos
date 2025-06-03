@@ -23,8 +23,7 @@ export async function POST(req: NextRequest) {
 	method = parsed.method;
 	path = parsed.path;
 	body = parsed.body;
-  } catch (err) {
-	console.error('Failed to parse gateway-proxy body:', err);
+  } catch {
 	return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 });
   }
 

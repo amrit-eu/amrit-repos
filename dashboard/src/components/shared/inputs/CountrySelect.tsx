@@ -42,8 +42,8 @@ const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple }
 
         setOptions(sortedOptions);
         setIsFetched(true);
-      } catch (error) {
-        console.error(`Error fetching country options:`, error);
+      } catch {
+        
       }
     }
   };

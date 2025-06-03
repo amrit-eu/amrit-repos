@@ -42,8 +42,8 @@ const MySubscriptionsClient = ({
 			'/oceanops/alerts/subscriptions'
 		);
 		setSubscriptions(data);
-	} catch (error) {
-		console.error('Error fetching subscriptions.', error);
+	} catch {
+	
 	} finally {
 		setLoading(false);
 	}

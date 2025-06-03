@@ -41,8 +41,8 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 		setSubscriptions((prev) =>
 			prev.map((row) => (row.id === id ? { ...row, ...updatedRow } : row))
 		);
-		} catch (error) {
-		console.error('Failed to update subscription:', error);
+		} catch {
+		
 		}
 	};
 
@@ -61,8 +61,8 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 		setSubscriptions((prev) =>
 			prev.map((row) => (row.id === id ? { ...row, ...updatedRow } : row))
 		);
-		} catch (error) {
-		console.error('Failed to update subscription:', error);
+		} catch {
+		
 		}
 	};
 
@@ -90,7 +90,7 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 			) {
 				body[filterType] = value;
 		} else {
-			console.warn(`Unexpected value type for filter '${filterType}':`, value);
+			
 		}
 
 		try {
@@ -103,8 +103,8 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 			setSubscriptions((prev) =>
 			prev.map((row) => (row.id === openAddFilterForId ? { ...row, ...updatedRow } : row))
 			);
-		} catch (err) {
-			console.error('Failed to patch subscription:', err);
+		} catch {
+			
 		}
 
 		setOpenAddFilterForId(null);
