@@ -9,7 +9,7 @@ import { BaseExceptionFilter } from '@nestjs/core';
 import { Request, Response } from 'express';
 
 type ResponseObj = {
-  statusCode: number;
+  statusCode: HttpStatus;
   timestamp: string;
   path: string;
   response: string | object;

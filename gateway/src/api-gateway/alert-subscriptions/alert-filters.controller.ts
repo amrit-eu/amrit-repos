@@ -1,6 +1,5 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { Public } from '../auth/public.decorator';
-import { Request } from 'express';
 import { AlertFiltersService } from './alert-filters.service';
 
 @Controller('data')
@@ -9,7 +8,7 @@ export class AlertFiltersController {
 
   @Public()
   @Get('countries')
-  async getCountries() {
+  async getCountries(): Promise<unknown> {
     return this.alertFiltersService.fetchCountries();
   }
 }
