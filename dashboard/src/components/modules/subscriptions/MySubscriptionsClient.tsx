@@ -7,7 +7,7 @@ import AddSubscriptionModal from './AddSubscriptionModal';
 import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
 import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
-
+import { gatewayFetch } from '@/lib/gateway/gatewayFetch';
 
 const MySubscriptionsClient = ({
 	initialData,
@@ -34,19 +34,20 @@ const MySubscriptionsClient = ({
 	setNotification({ message, severity, open: true });
   };
 
-  const fetchSubscriptions = async () => {
+	const fetchSubscriptions = async () => {
 	try {
-  	  setLoading(true);
-	  const res = await fetch('/api/get-subscriptions');
-	  if (!res.ok) throw new Error('Failed to fetch subscriptions');
-	  const data: AlertSubscription[] = await res.json();
-	  setSubscriptions(data);
-	} catch  {
-	  console.error('Error fetching subscriptions.');
+		setLoading(true);
+		const data: AlertSubscription[] = await gatewayFetch<AlertSubscription[]>(
+			'GET',
+			'/oceanops/alerts/subscriptions'
+		);
+		setSubscriptions(data);
+	} catch {
+	
 	} finally {
 		setLoading(false);
 	}
-  };
+	};
 
   const handleConfirm = async () => {
 	showNotification('Subscription added successfully!', 'success');
@@ -56,10 +57,7 @@ const MySubscriptionsClient = ({
   
 	const handleDelete = async (id: string) => {
 		try {
-		  const res = await fetch(`/api/delete-subscription?id=${id}`, {
-			method: 'DELETE',
-		  });
-		  if (!res.ok) throw new Error('Failed to delete subscription');
+		  await gatewayFetch('DELETE', `/oceanops/alerts/subscriptions/${id}`);
 		  
 		  showNotification('Subscription deleted successfully', 'success');
 		  await fetchSubscriptions();

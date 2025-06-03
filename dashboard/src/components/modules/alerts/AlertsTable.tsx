@@ -43,7 +43,6 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
         }
       } catch (error) {
         if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('An error occurred while fetching alerts.');
         }        
       } finally {
         if (isLatestRequest) { 

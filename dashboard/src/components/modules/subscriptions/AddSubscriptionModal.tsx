@@ -14,6 +14,7 @@ import {
 import React, { useState } from 'react';
 import TopicSelectField from './TopicSelectField';
 import { AlertSubscription } from '@/types/alert-subscription';
+import { postSubscription } from '@/lib/alertSubscriptions/postSubscription.client';
 
 interface AddSubscriptionModalProps {
   open: boolean;
@@ -26,31 +27,23 @@ const AddSubscriptionModal = ({ open, onClose, onConfirm, contactId }: AddSubscr
   const [topicId, setTopicId] = useState<number | null>(null);
   const [sendEmail, setSendEmail] = useState<boolean>(false);
 
-  const handleSubmit = async () => {
+	const handleSubmit = async () => {
 	if (!topicId) return;
-  
+
 	const payload = {
-	  topicId,
-	  sendEmail,
-	  contactId,
+		topicId,
+		sendEmail,
+		contactId,
 	};
-  
+
 	try {
-	  const res = await fetch('/api/post-subscription', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(payload),
-	  });
-  
-	  if (!res.ok) throw new Error('Failed to create subscription');
-  
-	  const created = await res.json();
-	  onConfirm(created);
-	  onClose();
+		const created = await postSubscription(payload); // already returns parsed JSON
+		onConfirm(created);
+		onClose();
 	} catch {
-	  alert('Failed to add subscription.');
+		alert('Failed to add subscription.');
 	}
-  };
+	};
   
 
   return (

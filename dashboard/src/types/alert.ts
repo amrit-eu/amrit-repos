@@ -1,30 +1,6 @@
+import { AlertSeverity, AlertStatus } from "@/constants/alertOptions";
+
 type Environment = "Development" | "Production"
-
-type Severity =
-  | "security"
-  | "critical"
-  | "major"
-  | "minor"
-  | "warning"
-  | "informational"
-  | "debug"
-  | "trace"
-  | "indeterminate"
-  | "cleared"
-  | "normal"
-  | "ok"
-  | "unknown"
-
-type Status =
-  | "open"
-  | "assign"
-  | "ack"
-  | "closed"
-  | "expired"
-  | "blackout"
-  | "shelved"
-  | "unknown"
-
 
 export type Alert = AlertRaw & { // TO BE completed
 
@@ -54,15 +30,15 @@ type AlertRaw = {
   /**
   * Severity of alert (default normal)
   */
-  severity: Severity
+  severity: AlertSeverity;
+  /**
+  * Status of alert (default open)
+  */
+  status: AlertStatus;
   /**
   * list of related event names
   */
   correlate?: string
-  /**
-  * Status of alert (default open)
-  */
-  status: Status
   /**
   * list of effected services (array must contain at least one element)
   */
@@ -128,8 +104,8 @@ type ChangeType = "open" | "assing" | "ack" | "unack" | "shelve" | "unshelve" | 
 type HistoryEntry = {
   id:string; 
   event : string;
-  severity: Severity;
-  status: Status;
+  severity: AlertSeverity;
+  status: AlertStatus;
   text:string;
   type: ChangeType
   updateTime: string

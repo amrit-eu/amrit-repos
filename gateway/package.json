@@ -73,7 +73,7 @@
     ],
     "rootDir": "src",
     "modulePaths": [
-      "<rootDir>" 
+      "<rootDir>"
     ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
@@ -84,5 +84,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "overrides": {
+    "formidable": "^3.5.3"
   }
 }

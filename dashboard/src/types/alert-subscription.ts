@@ -6,8 +6,7 @@ export interface AlertSubscription {
 	topicId: number;
 	topicName: string;
   
-	minSeverityId: number | null;
-	minSeverityLabel: string | null;
+	minSeverityId: string | null;
   
 	countryId: number | null;
 	countryName: string | null;
