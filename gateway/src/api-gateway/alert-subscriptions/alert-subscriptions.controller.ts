@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Req, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Req, Delete, Patch } from '@nestjs/common';
 import { Request } from 'express';
 import { AlertSubscriptionsService } from './alert-subscriptions.service';
 
@@ -21,5 +21,9 @@ export class AlertSubscriptionsController {
     return this.service.proxyRequest(req);
   }
 
-  // Add PATCH similarly
+  
+  @Patch(':id')
+  handlePatch(@Req() req: Request) {
+    return this.service.proxyRequest(req);
+  }
 }

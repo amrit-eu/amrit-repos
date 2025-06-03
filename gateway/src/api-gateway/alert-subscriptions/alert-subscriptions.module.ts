@@ -4,10 +4,11 @@ import { AlertSubscriptionsController } from './alert-subscriptions.controller';
 import { AlertSubscriptionsService } from './alert-subscriptions.service';
 import { AlertTopicsController } from './alert-topics.controller';
 import { AlertFiltersController } from './alert-filters.controller';
+import { AlertFiltersService } from './alert-filters.service';
 
 @Module({
   imports: [HttpModule],
   controllers: [AlertSubscriptionsController, AlertTopicsController, AlertFiltersController],
-  providers: [AlertSubscriptionsService],
+  providers: [AlertSubscriptionsService, AlertFiltersService],
 })
 export class AlertSubscriptionsModule {}

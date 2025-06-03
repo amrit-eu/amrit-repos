@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { SxProps, Theme, MenuItem, Select } from '@mui/material';
 import { TopicOption } from '@/types/types';
-import fetchTopicOptions from '@/lib/alertSubscriptions/fetchTopicOptions.client';
+import fetchTopicOptions from '@/lib/fetchers/fetchTopicOptions.client';
 
 
 interface Props {

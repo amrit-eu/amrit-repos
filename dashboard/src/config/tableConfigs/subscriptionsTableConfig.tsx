@@ -17,7 +17,7 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 			label: 'Topic',
 			editable: true,
 			render: (row, context) => {
-			  const { onUpdateField } = context ?? {};
+  				const { onUpdateField } = context ?? {};
 			  return (
 				<TopicSelectField
 				  value={row.topicId ?? null}
@@ -39,12 +39,12 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 			onUpdateField?.(row.id, field, null);
 		  };
 	  
-		  if (row.minSeverityLabel) {
+		  if (row.minSeverityId) {
 			chips.push(
 			  <Chip
 				key="minSeverity"
-				label={`Minimum Severity: ${row.minSeverityLabel}`}
-				onDelete={() => removeFilter('minSeverityLabel')}
+				label={`Minimum Severity: ${row.minSeverityId}`}
+				onDelete={() => removeFilter('minSeverityId')}
 				sx={{ bgcolor: '#c8e6c9', color: 'black' }}
 			  />
 			);
@@ -55,7 +55,7 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 			  <Chip
 				key="country"
 				label={`Country: ${row.countryName}`}
-				onDelete={() => removeFilter('countryName')}
+				onDelete={() => removeFilter('countryId')}
 				sx={{ bgcolor: '#bbdefb', color: 'black' }}
 			  />
 			);
@@ -66,7 +66,7 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 			  <Chip
 				key="basin"
 				label={`Basin: ${row.basinName}`}
-				onDelete={() => removeFilter('basinName')}
+				onDelete={() => removeFilter('basinId')}
 				sx={{ bgcolor: '#f8bbd0', color: 'black' }}
 			  />
 			);

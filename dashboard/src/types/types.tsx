@@ -39,3 +39,9 @@ import {
 	parentId?: number | null;
 	children?: TopicOption[];
   };
+
+  export type CountryOption = {
+	id: string | number;
+	name: string;
+	code2?: string;
+	};

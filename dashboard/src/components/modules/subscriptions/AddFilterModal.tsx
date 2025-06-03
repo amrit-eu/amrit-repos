@@ -10,9 +10,22 @@ import {
   Select,
   TextField,
   Stack,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import React, { useState } from 'react';
-export type FilterValue = string | { minTime?: string; maxTime?: string };
+import { ALERT_SEVERITY_OPTIONS } from '@/constants/alertOptions';
+import { FilterOption } from '@/types/filters';
+import CountrySelect from '../../shared/inputs/CountrySelect';
+import { CountryOption } from '@/types/types';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Dayjs } from 'dayjs';
+
+export type FilterValue =
+  | string
+  | { minTime?: string; maxTime?: string }
+  | CountryOption
+  | null;
 
 interface AddFilterModalProps {
   open: boolean;
@@ -20,18 +33,9 @@ interface AddFilterModalProps {
   onConfirm: (filterType: string, value: FilterValue) => void;
 }
 
-
-interface FilterOption {
-  id?: string | number;
-  name?: string;
-  label?: string;
-  value?: string;
-}
-
 const FILTER_TYPES = [
-  { label: 'Minimum Severity', value: 'minSeverityLabel' },
+  { label: 'Minimum Severity', value: 'minSeverityId' },
   { label: 'Country', value: 'countryName' },
-  { label: 'Basin', value: 'basinName' },
   { label: 'WIGOS-ID', value: 'wigosId' },
   { label: 'Time range', value: 'timeRange' },
 ];
@@ -41,21 +45,17 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
   const [filterValue, setFilterValue] = useState<FilterValue>('');
   const [filterOptions, setFilterOptions] = useState<FilterOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
+  const [, setCountryValue] = useState<CountryOption | null>(
+  null
+);
 
   const fetchOptions = async (type: string) => {
     setLoadingOptions(true);
     let options: FilterOption[] = [];
 
     try {
-      if (type === 'countryName') {
-        const res = await fetch('/api/gateway/countries');
-        options = await res.json();
-      } else if (type === 'basinName') {
-        const res = await fetch('/api/gateway/basins');
-        options = await res.json();
-      } else if (type === 'minSeverityLabel') {
-        const res = await fetch('/api/gateway/severities');
-        options = await res.json();
+      if (type === 'minSeverityId') {
+        options = ALERT_SEVERITY_OPTIONS;
       }
     } catch  {
       console.error(`Failed to fetch options.`);
@@ -76,6 +76,8 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
       <DialogTitle>Add a Filter</DialogTitle>
       <DialogContent>
         <Stack spacing={2} mt={1}>
+			<FormControl fullWidth>
+  <InputLabel id="filter-type-label">Filter type</InputLabel>
           <Select
             value={filterType}
             onChange={(e) => {
@@ -84,65 +86,76 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
               setFilterValue('');
               fetchOptions(selectedType);
             }}
-            displayEmpty
             fullWidth
+			label={"Filter type"}
           >
-            <MenuItem disabled value="">
-              <em>Select filter type</em>
-            </MenuItem>
             {FILTER_TYPES.map((f) => (
               <MenuItem key={f.value} value={f.value}>
                 {f.label}
               </MenuItem>
             ))}
           </Select>
+</FormControl>
 
           {filterType === 'timeRange' ? (
             <Stack direction="row" spacing={2}>
-              <TextField
-                type="date"
-                label="From"
-                fullWidth
-                onChange={(e) =>
+				<DateTimePicker
+				label="From"
+  				format="YYYY-MM-DD HH:mm:ss"
+				onChange={(newValue: Dayjs | null) =>
 					setFilterValue((prev: FilterValue) => ({
-						...(typeof prev === 'object' && prev !== null ? prev : {}),
-						minTime: e.target.value,
+					...(typeof prev === 'object' && prev !== null ? prev : {}),
+					minTime: newValue?.toISOString() ?? undefined,
 					}))
-					  
-                }
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                type="date"
-                label="To"
-                fullWidth
-                onChange={(e) =>
+				}
+				slotProps={{ textField: { fullWidth: true } }}
+				/>
+
+				<DateTimePicker
+				label="To"
+  				format="YYYY-MM-DD HH:mm:ss"
+				onChange={(newValue: Dayjs | null) =>
 					setFilterValue((prev: FilterValue) => ({
-						...(typeof prev === 'object' && prev !== null ? prev : {}),
-						maxTime: e.target.value,
-					  }))
-					  
-                }
-                InputLabelProps={{ shrink: true }}
-              />
+					...(typeof prev === 'object' && prev !== null ? prev : {}),
+					maxTime: newValue?.toISOString() ?? undefined,
+					}))
+				}
+				slotProps={{ textField: { fullWidth: true } }}
+				/>
             </Stack>
-          ) : filterType && ['countryName', 'basinName', 'minSeverityLabel'].includes(filterType) ? (
-            <Select
-              value={String(filterValue)}
-              fullWidth
-              onChange={(e) => setFilterValue(e.target.value)}
-              displayEmpty
-              disabled={loadingOptions}
-            >
-              <MenuItem disabled value="">
-                <em>Select value</em>
-              </MenuItem>
-              {filterOptions.map((opt) => (
-                <MenuItem key={opt.id ?? opt.value} value={opt.label ?? opt.name}>
-                  {opt.label ?? opt.name}
-                </MenuItem>
-              ))}
-            </Select>
+          ) : (filterType && ['countryName'].includes(filterType) ? (
+            <CountrySelect 
+			    label="Country"
+  				multiple={false}
+				onChange={(newValue) => {
+					if (newValue) {
+						setCountryValue(newValue as CountryOption);
+						setFilterValue(newValue as CountryOption);
+					} else {
+						setCountryValue(null); 
+						setFilterValue(null);
+					}
+				}}
+			/>
+          ) : filterType && ['minSeverityId'].includes(filterType) ? (
+			
+			<FormControl fullWidth>
+ 				 <InputLabel id="filter-severity-label">Minimum severity</InputLabel>
+				<Select
+				labelId="filter-severity-label"
+				label="Minimum severity"
+				value={String(filterValue)}
+				fullWidth
+				onChange={(e) => setFilterValue(e.target.value)}
+				disabled={loadingOptions}
+				>
+				{filterOptions.map((opt) => (
+					<MenuItem key={opt.id ?? opt.value} value={opt.label ?? opt.name}>
+					{opt.label ?? opt.name}
+					</MenuItem>
+				))}
+				</Select>
+			</FormControl>
           ) : (
             filterType && (
               <TextField
@@ -152,7 +165,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
                 onChange={(e) => setFilterValue(e.target.value)}
               />
             )
-          )}
+          ))}
         </Stack>
       </DialogContent>
       <DialogActions>
