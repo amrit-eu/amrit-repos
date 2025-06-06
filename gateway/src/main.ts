@@ -29,8 +29,7 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000, process.env.HOSTNAME || 'localhost');
 }
 
-bootstrap().catch((err) => {
-  console.error('❌ Error during app bootstrap:', err);
+bootstrap().catch(() => {
   process.exit(1);
 });
 
