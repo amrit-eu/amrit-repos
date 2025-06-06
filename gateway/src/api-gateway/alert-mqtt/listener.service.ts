@@ -1,26 +1,30 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import * as mqtt from 'mqtt';
 import { HttpService } from '@nestjs/axios';
-import { proxyHttpRequest } from 'src/utils/proxy.utils';
-import { AxiosRequestConfig } from 'axios';
 import { MailerService } from '../../mailer/mailer.service';
 import { createProxyRouteMap, ProxyRouteMap } from 'src/utils/proxy.routes';
 import { ConfigService } from '@nestjs/config';
+import { EmailFormatterService } from './email-formatter.service';
+import { ContactMatcherService } from './contact-matcher.service';
+import { AlertEvent } from '../../types/alert';
 
 @Injectable()
 export class AlertsMqttService implements OnModuleInit {
-  private client: mqtt.MqttClient;
-  private proxyRoutes: ProxyRouteMap;
+  private client!: mqtt.MqttClient;
+  private readonly proxyRoutes: ProxyRouteMap;
+  private readonly logger = new Logger(AlertsMqttService.name);
 
   constructor(
     private readonly httpService: HttpService,
     private readonly mailer: MailerService,
     private readonly config: ConfigService,
+    private readonly emailFormatter: EmailFormatterService,
+    private readonly contactMatcher: ContactMatcherService,
   ) {
-	this.proxyRoutes = createProxyRouteMap(config);
+    this.proxyRoutes = createProxyRouteMap(config);
   }
 
-  async onModuleInit() {
+  onModuleInit(): void {
     this.client = mqtt.connect(process.env.ALERTS_MQTT_HOST_URL!, {
       username: process.env.ALERTS_MQTT_USERNAME_RO!,
       password: process.env.ALERTS_MQTT_PASSWORD_RO!,
@@ -28,28 +32,32 @@ export class AlertsMqttService implements OnModuleInit {
       protocol: 'wss',
     });
 
-
     this.client.on('connect', () => {
       this.client.subscribe('amrit/notification/processed/#', (err) => {
         if (!err) {
-		  this.testMockAlert();
+          this.logger.log('✅ Connected to MQTT broker');
+
+		  // RECIEVE AND HANDLE MOCK ALERT FOR TESTING IN DEV
+          void this.testMockAlert(); 
         }
       });
     });
 
-    this.client.on('message', async (topic, message) => {
-      const alert = JSON.parse(message.toString());
-      await this.handleAlert(alert);
-    });
+	this.client.on('message', (topic, message) => {
+	void (async () => {
+		try {
+		const alert = JSON.parse(message.toString()) as AlertEvent;
+		await this.handleAlert(alert);
+		} catch (err) {
+		this.logger.error('⚠️ Failed to parse or handle alert message', err);
+		}
+	})();
+	});
   }
 
-  async handleAlert(alert: any) {
-    // Ignore repeated alerts
-    if (alert?.data?.repeat === true) {
-      return;
-    }
+  async handleAlert(alert: AlertEvent): Promise<void> {
+    if (alert?.data?.repeat === true) return;
 
-    // Extract alert fields
     const payload = {
       mqttTopic: alert?.data?.attributes?.mqtt_topic,
       severity: alert?.data?.severity,
@@ -59,188 +67,90 @@ export class AlertsMqttService implements OnModuleInit {
     };
 
     if (!payload.mqttTopic) {
-      console.warn('🚫 Missing required alert data, skipping.');
+      this.logger.warn('🚫 Missing required alert data, skipping.');
       return;
     }
 
     try {
-      const basePath = 'api/oceanops';
-      const route = this.proxyRoutes[basePath];
-      if (!route) {
-        throw new Error(`No proxy route config found for ${basePath}`);
-      }
+      const contacts = await this.contactMatcher.findMatchingContacts(alert);
+      if (!Array.isArray(contacts) || contacts.length === 0) return;
 
-      const config: AxiosRequestConfig = {
-        method: 'post',
-        url: `https://${route.host}${route.targetPath}/alerts/subscriptions/matching-alert`,
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': '*/*',
-		},
-		data: {
-			topic: alert?.data?.attributes?.mqtt_topic,
-			severity: alert?.data?.severity,
-			resource: alert?.data?.resource,
-			country: alert?.data?.attributes?.Country,
-			time: alert?.time,
-		},
-      };
-
-      interface MatchingContact {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-      }
-
-      const response = await proxyHttpRequest(this.httpService, config) as { data: MatchingContact[] };
-      const contacts = response;
-      if (!Array.isArray(contacts) || contacts.length === 0) {
-        return;
-      }
-
-	  let emailContent = this.formatAlertEmailContent(alert);
+      const emailContent = this.emailFormatter.formatAlertEmailContent(alert);
 
       for (const contact of contacts) {
-		try {
-			await this.sendEmail(contact.email, alert, emailContent);
-		} catch {
-			
-		}
-	  }
-
-    } catch {
-     
+        try {
+          await this.sendEmail(contact.email, alert, emailContent);
+        } catch (emailError) {
+          this.logger.error(`❌ Failed to send email to ${contact.email}`, emailError);
+        }
+      }
+    } catch (err) {
+      this.logger.error('❌ Contact matching or email formatting failed', err);
     }
   }
 
-  async sendEmail(email: string, alert: any, content: string) {
-	// CAN TEST WITH ETHERAL URL with sendTestEmail INSTEAD OF sendMail
-	await this.mailer.sendMail(
-		email,
-		`Alert: ${alert.title}`,
-		content,
-		'AMRIT Alerts'
-	);
-
+  async sendEmail(email: string, alert: AlertEvent, content: string): Promise<void> {
+    await this.mailer.sendTestEmail(
+      email,
+      `Alert: ${alert.type ?? 'Untitled'}`,
+      content,
+      'AMRIT Alerts',
+    );
   }
 
-	formatAlertEmailContent(alert: any): string {
-		const data = alert?.data || {};
-		const attrs = data?.attributes || {};
-		const summaryLines: string[] = [];
-		const statusLines: string[] = [];
-		const metadataLines: string[] = [];
+  async testMockAlert(): Promise<void> {
+    const mock: AlertEvent = {
+      id: '3c26c52e-2605-47c9-a656-15c7abc46992',
+      source: 'Coriolis Argo Technical data alerts',
+      specversion: '1.0',
+      type: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
+      datacontenttype: 'application/json',
+      dataschema: null,
+      subject: '5906990',
+      time: '2025-06-04T14:40:01.654286Z',
+      data: {
+        resource: '5906990',
+        event: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
+        environment: 'Development',
+        severity: 'warning',
+        correlate: [],
+        status: 'open',
+        service: ['Laboratory of Oceanography of Villefranche'],
+        group: 'argo float alarm',
+        value: null,
+        text: 'Check hydraulic behaviour',
+        tags: [],
+        attributes: {
+          Country: 'France',
+          basin_id: null,
+          alert_category: 'argo technical alerts',
+          mqtt_topic: 'operational',
+          ArgoType: 'PSEUDO',
+          LastStationDate: '24-05-2025',
+          FleetMonitoringLink:
+            "<a href='https://fleetmonitoring.euro-argo.eu/float/5906990' target='_blank'>Go to float page</a>",
+          lastCycleNumberToRaiseAlarm: '107',
+        },
+        origin: 'Coriolis Argo Technical data alerts',
+        type: 'argo float alert demo',
+        createTime: '2025-03-19T14:12:06.001Z',
+        timeout: 1209600,
+        rawData: null,
+        id: 'ce553efa-dd95-4edc-b065-a00d2539011f',
+        customer: null,
+        duplicateCount: 33,
+        repeat: false,
+        previousSeverity: 'indeterminate',
+        trendIndication: 'moreSevere',
+        receiveTime: '2025-03-19T14:12:06.004Z',
+        lastReceiveId: '79ca61a2-21f1-4d15-acdf-ec395a43d316',
+        updateTime: '2025-03-19T14:12:06.004Z',
+  		lastReceiveTime: '2025-03-19T14:12:06.004Z',
+        history: [],
+      },
+      data_base64: null,
+    };
 
-		const addLine = (label: string, array: string[], value?: any, style?: string) => {
-			if (value !== undefined && value !== null && value !== '') {
-				array.push(`<p><strong>${label}:</strong> <span style="${style || ''}">${value}</span></p>`);
-			}
-		};
-
-		addLine('📍 Resource', summaryLines, data.resource)
-		addLine('🌍 Country', summaryLines, attrs.Country)
-		addLine('📅 Date/Time', summaryLines, alert.time)
-		addLine('🔧 Event', summaryLines, data.event)
-
-		addLine('📊 Severity', statusLines , data.severity)
-		addLine('📈 Trend', statusLines, data.trendIndication)
-		addLine('📦 Status', statusLines, data.status)
-		addLine('🔁 Duplicate Count', statusLines, data.duplicateCount)
-
-		addLine('Argo Type', metadataLines, attrs.ArgoType)
-		addLine('Last Cycle Number', metadataLines, attrs.lastCycleNumberToRaiseAlarm)
-		addLine('Last Station Date', metadataLines, attrs.LastStationDate)
-		addLine('Service', metadataLines, Array.isArray(data.service) ? data.service.join(', ') : undefined)
-		addLine('Origin', metadataLines, data.origin)
-
-		return `
-		<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
-
-		<div style="font-family: Lexend, Arial, sans-serif; line-height: 1.5; color: #333;">
-			<h2 style="color: #c0392b;">🚨 AMRIT Alert Notification</h2>
-
-			<div style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ccc;">
-				<p style="margin: 4px 0; color: #555;"><strong>ALERT TYPE: </strong>${alert.type || 'Alert'}</h2>
-				<p style="margin: 4px 0; color: #555;"><strong>ALERT CATEGORY: </strong> ${attrs.alert_category}</p>
-				<p style="margin: 4px 0; color: #555;"><strong>ALERT ID: </strong> ${alert.id}</p>
-			</div>
-
-			<h3 style="color:rgb(71, 137, 236);">Summary</h3>
-			${summaryLines.join('')}
-
-			<h3 style="color:rgb(71, 137, 236);">Status / Severity</h3>
-			${statusLines.join('')}
-
-			<h3 style="color:rgb(71, 137, 236);">Metadata</h3>
-			${metadataLines.join('')}
-
-			<h3 style="color:rgb(71, 137, 236);">Message</h3>
-				<p style="background: #f9f9f9; padding: 12px; border-left: 4px solid #ccc;"><em>${data.text}</em></p>
-
-			${attrs.FleetMonitoringLink ? `<p><strong>🔗 Fleet Monitoring:</strong> ${attrs.FleetMonitoringLink}</p>` : ''}
-
-			<hr style="margin: 24px 0;" />
-
-			<p style="font-size: 0.9em; color: #888;">
-			This is an automated message sent from the AMRIT Alert System.<br/>
-			Please do not reply directly to this email.
-			</p>
-		</div>
-		`.replace(/undefined/g, '');
-	}
-
-  async testMockAlert() {
-		await this.handleAlert({
-		id: '3c26c52e-2605-47c9-a656-15c7abc46992',
-		source: 'Coriolis Argo Technical data alerts',
-		specversion: '1.0',
-		type: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
-		datacontenttype: 'application/json',
-		dataschema: null,
-		subject: '5906990',
-		time: '2025-06-04T14:40:01.654286Z',
-		data: {
-			resource: '5906990',
-			event: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
-			environment: 'Development',
-			severity: 'warning',
-			correlate: [],
-			status: 'open',
-			service: ['Laboratory of Oceanography of Villefranche'],
-			group: 'argo float alarm',
-			value: null,
-			text: 'Check hydraulic behaviour',
-			tags: [],
-			attributes: {
-			Country: 'France',
-			basin_id: null,
-			alert_category: 'argo technical alerts',
-			mqtt_topic: 'operational',
-			ArgoType: 'PSEUDO',
-			LastStationDate: '24-05-2025',
-			FleetMonitoringLink: "<a href='https://fleetmonitoring.euro-argo.eu/float/5906990' target='_blank' >Go to float page on Fleet Monitoring</a>",
-			lastCycleNumberToRaiseAlarm: '107',
-			},
-			origin: 'Coriolis Argo Technical data alerts',
-			type: 'argo float alert demo',
-			createTime: '2025-03-19T14:12:06.001Z',
-			timeout: 1209600,
-			rawData: null,
-			id: 'ce553efa-dd95-4edc-b065-a00d2539011f',
-			customer: null,
-			duplicateCount: 33,
-			repeat: false,
-			previousSeverity: 'indeterminate',
-			trendIndication: 'moreSevere',
-			receiveTime: '2025-03-19T14:12:06.004Z',
-			lastReceiveId: '79ca61a2-21f1-4d15-acdf-ec395a43d316',
-			updateTime: '2025-03-19T14:12:06.004Z',
-			history: [{}],
-		},
-		data_base64: null,
-		});
-
-	}
+    await this.handleAlert(mock);
+  }
 }
-
