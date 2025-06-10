@@ -1,4 +1,4 @@
-import { Box, Checkbox, Chip, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Checkbox, Chip, Collapse, IconButton,  TableCell, TableRow } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React from 'react'
@@ -10,11 +10,12 @@ interface EnhancedTableRowProps<T> {
     isItemSelected: boolean
     handleClickOnRow:  (event: React.MouseEvent<unknown>, id: string) => void
     rowId: string
+    collapsingComponent?: React.ReactNode
    
 
 }
 
-function EnhancedTableRow<T> ({rowData, columnsConfig, isItemSelected, handleClickOnRow, rowId}: EnhancedTableRowProps<T>) {
+function EnhancedTableRow<T> ({rowData, columnsConfig, isItemSelected, handleClickOnRow, rowId, collapsingComponent}: EnhancedTableRowProps<T>) {
 
 const [open, setOpen] = React.useState(false); // state for collapse table
   return (
@@ -32,7 +33,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
              }}
             
         >
-            {columnsConfig.moreInfoColumns &&
+            {collapsingComponent&&
              <TableCell>
                 <IconButton
                     aria-label="expand row"
@@ -74,47 +75,50 @@ const [open, setOpen] = React.useState(false); // state for collapse table
         </TableRow>
 
         {/*  Collapsing table part */}
-        {columnsConfig.moreInfoColumns &&
-        <TableRow>
-            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={columnsConfig.mainColumns.length + 1 }>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box sx={{ margin: 1 }}>
-                  <Typography variant="h6" gutterBottom component="div">
-                    More informations
-                  </Typography>
-                  <Table size="small" aria-label="purchases">
-                    <TableHead>
-                      <TableRow>
-                        {columnsConfig.moreInfoColumns.map((col, index) => 
-                            (<TableCell
-                                key={`additional-rowHeader-${index}`}
-                                align={col.align ?? 'left'}
-                                sx={{fontWeight: 'bold'}}
-                              >
-                                {col.label ?? String(col.key)}
-                              </TableCell>)
-                         )}                        
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow key={`additional-row-${rowId}`}>
-                            {columnsConfig.moreInfoColumns.map((col, index) => (
-                                <TableCell
-                                key={`additional-cell-${rowId}-${index}`}
-                                {...(index === 0
-                                ? { component: 'th', scope: 'row' }
-                                : { align: col.align ?? 'left' })}
-                            >
-                                 {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'info'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
-                            </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableBody>
-                  </Table>
-                </Box>
-              </Collapse>
-            </TableCell>
-          </TableRow>
+        {<Collapse in={open} timeout="auto" unmountOnExit>
+          <Box sx={{ margin: 1 }}>{collapsingComponent}</Box>
+        </Collapse>
+        
+        // <TableRow>
+        //     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={columnsConfig.mainColumns.length + 1 }>
+        //       <Collapse in={open} timeout="auto" unmountOnExit>
+        //         <Box sx={{ margin: 1 }}>
+        //           <Typography variant="h6" gutterBottom component="div">
+        //             More informations
+        //           </Typography>
+        //           <Table size="small" aria-label="purchases">
+        //             <TableHead>
+        //               <TableRow>
+        //                 {columnsConfig.moreInfoColumns.map((col, index) => 
+        //                     (<TableCell
+        //                         key={`additional-rowHeader-${index}`}
+        //                         align={col.align ?? 'left'}
+        //                         sx={{fontWeight: 'bold'}}
+        //                       >
+        //                         {col.label ?? String(col.key)}
+        //                       </TableCell>)
+        //                  )}                        
+        //               </TableRow>
+        //             </TableHead>
+        //             <TableBody>
+        //                 <TableRow key={`additional-row-${rowId}`}>
+        //                     {columnsConfig.moreInfoColumns.map((col, index) => (
+        //                         <TableCell
+        //                         key={`additional-cell-${rowId}-${index}`}
+        //                         {...(index === 0
+        //                         ? { component: 'th', scope: 'row' }
+        //                         : { align: col.align ?? 'left' })}
+        //                     >
+        //                          {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'info'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
+        //                     </TableCell>
+        //                     ))}
+        //                 </TableRow>
+        //             </TableBody>
+        //           </Table>
+        //         </Box>
+        //       </Collapse>
+        //     </TableCell>
+        //   </TableRow>
         }
     </React.Fragment>
   )

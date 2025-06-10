@@ -29,11 +29,12 @@ interface EnhancedTableProps<T extends HasId > {
   selected :   readonly string[]
   setSelected : React.Dispatch<React.SetStateAction<readonly string[]>>
   toolbarActions? :   React.ReactNode;
+  collapsingComponent?:React.ReactNode;
 
 }
 
 
-function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions, selected, setSelected  } : EnhancedTableProps<T>) {
+function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions, selected, setSelected,collapsingComponent  } : EnhancedTableProps<T>) {
   
   // const [selected, setSelected] = useState<readonly string[]>([]); 
   const [dense, setDense] = useState(false);
@@ -138,6 +139,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
               onRequestSort={handleRequestSort}
               rowCount={data.length ?? 0}
               columnsConfig={colmunsConfiguration}
+              collapsingComponent={collapsingComponent}
             />
             
             <TableBody>
@@ -145,7 +147,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
                 const isItemSelected = selected.includes(rowData.id);
                 
                 return (
-                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} columnsConfig={colmunsConfiguration} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} />
+                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} columnsConfig={colmunsConfiguration} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} collapsingComponent={collapsingComponent} />
                 );
               })}
               {emptyRows > 0 && (

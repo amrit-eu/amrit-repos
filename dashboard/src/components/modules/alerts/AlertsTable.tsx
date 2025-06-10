@@ -4,7 +4,7 @@ import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
-import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
+import { ALERTS_MAIN_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 import { FiltersValuesMap } from '@/types/filters';
 
@@ -16,7 +16,7 @@ interface AlertsTableProps {
 const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => {
 
   // load table configuration
-  const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
+  const alertaColumnsConfig = ALERTS_MAIN_TABLE_CONFIG;
 
   //Table's states
   const [alertsApiResponseData, setAlertsApiResponseData] = useState<AlertApiResponse>();
@@ -70,7 +70,7 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => 
 
   
   return (
-    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} setSelected={setSelected} onActionDone={triggerRefetch} isUserLogin={isUserLogin} alertsData={alertsApiResponseData?.alerts ?? []} />} colmunsConfiguration={alertaColumnsConfig}/>
+    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={false} alertsData={alertsApiResponseData?.alerts ?? []}/>} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={<div>TEST</div>}/>
   )
 }
 
