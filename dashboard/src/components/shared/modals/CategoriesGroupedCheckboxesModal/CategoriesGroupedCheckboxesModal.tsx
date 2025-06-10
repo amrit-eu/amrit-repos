@@ -7,7 +7,7 @@ import CategoryCheckboxesGroup from './CategoryCheckboxesGroup'
 interface CategoryGroupedChoicesModalProps<T> {
     groupedElementsByCategory :  Record<string, T[]>
     isModalOpen : boolean
-    onClose: () => void
+    onClose: (draftChosenElements?:T[]) => void
     chosenElementsList : T[]
     setChosenElementsList: React.Dispatch<React.SetStateAction<T[]>>
 }
@@ -42,7 +42,7 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory, isModalOpen
 
     const handleConfirm = () => {
         setChosenElementsList(draftChosenElements);
-        onClose();
+        onClose(draftChosenElements);
         };
 
 
@@ -81,7 +81,7 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory, isModalOpen
        
         </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={onClose}>Cancel</Button>
+            <Button autoFocus onClick={() =>onClose}>Cancel</Button>
             <SubmitButton pending={false} fullwidth={false} onClick={handleConfirm}>Confirm</SubmitButton>           
         </DialogActions>
 

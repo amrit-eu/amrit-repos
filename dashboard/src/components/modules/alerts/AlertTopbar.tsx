@@ -21,13 +21,14 @@ import { findAllChildrenTopicsFromId } from '@/lib/utils/findAllChildrenFromTopi
 interface AlertTopBarProps {
     filtersValues: FiltersValuesMap
     filtersSelectedValues:  FiltersValuesMap
+    setFiltersSelectedValues: React.Dispatch<React.SetStateAction<FiltersValuesMap>>
     filtersToDisplayList: AlertFilters[]
     setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
     onFilterChange: <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => void
     isUserLogin : boolean
 }
 
-const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList }: AlertTopBarProps) => {
+const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList, setFiltersSelectedValues }: AlertTopBarProps) => {
     // need theme for some style
     const theme = useTheme();
 
@@ -47,6 +48,28 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
             const topicAndChildren= findAllChildrenTopicsFromId( filtersValues.alert_category, newtopicId );
             onFilterChange ("alert_category", topicAndChildren)            
         }
+    }
+
+    // handle filters lsit modal close action :
+    const onFiltersListModalClose = (draftChosenElements?:AlertFilters[]) => {
+        if (draftChosenElements) {
+            const newFilterSelectedValues: FiltersValuesMap = {...filtersSelectedValues}
+            let filterRemoved = false;
+
+            for (const [key, value] of Object.entries(newFilterSelectedValues)) {   
+                if(!draftChosenElements.includes(key as AlertFilters )) {
+                    // Removing a filter from display should set it to empty and refresh table    
+                    delete newFilterSelectedValues[key as AlertFilters];
+                    filterRemoved=true;
+                }
+            }
+            if (filterRemoved) {
+                setFiltersSelectedValues (newFilterSelectedValues)
+            }
+        }
+
+        setIsFiltersListModalOpen(false)
+
     }
     
 
@@ -109,7 +132,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                 <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />
             }
 
-            <CategoryGroupedChoicesModal<AlertFilters> groupedElementsByCategory={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={() => setIsFiltersListModalOpen(false)} chosenElementsList={filtersToDisplayList} setChosenElementsList={setfiltersToDisplayList} />
+            <CategoryGroupedChoicesModal<AlertFilters> groupedElementsByCategory={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={onFiltersListModalClose} chosenElementsList={filtersToDisplayList} setChosenElementsList={setfiltersToDisplayList} />
             
             </Toolbar> 
                     
