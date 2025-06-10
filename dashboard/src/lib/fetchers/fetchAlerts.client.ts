@@ -37,52 +37,66 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
  * @param filters Partial<Record<keyof Alert, string[]>> (ex: {"status" : ["open (251)", "ack (7)"], "severity": ["critical"]})
  * @returns string to be use in the request parameters // => status=open&status=ack&severity=critical
  */
-function filtersToQueryString(filters:FiltersValuesMap): string {
+function filtersToQueryString(filters: FiltersValuesMap): string {
   const params = new URLSearchParams();
+  const qClauses: string[] = [];
 
   for (const [key, values] of Object.entries(filters) as [keyof FiltersValuesMap, FiltersValuesMap[keyof FiltersValuesMap]][]) {
-    let valuesToProcess : string | string [];
+    let valuesToProcess: string[] = [];
+    const useRegex = (ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key); // if we want a regex match
 
-    // special cases CountryOption[] & TopicOption[]:
     if (key === "Country") {
-      const countryValues = values as CountryOption[]
+      const countryValues = values as CountryOption[];
       valuesToProcess = countryValues.map(c => c.name);
     } else if (key === "alert_category") {
-        const topics = values as TopicOption[];
-        valuesToProcess = topics.map(c => c.label);
+      const topics = values as TopicOption[];
+      valuesToProcess = topics.map(c => c.label);
     } else {
-      valuesToProcess = values as string |string[];
-    }
-      
-   
-    if (Array.isArray(valuesToProcess)) {
-      valuesToProcess?.forEach((value) => {
-        cleanAndAppendKeysValuesToQueryParams(params, key, value)
-      });
-    } else if (valuesToProcess !== undefined) {
-      cleanAndAppendKeysValuesToQueryParams(params, key, valuesToProcess)
+      valuesToProcess = values as string[];
     }
 
-    
-  
-  } 
+    // If custom attributes, must be processed with Lucene query string `q=` (https://docs.alerta.io/api/query-syntax.html)
+    if ((ALERT_CUSTOMS_PARAMS as readonly string[]).includes(key)) {
+      const field = `_.${key}`;
+      if (valuesToProcess.length === 1) {
+        const val = valuesToProcess[0];
+        const queryValue = useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val);
+        qClauses.push(`${field}:${queryValue}`);
+      } else if (valuesToProcess.length > 1) {
+        const orValues = valuesToProcess.map(val => useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val)).join(" OR ");
+        qClauses.push(`${field}:(${orValues})`);
+      }
+    } else {
+      for (const val of valuesToProcess) {
+        const cleanValue = val.replace(/\s*\(\d+\)\s*$/, '').trim();
+        let newKey = key;
+        if ((ALERT_CUSTOMS_PARAMS as readonly string[]).includes(newKey)) {
+          newKey = "attributes." + newKey;
+        }
+        // if a regex match is neededs        
+        const finalValue = useRegex ? `~${cleanValue}` : cleanValue;
 
-  return params.toString(); 
-}
-
-function cleanAndAppendKeysValuesToQueryParams (params : URLSearchParams,key:string, value: string ) {
-  // clean values
-  let cleanValue = value.replace(/\s*\(\d+\)\s*$/, '').trim();
-
-  //  special case for search regex mactj :
-  if ((ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key)) {
-    cleanValue="~"+cleanValue
+        params.append(newKey, finalValue);
+      }
+    }
   }
 
-  // modify key if needed (special case for custom attributes) :
-  let newKey = key;
-  if((ALERT_CUSTOMS_PARAMS as readonly string[]).includes(newKey)) {
-    newKey="attributes."+newKey
-  }  
-  params.append(newKey, cleanValue);
+  // add 'q' parameter if needed
+  if (qClauses.length > 0) {
+    params.append("q", qClauses.join(" AND "));
+  }
+
+  return params.toString();
+}
+
+function escapeLuceneValue(value: string): string {
+  // Protect space or key word like AND or OR
+  if (/\s/.test(value) || /[():]/.test(value)) {
+    return `"${value}"`;
+  }
+  return value;
+}
+
+function escapeRegex(value: string): string {
+  return value.replace(/\s*\(\d+\)\s*$/, '').trim(); 
 }
