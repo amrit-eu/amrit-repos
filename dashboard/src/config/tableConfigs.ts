@@ -13,8 +13,7 @@ export interface EditableTableColumnConfig<T> extends TableColumnConfig<T> {
   }
 
 export interface TableViewConfig<T> {
-	mainColumns: TableColumnConfig<T>[];
-	moreInfoColumns?: TableColumnConfig<T>[];
+	mainColumns: TableColumnConfig<T>[];	
   }
 
 export interface EditableTableViewConfig<T> {

@@ -14,9 +14,10 @@ interface EnhancedTableProps<T> {
     orderBy: keyof T;
     rowCount: number;
     columnsConfig: TableViewConfig<T>
+    collapsingComponent?:React.ReactNode
   }
 
-function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig }: EnhancedTableProps<T>)  {
+function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig,collapsingComponent }: EnhancedTableProps<T>)  {
 
 
   
@@ -28,7 +29,8 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
   return (
     <TableHead>
       <TableRow>
-        <TableCell />
+        {collapsingComponent &&
+        <TableCell /> }
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
