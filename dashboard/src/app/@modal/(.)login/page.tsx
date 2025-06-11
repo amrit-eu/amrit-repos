@@ -3,10 +3,11 @@ import LoginForm from '@/components/layout/login/LoginForm'
 import RoutedModal from '@/components/shared/modals/RoutedModal'
 import React from 'react'
 
-const Login = () => {
+const Login = async ({ searchParams }: { searchParams: { callbackUrl?: string } }) => {
+  const {callbackUrl} = await searchParams;
   return (
     <RoutedModal backgroundTransparent={true}>
-        <LoginForm />
+        <LoginForm callbackUrl={callbackUrl} />
     </RoutedModal>
   )
 }

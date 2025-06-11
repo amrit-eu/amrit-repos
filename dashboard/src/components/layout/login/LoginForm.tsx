@@ -47,16 +47,21 @@ const Card = styled(MuiCard)(({ theme }) => ({
     },
   }));
 
-const LoginForm = () => {
+const LoginForm =  ({callbackUrl} : {callbackUrl?: string}) => {
     const [openForgetPassword, setOpenForgetPassword,] = React.useState(false);
     const [state, loginAction, isPending] = useActionState(login, undefined);
     const router = useRouter()
-
+    
     useEffect(() => {
         if (!isPending && state?.success) {
-          router.back();    // To go back to current page after successful login   
+          if(callbackUrl) {                   
+            router.push(callbackUrl) // to go back to original protected route (intercepted by middleware)
+          } else {
+            router.back();    // To go back to current page after successful login 
+          }
+           
         }
-      }, [isPending, state, router]);
+      }, [isPending, state, router, callbackUrl]);
     
     const handleClickOpenForgetPassword = () => {
         setOpenForgetPassword(true);
@@ -131,8 +136,9 @@ const LoginForm = () => {
                 fullWidth
                 variant="outlined"
                 color={state?.errors?.password ? 'error' : 'primary'}
-              />
+              />              
             </FormControl>
+           
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

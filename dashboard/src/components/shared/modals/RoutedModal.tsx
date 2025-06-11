@@ -1,18 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Modal from './Modal'
 
 const RoutedModal = ({children, backgroundTransparent=false} : {children: React.ReactNode, backgroundTransparent?:boolean}) => {
     
-    const router = useRouter()
+    const router = useRouter()    
+    const pathname = usePathname();
 
+    const isOpen = pathname === '/login'
+    
     const handleClose = () => {
         router.back()
     }
 
   return (
-    <Modal isModalOpen={true} handleClose={handleClose} backgroundTransparent={backgroundTransparent}>{children}</Modal>
+    <Modal isModalOpen={isOpen} handleClose={handleClose} backgroundTransparent={backgroundTransparent}>{children}</Modal>
   )
 }
 

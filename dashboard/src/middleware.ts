@@ -13,7 +13,9 @@ export default async function middleware (req : NextRequest) {
     const session = await  verifySession();
 
     if (isProtectedRoute && !session?.isAuth ) {
-        return NextResponse.redirect(new URL("/login", req.nextUrl));
+        const loginUrl = new URL("/login", req.nextUrl);
+        loginUrl.searchParams.set("callbackUrl", path);
+        return NextResponse.redirect(loginUrl);
     }
 
     if (isPublicRoute && session?.isAuth ) {
