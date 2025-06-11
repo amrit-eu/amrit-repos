@@ -4,7 +4,7 @@ import RoutedModal from '@/components/shared/modals/RoutedModal'
 import React from 'react'
 
 const Login = async ({ searchParams }: { searchParams: { callbackUrl?: string } }) => {
-  const {callbackUrl} = await searchParams;
+  const {callbackUrl} = searchParams;
   return (
     <RoutedModal backgroundTransparent={true}>
         <LoginForm callbackUrl={callbackUrl} />
