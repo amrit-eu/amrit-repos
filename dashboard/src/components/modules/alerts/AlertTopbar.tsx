@@ -56,7 +56,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
             const newFilterSelectedValues: FiltersValuesMap = {...filtersSelectedValues}
             let filterRemoved = false;
 
-            for (const [key, value] of Object.entries(newFilterSelectedValues)) {   
+            for (const [key] of Object.entries(newFilterSelectedValues)) {   
                 if(!draftChosenElements.includes(key as AlertFilters )) {
                     // Removing a filter from display should set it to empty and refresh table    
                     delete newFilterSelectedValues[key as AlertFilters];

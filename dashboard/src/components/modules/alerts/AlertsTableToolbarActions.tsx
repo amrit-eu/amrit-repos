@@ -11,7 +11,6 @@ import { useAlertActions } from '@/hooks/useAlertActions';
 import ConfirmationDialogModal from '@/components/shared/modals/ConfirmationDialogModal';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {useRouter } from 'next/navigation';
-import { ActionType } from '@/constants/alertOptions';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]

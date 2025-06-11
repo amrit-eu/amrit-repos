@@ -34,8 +34,7 @@ export async function fetchFromGateway<T>({
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
 
-  if (!res.ok) {
-    console.error(`Gateway request failed: ${res.status} ${res.statusText}`);
+  if (!res.ok) {   
     return {} as T;
   }
 
