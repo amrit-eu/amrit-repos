@@ -11,13 +11,15 @@ import { useAlertActions } from '@/hooks/useAlertActions';
 import ConfirmationDialogModal from '@/components/shared/modals/ConfirmationDialogModal';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {useRouter } from 'next/navigation';
+import { ActionType } from '@/constants/alertOptions';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]
+    setSelected : React.Dispatch<React.SetStateAction<readonly string[]>>
     onActionDone : () => void
     isUserLogin:boolean
 }
-const AlertsTableToolbarActions = ({selected, onActionDone, isUserLogin} : AlertsTableToolbarActionsProps) => {
+const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserLogin} : AlertsTableToolbarActionsProps) => {
     const router = useRouter();
     // state for Add a note modal :
     const [addNoteModalOpen, setAddNoteModalOpen] = useState(false);
@@ -25,21 +27,28 @@ const AlertsTableToolbarActions = ({selected, onActionDone, isUserLogin} : Alert
     const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false)
     // state for snackbar when user not logged !
     const [userNotLoggedSnackBarOpen, setUserNotLoggedSnackBarOpen] = useState(!isUserLogin);
-
     // use a custom hook useAlertsAction which can be reuse in other components
     const {
         loading,
         handleActOnAlerts,
         resultsMessage,
         severity,
+        actionType,
         clearResultMessage,
     } = useAlertActions(selected, onActionDone)   
 
     const areActionDisabled = loading || !isUserLogin;
+
+    const handleCloseSnackBarAfterAction = () => {
+        clearResultMessage();
+        if (actionType === 'delete') {            
+            setSelected([])
+        }
+    }
   return (
    <>
         
-        <SnackbarAlert snackBarOpen={!!resultsMessage} handleCloseSnackbar={clearResultMessage } message={resultsMessage ?? ""} severity={severity}/>
+        <SnackbarAlert snackBarOpen={!!resultsMessage} handleCloseSnackbar={handleCloseSnackBarAfterAction } message={resultsMessage ?? ""} severity={severity}/>
         <SnackbarAlert  snackBarOpen={userNotLoggedSnackBarOpen} handleCloseSnackbar={() => setUserNotLoggedSnackBarOpen(false)} message={"You must login to act on alerts"} severity={'warning'}
             action={<>
             <Button variant='outlined' color='inherit' onClick={() => router.push('/login')}>Login</Button>

@@ -12,13 +12,15 @@ export const useAlertActions = (
     const [loading, setLoading] = useState(false);
     const [resultsMessage, setResultsMessage] = useState<string |null>(null)
     const [severity, setSeverity] = useState<OverridableStringUnion<AlertColor, AlertPropsColorOverrides>>("success")
+    const [actionType, setActionType] = useState<ActionType | undefined>()
 
-    const handleActOnAlerts = async (action: ActionType , noteText?:string) : Promise<void> => {      
+    const handleActOnAlerts = async (action: ActionType , noteText?:string) : Promise<void> => { 
+            setActionType(action);     
             setLoading(true);
             try {  
                 //act on alert :
                 const results = await actOnAlerts(selected, action, noteText );
-                
+                                
                 // handle differents results :
                 if (results.success > 0 && results.failed > 0) {
                     setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully updated (${action}) but ${results.failed} ${results.failed === 1 ? 'was' : 'were'} not.`);
@@ -44,6 +46,7 @@ export const useAlertActions = (
             handleActOnAlerts,
             resultsMessage,
             severity,
+            actionType,            
             clearResultMessage: () => setResultsMessage(null),
             
         }

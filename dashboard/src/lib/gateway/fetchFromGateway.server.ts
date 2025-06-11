@@ -35,7 +35,8 @@ export async function fetchFromGateway<T>({
   });
 
   if (!res.ok) {
-    throw new Error(`Gateway request failed: ${res.status} ${res.statusText}`);
+    console.error(`Gateway request failed: ${res.status} ${res.statusText}`);
+    return {} as T;
   }
 
   	const contentType = res.headers.get('content-type') || '';
