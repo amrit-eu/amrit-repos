@@ -52,7 +52,7 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperPr
 
         <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
            
-        <AlertsTable filtersSelectedValues={filtersSelectedValues}/>
+        <AlertsTable filtersSelectedValues={filtersSelectedValues} isUserLogin={isUserLogin}/>
 
 
 

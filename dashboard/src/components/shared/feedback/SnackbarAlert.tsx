@@ -24,6 +24,7 @@ const SnackbarAlert = ({
         autoHideDuration={4000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 		slots={{ transition: SlideTransition }}
+        
     >
         <Alert
             onClose={handleCloseSnackbar}

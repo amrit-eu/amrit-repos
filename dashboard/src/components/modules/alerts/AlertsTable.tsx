@@ -10,9 +10,10 @@ import { FiltersValuesMap } from '@/types/filters';
 
 interface AlertsTableProps {
    filtersSelectedValues: FiltersValuesMap
+   isUserLogin: boolean
 }
 
-const AlertsTable = ({filtersSelectedValues}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => {
 
   // load table configuration
   const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
@@ -69,7 +70,7 @@ const AlertsTable = ({filtersSelectedValues}: AlertsTableProps) => {
 
   
   return (
-    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone ={triggerRefetch}/>} colmunsConfiguration={alertaColumnsConfig}/>
+    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} isUserLogin={isUserLogin}/>} colmunsConfiguration={alertaColumnsConfig}/>
   )
 }
 
