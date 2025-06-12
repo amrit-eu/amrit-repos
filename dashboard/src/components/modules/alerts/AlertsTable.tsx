@@ -70,7 +70,7 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => 
 
   
   return (
-    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={false} alertsData={alertsApiResponseData?.alerts ?? []}/>} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={<div>TEST</div>}/>
+    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={isUserLogin} alertsData={alertsApiResponseData?.alerts ?? []}/>} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={"TEST"}/>
   )
 }
 
