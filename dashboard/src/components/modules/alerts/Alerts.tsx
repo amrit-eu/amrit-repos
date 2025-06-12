@@ -36,7 +36,7 @@ const Alerts = async () => {
  
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
-      <AlertsClientWrapper filtersValues={filtersValues} isUserLogin={session?.isAuth ?? false}/>
+      <AlertsClientWrapper filtersValues={filtersValues} isUserLogin={session?.isAuth ?? false} userRoles = {session?.roles ?? []}/>
     </Box>
   );
 };

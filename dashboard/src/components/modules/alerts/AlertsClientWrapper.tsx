@@ -11,6 +11,7 @@ import { FiltersValuesMap } from '@/types/filters'
 interface AlertsClientWrapperProps {
     filtersValues: FiltersValuesMap
     isUserLogin: boolean
+    userRoles: string[]
 }
 
 
@@ -29,7 +30,7 @@ function getFilterLabels(
     );
   }
 
-const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperProps) => {
+const AlertsClientWrapper = ({filtersValues, isUserLogin, userRoles}: AlertsClientWrapperProps) => {
     //state for selected filters : key : array of filters selected value
     const [filtersSelectedValues, setFiltersSelectedValues] = useState<FiltersValuesMap> (
         {
@@ -52,7 +53,7 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperPr
 
         <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
            
-        <AlertsTable filtersSelectedValues={filtersSelectedValues} isUserLogin={isUserLogin}/>
+        <AlertsTable filtersSelectedValues={filtersSelectedValues} isUserLogin={isUserLogin} userRoles={userRoles}/>
 
 
 
