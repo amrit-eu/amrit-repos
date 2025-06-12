@@ -1,3 +1,4 @@
+
 import {  AlertCategory, AlertSeverity, AlertStatus, ChangeType, MqttTopic } from "../constants/alertOptions";
 
 type Environment = "Development" | "Production"
@@ -14,6 +15,7 @@ export type AlertEvent = {
   dataschema?: string | null;
   data_base64?: string | null;
 };
+
 
 export type Alert = AlertRaw & { // TO BE completed
 
@@ -51,7 +53,10 @@ type AlertRaw = {
   /**
   * list of related event names
   */
+
   correlate?: string[]
+
+
   /**
   * list of effected services (array must contain at least one element)
   */
