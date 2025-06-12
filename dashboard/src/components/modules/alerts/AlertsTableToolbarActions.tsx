@@ -11,14 +11,16 @@ import { useAlertActions } from '@/hooks/useAlertActions';
 import ConfirmationDialogModal from '@/components/shared/modals/ConfirmationDialogModal';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {useRouter } from 'next/navigation';
+import { Alert } from '@/types/alert';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]
     setSelected : React.Dispatch<React.SetStateAction<readonly string[]>>
     onActionDone : () => void
     isUserLogin:boolean
+    alertsData:  Array<Alert>
 }
-const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserLogin} : AlertsTableToolbarActionsProps) => {
+const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserLogin,alertsData} : AlertsTableToolbarActionsProps) => {
     const router = useRouter();
     // state for Add a note modal :
     const [addNoteModalOpen, setAddNoteModalOpen] = useState(false);
@@ -32,7 +34,6 @@ const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserL
         handleActOnAlerts,
         resultsMessage,
         severity,
-        actionType,
         clearResultMessage,
     } = useAlertActions(selected, onActionDone)   
 
@@ -40,9 +41,15 @@ const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserL
 
     const handleCloseSnackBarAfterAction = () => {
         clearResultMessage();
-        if (actionType === 'delete') {            
-            setSelected([])
+       
+        // check if selected alerts are in the new fetched alerts list (depends on filter applied)
+        const updatedSelected = []
+        for (const alertId of selected) { 
+            if (alertsData.map(alert => alert.id).includes(alertId)) {
+                updatedSelected.push(alertId)
+            }
         }
+        setSelected(updatedSelected)
     }
   return (
    <>
