@@ -2,9 +2,6 @@
 
 import React from 'react';
 import {
-  Box,
-  CircularProgress,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +11,7 @@ import {
 } from '@mui/material';
 import { EditableTableViewConfig } from '@/config/tableConfigs';
 import EditableTableRow from './EditableTableRow';
+import TableWraper from '../TableWrapper';
 
 interface HasId {
   id: string;
@@ -43,27 +41,7 @@ function EditableTable<T extends HasId>({
   onOpenAddFilter
 }: EditableTableProps<T>) {
   return (
-    <Box sx={{ width: '100%', position: 'relative' }}>
-      {loading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            zIndex: 1,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
-
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <TableWraper loading={loading} >    
         <TableContainer>
           <Table size="medium">
             <TableHead>
@@ -104,8 +82,7 @@ function EditableTable<T extends HasId>({
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper>
-    </Box>
+    </TableWraper>
   );
 }
 

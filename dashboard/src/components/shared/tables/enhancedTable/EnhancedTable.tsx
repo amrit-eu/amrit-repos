@@ -1,12 +1,13 @@
 'use client';
 
 import { Order } from '@/types/types';
-import { Box,  CircularProgress, FormControlLabel,  Paper, Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
+import {  FormControlLabel,  Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
 import React, {  useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableRow from './EnhancedTableRow';
 import { TableViewConfig } from '@/config/tableConfigs';
+import TableWraper from '../TableWrapper';
 
 
 interface HasId {
@@ -95,27 +96,10 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
     page > 0 && totalCount ? Math.max(0, (1 + page) * rowsPerPage - totalCount) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
 
-      {loading && (
-        <Box sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.7)',
-          zIndex: 1,
-        }}>
-          <CircularProgress />
-        </Box>
-      )}
-
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar selected={selected} numSelected={selected.length} toolbarActions={toolbarActions} />
+    <div>
+      <TableWraper loading={loading}>
+         <EnhancedTableToolbar selected={selected} numSelected={selected.length} toolbarActions={toolbarActions} />
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -162,13 +146,12 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
             </TableBody>
           </Table>
         </TableContainer>
-        
-      </Paper>
+      </TableWraper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense table"
       />
-    </Box>
+    </div>
   )
 }
 
