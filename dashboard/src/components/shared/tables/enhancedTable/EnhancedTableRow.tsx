@@ -81,7 +81,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
         { collapsingComponent && 
         ( 
         <TableRow  sx={{ '& > *': { borderBottom: 'unset !important', paddingTop: 0, paddingBottom: 0 } }} style={{ border: 0}}>
-            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={columnsConfig.mainColumns.length + 2}>
+            <TableCell width='100%' style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={columnsConfig.mainColumns.length + 2}>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 
                   {collapsingComponent}

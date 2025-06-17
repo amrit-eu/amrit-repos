@@ -3,7 +3,7 @@ import { ALERTS_ATTRIBUTES_TABLE_CONFIG, ALERTS_DETAILS_GENERAL_INFO_TABLE_CONFI
 import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client'
 import { Alert, Note, NoteApiResponse } from '@/types/alert'
 import { Box, CircularProgress, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 interface AlertDetailsProps {      
     data: Alert   
@@ -24,8 +24,9 @@ const AlertDetails = ({ data} : AlertDetailsProps) => {
         setNoteLoading(true);
         try {
           const notesApiResponse= await gatewayFetchViaProxy<NoteApiResponse>('GET', `/alerta/alert/${data.id}/notes`, undefined, signal);
-          if (isLatestRequest) { 
-            setNotes(notesApiResponse.notes)
+          if (isLatestRequest) {
+            const sortedNotesByDate = notesApiResponse.notes.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())
+            setNotes(sortedNotesByDate)
           }
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
@@ -44,7 +45,12 @@ const AlertDetails = ({ data} : AlertDetailsProps) => {
       };    
     }, [data])
 
-
+    //Sort history array by date 
+  const sortedHistoryByDate = useMemo(() => {
+            return [...(data?.history ?? [])].sort(
+              (a, b) => new Date(b.updateTime).getTime() - new Date(a.updateTime).getTime()
+            );
+          }, [data]);
 
   return (
     <Box  sx={{ marginInline:2, marginBottom: 4  }}>
@@ -52,11 +58,11 @@ const AlertDetails = ({ data} : AlertDetailsProps) => {
       <BasicTable colmunsConfiguration={ALERTS_DETAILS_GENERAL_INFO_TABLE_CONFIG} data={[data]}  />
       <Typography sx={{ marginTop: 3 }} variant="h6" gutterBottom component="div">Alert attributes</Typography>
       <BasicTable colmunsConfiguration={ALERTS_ATTRIBUTES_TABLE_CONFIG} data={data.attributes ? [{id:data.id, ...data.attributes}] : []}  />
-      <Typography  sx={{ marginTop: 3 }} variant="h6" gutterBottom component="div">Alert&apos;s notes</Typography>
+      <Typography  sx={{ marginTop: 3 }} variant="h6" gutterBottom component="div">Alert&apos;s current notes</Typography>
       {notesLoading ? <CircularProgress /> :
       <BasicTable colmunsConfiguration={ALERTS_NOTES_TABLE_CONFIG} data={notes}  /> }
       <Typography  sx={{ marginTop: 3 }} variant="h6" gutterBottom component="div">History</Typography>
-      <BasicTable colmunsConfiguration={ALERTS_HISTORY_TABLE_CONFIG} data={data.history}  /> 
+      <BasicTable colmunsConfiguration={ALERTS_HISTORY_TABLE_CONFIG} data={sortedHistoryByDate}  /> 
     </Box>
   )
 }

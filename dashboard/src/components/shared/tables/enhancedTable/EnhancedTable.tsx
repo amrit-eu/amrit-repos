@@ -108,7 +108,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
         />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750, tableLayout: 'fixed' }}
+            sx={{ minWidth: 750}}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}      
           >
@@ -144,6 +144,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
           </Table>
         </TableContainer>      
       <FormControlLabel
+      sx={{marginLeft:2}}
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense table"
       />
