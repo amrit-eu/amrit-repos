@@ -81,7 +81,7 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory, isModalOpen
        
         </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={() =>onClose}>Cancel</Button>
+            <Button autoFocus onClick={() =>onClose()}>Cancel</Button>
             <SubmitButton pending={false} fullwidth={false} onClick={handleConfirm}>Confirm</SubmitButton>           
         </DialogActions>
 
