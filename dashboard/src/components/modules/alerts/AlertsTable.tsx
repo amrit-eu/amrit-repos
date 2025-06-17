@@ -7,6 +7,9 @@ import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_MAIN_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 import { FiltersValuesMap } from '@/types/filters';
+import AlertDetails from './AlertDetails';
+import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
+
 
 interface AlertsTableProps {
    filtersSelectedValues: FiltersValuesMap
@@ -70,8 +73,14 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTabl
   };
 
   const toolBarActionComponent = <AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={isUserLogin} alertsData={alertsApiResponseData?.alerts ?? []} userRoles={userRoles}/>
+  
+  
+ 
   return (
-    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={"TEST"}/>
+
+    <LoadingWrapper loading={loading}> 
+      <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={(data) => <AlertDetails data={data}/>}/>
+    </LoadingWrapper>
   )
 }
 

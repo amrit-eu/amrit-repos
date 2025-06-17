@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Paper } from '@mui/material'
 import React from 'react'
 
-interface TableWraperProps {
+interface TableWrapperProps {
     loading: boolean
     children: React.ReactNode
 }
 
-const TableWraper = ({loading, children}:TableWraperProps) => {
+const LoadingWrapper = ({loading, children}:TableWrapperProps) => {
   return (
     <Box sx={{ width: '100%' }}>
 
@@ -21,12 +21,11 @@ const TableWraper = ({loading, children}:TableWraperProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'rgba(255, 255, 255, 0.7)',
-          zIndex: 1,
+          zIndex: 1,          
         }}>
           <CircularProgress />
         </Box>
       )}
-
         <Paper sx={{ width: '100%', mb: 2 }}>
             {children}
         </Paper>
@@ -34,4 +33,4 @@ const TableWraper = ({loading, children}:TableWraperProps) => {
   )
 }
 
-export default TableWraper
+export default LoadingWrapper
