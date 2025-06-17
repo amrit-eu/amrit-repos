@@ -22,8 +22,8 @@ export const ALERTS_DETAILS_GENERAL_INFO_TABLE_CONFIG: TableViewConfig<Alert> = 
     { key: 'createTime', label : "Alert creation time" },
     { key: 'lastReceiveTime', label : "Last receive time" },
     { key: 'previousSeverity', label : "Previous severity", chipColor: {"critical":"error", "major":"warning", "warning":"info", "informational":"success"} },
-    { key: 'repeat', label : "Is a duplicate ?" },
-    { key: 'duplicateCount', label : "Number of duplicate received" },
+    { key: 'repeat', label : "Repeated ?" },
+    { key: 'duplicateCount', label : "Number of duplicate" },
   ],
 };
 

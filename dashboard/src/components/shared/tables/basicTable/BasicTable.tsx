@@ -16,7 +16,7 @@ function BasicTable<T extends HasId >({colmunsConfiguration, data, handleClickOn
   return (    
     
       <TableContainer  component={Paper}>           
-        <Table sx={{ minWidth: 750 }} aria-label="simple table">
+        <Table  aria-label="simple table">
           <TableHead>
             <TableRow >
               {colmunsConfiguration.mainColumns.map(col => (
