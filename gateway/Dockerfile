@@ -1,6 +1,5 @@
 FROM node:22-alpine AS base
 
-RUN npm i -g brace-expansion@2.0.2
 
 LABEL org.opencontainers.image.authors="yvan.lubac@euro-argo.eu"
 LABEL org.opencontainers.image.description="image of Gateway NestJS app"
