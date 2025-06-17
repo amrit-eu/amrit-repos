@@ -2,12 +2,11 @@
 
 import { Order } from '@/types/types';
 import {  FormControlLabel,  Switch, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@mui/material';
-import React, {  useState } from 'react'
+import React, {   useState } from 'react'
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableRow from './EnhancedTableRow';
 import { TableViewConfig } from '@/config/tableConfigs';
-import TableWraper from '../TableWrapper';
 
 
 interface HasId {
@@ -23,19 +22,18 @@ interface EnhancedTableProps<T extends HasId > {
   setPage: React.Dispatch<React.SetStateAction<number>>
   rowsPerPage: number
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
-  loading : boolean
   data: Array<T>
   totalCount: number
   colmunsConfiguration: TableViewConfig<T>
   selected :   readonly string[]
   setSelected : React.Dispatch<React.SetStateAction<readonly string[]>>
   toolbarActions? :   React.ReactNode;
-  collapsingComponent?:React.ReactNode;
+  collapsingComponent?: (data: T) => React.ReactNode
 
 }
 
 
-function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions, selected, setSelected,collapsingComponent  } : EnhancedTableProps<T>) {
+function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage,  data, totalCount, colmunsConfiguration, toolbarActions, selected, setSelected,collapsingComponent  } : EnhancedTableProps<T>) {
   
   // const [selected, setSelected] = useState<readonly string[]>([]); 
   const [dense, setDense] = useState(false);
@@ -97,9 +95,8 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
 
   return (
 
-    <div>
-      <TableWraper loading={loading}>
-         <EnhancedTableToolbar selected={selected} numSelected={selected.length} toolbarActions={toolbarActions} />
+    <div>      
+        <EnhancedTableToolbar selected={selected} numSelected={selected.length} toolbarActions={toolbarActions} />
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -111,7 +108,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
         />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 750, tableLayout: 'fixed' }}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}      
           >
@@ -123,7 +120,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
               onRequestSort={handleRequestSort}
               rowCount={data.length ?? 0}
               columnsConfig={colmunsConfiguration}
-              collapsingComponent={collapsingComponent}
+              isCollapsedComponent={collapsingComponent ? true : false}
             />
             
             <TableBody>
@@ -131,7 +128,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
                 const isItemSelected = selected.includes(rowData.id);
                 
                 return (
-                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} columnsConfig={colmunsConfiguration} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} collapsingComponent={collapsingComponent} />
+                  <EnhancedTableRow key={`table-row-${index}`} rowData={rowData} columnsConfig={colmunsConfiguration} isItemSelected={isItemSelected} handleClickOnRow={handleClickOnRow } rowId={rowData.id} collapsingComponent={collapsingComponent && collapsingComponent(rowData)} />
                 );
               })}
               {emptyRows > 0 && (
@@ -140,13 +137,12 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
                     height: (dense ? 33 : 53) * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell />
                 </TableRow>
               )}
             </TableBody>
           </Table>
-        </TableContainer>
-      </TableWraper>
+        </TableContainer>      
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense table"

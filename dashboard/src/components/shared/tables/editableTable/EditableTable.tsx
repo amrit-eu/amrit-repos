@@ -11,14 +11,12 @@ import {
 } from '@mui/material';
 import { EditableTableViewConfig } from '@/config/tableConfigs';
 import EditableTableRow from './EditableTableRow';
-import TableWraper from '../TableWrapper';
 
 interface HasId {
   id: string;
 }
 
-interface EditableTableProps<T extends HasId> {
-  loading: boolean;
+interface EditableTableProps<T extends HasId> {  
   data: Array<T>;
   totalCount: number;
   columnsConfiguration: EditableTableViewConfig<T>;
@@ -29,8 +27,7 @@ interface EditableTableProps<T extends HasId> {
   onOpenAddFilter?: (id: string) => void; 
 }
 
-function EditableTable<T extends HasId>({
-  loading,
+function EditableTable<T extends HasId>({  
   data,
   totalCount,
   columnsConfiguration,
@@ -41,7 +38,7 @@ function EditableTable<T extends HasId>({
   onOpenAddFilter
 }: EditableTableProps<T>) {
   return (
-    <TableWraper loading={loading} >    
+       
         <TableContainer>
           <Table size="medium">
             <TableHead>
@@ -82,7 +79,7 @@ function EditableTable<T extends HasId>({
             </TableBody>
           </Table>
         </TableContainer>
-    </TableWraper>
+    
   );
 }
 

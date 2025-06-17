@@ -9,6 +9,7 @@ import { FilterValue } from './AddFilterModal';
 import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client';
 import { CountryOption } from '@/types/types';
 import dayjs from 'dayjs';
+import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
 
 interface Props {
   data: AlertSubscription[];
@@ -114,16 +115,17 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 
   return (
     <>
-      <EditableTable<AlertSubscriptionRow>
-        loading={loading}
-        data={subscriptions}
-        totalCount={subscriptions.length}
-        columnsConfiguration={subscriptionsTableConfig}
-        onDeleteRow={onDelete}
-        onToggleSwitch={handleToggleSwitch} // 🔁 Only for toggling booleans
-        onOpenAddFilter={setOpenAddFilterForId}
-		onUpdateField={handleUpdateField}
-      />
+      <LoadingWrapper loading={loading}  >
+      	<EditableTable<AlertSubscriptionRow>	        
+	        data={subscriptions}
+	        totalCount={subscriptions.length}
+	        columnsConfiguration={subscriptionsTableConfig}
+	        onDeleteRow={onDelete}
+	        onToggleSwitch={handleToggleSwitch} // 🔁 Only for toggling booleans
+	        onOpenAddFilter={setOpenAddFilterForId}
+			onUpdateField={handleUpdateField}
+	      />
+      </LoadingWrapper>
       <AddFilterModal
         open={!!openAddFilterForId}
         onClose={() => setOpenAddFilterForId(null)}

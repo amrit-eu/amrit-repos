@@ -11,6 +11,14 @@ export type Alert = AlertRaw & { // TO BE completed
 
   duplicateCount?: number
 
+  repeat?: boolean;
+  previousSeverity?: AlertSeverity;
+  trendIndication?: string;
+  receiveTime?: string;
+  lastReceiveId?: string;
+  updateTime?: string;
+  customer?: string | null;
+
 }
 
 type AlertRaw = {
@@ -95,7 +103,7 @@ type AlertRaw = {
 
 }
 
-export interface AlertAttributes {
+export type AlertAttributes = {
   /**
    * Country of origin of the alert
    */
@@ -122,7 +130,7 @@ export interface AlertAttributes {
   [key: string]: unknown; // <- permet les `additionalProperties`
 }
 
-type HistoryEntry = {
+export type HistoryEntry = {
   id:string; 
   event : string;
   severity: AlertSeverity;
@@ -157,5 +165,20 @@ export type AlertApiResponse = AlertCountApiResponse & {
     status: string;
     statusCounts: Record<string, number>;
     total: number;
-  } 
+  }
+
+  export type Note = {
+    attributes : {environment: string, event: string, resource: string}
+    createTime : string
+    id : string
+    text: string
+    type: string
+    user : string
+  }
+
+  export type NoteApiResponse = {
+    notes: Note[]
+    status : string
+    total: number
+  }
 

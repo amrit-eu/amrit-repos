@@ -3,7 +3,8 @@ import type { GatewayMethod, GatewayProxyPayload } from './types';
 export async function gatewayFetchViaProxy<T>(
   method: GatewayMethod,
   path: string,
-  body?: GatewayProxyPayload['body']
+  body?: GatewayProxyPayload['body'],
+  signal?: AbortSignal | null | undefined
 ): Promise<T> {
   let res: Response;
 
@@ -15,6 +16,7 @@ export async function gatewayFetchViaProxy<T>(
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ method, path, body }),
+      signal:signal
     });
   }
 

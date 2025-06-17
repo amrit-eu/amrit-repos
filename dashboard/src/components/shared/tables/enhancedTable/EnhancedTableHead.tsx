@@ -14,10 +14,10 @@ interface EnhancedTableProps<T> {
     orderBy: keyof T;
     rowCount: number;
     columnsConfig: TableViewConfig<T>
-    collapsingComponent?:React.ReactNode
+    isCollapsedComponent:boolean
   }
 
-function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig,collapsingComponent }: EnhancedTableProps<T>)  {
+function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig,isCollapsedComponent }: EnhancedTableProps<T>)  {
 
 
   
@@ -28,8 +28,8 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
 
   return (
     <TableHead>
-      <TableRow>
-        {collapsingComponent &&
+      <TableRow >
+        {isCollapsedComponent &&
         <TableCell /> }
         <TableCell padding="checkbox">
           <Checkbox
