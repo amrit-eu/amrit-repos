@@ -38,7 +38,7 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin, userRoles}: AlertsClie
         }
     )
     // state for the filters lsit to display :
-    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "severity","status","from-date", "to-date"] )
+    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "event","severity","status","from-date", "to-date"] )
 
     const handleUpdateFilter = <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => {
         setFiltersSelectedValues((prev) => ({

@@ -48,7 +48,7 @@ export const ALERT_ACTIONS = ["open",
 
 
 export const ALERTS_FILTERS = [
-    "status", "severity", "Country", "from-date", "to-date", "resource", "alert_category"
+    "event" ,"status", "severity", "Country", "from-date", "to-date", "resource", "alert_category"
 ] as const
 
 export const ALERT_CATEGORIES = [
