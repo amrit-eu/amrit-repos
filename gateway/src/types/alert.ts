@@ -26,6 +26,14 @@ export type Alert = AlertRaw & { // TO BE completed
 
   duplicateCount?: number
 
+  repeat?: boolean;
+  previousSeverity?: AlertSeverity;
+  trendIndication?: string;
+  receiveTime?: string;
+  lastReceiveId?: string;
+  updateTime?: string;
+  customer?: string | null;
+
 }
 
 type AlertRaw = {
@@ -109,17 +117,10 @@ type AlertRaw = {
 
   history: HistoryEntry[]
   lastNote? : string
-  repeat?: boolean;
-  previousSeverity?: AlertSeverity;
-  trendIndication?: string;
-  receiveTime?: string;
-  lastReceiveId?: string;
-  updateTime?: string;
-  customer?: string | null;
-
+  
 }
 
-export interface AlertAttributes {
+export type AlertAttributes = {
   /**
    * Country of origin of the alert
    */

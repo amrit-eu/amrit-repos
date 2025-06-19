@@ -36,6 +36,6 @@ export const verifySession = cache(async () => {
   // verify and get token payload :
   const payload = await verifyJwt(access_token) as JwtPayloadType ;  
 
-  return { isAuth: true, userId: payload?.contactId, username: payload?.name }
+  return { isAuth: true, userId: payload?.contactId, username: payload?.name, roles:payload?.roles }
 })
 

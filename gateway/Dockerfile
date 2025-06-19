@@ -1,5 +1,6 @@
 FROM node:22-alpine AS base
 
+
 LABEL org.opencontainers.image.authors="yvan.lubac@euro-argo.eu"
 LABEL org.opencontainers.image.description="image of Gateway NestJS app"
 LABEL org.opencontainers.image.url="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"

@@ -32,6 +32,7 @@ import { FilterOption } from './filters';
     name: string
     exp: number
     sub: string
+    roles: string[]
   } | null;
 
   export type TopicOption = {

@@ -109,7 +109,8 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                             return <MultiSelectChip key={filter} datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []} filterName={filter} selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} onFilterChange={(filterKey, values) => {   
                                              onFilterChange(filterKey as AlertFilters, values);}}  />
                     case 'resource' :
-                        return <MultiChipInput selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} filterName={filter} onFilterChange={(filterKey, values) => {   
+                    case 'event':
+                        return <MultiChipInput key={filter} selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} filterName={filter} onFilterChange={(filterKey, values) => {   
                                              onFilterChange(filterKey as AlertFilters, values);}} />
                     case 'Country' :
                         return <CountrySelect multiple={true} key={filter} label={'Country'} onChange={(newValue) => onFilterChange("Country", Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined) } options={filtersValues[filter] as CountryOption[]} value={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] as CountryOption[]: []}/> 

@@ -2,9 +2,6 @@
 
 import React from 'react';
 import {
-  Box,
-  CircularProgress,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -19,8 +16,7 @@ interface HasId {
   id: string;
 }
 
-interface EditableTableProps<T extends HasId> {
-  loading: boolean;
+interface EditableTableProps<T extends HasId> {  
   data: Array<T>;
   totalCount: number;
   columnsConfiguration: EditableTableViewConfig<T>;
@@ -31,8 +27,7 @@ interface EditableTableProps<T extends HasId> {
   onOpenAddFilter?: (id: string) => void; 
 }
 
-function EditableTable<T extends HasId>({
-  loading,
+function EditableTable<T extends HasId>({  
   data,
   totalCount,
   columnsConfiguration,
@@ -43,27 +38,7 @@ function EditableTable<T extends HasId>({
   onOpenAddFilter
 }: EditableTableProps<T>) {
   return (
-    <Box sx={{ width: '100%', position: 'relative' }}>
-      {loading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            zIndex: 1,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
-
-      <Paper sx={{ width: '100%', mb: 2 }}>
+       
         <TableContainer>
           <Table size="medium">
             <TableHead>
@@ -104,8 +79,7 @@ function EditableTable<T extends HasId>({
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper>
-    </Box>
+    
   );
 }
 

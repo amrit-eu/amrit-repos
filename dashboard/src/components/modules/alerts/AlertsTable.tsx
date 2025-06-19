@@ -4,19 +4,23 @@ import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
-import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
+import { ALERTS_MAIN_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 import { FiltersValuesMap } from '@/types/filters';
+import AlertDetails from './AlertDetails';
+import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
+
 
 interface AlertsTableProps {
    filtersSelectedValues: FiltersValuesMap
    isUserLogin: boolean
+   userRoles: string[]
 }
 
-const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTableProps) => {
 
   // load table configuration
-  const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
+  const alertaColumnsConfig = ALERTS_MAIN_TABLE_CONFIG;
 
   //Table's states
   const [alertsApiResponseData, setAlertsApiResponseData] = useState<AlertApiResponse>();
@@ -68,9 +72,15 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin}: AlertsTableProps) => 
     //setSelected([]) // was 
   };
 
+  const toolBarActionComponent = <AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={isUserLogin} alertsData={alertsApiResponseData?.alerts ?? []} userRoles={userRoles}/>
   
+  
+ 
   return (
-    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} setSelected={setSelected} onActionDone={triggerRefetch} isUserLogin={isUserLogin}/>} colmunsConfiguration={alertaColumnsConfig}/>
+
+    <LoadingWrapper loading={loading}> 
+      <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={(data) => <AlertDetails data={data}/>}/>
+    </LoadingWrapper>
   )
 }
 

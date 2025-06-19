@@ -14,9 +14,10 @@ interface EnhancedTableProps<T> {
     orderBy: keyof T;
     rowCount: number;
     columnsConfig: TableViewConfig<T>
+    isCollapsedComponent:boolean
   }
 
-function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig }: EnhancedTableProps<T>)  {
+function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columnsConfig,isCollapsedComponent }: EnhancedTableProps<T>)  {
 
 
   
@@ -27,8 +28,9 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
 
   return (
     <TableHead>
-      <TableRow>
-        <TableCell />
+      <TableRow >
+        {isCollapsedComponent &&
+        <TableCell /> }
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
