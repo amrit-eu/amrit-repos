@@ -42,7 +42,7 @@ const Home= ({ session }: SessionProps) => {
             {`Welcome ${session.username} !`}
           </Typography> }
         <Typography variant="h6" sx={{ mb: 3 }}>
-          OceanBoards is a collaborative AMRIT project.
+          Amrit Boards is a collaborative Amrit project.
         </Typography>
 
         <Button

@@ -39,7 +39,7 @@ export class ContactMatcherService {
         'Accept': '*/*',
       },
       data: {
-        topic: alert?.data?.attributes?.mqtt_topic,
+        topic: alert?.data?.attributes?.alert_category,
         severity: alert?.data?.severity,
         resource: alert?.data?.resource,
         country: alert?.data?.attributes?.Country,
