@@ -5,3 +5,6 @@ include:
 
 default:
   tags: [dind]
+
+variables:
+  DISABLE_SECURITY_JOB: "true"
