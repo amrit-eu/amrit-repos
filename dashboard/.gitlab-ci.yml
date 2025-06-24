@@ -6,5 +6,8 @@ include:
 default:
   tags: [dind]
 
-variables:
-  DISABLE_SECURITY_JOB: "true"
+trivy-fs-analysis:
+  script:
+    - echo "Skipping trivy-fs-analysis"
+  rules:
+    - when: never
