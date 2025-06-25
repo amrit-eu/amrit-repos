@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Alerts from '../../components/modules/alerts/Alerts';
 
 export const metadata: Metadata = {
-  title: 'OceanBoards - Alerts',
+  title: 'Amrit Boards - Alerts',
   description: 'AMRIT Alerts dashboard',
   icons: {
     icon: '/favicon.png',

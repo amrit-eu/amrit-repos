@@ -61,32 +61,43 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
           </IconButton>
 
           <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              fontFamily: '"Quicksand", sans-serif',
-              display: 'flex',
-              alignItems: 'center',
-              ml: 1,
-              fontWeight: 400,
-			  mt: -0.4,
-              fontSize: '1.4rem',
-              letterSpacing: '0.5px',
-              color: theme.palette.primary.main,
-            }}
-          >
-            ocean
-            <Box
-              component="span"
-              sx={{
-                ml: 0.1,
-                fontWeight: 400,
-                color: theme.palette.primary.main,
-              }}
-            >
-              boards
-            </Box>
-          </Typography>
+			variant="h6"
+			noWrap
+			sx={{
+				fontFamily: '"Quicksand", sans-serif',
+				display: 'flex',
+				alignItems: 'center',
+				ml: 1,
+				fontWeight: 500,
+				mt: -0.7,
+				letterSpacing: '0px',
+				color: "#4cb2b6",
+			}}
+			>
+				<Box
+					component="img"
+					src="/img/amrit-logo-name.png" 
+					alt="Amrit logo"
+					sx={{
+					height: '1.4rem',
+					mr: 0.3,
+					display: 'inline-block',
+					}}
+				/>
+				<Box
+					component="span"
+					sx={{
+						ml: 0.4,
+						mt: 0.8,
+						fontSize: '1.3rem',
+						fontWeight: 500,
+						color: "#a69e9b",
+					}}
+				>
+					Boards
+				</Box>
+			</Typography>
+
         </Box>
 
         {/* Right side: Actions */}

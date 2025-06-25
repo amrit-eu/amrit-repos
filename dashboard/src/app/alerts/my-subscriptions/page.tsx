@@ -3,8 +3,8 @@ import MySubscriptions from '../../../components/modules/subscriptions/MySubscri
 import AlertsTabs from '../../../components/modules/alerts/AlertsTabs';
 
 export const metadata: Metadata = {
-  title: 'OceanBoards - Alerts',
-  description: 'AMRIT Alerts - My Subscriptions',
+  title: 'Amrit Boards - Alerts',
+  description: 'Amrit Alerts - My Subscriptions',
   icons: {
     icon: '/favicon.png',
   },
