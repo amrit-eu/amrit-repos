@@ -58,7 +58,7 @@ export const ALERT_CATEGORIES = [
   "Support requests",
   "EEZ","Beaching",
   "Icing",
-  "Technical issue",
+  "Technical issue","Battery issue", "Sensor issue",
   "Data checker",
   "QC feedback",
   "Metadata check",

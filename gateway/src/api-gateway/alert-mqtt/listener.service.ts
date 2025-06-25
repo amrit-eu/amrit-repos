@@ -56,29 +56,32 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   async handleAlert(alert: AlertEvent): Promise<void> {
+    this.logger.log ("alert received on mqtt : " + alert.data.resource)
     if (alert?.data?.repeat === true) return;
 
     const payload = {
-      mqttTopic: alert?.data?.attributes?.mqtt_topic,
+      alertCategory: alert?.data?.attributes?.alert_category,
       severity: alert?.data?.severity,
       resource: alert?.data?.resource,
       country: alert?.data?.attributes?.Country,
       time: alert?.time,
     };
 
-    if (!payload.mqttTopic) {
+    if (!payload.alertCategory) {
       this.logger.warn('🚫 Missing required alert data, skipping.');
       return;
     }
 
     try {
       const contacts = await this.contactMatcher.findMatchingContacts(alert);
+      this.logger.log(contacts)
       if (!Array.isArray(contacts) || contacts.length === 0) return;
 
       const emailContent = this.emailFormatter.formatAlertEmailContent(alert);
 
       for (const contact of contacts) {
         try {
+          this.logger.log("send email to " + contact.email + " for alert resource "+alert.data.resource+ " event " + alert.data.event)
           await this.sendEmail(contact.email, alert, emailContent);
         } catch (emailError) {
           this.logger.error(`❌ Failed to send email to ${contact.email}`, emailError);
@@ -123,7 +126,7 @@ export class AlertsMqttService implements OnModuleInit {
         attributes: {
           Country: 'France',
           basin_id: null,
-          alert_category: 'Technical issue',
+          alert_category: 'Battery issue',
           mqtt_topic: 'operational',
           ArgoType: 'PSEUDO',
           LastStationDate: '24-05-2025',

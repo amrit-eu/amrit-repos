@@ -40,7 +40,7 @@ const MySubscriptionsClient = ({
 		const data: AlertSubscription[] = await gatewayFetchViaProxy<AlertSubscription[]>(
 			'GET',
 			'/oceanops/alerts/subscriptions'
-		);
+		);		
 		setSubscriptions(data);
 	} catch {
 	
