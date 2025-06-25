@@ -1,10 +1,5 @@
 include:
-  - project: 'dev-ops/hebergement_web/templates/remote-ci-templates'
-    ref: 'main'
-    file: 'Auto-DevOps.gitlab-ci.yml'
+  - component: $CI_SERVER_FQDN/dev-ops/templates/automatisation/ci-cd/pipeline-javascript@~latest
 
 default:
   tags: [dind]
-
-variables:
-  DISABLE_SECURITY_JOB: "true"
