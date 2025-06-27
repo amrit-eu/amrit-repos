@@ -175,7 +175,6 @@ async function buildLuceneQueryFromSubscriptions(subs: AlertSubscription[]): Pro
     }
 
     if (sub.minTime) {
-      console.log(sub.minTime)
       fromDates.push(sub.minTime);
     }
     if (sub.maxTime) {

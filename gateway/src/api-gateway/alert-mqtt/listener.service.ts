@@ -114,7 +114,7 @@ export class AlertsMqttService implements OnModuleInit {
         resource: '5906990',
         event: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
         environment: 'Development',
-        severity: 'warning',
+        severity: 'critical',
         correlate: [],
         status: 'open',
         service: ['Laboratory of Oceanography of Villefranche'],
@@ -125,7 +125,7 @@ export class AlertsMqttService implements OnModuleInit {
         attributes: {
           Country: 'France',
           basin_id: null,
-          alert_category: 'Operations alerts',
+          alert_category: 'Technical issue',
           mqtt_topic: 'operational',
           ArgoType: 'PSEUDO',
           LastStationDate: '24-05-2025',
