@@ -56,7 +56,7 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   async handleAlert(alert: AlertEvent): Promise<void> {
-    this.logger.log ("alert received on mqtt : " + alert.data.resource)
+    this.logger.log ("alert received on mqtt : " + alert.data.resource +", "+alert.data.event+", "+alert.data.severity)
     if (alert?.data?.repeat === true) return;
 
     const payload = {
@@ -74,7 +74,6 @@ export class AlertsMqttService implements OnModuleInit {
 
     try {
       const contacts = await this.contactMatcher.findMatchingContacts(alert);
-      this.logger.log(contacts)
       if (!Array.isArray(contacts) || contacts.length === 0) return;
 
       const emailContent = this.emailFormatter.formatAlertEmailContent(alert);
@@ -126,7 +125,7 @@ export class AlertsMqttService implements OnModuleInit {
         attributes: {
           Country: 'France',
           basin_id: null,
-          alert_category: 'Battery issue',
+          alert_category: 'Operations alerts',
           mqtt_topic: 'operational',
           ArgoType: 'PSEUDO',
           LastStationDate: '24-05-2025',
