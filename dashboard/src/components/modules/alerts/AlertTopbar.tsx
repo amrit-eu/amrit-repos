@@ -108,7 +108,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                     case 'severity':
                     case 'status' :                    
                         if (filtersValues[filter])
-                            return <MultiSelectChip key={filter} datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []} filterName={filter} selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} onFilterChange={(filterKey, values) => {   
+                            return <MultiSelectChip key={filter} datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []} filterName={filter} onFilterChange={(filterKey, values) => {   
                                              onFilterChange(filterKey as AlertFilters, values);}}  />
                     case 'resource' :
                     case 'event':

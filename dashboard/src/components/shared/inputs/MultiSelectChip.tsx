@@ -1,80 +1,50 @@
 'use client';
-import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from '@mui/material';
+import { firstLetterToUppercase } from '@/lib/utils/stringUtils';
+import { Autocomplete,   Chip, FormControl,  TextField,  } from '@mui/material';
 import React from 'react'
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 interface MultiSelectChipProps {
-    datalist : string[]
-    selectedItems: string[]
+    datalist : string[]    
     filterName : string
     onFilterChange: (filterKey: string, values: string[]) => void
 }
 
 
 
-function getStyles(itemName: string, selectedItems: readonly string[], theme: Theme) {
-    return {
-      fontWeight: selectedItems.includes(itemName)
-        ? theme.typography.fontWeightMedium
-        : theme.typography.fontWeightRegular,
-    };
-  }
-
-const MultiSelectChip = ({datalist, selectedItems, onFilterChange, filterName} : MultiSelectChipProps) => {
-    const theme = useTheme();
-    const handleChange = (event: SelectChangeEvent<typeof selectedItems>) => {
-        const {
-          target: { value },
-        } = event;
-
-        const values = typeof value === 'string' ? value.split(',') : value;
-        onFilterChange(filterName,  values)
-      };
+const MultiSelectChip = ({datalist, onFilterChange, filterName} : MultiSelectChipProps) => {
+    
 
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">{filterName}</InputLabel>
-        <Select
-		  labelId={`${filterName}-label`}
-		  id={`${filterName}-select`}
-		  inputProps={{
-			'aria-label': `Select ${filterName}`,
-		  }}
+        <Autocomplete
+          id={`${filterName}-autocomplete`} 
           multiple
-          value={selectedItems}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label={filterName} />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
+          size="medium"
+          options={datalist}
+          onChange={(_, values) => onFilterChange(filterName, values)}        
+          renderTags={(value: string[], getTagProps) =>
+            value.map((option: string, index: number) => (
+              <Chip
+                label={option}
+                {...getTagProps({ index })}
+                key={option}
+              />
+            ))
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label={firstLetterToUppercase(filterName)}
+                            
+            />
           )}
-          MenuProps={MenuProps}
-        >
-          {datalist.map((item) => (
-            <MenuItem
-              key={item}
-              value={item}
-              style={getStyles(item, selectedItems, theme)}
-            >
-              {item}
-            </MenuItem>
-          ))}
-        </Select>
+          disableCloseOnSelect
+          noOptionsText="No options available"
+        />  
       </FormControl>
     </div>
   )
