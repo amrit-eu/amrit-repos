@@ -123,7 +123,7 @@ function filtersToQueryString(filters: FiltersValuesMap): string {
     params.append("q", qClauses.join(" AND "));
   }
 
-  return params.toString();
+  return params.toString().replace(/\+/g, '%20'); //'+' in q quert not well interpreted in alerta API. Replace by %20 (space)
 }
 
 function cleanAndAppendKeyValueToParam(val: string, key: string, useRegex: boolean, params: URLSearchParams) {
