@@ -20,28 +20,11 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
   let filterQuery = filtersToQueryString(filters);  
 
   // if there is a "q" query in filterQuery (for example from filters based on custom alert attributes) we want to extract it :
-  let luceneQuery = "";
-  const matchExistingQ = filterQuery.match(/(?:^|&)q=([^&]*)/);
-  if (matchExistingQ) {
-    luceneQuery = decodeURIComponent(matchExistingQ[1]);
-    filterQuery = filterQuery.replace(/(?:^|&)q=[^&]*/, ""); // q query will be added again after and coupled with eventual q query from "user's subs only".
-  }
+  let luceneQuery;
+  ({ luceneQuery, filterQuery } = ExtractAndDeleteLuceneQueryFromFilterQuery(filterQuery));
 
   // if "isOnlyMySubsAlerts" we need to fetch user subscriptions and build a Lucene q query from it :
-  if (isOnlyMySubsAlerts) {
-    const userSubs: AlertSubscription[] = await getUserAlertsSubscriptions(userId);
-    const {luceneQuery: luceneQueryFromUserSubs,timeRange: subsTimeRange}= await buildLuceneQueryFromSubscriptions(userSubs);
-    
-    //combining lucene q suery from filters with lucene q query from user's subs. It is a "AND" : filters apply in top of already subs filtered alets. 
-    if (luceneQueryFromUserSubs) {
-      luceneQuery = luceneQuery
-        ? `(${luceneQuery}) AND ${luceneQueryFromUserSubs}`
-        : luceneQueryFromUserSubs;
-    }
-    // special handling for date range from user'sub because Alerta Lucene q query doesn't support range queries by date (but support it with standard HTTP REST query)
-    if (subsTimeRange.from) timeRange.from = subsTimeRange.from;
-    if (subsTimeRange.to) timeRange.to = subsTimeRange.to;
-  }
+  luceneQuery = await handleUserSubs(isOnlyMySubsAlerts, userId, luceneQuery, timeRange);
 
   // add q query to querystring parts :
   if (luceneQuery) {
@@ -72,6 +55,34 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
 }
 
 
+
+async function handleUserSubs(isOnlyMySubsAlerts: boolean, userId: number, luceneQuery: string, timeRange: { from?: string; to?: string; }) {
+  if (isOnlyMySubsAlerts) {
+    const userSubs: AlertSubscription[] = await getUserAlertsSubscriptions(userId);
+    const { luceneQuery: luceneQueryFromUserSubs, timeRange: subsTimeRange } = await buildLuceneQueryFromSubscriptions(userSubs);
+
+    //combining lucene q suery from filters with lucene q query from user's subs. It is a "AND" : filters apply in top of already subs filtered alets. 
+    if (luceneQueryFromUserSubs) {
+      luceneQuery = luceneQuery
+        ? `(${luceneQuery}) AND ${luceneQueryFromUserSubs}`
+        : luceneQueryFromUserSubs;
+    }
+    // special handling for date range from user'sub because Alerta Lucene q query doesn't support range queries by date (but support it with standard HTTP REST query)
+    if (subsTimeRange.from) timeRange.from = subsTimeRange.from;
+    if (subsTimeRange.to) timeRange.to = subsTimeRange.to;
+  }
+  return luceneQuery;
+}
+
+function ExtractAndDeleteLuceneQueryFromFilterQuery(filterQuery: string) {
+  let luceneQuery = "";
+  const matchExistingQ = filterQuery.match(/(?:^|&)q=([^&]*)/);
+  if (matchExistingQ) {
+    luceneQuery = decodeURIComponent(matchExistingQ[1]);
+    filterQuery = filterQuery.replace(/(?:^|&)q=[^&]*/, ""); // q query will be added again after and coupled with eventual q query from "user's subs only".
+  }
+  return { luceneQuery, filterQuery };
+}
 
 /**
  * Transform the filters object  in a queryString. Clean values with a regex
@@ -149,6 +160,14 @@ function escapeRegex(value: string): string {
 }
 
 async function buildLuceneQueryFromSubscriptions(subs: AlertSubscription[]): Promise<{ luceneQuery: string, timeRange: TimeRange }> {
+  if (!subs.length) return { luceneQuery: "", timeRange: {} };
+  // fetch topics list only one time if necesseray :
+  let topicsData: TopicOption[] = [];
+  const needsTopics = subs.some(sub => sub.topicId);
+  if (needsTopics) {
+    topicsData = await gatewayFetchViaProxy<TopicOption[]>('GET', '/data/topics');
+  }
+
   const orClauses: string[] = [];
   // Currently not possible to make Lucene q query with date range in Alerta.
   // Need to handle subs date range with the classic http from-date= and to-date= query parameters.
@@ -156,57 +175,46 @@ async function buildLuceneQueryFromSubscriptions(subs: AlertSubscription[]): Pro
   const toDates: string[] = [];
 
   for (const sub of subs ) {
-    const andClauses: string[] = [];
-    if (sub.countryName) {
-      andClauses.push(`_.Country:"${sub.countryName}"`)
-    }
+    const andClauses: string[]  = buildLuceneAndClauses(sub, topicsData);
+    if (andClauses.length > 0) orClauses.push(`(${andClauses.join(" AND ")})`);
 
-    if (sub.minSeverityId) {
-      const severitiesToIncludeInQuery = getSeveritiesAboveMinSeverity(sub.minSeverityId);
-      andClauses.push(`severity:(${severitiesToIncludeInQuery.join(" OR ")})`)
-    }
-
-    if (sub.topicId) {
-      // retrieve topics list : 
-      const topicsData = await gatewayFetchViaProxy<TopicOption[]>('GET','/data/topics');
-      // get relevant list of topic from user's sub topicId : 
-      const topicsToIncludeInQuery = findAllChildrenTopicsFromId(topicsData,sub.topicId).map(t => escapeLuceneValue(t.label));
-      andClauses.push(`_.alert_category:(${topicsToIncludeInQuery.join(" OR ")})`)
-    }
-
-    if (sub.minTime) {
-      fromDates.push(sub.minTime);
-    }
-    if (sub.maxTime) {
-      toDates.push(sub.maxTime);
-    }
-
-    if (sub.wigosId) {
-      andClauses.push(`_.wigos_id:"${sub.wigosId}"`)
-    }
-
-    if (sub.basinId) {
-      andClauses.push(`_.basin_id:"${sub.basinId}"`)
-    }
-
-    if (andClauses.length > 0) {
-      orClauses.push(`(${andClauses.join(" AND ")})`);
-    }
+    // time range exception handling:
+    if (sub.minTime) fromDates.push(sub.minTime);    
+    if (sub.maxTime) toDates.push(sub.maxTime);
   }
 
   const luceneQuery = orClauses.length > 0 ? `(${orClauses.join(" OR ")})` : "";
 
   // special handling for date range : we create a single global covering date range from the different subscriptions. 
   // Not ideal but no choice
-  const timeRange: TimeRange = {};
-  if (fromDates.length > 0) {
-      timeRange.from = fromDates.reduce((a, b) => a < b ? a : b); // earliest minTime
-  }
-  if (toDates.length > 0) {
-      timeRange.to = toDates.reduce((a, b) => a > b ? a : b); // latest maxTime
-  }
+  const timeRange: TimeRange = buildTimeRange(fromDates, toDates);
 
   return { luceneQuery, timeRange };
+}
+
+function buildLuceneAndClauses(sub: AlertSubscription, topicsData: TopicOption[]): string[] {
+  const andClauses: string[] = [];
+
+  if (sub.countryName) andClauses.push(`_.Country:"${sub.countryName}"`);
+  if (sub.minSeverityId) {
+    const severitiesToIncludeInQuery = getSeveritiesAboveMinSeverity(sub.minSeverityId);
+    andClauses.push(`severity:(${severitiesToIncludeInQuery.join(" OR ")})`);
+  }
+  if (sub.topicId && topicsData.length) {
+    const topicsToIncludeInQuery = findAllChildrenTopicsFromId(topicsData, sub.topicId).map(t => escapeLuceneValue(t.label));
+    if (topicsToIncludeInQuery.length) andClauses.push(`_.alert_category:(${topicsToIncludeInQuery.join(" OR ")})`);
+  }
+  if (sub.wigosId) andClauses.push(`_.wigos_id:"${sub.wigosId}"`);
+  if (sub.basinId) andClauses.push(`_.basin_id:"${sub.basinId}"`);
+
+  return andClauses;
+}
+
+function buildTimeRange(fromDates: string[], toDates: string[]): TimeRange {
+  const timeRange: TimeRange = {};
+  if (fromDates.length) timeRange.from = fromDates.reduce((a, b) => a < b ? a : b);
+  if (toDates.length) timeRange.to = toDates.reduce((a, b) => a > b ? a : b);
+  return timeRange;
 }
 
 function paramExistsInQueryParts(queryParts: string[], param: string): boolean {
