@@ -1,5 +1,4 @@
 import { ALERTS_FILTERS_REGEX_MATCH } from '@/config/alertsFiltersCategories';
-import { ALERTA_API_BASE_URL } from '@/config/api-routes'
 import { ALERT_CUSTOMS_PARAMS } from '@/constants/alertOptions';
 import {  AlertApiResponse } from '@/types/alert';
 import { FiltersValuesMap } from '@/types/filters';
@@ -10,7 +9,7 @@ import { getSeveritiesAboveMinSeverity } from '../utils/getSeveritiesAboveMinSev
 import { gatewayFetchViaProxy } from '../gateway/gatewayFetchViaProxy.client';
 import { findAllChildrenTopicsFromId } from '../utils/findAllChildrenFromTopicId';
 
-const baseUrl = ALERTA_API_BASE_URL;
+//const baseUrl = ALERTA_API_BASE_URL;
 
 export default async function getAlerts(filters:FiltersValuesMap = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false,isOnlyMySubsAlerts:boolean=false, userId:number=0, signal?: AbortSignal) : Promise<AlertApiResponse> {
   const queryStringParts: string[] = [];
@@ -46,12 +45,9 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
   const queryString = queryStringParts.filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
   
   // fetch data
-  const res = await fetch(`${baseUrl}/alerts?${queryString}`, {signal,
-    credentials: 'include'});
+  return await gatewayFetchViaProxy<AlertApiResponse>('GET',`/alerta/alerts?${queryString}`, signal=signal);
 
-  if (!res.ok) throw new Error ("failed to fetch Alert data");
 
-  return res.json();
 }
 
 

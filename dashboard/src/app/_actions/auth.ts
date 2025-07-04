@@ -1,6 +1,5 @@
 "use server";
 
-import { AUTHSERVICE_API_BASE_URL } from '@/config/api-routes';
 import { createSession, deleteSession } from '@/app/_lib/session';
 import { z } from 'zod'
 import { redirect } from 'next/navigation';
@@ -32,7 +31,7 @@ export async function login(prevState: LoginFormState |undefined, formData: Form
 
     // Call to auth service :
     const {login, password} = result.data;
-    const res = await fetch(`${AUTHSERVICE_API_BASE_URL}/login`, {
+    const res = await fetch(`${process.env.GATEWAY_BASE_URL}/oceanops/auth/login`, {
         method: 'POST',
         body: JSON.stringify({ login, password }),
         headers: {

@@ -1,7 +1,7 @@
-import { GATEWAY_BASE_URL } from '@/config/api-routes';
+import { GATEWAY_BASE_URL } from '@/app/api/gateway-proxy/config.server';
 import { cookies, headers } from 'next/headers';
 
-export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 
 interface FetchFromGatewayOptions {
   method?: HttpMethod;
