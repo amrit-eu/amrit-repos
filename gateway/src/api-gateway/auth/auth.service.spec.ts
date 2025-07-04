@@ -10,9 +10,11 @@ describe('AuthService', () => {
      const mockConfigService = {
       getOrThrow: jest.fn((key: string) => {
         const mockConfig: Record<string, string> = {
-          ALERTA_HOST: 'http://mock-alerta-host',
+          ALERTA_HOST: 'mock-alerta-host',
+          ALERTA_PROTOCOL:'https',
           ALERTA_READ_API_KEY: 'mock-alerta-key',
-          OCEANOPS_HOST: 'http://mock-oceanops-host'
+          OCEANOPS_HOST: 'http://mock-oceanops-host',
+          OCEANOPS_PROTOCOL:'https',
         };
         if (mockConfig[key]) return mockConfig[key];
         throw new Error(`Config key ${key} not found`);
