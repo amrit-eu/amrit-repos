@@ -4,25 +4,12 @@ import { AlertaService } from './alerta.service';
 import {Request} from 'express';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { mockConfigService } from 'test/config-service.mock';
 
 describe('AlertaController', () => {
   let alertaController: AlertaController;
   let alertaService: AlertaService
 
-  // Mock ConfigService
-const mockConfigService = {
-  getOrThrow: jest.fn((key: string) => {
-    const mockConfig: Record<string, string> = {
-      ALERTA_HOST: 'mock-alerta-host',
-      ALERTA_PROTOCOL:'https',
-      ALERTA_READ_API_KEY: 'mock-alerta-key',
-      OCEANOPS_HOST: 'http://mock-oceanops-host',
-      OCEANOPS_PROTOCOL:'https',
-    };
-    if (mockConfig[key]) return mockConfig[key];
-    throw new Error(`Config key ${key} not found`);
-  }),
-};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
