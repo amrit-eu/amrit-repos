@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM cgr.dev/chainguard/node:latest AS base
 
 
 LABEL org.opencontainers.image.authors="yvan.lubac@euro-argo.eu"
@@ -45,4 +45,4 @@ EXPOSE 3000
 
 # Command to run the application
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "dist/main.js"]
+ENTRYPOINT ["node", "dist/main.js"]
