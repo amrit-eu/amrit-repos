@@ -45,7 +45,7 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
   const queryString = queryStringParts.filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
   
   // fetch data
-  return await gatewayFetchViaProxy<AlertApiResponse>('GET',`/alerta/alerts?${queryString}`, signal=signal);
+  return await gatewayFetchViaProxy<AlertApiResponse>('GET',`/alerta/alerts?${queryString}`, undefined, signal);
 
 
 }
@@ -208,8 +208,8 @@ function buildLuceneAndClauses(sub: AlertSubscription, topicsData: TopicOption[]
 
 function buildTimeRange(fromDates: string[], toDates: string[]): TimeRange {
   const timeRange: TimeRange = {};
-  if (fromDates.length) timeRange.from = fromDates.reduce((a, b) => a < b ? a : b);
-  if (toDates.length) timeRange.to = toDates.reduce((a, b) => a > b ? a : b);
+  if (fromDates.length) timeRange.from = fromDates.reduce((a, b) => a < b ? a : b, fromDates[0]);
+  if (toDates.length) timeRange.to = toDates.reduce((a, b) => a > b ? a : b,toDates[0] );
   return timeRange;
 }
 
