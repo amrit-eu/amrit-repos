@@ -3,7 +3,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
-import { mockConfigService } from 'test/config-service.mock';
+import { mockConfigService } from '../../../test/config-service.mock';
 
 describe('AuthController', () => {
   let controller: AuthController;

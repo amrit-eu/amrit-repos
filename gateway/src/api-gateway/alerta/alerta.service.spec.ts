@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AlertaService } from './alerta.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { mockConfigService } from 'test/config-service.mock';
+import { mockConfigService } from '../../../test/config-service.mock';
 
 describe('AlertaService', () => {
   let service: AlertaService;

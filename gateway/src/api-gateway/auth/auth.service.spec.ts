@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { mockConfigService } from 'test/config-service.mock';
+import { mockConfigService } from '../../../test/config-service.mock';
 
 describe('AuthService', () => {
   let service: AuthService;

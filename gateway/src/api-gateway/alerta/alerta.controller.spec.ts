@@ -4,7 +4,7 @@ import { AlertaService } from './alerta.service';
 import {Request} from 'express';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { mockConfigService } from 'test/config-service.mock';
+import { mockConfigService } from '../../../test/config-service.mock';
 
 describe('AlertaController', () => {
   let alertaController: AlertaController;
