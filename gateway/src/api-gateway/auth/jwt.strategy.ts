@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         const proxyRoutes = createProxyRouteMap(configService);
         const route = proxyRoutes['api/oceanops'];
         // may be for speed, have the public key.pem in gateway environnement instead of making a request to JWKS endpoint ?
-        const jwksEndpoint = `https://${route.host}${route.targetPath}/auth/.well-known/jwks.json` 
+        const jwksEndpoint = `${route.protocol}://${route.host}${route.targetPath}/auth/.well-known/jwks.json` 
         
         super({
             // extract token from request :
