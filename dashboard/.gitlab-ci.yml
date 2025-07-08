@@ -1,5 +1,6 @@
 include:
   - component: $CI_SERVER_FQDN/dev-ops/templates/automatisation/ci-cd/pipeline-javascript@~latest
-
+variables:
+  CONTAINER_IMAGE_BUILD_ARGS: "--build-arg NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCE=$NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES"  # pour surcharger la commande de construction des images
 default:
   tags: [dind]

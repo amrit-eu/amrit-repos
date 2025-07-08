@@ -28,6 +28,8 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
+ARG NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES
+ENV NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES=$NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES
 
 RUN npm run build
 
