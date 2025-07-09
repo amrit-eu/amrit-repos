@@ -92,12 +92,23 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   async sendEmail(email: string, alert: AlertEvent, content: string): Promise<void> {
+    const activeEmail = process.env.ACTIVE_EMAIL === 'true';
+    
+    if (activeEmail) {
+    await this.mailer.sendMail(
+      email,
+      `Alert: ${alert.type ?? 'Untitled'}`,
+      content,
+      'AMRIT Alerts',
+    );
+  } else {
     await this.mailer.sendTestEmail(
       email,
       `Alert: ${alert.type ?? 'Untitled'}`,
       content,
       'AMRIT Alerts',
     );
+  }
   }
 
   async testMockAlert(): Promise<void> {
