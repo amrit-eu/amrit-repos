@@ -21,6 +21,8 @@ const OptionBox = styled(Box)({
 });
 
 const OCEANOPS_STATIC_RESOURCES = process.env.NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES || 'https://www.ocean-ops.org/static'
+console.log(OCEANOPS_STATIC_RESOURCES)
+
 const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, options }) => {
 
   return (
