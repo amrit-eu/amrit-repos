@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: 'www.ocean-ops.org',
         pathname: '/static/images/flags_iso/24/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'oceanops-dashboard.isival.ifremer.fr',
+        pathname: '/static/images/flags_iso/24/**',
+      },
     ],
   }
 };
