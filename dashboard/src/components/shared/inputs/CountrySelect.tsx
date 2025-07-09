@@ -21,7 +21,6 @@ const OptionBox = styled(Box)({
 });
 
 const OCEANOPS_STATIC_RESOURCES = process.env.NEXT_PUBLIC_OCEANOPS_STATIC_RESOURCES || 'https://www.ocean-ops.org/static'
-console.log(OCEANOPS_STATIC_RESOURCES)
 
 const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, options }) => {
 
@@ -68,7 +67,7 @@ const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, 
         <li {...props} key={option.id}>
           <OptionBox>
             <Image
-				src={`https://www.ocean-ops.org/static/images/flags_iso/24/${option.code2?.toLowerCase()}.png`}
+				src={`${OCEANOPS_STATIC_RESOURCES}/images/flags_iso/24/${option.code2?.toLowerCase()}.png`}
 				alt=""
 				width={24}
 				height={24}
