@@ -99,14 +99,14 @@ export class AlertsMqttService implements OnModuleInit {
     if (this.activeEmail) {
     await this.mailer.sendMail(
       email,
-      `Alert: ${alert.type ?? 'Untitled'}`,
+      `Alert: ${alert.data.resource} - ${alert.data.event}`,
       content,
       'AMRIT Alerts',
     );
   } else {
     await this.mailer.sendTestEmail(
       email,
-      `Alert: ${alert.type ?? 'Untitled'}`,
+      `Alert: ${alert.data.resource} - ${alert.data.event}`,
       content,
       'AMRIT Alerts',
     );
