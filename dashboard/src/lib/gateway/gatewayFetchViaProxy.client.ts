@@ -10,20 +10,23 @@ export async function gatewayFetchViaProxy<T>(
 
   if (method === 'GET') {
     const url = `/api/gateway-proxy?path=${encodeURIComponent(path)}`;
-    res = await fetch(url, { method: 'GET' });
+    res = await fetch(url, { method: 'GET', signal });
   } else {
     res = await fetch('/api/gateway-proxy', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ method, path, body }),
-      signal:signal
+      signal:signal,
+      credentials: 'include'
     });
   }
 
   const contentType = res.headers.get('content-type') || '';
 
+  const text = await res.text();
+
   if (!res.ok) {
-    const text = await res.text();
+    
     try {
       const parsed = JSON.parse(text);
       throw new Error(parsed.error || `Gateway error (${res.status})`);
@@ -34,8 +37,7 @@ export async function gatewayFetchViaProxy<T>(
 
   if (!contentType.includes('application/json')) {
     return {} as T;
-  }
-
-  const text = await res.text();
+  }    
+  
   return text ? JSON.parse(text) : ({} as T);
 }

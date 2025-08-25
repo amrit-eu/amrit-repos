@@ -1,9 +1,8 @@
-import { ALERTA_API_BASE_URL } from "@/config/api-routes";
+import { gatewayFetchViaProxy } from "../gateway/gatewayFetchViaProxy.client";
 import batchRequestByIds from "../utils/batchRequestByIds";
 import { ActionType } from "@/constants/alertOptions";
 
 
-const baseUrl = ALERTA_API_BASE_URL;
 
 /**
  * Launch fetch methods (PUT or DELETE) for each alert id given in ids[] parameter
@@ -31,37 +30,13 @@ export default async function actOnAlerts (ids : readonly string[], action: Acti
 
 }
 
-const actionAlert = async (id :string, action:ActionType ) =>  await fetch (`${baseUrl}/alert/${id}/action`, {
-    method: "put",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+const actionAlert = async (id :string, action:ActionType ) =>  await gatewayFetchViaProxy<Response> ('PUT',`/alerta/alert/${id}/action`,{
         action: action,
         timeout: null
-      }),
-      credentials: 'include'
-  })
+      }
+  )
+const deleteAlert = async (id: string) => await gatewayFetchViaProxy<Response> ('DELETE',`/alerta/alert/${id}`)
 
-const deleteAlert = async (id: string) => await fetch (`${baseUrl}/alert/${id}`, {
-    method: "delete",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },      
-      credentials: 'include'
-  })
-
-const addNoteOnAlert = async (alertId :string, text:string ) =>  await fetch (`${baseUrl}/alert/${alertId}/note`, {
-    method: "put",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        text:text
-      }),
-      credentials: 'include'
-  })
+const addNoteOnAlert = async (alertId :string, text:string ) =>  await gatewayFetchViaProxy<Response> ('PUT',`/alerta/alert/${alertId}/note`, {text:text})
+  
 

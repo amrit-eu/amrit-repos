@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'www.ocean-ops.org',
         pathname: '/static/images/flags_iso/24/**',
-      },
+      }     
     ],
   }
 };

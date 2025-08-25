@@ -3,9 +3,10 @@ import { postToGateway } from '@/lib/gateway/postToGateway.server';
 import { patchToGateway } from '@/lib/gateway/patchToGateway.server';
 import { deleteFromGateway } from '@/lib/gateway/deleteFromGateway.server';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
+import { putToGateway } from '@/lib/gateway/putToGateway.server';
 
 interface GatewayProxyPayload {
-  method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   path: string;
   body?: unknown;
 }
@@ -35,6 +36,8 @@ export async function POST(req: NextRequest) {
       result = await patchToGateway(path, body);
     } else if (method === 'DELETE') {
       result = await deleteFromGateway(path);
+    } else if (method === 'PUT') {
+      result = await putToGateway(path, body);
     } else {
       return NextResponse.json({ error: 'Invalid method' }, { status: 400 });
     }

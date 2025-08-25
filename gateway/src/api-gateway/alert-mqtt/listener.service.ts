@@ -11,6 +11,7 @@ import { AlertEvent } from '../../types/alert';
 @Injectable()
 export class AlertsMqttService implements OnModuleInit {
   private client!: mqtt.MqttClient;
+  private activeEmail : boolean;
   private readonly proxyRoutes: ProxyRouteMap;
   private readonly logger = new Logger(AlertsMqttService.name);
 
@@ -25,6 +26,7 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   onModuleInit(): void {
+    this.activeEmail = process.env.ACTIVE_EMAIL === 'true';
     this.client = mqtt.connect(process.env.ALERTS_MQTT_HOST_URL!, {
       username: process.env.ALERTS_MQTT_USERNAME_RO!,
       password: process.env.ALERTS_MQTT_PASSWORD_RO!,
@@ -37,9 +39,10 @@ export class AlertsMqttService implements OnModuleInit {
         if (!err) {
           this.logger.log('✅ Connected to MQTT broker');
 
-		  // RECIEVE AND HANDLE MOCK ALERT FOR TESTING IN DEV
-          void this.testMockAlert(); 
-        }
+		  // RECIEVE AND HANDLE MOCK ALERT FOR TESTING IN DEV (only if sending real email is not activated)
+        if(!this.activeEmail) void this.testMockAlert(); 
+          
+      }
       });
     });
 
@@ -92,12 +95,22 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   async sendEmail(email: string, alert: AlertEvent, content: string): Promise<void> {
-    await this.mailer.sendTestEmail(
+        
+    if (this.activeEmail) {
+    await this.mailer.sendMail(
       email,
-      `Alert: ${alert.type ?? 'Untitled'}`,
+      `Alert: ${alert.data.resource} - ${alert.data.event}`,
       content,
       'AMRIT Alerts',
     );
+  } else {
+    await this.mailer.sendTestEmail(
+      email,
+      `Alert: ${alert.data.resource} - ${alert.data.event}`,
+      content,
+      'AMRIT Alerts',
+    );
+  }
   }
 
   async testMockAlert(): Promise<void> {

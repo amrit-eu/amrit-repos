@@ -41,7 +41,7 @@ export async function proxyHttpRequest<T = unknown>(httpService: HttpService, co
      * @returns AxiosRequestConfig
      */
 export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxyPath: string,  route : ProxyRoute) {
-	const { host, targetPath, authHeader } = route;
+	const { host, protocol, targetPath, authHeader } = route;
   
 	const method = req.method.toLowerCase();
 	const params = req.query;
@@ -63,10 +63,9 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxy
   
   
   const relativePath = req.path.replace(`/${baseProxyPath}`, targetPath);
-  const url = `https://${host}${relativePath}`;
+  const url = `${protocol}://${host}${relativePath}`;
 
-
-    // configure the axios request from the source request & api's url
+  // configure the axios request from the source request & api's url
 	const config: AxiosRequestConfig = {
 	  method,
 	  url,
