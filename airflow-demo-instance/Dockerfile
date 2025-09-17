@@ -1,4 +1,4 @@
-FROM gitlab-registry.ifremer.fr/ifremer-commons/docker/images/apache/airflow:3.0.6
+FROM apache/airflow:3.0.6
 
 WORKDIR /opt/airflow
 

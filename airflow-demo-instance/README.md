@@ -5,20 +5,17 @@ This repository provides a ready-to-use **Apache Airflow** instance for **local 
 ## 🚀 Quick Start
 
 Prerequisites:
+
 - Docker (Engine) + Docker Compose (either the `docker compose` plugin or `docker-compose` binary)
 - Linux/macOS/WSL2
 
-1. Make the script executable:
-   ```bash
-   chmod +x run-airflow.sh
-   ```
-2. Start the instance:
-   ```bash
-   ./run-airflow.sh
-   ```
+```bash
+./run-airflow.sh
+```
 
 The script:
-- initializes `AIRFLOW_UID` and `AIRFLOW_GID` in `.env` with your current user/group IDs,
+
+- initializes `AIRFLOW_UID` and `AIRFLOW_GID` with your current user/group IDs,
 - performs a `pull`/`build` if needed,
 - starts the services in detached mode (`up -d`),
 - shows the status and reminds you of useful commands.
@@ -26,11 +23,10 @@ The script:
 ### Web Access
 
 Once running, the Airflow web interface is usually available at:
-- http://localhost:8080
+
+- <http://localhost:8080>
 
 (The exact port depends on your `compose.yml`.)
-
-
 
 ## 🗂️ Project Structure
 
@@ -44,7 +40,7 @@ airflow-demo-instance/
 ├── dags/                 # Your Airflow DAGs (.py files go here)
 ├── plugins/              # Airflow plugins (custom operators/hooks/providers)
 ├── logs/                 # Airflow logs (mounted as a volume for persistence)
-├── config/               # Custom configs (airflow.cfg, webserver_config.py, etc. if used)
+├── config/               # Airflow configs (default airflow.cfg)
 ├── data/                 # Data/artifacts used by DAGs (mounted inside containers)
 └── run-airflow.sh        # Launch script
 ```

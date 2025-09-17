@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-# Aller dans le répertoire du script
 cd "$(dirname "$0")"
 
-# Récupérer l'UID et GID courants
-export USER_ID=$(id -u)
-export GROUP_ID=$(id -g)
+# Get current UID et GID
+export AIRFLOW_UID=$(id -u)
+export AIRFLOW_GID=$(id -g)
 
-# Lancer Airflow avec docker compose
-echo "🚀 Démarrage d'Airflow..."
+# Run Airflow with docker compose
+echo "🚀 Running d'Airflow..."
 docker compose up -d
 
-echo "ℹ️ Pour voir les logs : docker compose logs -f"
+echo "ℹ️ See logs : docker compose logs -f"
