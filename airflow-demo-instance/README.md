@@ -8,6 +8,7 @@ Prerequisites:
 
 - Docker (Engine) + Docker Compose (either the `docker compose` plugin or `docker-compose` binary)
 - Linux/macOS/WSL2
+- Run Airflow
 
 ```bash
 ./run-airflow.sh
@@ -19,6 +20,12 @@ The script:
 - performs a `pull`/`build` if needed,
 - starts the services in detached mode (`up -d`),
 - shows the status and reminds you of useful commands.
+
+- stop Airflow
+
+```bash
+./stop-airflow.sh
+```
 
 ### Web Access
 
@@ -69,13 +76,13 @@ docker compose down -v
 ## ❓ Troubleshooting (FAQ)
 
 - **Permission denied on logs or Airflow home**  
-  Ensure `AIRFLOW_UID`/`AIRFLOW_GID` in `.env` match your current user. Re-run `./run-airflow.sh`.
+  Ensure `AIRFLOW_UID`/`AIRFLOW_GID` match your current user. Re-run `./run-airflow.sh`.
 
 - **`docker: command not found` or Compose not found**  
   Install Docker and the Compose plugin (or the `docker-compose` binary), then try again.
 
 - **Port 8080 already in use**  
-  Change the port mapping in `compose.yml` or `compose.override.yml`.
+  Change the port mapping in `compose.override.yml`.
 
 ---
 
