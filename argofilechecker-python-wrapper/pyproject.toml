@@ -17,6 +17,7 @@ style = "semver"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
+pydantic = "^2.11.9"
 
 [dependency-groups]
 lint = [

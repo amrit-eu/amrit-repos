@@ -3,7 +3,7 @@ from typing import List
 from pydantic import BaseModel
 
 class ResultType(str, Enum):
-    """Error codes possibles"""
+    """Error codes possibilities"""
 
     SUCCESS = "FILE-ACCEPTED"
     FAILURE = "FILE-REJECTED"
@@ -19,6 +19,7 @@ class PhaseType (str, Enum) :
 
 
 class ValidationResult (BaseModel):
+    file_checker_version:str
     file:str
     result : ResultType
     phase: PhaseType
@@ -31,5 +32,5 @@ class ValidationResult (BaseModel):
         """Summary for humans"""
         status = "FILE ACCEPTED" if self.result == ResultType.SUCCESS else "FILE REJECTED"
 
-        return f"{self.file} : {status} with {len(self.errors_number)} error(s) and {len(self.warnings_number)} warning(s)"
+        return f"{self.file} : {status} with {self.errors_number} error(s) and {self.warnings_number} warning(s)"
     
