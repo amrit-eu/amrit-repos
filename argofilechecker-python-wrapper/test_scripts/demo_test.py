@@ -3,7 +3,7 @@ from pathlib import Path
 from argofilechecker_python_wrapper import FileChecker, ValidationResult
 from argofilechecker_python_wrapper.models import ResultType
 
-jar_path ="./file_checker_exec-2.9.3.jar"
+jar_path ="./file_checker_exec-2.9.3-SNAPSHOT.jar"
 spec_path = "./file_checker_spec"
 
 # get FileChecker :
