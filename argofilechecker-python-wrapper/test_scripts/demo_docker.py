@@ -3,17 +3,17 @@ from typing import List
 from argofilechecker_python_wrapper import FileChecker, ValidationResult
 from argofilechecker_python_wrapper.models import ResultType
 
-jar_path ="./file_checker_exec-2.9.3-SNAPSHOT.jar"
-spec_path = "./file_checker_spec"
+
+specs_path = "/specs"
 
 
-# 1) Instantiate the wrapper (explicit paths)
-fileChecker = FileChecker(jar_path, spec_path)
-# You can also instantiate the checker without arguments if your environment variables are set:
-# file_checker = FileChecker()  # reads FILE_CHECKER_JAR / FILE_CHECKER_SPECS
+# 1) Instantiate the wrapper (explicit paths).
+# file checker jar is already contained in the docker image
+fileChecker = FileChecker(specs_path=specs_path)
+
 
 # 2) Validate a list of files from the same DAC
-list_files = [f'./test_data/2903996/{file}' for file in os.listdir('./test_data/2903996')]
+list_files = [f'/data/{file}' for file in os.listdir('/data')]
 validation_results:List[ValidationResult] = fileChecker.check_files(list_files,"coriolis" )
 
 # 3) Iterate over the results
