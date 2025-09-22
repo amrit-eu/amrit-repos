@@ -2,6 +2,7 @@
 requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
+
 [tool.poetry]
 name = "argofilechecker-python-wrapper"
 version = "0.0.0"
@@ -18,6 +19,26 @@ style = "semver"
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
 pydantic = "^2.11.9"
+# Specify the optional dependencies that will be used below as "extras"
+pytest = { version = ">=8.4.2,<9.0.0", optional = true }
+pytest-cov = { version = ">=7.0.0,<8.0.0", optional = true }
+pytest-mock = { version = ">=3.15.1,<4.0.0", optional = true }
+coverage = { version = ">=7.10.6,<8.0.0", extras = ["xml"], optional = true }
+tox = { version = ">=4.30.2,<5.0.0", optional = true }
+ruff = { version = ">=0.13.0,<0.14.0", optional = true }
+mypy = { version = ">=1.18.1,<2.0.0", optional = true }
+bandit = { version = ">=1.8.6,<2.0.0", extras = ["toml"], optional = true }
+poetry = { version = ">=2.0.0", optional = true }
+twine = { version = ">=6.2.0,<7.0.0", optional = true }
+
+
+[tool.poetry.extras]
+test = ["pytest", "pytest-cov", "pytest-mock", "coverage", "tox"]
+lint = ["ruff"]
+type = ["mypy"]
+bandit = ["bandit"]
+build = ["poetry", "twine"]
+
 
 [dependency-groups]
 lint = [
@@ -48,6 +69,9 @@ source = [
 
 [tool.setuptools.packages.find]
 namespaces = false
+
+[tool.bandit]
+exclude_dirs = ["tests"]
 
 [tool.ruff]
 target-version = "py312"

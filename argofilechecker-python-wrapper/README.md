@@ -23,7 +23,7 @@ See /demo_scripts where a demo python script is provided along with a file check
 
 ```bash
 cd ./demo_scripts
-poetry run python .\demo_test.py
+poetry run python demo_test.py
 ```
 
 ## Run ArgoFileChecker Python Wrapper in a pre-built container image
