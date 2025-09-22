@@ -19,10 +19,10 @@ FILE_CHECKER_JAR: path to file_checker_exec-*.jar
 FILE_CHECKER_SPECS: path to the file_checker_spec directory
 
 ### Usage example
-See /test_scripts where a test python script is provided along with a file checker .jar and some netcdf test data.
+See /demo_scripts where a demo python script is provided along with a file checker .jar and some netcdf test data.
 
 ```bash
-cd ./test_scripts
+cd ./demo_scripts
 poetry run python .\demo_test.py
 ```
 
@@ -37,6 +37,7 @@ docker build -t argofilechecker-python:latest .
 Argo File checker .jar file will be included in the docker image but you still need to mount your data and specs volumes and also your script file (if not used in interactive mode) :
 
 ```bash
+cd ./demo_scripts
 docker run --rm -v ${pwd}/demo_docker.py:/scripts/demo_docker.py -v ${pwd}/test_data/2903996:/data -v ${pwd}/file_checker_spec:/specs  argofilechecker-python:latest /scripts/demo_docker.py
 ```
 Ensure that the correct volumes names are used in your script.
@@ -44,6 +45,7 @@ Ensure that the correct volumes names are used in your script.
 You can use interactive mode to execute python code inside the container :
 
 ```bash
+cd ./demo_scripts
 docker run --rm -it -v ${pwd}/test_data/2903996:/data -v ${pwd}/file_checker_spec:/specs  argofilechecker-python:latest
 >>> from argofilechecker_python_wrapper import FileChecker
 >>> filechecker = FileChecker(specs_path='/specs')
