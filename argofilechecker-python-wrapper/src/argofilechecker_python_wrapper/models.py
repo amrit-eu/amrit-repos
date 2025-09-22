@@ -1,16 +1,19 @@
 from enum import Enum
 from typing import List
+
 from pydantic import BaseModel
 
+
 class ResultType(str, Enum):
-    """Error codes possibilities"""
+    """Error codes possibilities."""
 
     SUCCESS = "FILE-ACCEPTED"
     FAILURE = "FILE-REJECTED"
     ERROR = "ERROR"
 
 class PhaseType (str, Enum) :
-    """File Checker verification phases"""
+    """File Checker verification phases."""
+
     OPEN_FILE = "OPEN-FILE"
     FORMAT = "FORMAT-VERIFICATION"
     DATA = "DATA-VALIDATION"
@@ -19,6 +22,8 @@ class PhaseType (str, Enum) :
 
 
 class ValidationResult (BaseModel):
+    """Represents the result of an Argo file checker validation."""
+
     file_checker_version:str
     file:str
     result : ResultType
@@ -29,7 +34,7 @@ class ValidationResult (BaseModel):
     warnings_messages : List[str]
 
     def to_string (self) -> str :
-        """Summary for humans"""
+        """Summary for humans."""
         status = "FILE ACCEPTED" if self.result == ResultType.SUCCESS else "FILE REJECTED"
 
         return f"{self.file} : {status} with {self.errors_number} error(s) and {self.warnings_number} warning(s)"
