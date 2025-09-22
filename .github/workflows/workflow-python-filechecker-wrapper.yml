@@ -23,3 +23,15 @@ jobs:
     uses: ./.github/workflows/component-python-security.yml
     with:
       context: argofilechecker-python-wrapper
+  container-image-build:
+    needs: [python-linting, python-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: argofilechecker-python-wrapper
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-pytho/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: argofilechecker-python-wrapper
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-pytho/app
