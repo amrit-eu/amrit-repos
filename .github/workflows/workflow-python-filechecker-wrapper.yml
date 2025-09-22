@@ -1,0 +1,25 @@
+name: Python Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - argofilechecker-python-wrapper/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - argofilechecker-python-wrapper/**
+  release:
+    types: [created]
+
+jobs:
+  python-linting:
+    uses: ./.github/workflows/component-python-lint.yml
+    with:
+      context: argofilechecker-python-wrapper
+  python-security:
+    uses: ./.github/workflows/component-python-security.yml
+    with:
+      context: argofilechecker-python-wrapper

@@ -129,7 +129,7 @@ class FileChecker:
             A list of ValidationResult objects.
 
         """
-        
+
         #need a temp directory for XML output
         with tempfile.TemporaryDirectory(prefix="filechecker_output_") as temp_output_dir:
             temp_output = Path(temp_output_dir)
@@ -256,7 +256,7 @@ class FileChecker:
             return validation_result
             
 
-    def _get_valid_files_path (self, files_paths_str: List[str]) -> tuple[list[Path], list[Path]]:
+    def _get_valid_files_path (self, files_paths_str: List[str]) -> tuple[list[Path], list[str]]:
         """From a list of files, determinate for each file if it exist or not.
 
         Args : 
@@ -289,7 +289,7 @@ class FileChecker:
             Dict[Path, List[str]  : A dict with key : a directory's Path
             and value : a list of files's names present in the directory.
         """
-        files_by_directory = {}
+        files_by_directory: Dict[Path, List[str]] = {}
         for file_path in files_path:
             parent_dir = file_path.parent
             if parent_dir not in files_by_directory:
