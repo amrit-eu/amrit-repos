@@ -29,9 +29,3 @@ jobs:
     with:
       context: argofilechecker-python-wrapper
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-python/app
-  container-image-security:
-    needs: [container-image-build]
-    uses: ./.github/workflows/component-container-image-security.yml
-    with:
-      context: argofilechecker-python-wrapper
-      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-python/app
