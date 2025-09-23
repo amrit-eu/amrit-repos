@@ -3,11 +3,11 @@
 
 import logging
 import os
-import subprocess
+import subprocess # nosec B404
 import tempfile
 from pathlib import Path
 from typing import Dict, List, Optional
-from xml.etree.ElementTree import Element, ElementTree, ParseError
+from xml.etree.ElementTree import Element, ElementTree, ParseError # nosec B405: this import is just for type.
 
 import defusedxml.ElementTree as DefusedET
 
@@ -148,7 +148,7 @@ class FileChecker:
 
             # launch subprocess :
             try:
-                result = subprocess.run(cmd, capture_output=True, text=True, check=False, timeout=300)
+                result = subprocess.run(cmd, capture_output=True, text=True, check=False, timeout=300, shell=False) # nosec B603: no shell, fixed executable path
                 if (result.stderr) :
                     logger.error(result.stderr.strip())
                 if (result.stdout) :
@@ -231,17 +231,17 @@ class FileChecker:
 
             # result
             result = _extract_text("status","")     
-            if result in {e.value for e in ResultType}:
-                result_enum = ResultType(result)
-            else:
+            try:
+                result_enum = ResultType(result) if result else ResultType.ERROR
+            except ValueError:
                 result_enum = ResultType.ERROR
 
             # checking phase
             phase = _extract_text("phase","")
-            if phase in {e.value for e in PhaseType}:
-                phase_enum = PhaseType(phase)
-            else:
-                phase_enum = PhaseType.FORMAT         
+            try:
+                phase_enum = PhaseType(phase) if result else PhaseType.FORMAT
+            except ValueError:
+                phase_enum = PhaseType.FORMAT       
 
             #errors
             errors_elem = root.find("errors")            
