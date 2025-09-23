@@ -2,13 +2,16 @@
 requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
-
-[tool.poetry]
+[project]
 name = "argofilechecker-python-wrapper"
 version = "0.0.0"
 description = "Python wrapper for Argo file checker"
-authors = ["Yvanohe <yvanohe@gmail.com>"]
+authors = [
+    {name = "Yvan Lubac",email = "yvan.lubac@euro-argo.eu"}
+]
 readme = "README.md"
+
+[tool.poetry]
 packages = [{include = "argofilechecker_python_wrapper", from = "src"}]
 
 [tool.poetry-dynamic-versioning]
@@ -17,7 +20,7 @@ vcs = "git"
 style = "semver"
 
 [tool.poetry.dependencies]
-python = ">=3.12,<4.0"
+python = ">=3.10,<4.0"
 pydantic = "^2.11.9"
 
 # Specify the optional dependencies that will be used below as "extras"
@@ -146,6 +149,7 @@ docstring-code-line-length = "dynamic"
 
 [tool.mypy]
 python_version = "3.12"
+plugins = ["pydantic.mypy"]
 disallow_any_unimported = true
 disallow_any_expr = true
 disallow_any_decorated = true
@@ -165,6 +169,11 @@ warn_redundant_casts = true
 strict_equality = true
 warn_unused_configs = true
 ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

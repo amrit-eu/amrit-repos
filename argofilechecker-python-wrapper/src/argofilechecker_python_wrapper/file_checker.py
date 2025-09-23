@@ -207,21 +207,40 @@ class FileChecker:
         try :
             # Parsing wml file using xml.etree.ElementTree
             tree = ET.parse(xml_file)
-            root = tree.getroot()
+            root:ET.Element = tree.getroot()
 
+            # file  checker version
             file_checker_version = root.attrib["filechecker_version"]
-            file = root.find("file").text if root.find("file") is not None else "" #  type: ignore[union-attr]
-            result = root.find("status").text if root.find("status") is not None else "" #  type: ignore[union-attr]
+
+            # processed file's name
+            file_elem = root.find("file")
+            if file_elem is not None :
+                file = file_elem.text
+            else:
+                file = ""
+
+            # result
+            result_elem = root.find("status")
+            if result_elem is not None :
+                result = result_elem.text
+            else:
+                result = ""            
             result_enum: ResultType = (
-                ResultType(result) if isinstance(result, str) else ResultType.ERROR            )
+                ResultType(result) if isinstance(result, str) else ResultType.ERROR
+            )
 
-
-            phase = root.find("phase").text if root.find("phase") is not None else "" #  type: ignore[union-attr]
+            # checking phase
+            phase_elem = root.find("phase")
+            if phase_elem is not None:
+                phase = phase_elem.text
+            else : 
+                phase = ""            
             phase_enum: PhaseType = (
                 PhaseType(phase) if isinstance(phase, str) and phase is not None else PhaseType.FORMAT
-            )   
-            errors_elem = root.find("errors")
-            
+            )  
+
+            #errors
+            errors_elem = root.find("errors")            
             if errors_elem is not None :
                 errors_number = errors_elem.attrib["number"]
                 errors_messages= list(errors_elem.itertext())                                
@@ -229,8 +248,8 @@ class FileChecker:
                 errors_number = "0"
                 errors_messages = []
 
-            warnings_elem = root.find("warnings")
-            
+            #warnings
+            warnings_elem = root.find("warnings")            
             if warnings_elem is not None :
                 warnings_number = warnings_elem.attrib["number"]
                 warnings_messages= list(warnings_elem.itertext())                         
@@ -238,7 +257,6 @@ class FileChecker:
                 warnings_number = "0"
                 warnings_messages = []
             
-
             validation_result = ValidationResult(
                 file_checker_version=file_checker_version, 
                 file=str(file),result=result_enum, 
