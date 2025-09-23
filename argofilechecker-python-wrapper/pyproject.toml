@@ -12,6 +12,7 @@ authors = [
 readme = "README.md"
 
 [tool.poetry]
+name = "argofilechecker-python-wrapper"
 packages = [{include = "argofilechecker_python_wrapper", from = "src"}]
 
 [tool.poetry-dynamic-versioning]
