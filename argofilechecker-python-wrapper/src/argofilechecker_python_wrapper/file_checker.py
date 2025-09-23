@@ -3,11 +3,11 @@
 
 import logging
 import os
-import subprocess # nosec B404
+import subprocess  # nosec B404
 import tempfile
 from pathlib import Path
 from typing import Dict, List, Optional
-from xml.etree.ElementTree import Element, ElementTree, ParseError # nosec B405: this import is just for type.
+from xml.etree.ElementTree import Element, ElementTree, ParseError  # nosec B405: this import is just for type.
 
 import defusedxml.ElementTree as DefusedET
 
