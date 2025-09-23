@@ -1,3 +1,5 @@
+"""Module defining data models and enums for the Argo file checker validation system."""
+
 from enum import Enum
 from typing import List
 

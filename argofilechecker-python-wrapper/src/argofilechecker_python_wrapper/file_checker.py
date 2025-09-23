@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 class FileChecker:
     """Python Wrapper for Argo Netcdf File Checker.
+
     File Checker will is run as subprocess so the location of the JAR file and specs must be provided as ENV variables 
     or explicitly in init.   
     The env vars will be used in dockerfile : 
@@ -129,7 +130,6 @@ class FileChecker:
             A list of ValidationResult objects.
 
         """
-
         #need a temp directory for XML output
         with tempfile.TemporaryDirectory(prefix="filechecker_output_") as temp_output_dir:
             temp_output = Path(temp_output_dir)
@@ -163,6 +163,7 @@ class FileChecker:
 
     def _parse_batch_results (self,temp_output_dir: Path, files_names: List[str]) -> List[ValidationResult] :
         """Parse XML results files in the temp_ouput directory.
+        
         For each result file build a ValidationResult and add it to the return list.
         For each output file, parse the xml result and create a ValidationResult object and add it to the return list.
         
@@ -175,7 +176,6 @@ class FileChecker:
             A list of ValidationResult coming from the parsing of XML result files.
         
         """
-
         validation_results = []
         # get list of XML files :
         xml_files = list(temp_output_dir.glob("*.filecheck"))
