@@ -5,10 +5,11 @@ import logging
 import os
 import subprocess
 import tempfile
-import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element, ElementTree, ParseError
 from pathlib import Path
-from typing import Dict, List, Optional, cast
+from typing import Dict, List, Optional
+from xml.etree.ElementTree import Element, ElementTree, ParseError
+
+import defusedxml.ElementTree as DefusedET
 
 from .models import PhaseType, ResultType, ValidationResult
 
@@ -207,42 +208,40 @@ class FileChecker:
         """
         try :
             # Parsing XML file using defusedxml
-            tree = ET.parse(xml_file)     
+            tree:ElementTree[Element[str] | None] = DefusedET.parse(xml_file) # type: ignore[misc]     
             root:Element | None = tree.getroot()
-         
+            
             if root is None :
                 logger.error("Empty XML document: %s", xml_file)
                 return None
+
+
+            def _extract_text (tag: str, default:str) -> str :
+                elem = root.find(tag)
+                if elem is not None and elem.text is not None:
+                    return elem.text
+                else :
+                    return default
 
             # file  checker version
             file_checker_version = root.attrib["filechecker_version"]
 
             # processed file's name
-            file_elem = root.find("file")
-            if file_elem is not None :
-                file = file_elem.text
-            else:
-                file = ""
+            file = _extract_text("file","")
 
             # result
-            result_elem = root.find("status")
-            if result_elem is not None :
-                result = result_elem.text
+            result = _extract_text("status","")     
+            if result in {e.value for e in ResultType}:
+                result_enum = ResultType(result)
             else:
-                result = ""            
-            result_enum: ResultType = (
-                ResultType(result) if isinstance(result, str) else ResultType.ERROR
-            )
+                result_enum = ResultType.ERROR
 
             # checking phase
-            phase_elem = root.find("phase")
-            if phase_elem is not None:
-                phase = phase_elem.text
-            else : 
-                phase = ""            
-            phase_enum: PhaseType = (
-                PhaseType(phase) if isinstance(phase, str) and phase is not None else PhaseType.FORMAT
-            )  
+            phase = _extract_text("phase","")
+            if phase in {e.value for e in PhaseType}:
+                phase_enum = PhaseType(phase)
+            else:
+                phase_enum = PhaseType.FORMAT         
 
             #errors
             errors_elem = root.find("errors")            
@@ -277,7 +276,6 @@ class FileChecker:
         
         else:
             return validation_result
-            
 
     def _get_valid_files_path (self, files_paths_str: List[str]) -> tuple[list[Path], list[str]]:
         """From a list of files, determinate for each file if it exist or not.
