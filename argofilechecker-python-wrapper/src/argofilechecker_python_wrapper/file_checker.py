@@ -6,8 +6,9 @@ import os
 import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element, ElementTree, ParseError
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, cast
 
 from .models import PhaseType, ResultType, ValidationResult
 
@@ -205,9 +206,13 @@ class FileChecker:
             an ValidationResult object
         """
         try :
-            # Parsing wml file using xml.etree.ElementTree
-            tree = ET.parse(xml_file)
-            root:ET.Element = tree.getroot()
+            # Parsing XML file using defusedxml
+            tree = ET.parse(xml_file)     
+            root:Element | None = tree.getroot()
+         
+            if root is None :
+                logger.error("Empty XML document: %s", xml_file)
+                return None
 
             # file  checker version
             file_checker_version = root.attrib["filechecker_version"]
@@ -266,7 +271,7 @@ class FileChecker:
                 errors_messages=errors_messages,
                 warnings_messages=warnings_messages)
 
-        except ET.ParseError:  
+        except ParseError:  
             logger.exception("Error when parsing file : " + str(xml_file))
             return None
         

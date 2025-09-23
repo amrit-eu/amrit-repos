@@ -22,7 +22,7 @@ style = "semver"
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 pydantic = "^2.11.9"
-
+defusedxml = "^0.7.1"
 # Specify the optional dependencies that will be used below as "extras"
 pytest = { version = ">=8.4.2,<9.0.0", optional = true }
 pytest-cov = { version = ">=7.0.0,<8.0.0", optional = true }
