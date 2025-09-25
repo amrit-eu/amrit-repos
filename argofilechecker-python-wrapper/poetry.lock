@@ -1603,6 +1603,7 @@ description = "pytest plugin that allows you to add environment variables."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
+markers = "extra == \"test\""
 files = [
     {file = "pytest_env-1.1.5-py3-none-any.whl", hash = "sha256:ce90cf8772878515c24b31cd97c7fa1f4481cd68d588419fd45f10ecaee6bc30"},
     {file = "pytest_env-1.1.5.tar.gz", hash = "sha256:91209840aa0e43385073ac464a554ad2947cc2fd663a9debf88d03b01e0cc1cf"},
@@ -2403,10 +2404,10 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 bandit = ["bandit"]
 build = ["poetry", "twine"]
 lint = ["ruff"]
-test = ["coverage", "pytest", "pytest-cov", "pytest-mock", "tox"]
+test = ["coverage", "pytest", "pytest-cov", "pytest-env", "pytest-mock", "tox"]
 type = ["mypy"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "1ae39559fac9c0beca2d2231bb44dbf4246a58c037ee0e71359fa596a0fb4069"
+content-hash = "104514a4a31881642b004e6fef032ad7a79f3b6da539d42db88484f6ba6d14b2"
