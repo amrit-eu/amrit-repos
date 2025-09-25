@@ -21,7 +21,7 @@ class FileChecker:
     File Checker will is run as subprocess so the location of the JAR file and specs must be provided as ENV variables 
     or explicitly in init.   
     The env vars are used in dockerfile : 
-    The jar is included in file file checker Docker image.
+    The jar is included in file checker Docker image.
     The spec dir could be included in the image in a future version of File Checker.
 
     Example:
