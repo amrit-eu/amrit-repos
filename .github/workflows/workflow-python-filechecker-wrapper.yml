@@ -41,7 +41,7 @@ jobs:
           tox depends --recreate
       # Run Tox jobs
       - name: Tox (${{ matrix.tox-job }})
-        working-directory: ./${{ inputs.context }}
+        working-directory: ./argofilechecker-python-wrapper
         run: |
           poetry config virtualenvs.create false
           poetry install --no-root --with test
