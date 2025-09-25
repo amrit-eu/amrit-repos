@@ -51,7 +51,7 @@ def _download (url: str, dest: Path, out_file_name : str, timeout: int=120):
         dest (Path) : destination folder
         out_file_name (str) : name of the downloaded file in the dest folder
     """
-    file_path = dest / "false.jar"
+    file_path = dest / "app.jar"
     # dowload the jar from the provide url
     with open (dest / out_file_name, 'wb') as out_file :
         content = requests.get(url, stream=True).content

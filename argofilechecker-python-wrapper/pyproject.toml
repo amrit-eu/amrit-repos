@@ -34,10 +34,11 @@ mypy = { version = ">=1.18.1,<2.0.0", optional = true }
 bandit = { version = ">=1.8.6,<2.0.0", extras = ["toml"], optional = true }
 poetry = { version = ">=2.0.0", optional = true }
 twine = { version = ">=6.2.0,<7.0.0", optional = true }
+pytest-env = "^1.1.5"
 
 
 [tool.poetry.extras]
-test = ["pytest", "pytest-cov", "pytest-mock", "coverage", "tox"]
+test = ["pytest", "pytest-cov", "pytest-mock", "pytest-env", "coverage", "tox"]
 lint = ["ruff"]
 type = ["mypy"]
 bandit = ["bandit"]
@@ -177,3 +178,10 @@ warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.pytest_env]
+GDAC_FTP_HOST="ftp://ftp.ifremer.fr/ifremer/argo/dac"
+SPECS_REPO_URL="https://github.com/OneArgo/ArgoFormatChecker.git"
+SPECS_REPO_REF="main"
+TEST_REPO_SUBDIR="file_checker_spec/"
+JAR_URL="https://github.com/OneArgo/ArgoFormatChecker/releases/download/v2.9.3/file_checker_exec-2.9.3.jar"
