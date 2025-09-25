@@ -1,9 +1,12 @@
+"""Tests for the argofilechecker_python_wrapper module."""
 import pytest
+
 from argofilechecker_python_wrapper import FileChecker
+
 
 @pytest.fixture
 def env_paths(tmp_path, monkeypatch):
-    """create a mock JAR file and specs dir and add it to env variables"""
+    """Create a mock JAR file and specs dir and add it to env variables."""
     jar = tmp_path / "app.jar"
     jar.touch()  # simulate jar existence
     specs = tmp_path / "specs"
@@ -14,14 +17,16 @@ def env_paths(tmp_path, monkeypatch):
     return jar, specs
 
 def test_check_files_empty_input_files_list(env_paths) :
-    fileChecker = FileChecker()
+    """Should raise an Error when no files list are provided."""
+    file_checker = FileChecker()
 
     with pytest.raises(ValueError):
-        fileChecker.check_files([], "coriolis")
+        file_checker.check_files([], "coriolis")
 
 
 def test_check_files_all_missing_raise(env_paths):
-    fileChecker = FileChecker()
+    """Should raise an error when a file provided doesn't exists."""
+    file_checker = FileChecker()
 
     with pytest.raises(FileNotFoundError):
-        fileChecker.check_files(["NOEXISTS.nc"], "coriolis")
+        file_checker.check_files(["NOEXISTS.nc"], "coriolis")

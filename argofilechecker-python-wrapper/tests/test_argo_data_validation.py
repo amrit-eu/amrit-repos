@@ -1,31 +1,32 @@
+"""Validation tests on real floats data."""
 import os
+from ftplib import FTP
 from pathlib import Path
 from typing import List
 from urllib.parse import urlparse
+
 import pytest
-from ftplib import FTP
 
 from argofilechecker_python_wrapper import FileChecker
 from argofilechecker_python_wrapper.models import ResultType, ValidationResult
 
-"""Validation tests on real floats data"""
 
-
-@pytest.mark.parametrize ("float_number,dac_name", [("2903996","coriolis"), ("5900177", "bodc"), ("1900360", "aoml"), ("6990538", "coriolis"), ("4901791", "meds")])
-def test_files_from_GDAC_should_be_accepted(float_number, dac_name, tmp_path, specs_directory,file_checker_jar_file ):
-    
+@pytest.mark.e2e
+@pytest.mark.parametrize ("float_number,dac_name", [("2903996","coriolis"), ("5900177", "bodc"), ("1900360", "aoml"), ("6990538", "coriolis"), ("4901791", "meds")]) # noqa: E501
+def test_files_from_gdac_should_be_accepted(float_number, dac_name, tmp_path, specs_directory,file_checker_jar_file ):
+    """Argo netcdf files from GDAC should be accepted."""
     #first download relevant files in temp directory :
     ftp_url = os.getenv("GDAC_FTP_HOST", "ftp://ftp.ifremer.fr/ifremer/argo/dac")
     dest_folder = tmp_path / float_number
     dest_folder.mkdir()
-    _download_relevant_files_from_GDAC_ftp(ftp_url, dac_name, float_number, dest_folder)
+    _download_relevant_files_from_gdac_ftp(ftp_url, dac_name, float_number, dest_folder)
     
     # run file checker on each file and expect to have only accepted files
     # Files come from GDAC and should be accepted by file checker
     list_files = [f'{dest_folder}/{file}' for file in os.listdir(dest_folder)]
-    fileChecker = FileChecker(file_checker_jar_file, specs_directory)
+    file_checker= FileChecker(file_checker_jar_file, specs_directory)
    
-    results:List[ValidationResult] = fileChecker.check_files(list_files, dac_name)
+    results:List[ValidationResult] = file_checker.check_files(list_files, dac_name)
     # check if all files have been processed
     assert len(list_files) == len (results)
     # check if all files are ACCEPTED (which is the expected result for GDAC files)
@@ -33,15 +34,16 @@ def test_files_from_GDAC_should_be_accepted(float_number, dac_name, tmp_path, sp
     assert not failures, f"REJECTED detected: {failures}"
 
 
-    
+@pytest.mark.e2e
 def test_bad_argo_netcdf_should_be_rejected (specs_directory,file_checker_jar_file) :
+    """Bad formatted argo netcdf should be rejected."""
     # files in local 'rejected_argo_data' folder :
     test_dir = Path(__file__).parent
     rejected_dir = test_dir / "rejected_argo_data"
     list_files = [str(rejected_dir/file) for file in os.listdir(rejected_dir)]
     # run file checker :
-    fileChecker = FileChecker(file_checker_jar_file, specs_directory)
-    results:List[ValidationResult] = fileChecker.check_files(list_files, "coriolis", ["-no-name-check"])
+    file_checker = FileChecker(file_checker_jar_file, specs_directory)
+    results:List[ValidationResult] = file_checker.check_files(list_files, "coriolis", ["-no-name-check"])
     # check if all files have been processed
     assert len(list_files) == len (results)
     # check if all files are REJECTED 
@@ -49,16 +51,14 @@ def test_bad_argo_netcdf_should_be_rejected (specs_directory,file_checker_jar_fi
     assert not success, f"ACCEPTED detected: {success}"
      
 
-def _download_relevant_files_from_GDAC_ftp (ftp_url : str, dac_name : str, float_number : str, dest : Path) :
-    """
-    Download from a ftp server the different files (tech, meta, traj, profiles) for a specified dac and float number.
+def _download_relevant_files_from_gdac_ftp (ftp_url : str, dac_name : str, float_number : str, dest : Path) :
+    """Download from a ftp server the different files (tech, meta, traj, profiles) for a specified dac and float number.
 
     Args :
         ftp_url (str) : root directory where dac directories are found
         dac_name (str) 
         float_number (str)
     """
-
     # parse url to retrieve host and path
     float_ftp_url = f"{ftp_url}/{dac_name}/{float_number}"
     parsed_url = urlparse(float_ftp_url)
@@ -86,8 +86,7 @@ def _download_relevant_files_from_GDAC_ftp (ftp_url : str, dac_name : str, float
 
 
 def _download_files_from_ftp (ftp, files_names_list, dest) :
-    """
-    download a list of files to a dest directory from a FTP connexion.
+    """Download a list of files to a dest directory from a FTP connexion.
 
     Args :
         ftp (FTP) : FTP object (ftplib) connected to the right directory

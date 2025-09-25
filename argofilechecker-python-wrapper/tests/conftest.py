@@ -1,18 +1,19 @@
-"""Fixtures for tests suite"""
-import pytest
+"""Fixtures for tests suite."""
 import os
 import shutil
 import subprocess
 from pathlib import Path
+
+import pytest
 import requests
+
 
 @pytest.fixture(scope="session")
 def specs_directory(tmp_path_factory) -> Path:
-    """
-    Fixture which download the up-to-date specs folder from the file checker git.
+    """Fixture which download the up-to-date specs folder from the file checker git.
+    
     Add it to the session context for tests 'data validation' suite.
     Need to provide Argo file checker github repo informations.
-
     """
     specs_repo_url = os.getenv("SPECS_REPO_URL", "https://github.com/OneArgo/ArgoFormatChecker.git")
     ref = os.getenv("SPECS_REPO_REF", "main")         # branch
@@ -27,10 +28,7 @@ def specs_directory(tmp_path_factory) -> Path:
 
 @pytest.fixture(scope="session")
 def file_checker_jar_file(tmp_path_factory) -> Path:
-    """
-    Fixture to provide the file checker executable into the session context for tests 'data validation' suite.
-    """
-
+    """Fixture to provide the file checker executable into the session context for tests 'data validation' suite."""
     jar_download_url = os.getenv("JAR_URL", "https://github.com/OneArgo/ArgoFormatChecker/releases/download/v2.9.3/file_checker_exec-2.9.3.jar")
 
     dest = tmp_path_factory.mktemp("file_checker_exec")
@@ -43,8 +41,7 @@ def file_checker_jar_file(tmp_path_factory) -> Path:
 
 
 def _download (url: str, dest: Path, out_file_name : str, timeout: int=120):
-    """
-    Download file from provided url.
+    """Download file from provided url.
 
     Arg : 
         url (str) : url of the file
@@ -58,7 +55,7 @@ def _download (url: str, dest: Path, out_file_name : str, timeout: int=120):
         out_file.write(content)
 
     if not file_path.exists():
-        raise FileNotFoundError(f"File checker jar not found at {file_path}")
+        raise FileNotFoundError(f"File checker jar not found at {file_path}") # noqa: TRY003
 
     
 
@@ -82,7 +79,7 @@ def _clone_subdir (repo_url: str,branch:str ,subdir: str,dest:Path) :
     # move sub folder to dest :
     src = clone_dir / subdir    
     if not src.exists():
-        raise FileNotFoundError(f"Directory '{subdir}' not found in {repo_url}@{branch}")
+        raise FileNotFoundError(f"Directory '{subdir}' not found in {repo_url}@{branch}") # noqa: TRY003
     if dest.exists():
         shutil.rmtree(dest)
     shutil.move(str(src), str(dest))
