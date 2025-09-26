@@ -6,11 +6,13 @@ on:
       # Run on our main branch
       - main
     paths:
-      - argofilechecker-python-wrapper/**
+      - 'argo-file-checker-python/argofilechecker-python-wrapper/**'
+      - 'argo-file-checker-python/Dockerfile'
   pull_request:
     # Run for any pull requests
     paths:
-      - argofilechecker-python-wrapper/**
+      - 'argo-file-checker-python/argofilechecker-python-wrapper/**'
+      - 'argo-file-checker-python/Dockerfile'
   release:
     types: [created]
 
@@ -18,7 +20,7 @@ jobs:
   python-linting:
     uses: ./.github/workflows/component-python-lint.yml
     with:
-      context: argofilechecker-python-wrapper
+      context: argo-file-checker-python/argofilechecker-python-wrapper
   # e2e_tests :
     # runs-on: ubuntu-latest
     # strategy:
@@ -49,12 +51,13 @@ jobs:
   python-security:
     uses: ./.github/workflows/component-python-security.yml
     with:
-      context: argofilechecker-python-wrapper
+      context: argo-file-checker-python/argofilechecker-python-wrapper
   container-image-build:
     needs: [python-linting, python-security]
     uses: ./.github/workflows/component-container-image.yml
     with:
-      context: argofilechecker-python-wrapper
+      context: argo-file-checker-python
+      target: file-checker-python
       image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-python/app
  
   publish-to-github-registry:
@@ -70,7 +73,7 @@ jobs:
 
       - name: Python Build
         run: |
-          cd argofilechecker-python-wrapper
+          cd argo-file-checker-python/argofilechecker-python-wrapper
           python -m pip install --upgrade pip
           pip install poetry
           poetry build
