@@ -1,7 +1,6 @@
 import React from 'react' 
-import {  Chip, Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { TableViewConfig } from '@/config/tableConfigs'
-import { extractHost, isValidUrl } from '@/lib/utils/stringUtils';
 import EnhancedTableCell from '../EnhancedTableCell';
 
 interface HasId {
