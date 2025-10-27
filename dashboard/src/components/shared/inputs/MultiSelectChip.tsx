@@ -8,11 +8,13 @@ interface MultiSelectChipProps {
     datalist : string[]    
     filterName : string
     onFilterChange: (filterKey: string, values: string[]) => void
+    selectedValues: string[]
+    
 }
 
 
 
-const MultiSelectChip = ({datalist, onFilterChange, filterName} : MultiSelectChipProps) => {
+const MultiSelectChip = ({datalist, onFilterChange, filterName, selectedValues} : MultiSelectChipProps) => {
     
 
 
@@ -24,7 +26,9 @@ const MultiSelectChip = ({datalist, onFilterChange, filterName} : MultiSelectChi
           multiple
           size="medium"
           options={datalist}
-          onChange={(_, values) => onFilterChange(filterName, values)}        
+          value={selectedValues}
+          onChange={(_, values) => onFilterChange(filterName, values)} 
+          isOptionEqualToValue={(opt, val) => opt === val}               
           renderTags={(value: string[], getTagProps) =>
             value.map((option: string, index: number) => (
               <Chip
