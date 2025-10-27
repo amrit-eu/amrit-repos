@@ -27,8 +27,8 @@ const Alerts = async () => {
 
   // Fetch filters data server side
   const filtersValues :FiltersValuesMap = {
-    severity: Object.entries(counts.severityCounts).map(([key, value])=> `${key} (${value})`),
-    status:  Object.entries(counts.statusCounts).map(([key, value])=> `${key} (${value})`),    
+    severity: Object.entries(counts.severityCounts).map(([key])=> `${key}`),
+    status:  Object.entries(counts.statusCounts).map(([key])=> `${key}`),    
     Country: sortedCountryOption,
     alert_category: topicsData
   }
