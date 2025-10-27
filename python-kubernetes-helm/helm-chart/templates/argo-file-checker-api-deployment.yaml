@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.file_checker_api.component_name }}"
+  labels:
+    app: {{ .Release.Name }}
+    component: {{ .Values.file_checker_api.component_name }}
+spec:
+  replicas: {{ .Values.file_checker_api.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+      component: {{ .Values.file_checker_api.component_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        component: {{ .Values.file_checker_api.component_name }}
+    spec:
+      containers:
+        - name: "{{ .Release.Name }}-{{ .Values.file_checker_api.component_name }}"
+          image: "{{ .Values.file_checker_api.image.repository }}:{{ .Values.file_checker_api.image.tag }}"
+          imagePullPolicy: {{ .Values.file_checker_api.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.file_checker_api.service.port }}
+          env:
+            - name: API_ROOT_PATH
+              value: {{ .Values.ingress.file_checker_api.path }}

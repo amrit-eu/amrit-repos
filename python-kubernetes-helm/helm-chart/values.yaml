@@ -1,0 +1,32 @@
+boilerplate_api:
+  replicaCount: 1
+  image:
+    repository: docker-repo.bodc.me/ewetchy/amrit/api
+    pullPolicy: IfNotPresent
+    tag: "2.0.0"
+  component_name: "boilerplate-api"
+  service:
+    type: ClusterIP
+    port: 8000
+
+file_checker_api:
+  replicaCount: 1
+  image:
+    repository: docker-repo.bodc.me/ewetchy/amrit/argo-file-checker-api
+    pullPolicy: IfNotPresent
+    tag: "1.0.0"
+  component_name: "argo-file-checker"
+  service:
+    type: ClusterIP
+    port: 8000
+
+ingress:
+  enabled: true
+  file_checker_api:
+    path: /argo-toolbox/api/file-checker
+  boilerplate_api:
+    path: /argo-toolbox/api/boilerplate
+  ingressClassName: ""
+  host: ""
+
+resources: {}

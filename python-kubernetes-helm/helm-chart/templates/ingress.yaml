@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Release.Name }}-ingress"
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.file_checker_api.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name:  "{{ .Release.Name }}-argo-file-checker-service"
+                port:
+                 number: {{ .Values.file_checker_api.service.port }}
+          - path: {{ .Values.ingress.boilerplate_api.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name:  "{{ .Release.Name }}-boilerplate-api-service"
+                port:
+                 number: {{ .Values.boilerplate_api.service.port }}
