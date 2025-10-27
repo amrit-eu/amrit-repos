@@ -1,9 +1,8 @@
-import { Checkbox, Chip, Collapse, IconButton,  Link,  TableCell, TableRow } from '@mui/material'
+import { Checkbox, Collapse, IconButton, TableCell, TableRow } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React from 'react'
 import { TableViewConfig } from '@/config/tableConfigs';
-import { extractHost, isValidUrl } from '@/lib/utils/stringUtils';
 import EnhancedTableCell from '../EnhancedTableCell';
 
 
