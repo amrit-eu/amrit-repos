@@ -40,12 +40,16 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
     // state for the filters lsit to display :
     const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "event","severity","status","from-date", "to-date"] )
     // state to fetch only subs alerts :
-    const [isOnlyMySubsAlerts, setIsOnlyMySubsAlerts] = useState(false);
-
+    const [isOnlyMySubsAlerts, setIsOnlyMySubsAlerts] = useState(session ? session.isAuth : false);
+    // state for page to display
+    const [page, setPage] = useState(0);
 
     const handleUpdateFilter = <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => {
-        setFiltersSelectedValues((prev) => {
-           const updated = { ...prev };
+        // reset page number to 0 when filters change :
+        setPage(0);
+
+        setFiltersSelectedValues((prev) => {          
+          const updated = { ...prev };
           if (values === undefined) {
             delete updated[filterKey];
           } else {
@@ -61,7 +65,7 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
 
         <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={session?.isAuth ?? false} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList} isOnlyMySubsAlerts={isOnlyMySubsAlerts} setIsOnlyMySubsAlerts={setIsOnlyMySubsAlerts}/>
            
-        <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={isOnlyMySubsAlerts}/>
+        <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={isOnlyMySubsAlerts} page={page} setPage={setPage}/>
 
 
 
