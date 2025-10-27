@@ -1,8 +1,10 @@
-import { Checkbox, Chip, Collapse, IconButton,  TableCell, TableRow } from '@mui/material'
+import { Checkbox, Chip, Collapse, IconButton,  Link,  TableCell, TableRow } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React from 'react'
 import { TableViewConfig } from '@/config/tableConfigs';
+import { extractHost, isValidUrl } from '@/lib/utils/stringUtils';
+import EnhancedTableCell from '../EnhancedTableCell';
 
 
 
@@ -64,17 +66,16 @@ const [open, setOpen] = React.useState(false); // state for collapse table
             </TableCell>
             
 
-            {columnsConfig.mainColumns.map((col, index) => (
-                <TableCell
-                key={`${String(col.key)}-${rowId}`}
-                component={index === 0 ? 'th' : undefined}
-                scope={index === 0 ? 'row' : undefined}
-                padding={index === 0 ? 'none' : undefined}
-                align={index !== 0 ? 'left' : undefined}
-              >
-                {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'default'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
-              </TableCell>
-            ))}   
+            {columnsConfig.mainColumns.map((col, index) => 
+            
+            <EnhancedTableCell 
+              key={`cell-${rowId}-${index}`} 
+              rowData={rowData} 
+              col={col} 
+              index={index} 
+              rowId={rowId} />
+             )}   
+
         </TableRow>
 
         {/*  Collapsing table part */}
