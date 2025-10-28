@@ -1,11 +1,7 @@
 import { TableColumnConfig } from '@/config/tableConfigs'
 import { extractHost, isValidUrl } from '@/lib/utils/stringUtils'
-<<<<<<< HEAD
 import { Chip, IconButton,  TableCell, Tooltip } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
-=======
-import { Chip, Link, TableCell } from '@mui/material'
->>>>>>> 31e71b4d5f63ff0967cc24b0734d14e3fba6ca9e
 import React from 'react'
 
 interface EnhancedTableCellProps<T> {
