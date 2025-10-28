@@ -15,10 +15,12 @@ interface AlertsTableProps {
    filtersSelectedValues: FiltersValuesMap
    isOnlyMySubsAlerts:boolean
    session: Session | null
+   page:number,
+   setPage:React.Dispatch<React.SetStateAction<number>>
        
 }
 
-const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, setPage}: AlertsTableProps) => {
 
   // load table configuration
   const alertaColumnsConfig = ALERTS_MAIN_TABLE_CONFIG;
@@ -27,7 +29,7 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts}: Alert
   const [alertsApiResponseData, setAlertsApiResponseData] = useState<AlertApiResponse>();
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Alert>('lastReceiveTime');
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<readonly string[]>([]);
