@@ -33,7 +33,9 @@ export class EmailFormatterService {
     addLine('Service', metadataLines, Array.isArray(data.service) ? data.service.join(', ') : undefined);
     addLine('Origin', metadataLines, data.origin);
 
-	const seeMoreLink = (attrs.url && isValidUrl(attrs.url)) ? `<a href=${attrs.url} target ='_blank'>See more on ${extractHost(attrs.url)}</a>` : ''
+  const inspectLink = (alert.id) ? `<a href="${process.env.REFERENCED_DASHBOARD_URL_IN_EMAILS}/alerts/${alert.id}" target="_blank">Open alert in Dashboard</a>` : ''
+
+	const seeMoreLink = (attrs.url && isValidUrl(attrs.url)) ? `<a href=${attrs.url} target='_blank'>See more on ${extractHost(attrs.url)}</a>` : ''
 
     return `
       <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
@@ -47,6 +49,8 @@ export class EmailFormatterService {
           <p style="margin: 4px 0; color: #555;"><strong>ALERT ID: </strong> ${alert.id}</p>
         </div>
 
+        ${inspectLink}
+
         <h3 style="color:rgb(71, 137, 236);">Summary</h3>
         ${summaryLines.join('')}
 
@@ -59,7 +63,7 @@ export class EmailFormatterService {
         <h3 style="color:rgb(71, 137, 236);">Message</h3>
         <p style="background: #f9f9f9; padding: 12px; border-left: 4px solid #ccc;"><em>${data.text}</em></p>
 
-         ${seeMoreLink}
+        ${seeMoreLink}
 
         <hr style="margin: 24px 0;" />
 
