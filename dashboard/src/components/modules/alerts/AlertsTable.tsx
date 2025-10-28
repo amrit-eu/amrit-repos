@@ -7,8 +7,8 @@ import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_MAIN_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 import { FiltersValuesMap } from '@/types/filters';
-import AlertDetails from './AlertDetails';
 import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 interface AlertsTableProps {
@@ -66,7 +66,7 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
       isLatestRequest = false; 
       controller.abort();
     };    
-  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts])
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts, session?.userId])
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {
@@ -75,14 +75,34 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
     //setSelected([]) // was 
   };
 
-  const toolBarActionComponent = <AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={session ? session.isAuth : false} alertsData={alertsApiResponseData?.alerts ?? []} userRoles={session?.roles ?? []}/>
+  const router = useRouter();
+  const search = useSearchParams();
+  const qs = search?.toString();
+
+
+  const onRowNavigate = (id: string) => {
+    router.push(`/alerts/${id}${qs ? `?${qs}` : ""}`);
+  };
+
+  const toolBarActionComponent = <AlertsTableToolbarActions 
+    selected={selected} 
+    onActionDone={triggerRefetch} 
+    setSelected={setSelected} 
+    isUserLogin={session ? session.isAuth : false} 
+    alertsData={alertsApiResponseData?.alerts ?? []} 
+    userRoles={session?.roles ?? []}
+  />
   
   
  
   return (
 
     <LoadingWrapper loading={loading}> 
-      <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} collapsingComponent={(data) => <AlertDetails data={data}/>}/>
+      <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page}
+       setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} 
+       totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} 
+        onRowNavigate={onRowNavigate}
+       />
     </LoadingWrapper>
   )
 }

@@ -16,7 +16,7 @@ interface SectionTabsProps {
   centered?: boolean;
 }
 
-const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 220, centered = true }) => {
+const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 220, centered = false }) => {
   const theme = useTheme();
   const pathname = usePathname();
   const router = useRouter();

@@ -84,18 +84,6 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
 					display: 'inline-block',
 					}}
 				/>
-				<Box
-					component="span"
-					sx={{
-						ml: 0.4,
-						mt: 0.8,
-						fontSize: '1.3rem',
-						fontWeight: 500,
-						color: "#a69e9b",
-					}}
-				>
-					Boards
-				</Box>
 			</Typography>
 
         </Box>
