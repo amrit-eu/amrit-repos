@@ -11,7 +11,7 @@ export const ALERTS_MAIN_TABLE_CONFIG: TableViewConfig<Alert> = {
     { key: 'text', label: "Description" },      
     { key: 'lastReceiveTime', label: "Last receive Time" },
     { key: 'lastNote', label: "Last note"},
-    { key: 'attributes', label:"More informations", subKey: 'url', link:true}
+    { key: 'attributes', label:"Link", subKey: 'url', link:true}
   ],
 };
 

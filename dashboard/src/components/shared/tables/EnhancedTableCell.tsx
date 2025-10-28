@@ -1,6 +1,7 @@
 import { TableColumnConfig } from '@/config/tableConfigs'
 import { extractHost, isValidUrl } from '@/lib/utils/stringUtils'
-import { Chip, Link, TableCell } from '@mui/material'
+import { Chip, IconButton,  TableCell, Tooltip } from '@mui/material'
+import LinkIcon from '@mui/icons-material/Link';
 import React from 'react'
 
 interface EnhancedTableCellProps<T> {
@@ -20,9 +21,21 @@ function EnhancedTableCell<T>({rowData, col, index, rowId} : EnhancedTableCellPr
         const subContent = rawContent[col.subKey]
         content = subContent != null ? String(subContent) : ''
     } 
-
     // if link is specified
-    let contentComponent = (col.link===true && isValidUrl(content)) ? <Link href={content} target='_blank'>{extractHost(content)}</Link> : content
+    let contentComponent = (col.link===true && isValidUrl(content)) ?    
+                                <Tooltip title={`See more on ${extractHost(content)}`}>
+                                    <IconButton
+                                        color="primary" 
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(content, '_blank', 'noopener,noreferrer');
+                                            }}  
+                                        aria-label="external link">
+                                        <LinkIcon />
+                                    </IconButton>
+                                </Tooltip> 
+                            : 
+                                content
     
     // if chip specified in column configs :
     if (col.chipColor) {
