@@ -37,7 +37,7 @@ const initial: State = {
 
 export const useAppStore = create<State & Actions>()(
   persist(
-    subscribeWithSelector<State & Actions>((set, get) => ({
+    subscribeWithSelector<State & Actions>((set) => ({
       ...initial,
 
       // ui

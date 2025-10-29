@@ -3,7 +3,6 @@
 import React from "react";
 import {
   Checkbox,
-  Chip,
   ChipProps,
   Collapse,
   IconButton,
@@ -36,19 +35,6 @@ interface EnhancedTableRowProps<T extends Record<string, unknown>> {
   onRowNavigate?: (id: string) => void;
   onToggleSelect?: (id: string) => void;
   collapsingComponent?: React.ReactNode;
-}
-
-function toDisplay(value: unknown): string {
-  if (value == null) return "";
-  if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
-  if (Array.isArray(value)) return value.map(toDisplay).join(", ");
-  // fallback for objects
-  try {
-    return JSON.stringify(value);
-  } catch {
-    return "";
-  }
 }
 
 function EnhancedTableRow<T extends Record<string, unknown>>({
