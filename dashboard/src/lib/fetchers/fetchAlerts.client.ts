@@ -190,17 +190,27 @@ async function buildLuceneQueryFromSubscriptions(subs: AlertSubscription[]): Pro
 
 function buildLuceneAndClauses(sub: AlertSubscription, topicsData: TopicOption[]): string[] {
   const andClauses: string[] = [];
-
+  // country
   if (sub.countryName) andClauses.push(`_.Country:"${sub.countryName}"`);
+  // Severity
   if (sub.minSeverityId) {
     const severitiesToIncludeInQuery = getSeveritiesAboveMinSeverity(sub.minSeverityId);
     andClauses.push(`severity:(${severitiesToIncludeInQuery.join(" OR ")})`);
   }
+  // event
+  if(sub.event) andClauses.push(`event:${sub.event}`)
+  
+  // resource
+  if(sub.resource) andClauses.push(`resource:${sub.resource}`)
+  
+  // alert_category
   if (sub.topicId && topicsData.length) {
     const topicsToIncludeInQuery = findAllChildrenTopicsFromId(topicsData, sub.topicId).map(t => escapeLuceneValue(t.label));
     if (topicsToIncludeInQuery.length) andClauses.push(`_.alert_category:(${topicsToIncludeInQuery.join(" OR ")})`);
   }
+  // wigos id
   if (sub.wigosId) andClauses.push(`_.wigos_id:"${sub.wigosId}"`);
+  // basin id
   if (sub.basinId) andClauses.push(`_.basin_id:"${sub.basinId}"`);
 
   return andClauses;
