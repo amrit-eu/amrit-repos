@@ -100,13 +100,15 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
  
   return (
 
-    <LoadingWrapper loading={loading}> 
-      <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page}
-       setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} 
-       totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} 
-        onRowNavigate={onRowNavigate}
-       />
+    <LoadingWrapper loading={loading}>            
+        <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page}
+         setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} 
+         totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} 
+          onRowNavigate={onRowNavigate}
+         />      
+      
     </LoadingWrapper>
+    
   )
 }
 

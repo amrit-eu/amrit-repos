@@ -82,13 +82,11 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
 
 
   return (
-    <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{height: '100%', width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2, overflow:'hidden' }}>
 
         <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} bulkSetAlertSelected={bulkSetAlertSelected} isUserLogin={session?.isAuth ?? false}  isOnlyMySubsAlerts={onlyMySubs} setIsOnlyMySubsAlerts={setOnlyMySubs}/>
            
         <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={onlyMySubs} page={page} setPage={setPage}/>
-
-
 
     </Box>
   )
