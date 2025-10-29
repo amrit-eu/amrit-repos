@@ -1,6 +1,6 @@
 'use client';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, {  useMemo, useState } from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Checkbox from '@mui/material/Checkbox';
@@ -20,79 +20,45 @@ import { useAppStore } from '@/store/useAppStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from 'dayjs';
 
+
 interface AlertTopBarProps {
   filtersValues: FiltersValuesMap
   filtersSelectedValues:  FiltersValuesMap
-  setFiltersSelectedValues: React.Dispatch<React.SetStateAction<FiltersValuesMap>>
-  filtersToDisplayList: AlertFilters[]
-  setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
+  bulkSetAlertSelected: (next: FiltersValuesMap) => void;
   onFilterChange: <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => void
   isUserLogin : boolean
   isOnlyMySubsAlerts:boolean
-  setIsOnlyMySubsAlerts: React.Dispatch<React.SetStateAction<boolean>>
+  setIsOnlyMySubsAlerts: (v: boolean) => void
 }
 const AlertTopbar = ({
   filtersValues, onFilterChange, filtersSelectedValues, isUserLogin,
-  filtersToDisplayList, setfiltersToDisplayList, setFiltersSelectedValues,
+  bulkSetAlertSelected,
   isOnlyMySubsAlerts, setIsOnlyMySubsAlerts
 }: AlertTopBarProps) => {
   const theme = useTheme();
 
-  // Zustand store bits we need
-  const {
-    alertsDisplayed,
-    alertsSelected,
-    alertsOnlyMySubs,
-    setAlertSelected,
-    bulkSetAlertSelected,
-    setAlertsDisplayed,
-    setOnlyMySubs,
-  } = useAppStore(
+  // Get state with useShallow - Zustand will only re-render if values change
+  const { alertsFiltersDisplayed } = useAppStore(
     useShallow((s) => ({
-      alertsDisplayed: s.alerts.displayed,
-      alertsSelected: s.alerts.selected,
-      alertsOnlyMySubs: s.alerts.onlyMySubs,
-      setAlertSelected: s.setAlertSelected,
-      bulkSetAlertSelected: s.bulkSetAlertSelected,
-      setAlertsDisplayed: s.setAlertsDisplayed,
-      setOnlyMySubs: s.setOnlyMySubs,
+      alertsFiltersDisplayed: s.alerts.displayed,
     }))
   );
 
-  // We use persist API to know when rehydration finished
-  const [hydrated, setHydrated] = useState(() => useAppStore.persist.hasHydrated());
-  useEffect(() => {
-    const unsub = useAppStore.persist.onFinishHydration(() => setHydrated(true));
-    // in case it already hydrated before effect ran:
-    if (useAppStore.persist.hasHydrated()) setHydrated(true);
-    return unsub;
-  }, []);
-
-  // After hydration, we seed the parent props from the store (once)
-  useEffect(() => {
-    if (!hydrated) return;
-
-    // override regardless of parent's initial defaults
-    setfiltersToDisplayList(alertsDisplayed ?? []);
-    setFiltersSelectedValues(alertsSelected ?? {});
-    setIsOnlyMySubsAlerts(alertsOnlyMySubs ?? false);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hydrated]);
+  // Get action separately - it's a stable reference, no need for shallow
+  const setAlertsFiltersDisplayed = useAppStore((s) => s.setAlertsFiltersDisplayed);
 
   // local modal state
   const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
 
   const sortedFiltersToDisplay = useMemo(() => {
-    return [...filtersToDisplayList].sort(
+    return [...alertsFiltersDisplayed].sort(
       (a, b) => Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(a) - Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(b)
     );
-  }, [filtersToDisplayList]);
+  }, [alertsFiltersDisplayed]);
 
   const handleTopicSelection = (newtopicId: number) => {
     if (filtersValues.alert_category) {
       const topicAndChildren = findAllChildrenTopicsFromId(filtersValues.alert_category, newtopicId);
-      setAlertSelected('alert_category', topicAndChildren); // persist (zustand)
       onFilterChange('alert_category', topicAndChildren);
     }
   };
@@ -109,16 +75,15 @@ const AlertTopbar = ({
         }
       }
       if (filterRemoved) {
-        setFiltersSelectedValues(newFilterSelectedValues);
         bulkSetAlertSelected(newFilterSelectedValues);
       }
-
-      setAlertsDisplayed(draftChosenElements);             // persist (zustand)
-      setfiltersToDisplayList(draftChosenElements);
+      setAlertsFiltersDisplayed(draftChosenElements);             // persist (zustand)
     }
 
     setIsFiltersListModalOpen(false);
   };
+
+  
 
   return (
     <AppBar position="static" square={false} elevation={1}
@@ -142,7 +107,6 @@ const AlertTopbar = ({
                     filterName={filter}
                     selectedValues={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
                     onFilterChange={(filterKey, values) => {
-                      setAlertSelected(filterKey as AlertFilters, values); // persist (zustand)
                       onFilterChange(filterKey as AlertFilters, values);
                     }}
                   />
@@ -157,7 +121,6 @@ const AlertTopbar = ({
                   filterName={filter}
                   selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
                   onFilterChange={(filterKey, values) => {
-                    setAlertSelected(filterKey as AlertFilters, values);   // persist (zustand)
                     onFilterChange(filterKey as AlertFilters, values); 
                   }}
                 />
@@ -173,7 +136,6 @@ const AlertTopbar = ({
                   value={Array.isArray(filtersSelectedValues[filter]) ? (filtersSelectedValues[filter] as CountryOption[]) : []}
                   onChange={(newValue) => {
                     const val = Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined;
-                    setAlertSelected('Country', val);                      // persist (zustand)
                     onFilterChange('Country', val);
                   }}
                 />
@@ -195,7 +157,6 @@ const AlertTopbar = ({
                   }
                   onChange={(newValue) => {
                     const iso = newValue ? newValue.toDate().toISOString() : undefined;
-                    setAlertSelected(filter, iso);    // persist (zustand)
                     onFilterChange(filter, iso);     
                   }}
                   slotProps={{ field: { clearable: true } }}
@@ -223,7 +184,6 @@ const AlertTopbar = ({
                 onChange={() => {
                   const next = !isOnlyMySubsAlerts;
                   setIsOnlyMySubsAlerts(next);
-                  setOnlyMySubs(next);         // persist (zustand)
                 }}
               />
             }
@@ -235,8 +195,8 @@ const AlertTopbar = ({
           groupedElementsByCategory={ALERTS_FILTERS_CATEGORY}
           isModalOpen={isFiltersListModalOpen}
           onClose={onFiltersListModalClose}
-          chosenElementsList={filtersToDisplayList}
-          setChosenElementsList={setfiltersToDisplayList}
+          chosenElementsList={alertsFiltersDisplayed}
+          setChosenElementsList={setAlertsFiltersDisplayed}
         />
       </Toolbar>
     </AppBar>

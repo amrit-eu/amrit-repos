@@ -1,7 +1,7 @@
 import getAlerts from '@/lib/fetchers/fetchAlerts.client';
 import { Alert, AlertApiResponse } from '@/types/alert'
 import { Order, Session } from '@/types/types';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_MAIN_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
@@ -35,38 +35,41 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  // Memoize userId to prevent unnecessary re-renders when session object changes
+  const userId = useMemo(() => session?.userId ?? 0, [session?.userId]);
+
   // fetch alerts data
-  useEffect(() => {   
-    let isLatestRequest = true; 
+  useEffect(() => {
+    let isLatestRequest = true;
     const controller = new AbortController();
     const signal = controller.signal;
 
     async function fetchAlertData() {
       setLoading(true);
       try {
-        const alertsData = await getAlerts(filtersSelectedValues,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true,isOnlyMySubsAlerts, session?.userId ?? 0, signal );
+        const alertsData = await getAlerts(filtersSelectedValues, page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], true, isOnlyMySubsAlerts, userId, signal);
         // compute last note of each alert from alerts's history entries :
         addAlertsLastNotesToAlertApiResponse(alertsData)
-        if (isLatestRequest) { 
+        if (isLatestRequest) {
           setAlertsApiResponseData(alertsData);
         }
       } catch (error) {
         if (error instanceof Error && error.name !== 'AbortError') {
-        }        
+        }
       } finally {
-        if (isLatestRequest) { 
+        if (isLatestRequest) {
           setLoading(false);
         }
       }
     }
 
     fetchAlertData();
-    
+
     return () => {
-      isLatestRequest = false; 
+      isLatestRequest = false;
       controller.abort();
-    };    
-  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts, session?.userId])
+    };
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts, userId])
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {

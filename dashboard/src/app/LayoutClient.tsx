@@ -17,19 +17,23 @@ import { useShallow } from 'zustand/react/shallow';
 dayjs.extend(utc);
 
 export default function LayoutClient({ children }: { children: React.ReactNode }) {
-  // 1) Call all hooks unconditionally, every render
-  const { darkMode, sidebarOpen, toggleTheme, setSidebar } = useAppStore(
+  // Get state with useShallow - Zustand will only re-render if values change
+  const { darkMode, sidebarOpen } = useAppStore(
     useShallow((s) => ({
       darkMode: s.ui.darkMode,
       sidebarOpen: s.ui.sidebarOpen,
-      toggleTheme: s.toggleTheme,
-      setSidebar: s.setSidebar,
     }))
   );
 
-  // 2) Mount guard only affects visibility, not hook order
+  // Get actions separately - they're stable references, no need for shallow
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
+  const setSidebar = useAppStore((s) => s.setSidebar);
+
+  // Prevent hydration mismatch by waiting for client-side hydration
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <ThemeRegistry mode={darkMode ? 'dark' : 'light'}>

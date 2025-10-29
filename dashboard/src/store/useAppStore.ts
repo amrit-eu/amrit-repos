@@ -23,7 +23,7 @@ type State = {
 type Actions = {
   toggleTheme: () => void;
   setSidebar: (open: boolean) => void;
-  setAlertsDisplayed: Dispatch<SetStateAction<AlertFilters[]>>;
+  setAlertsFiltersDisplayed: Dispatch<SetStateAction<AlertFilters[]>>;
   setAlertSelected: <K extends AlertFilters>(key: K, value: FiltersValuesMap[K]) => void;
   bulkSetAlertSelected: (next: FiltersValuesMap) => void;
   setOnlyMySubs: (v: boolean) => void;
@@ -32,7 +32,7 @@ type Actions = {
 const initial: State = {
   ui: { darkMode: false, sidebarOpen: true },
   filters: {},
-  alerts: { displayed: [], selected: {}, onlyMySubs: false },
+  alerts: { displayed: [ "event","severity","status","from-date", "to-date"], selected: {status:["open","ack"]}, onlyMySubs: true },
 };
 
 export const useAppStore = create<State & Actions>()(
@@ -45,7 +45,7 @@ export const useAppStore = create<State & Actions>()(
       setSidebar: (open) => set((s) => ({ ui: { ...s.ui, sidebarOpen: open } })),
 
       // alerts
-      setAlertsDisplayed: (value) =>
+      setAlertsFiltersDisplayed: (value) =>
         set((s) => {
           const next =
             typeof value === 'function'
