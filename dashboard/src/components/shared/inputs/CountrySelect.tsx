@@ -13,6 +13,14 @@ interface CountryFieldProps {
   onChange: (newValue: CountryOption | CountryOption[] | null) => void;
   multiple?: boolean;
   options: CountryOption[]
+  menuOpen?: boolean;
+  onMenuOpen?: () => void;
+  onMenuClose?: () => void;
+  autoFocus?: boolean;
+  openOnFocus?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
 }
 
 const OptionBox = styled(Box)({
@@ -22,7 +30,17 @@ const OptionBox = styled(Box)({
 
 const OCEANOPS_STATIC_RESOURCES = 'https://www.ocean-ops.org/static'
 
-const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, options }) => {
+const CountryField: React.FC<CountryFieldProps> = ({
+  label = 'Country',
+  multiple = false,
+  options,
+  value,
+  onChange,
+  menuOpen,
+  onMenuOpen,
+  onMenuClose,
+  openOnFocus,
+}) => {
 
   return (
     <Autocomplete
@@ -33,6 +51,11 @@ const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, 
       value={value ?? (multiple ? [] : null)}
       onChange={(_, newValue) => onChange(newValue)}
       isOptionEqualToValue={(option, val) => option.id === val.id}
+      open={menuOpen}
+      onOpen={onMenuOpen}
+      onClose={onMenuClose}
+      openOnFocus={openOnFocus}
+      autoHighlight
 		renderTags={(value, getTagProps) =>
 		Array.isArray(value)
 			? value.map((option, index) => {

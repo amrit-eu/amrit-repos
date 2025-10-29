@@ -13,7 +13,7 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ALERT_SEVERITY_OPTIONS } from '@/constants/alertOptions';
 import { FilterOption } from '@/types/filters';
 import CountrySelect from '../../shared/inputs/CountrySelect';
@@ -37,8 +37,10 @@ interface AddFilterModalProps {
 const FILTER_TYPES = [
   { label: 'Minimum Severity', value: 'minSeverityId' },
   { label: 'Country', value: 'countryName' },
+  { label: 'Resource', value: 'resource' },
   { label: 'WIGOS-ID', value: 'wigosId' },
   { label: 'Time range', value: 'timeRange' },
+  { label: 'Event', value: 'event' }
 ];
 
 const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
@@ -47,6 +49,24 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
   const [filterOptions, setFilterOptions] = useState<FilterOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
   const [, setCountryValue] = useState<CountryOption | null>(null);
+  const [selectOpen, setSelectOpen] = useState(false);
+  const [severityOpen, setSeverityOpen] = useState(false);
+  const [countryOpen, setCountryOpen] = useState(false);
+
+  const valueInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-open the filter type select when the modal opens
+  useEffect(() => {
+    if (open) {
+      setFilterType('');
+      setFilterValue('');
+      setSelectOpen(true);
+      setSeverityOpen(false);
+      setCountryOpen(false);
+    } else {
+      setSelectOpen(false);
+    }
+  }, [open]);
 
   const fetchOptions = async (type: string) => {
     setLoadingOptions(true);
@@ -78,6 +98,26 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
     setLoadingOptions(false);
   };
 
+  const handleTypeChange = async (selectedType: string) => {
+    setFilterType(selectedType);
+    setFilterValue('');
+    setSelectOpen(false);
+    setSeverityOpen(false);
+    setCountryOpen(false);
+
+    await fetchOptions(selectedType);
+
+    if (selectedType === 'minSeverityId') {
+      setTimeout(() => setSeverityOpen(true), 0);
+    } else if (selectedType === 'countryName') {
+      setTimeout(() => setCountryOpen(true), 0);
+    }  else if (selectedType === 'event' || selectedType === 'resource' || selectedType === 'wigosId') {
+      // focus the value textbox
+      setTimeout(() => valueInputRef.current?.focus(), 0);
+    }
+  };
+
+
   const handleConfirm = () => {
     onConfirm(filterType, filterValue);
     setFilterType('');
@@ -89,26 +129,28 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
       <DialogTitle>Add a Filter</DialogTitle>
       <DialogContent>
         <Stack spacing={2} mt={1}>
-			<FormControl fullWidth>
-  <InputLabel id="filter-type-label">Filter type</InputLabel>
-          <Select
-            value={filterType}
-            onChange={(e) => {
-              const selectedType = e.target.value;
-              setFilterType(selectedType);
-              setFilterValue('');
-              fetchOptions(selectedType);
-            }}
-            fullWidth
-			label={"Filter type"}
-          >
-            {FILTER_TYPES.map((f) => (
-              <MenuItem key={f.value} value={f.value}>
-                {f.label}
-              </MenuItem>
-            ))}
-          </Select>
-</FormControl>
+        <FormControl fullWidth>
+          <InputLabel id="filter-type-label">Filter type</InputLabel>
+            <Select
+              value={filterType}
+              onChange={(e) => handleTypeChange(e.target.value as string)}
+              fullWidth
+              label={"Filter type"}
+              // Open the dropdown automatically on modal show
+                open={selectOpen}
+                onOpen={() => setSelectOpen(true)}
+                onClose={() => setSelectOpen(false)}
+                displayEmpty
+                renderValue={(val) => (val ? FILTER_TYPES.find(f => f.value === val)?.label : '')}
+                MenuProps={{ disableScrollLock: true }}
+            >
+              {FILTER_TYPES.map((f) => (
+                <MenuItem key={f.value} value={f.value}>
+                  {f.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           {filterType === 'timeRange' ? (
             <Stack direction="row" spacing={2}>
@@ -135,7 +177,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
 				}
 				slotProps={{ textField: { fullWidth: true } }}
 				/>
-            </Stack>
+        </Stack>
           ) : (filterType && ['countryName'].includes(filterType) ? (
             <CountrySelect 
                 label="Country"
@@ -149,19 +191,27 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
                     setFilterValue(null);
                   }
                 } } 
-                options={filterOptions as CountryOption[]}			/>
+                options={filterOptions as CountryOption[]}	
+                menuOpen={countryOpen}
+                onMenuOpen={() => setCountryOpen(true)}
+                onMenuClose={() => setCountryOpen(false)}
+                autoFocus		/>
           ) : filterType && ['minSeverityId'].includes(filterType) ? (
 			
 			<FormControl fullWidth>
  				 <InputLabel id="filter-severity-label">Minimum severity</InputLabel>
-				<Select
-				labelId="filter-severity-label"
-				label="Minimum severity"
-				value={String(filterValue)}
-				fullWidth
-				onChange={(e) => setFilterValue(e.target.value)}
-				disabled={loadingOptions}
-				>
+          <Select
+            labelId="filter-severity-label"
+            label="Minimum severity"
+            value={String(filterValue)}
+            fullWidth
+            onChange={(e) => setFilterValue(e.target.value)}
+            disabled={loadingOptions}
+            // Auto-open after type selection
+            open={severityOpen}
+            onOpen={() => setSeverityOpen(true)}
+            onClose={() => setSeverityOpen(false)}
+          >
 				{filterOptions.map((opt) => (
 					<MenuItem key={opt.id ?? opt.value} value={opt.label ?? opt.name}>
 					{opt.label ?? opt.name}
@@ -176,13 +226,16 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
                 fullWidth
                 value={typeof filterValue === 'string' ? filterValue : ''}
                 onChange={(e) => setFilterValue(e.target.value)}
+                inputRef={valueInputRef}
+                autoFocus 
               />
             )
           ))}
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}
+          variant="outlined">Cancel</Button>
         <Button
           onClick={handleConfirm}
           variant="contained"
