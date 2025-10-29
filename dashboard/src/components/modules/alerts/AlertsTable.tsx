@@ -55,6 +55,7 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
         }
       } catch (error) {
         if (error instanceof Error && error.name !== 'AbortError') {
+          setAlertsApiResponseData(undefined)
         }
       } finally {
         if (isLatestRequest) {

@@ -43,7 +43,7 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
 
   //build request params
   const queryString = queryStringParts.filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
-  
+  console.log("queryString", queryString)
   // fetch data
   return await gatewayFetchViaProxy<AlertApiResponse>('GET',`/alerta/alerts?${queryString}`, undefined, signal);
 
@@ -109,7 +109,7 @@ function filtersToQueryString(filters: FiltersValuesMap): string {
       if (valuesToProcess.length === 1) {
         const val = valuesToProcess[0];
         const queryValue = useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val);
-        qClauses.push(`${field}:${queryValue}`);
+        qClauses.push(`${field}:/^${queryValue}$/`);
       } else if (valuesToProcess.length > 1) {
         const orValues = valuesToProcess.map(val => useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val)).join(" OR ");
         qClauses.push(`${field}:(${orValues})`);
