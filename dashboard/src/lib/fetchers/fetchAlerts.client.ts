@@ -43,7 +43,6 @@ export default async function getAlerts(filters:FiltersValuesMap = {"status": ["
 
   //build request params
   const queryString = queryStringParts.filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
-  console.log("queryString", queryString)
   // fetch data
   return await gatewayFetchViaProxy<AlertApiResponse>('GET',`/alerta/alerts?${queryString}`, undefined, signal);
 
@@ -90,7 +89,7 @@ function filtersToQueryString(filters: FiltersValuesMap): string {
   const qClauses: string[] = [];
   for (const [key, values] of Object.entries(filters) as [keyof FiltersValuesMap, FiltersValuesMap[keyof FiltersValuesMap]][]) {
     let valuesToProcess: string[] = [];
-    const useRegex = (ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key); // if we want a regex match
+    const useRegexMatch = (ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key); // if we want a regex match
 
     if (key === "Country") {
       const countryValues = values as CountryOption[];
@@ -108,18 +107,18 @@ function filtersToQueryString(filters: FiltersValuesMap): string {
       const field = `_.${key}`;
       if (valuesToProcess.length === 1) {
         const val = valuesToProcess[0];
-        const queryValue = useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val);
-        qClauses.push(`${field}:/^${queryValue}$/`);
+        const queryValue = formatQueryValueForCustomAttribute(val, useRegexMatch);
+        qClauses.push(`${field}:${queryValue}`);
       } else if (valuesToProcess.length > 1) {
-        const orValues = valuesToProcess.map(val => useRegex ? `/${escapeRegex(val)}/` : escapeLuceneValue(val)).join(" OR ");
+        const orValues = valuesToProcess.map(val => formatQueryValueForCustomAttribute(val, useRegexMatch)).join(" OR ");
         qClauses.push(`${field}:(${orValues})`);
       }
     } else {
       if (!Array.isArray(valuesToProcess)) {
-        cleanAndAppendKeyValueToParam(valuesToProcess, key, useRegex, params);
+        cleanAndAppendKeyValueToParam(valuesToProcess, key, useRegexMatch, params);
       } else {
         for (const val of valuesToProcess) {
-          cleanAndAppendKeyValueToParam(val, key, useRegex, params);
+          cleanAndAppendKeyValueToParam(val, key, useRegexMatch, params);
         }
       }
     }
@@ -131,6 +130,16 @@ function filtersToQueryString(filters: FiltersValuesMap): string {
   }
 
   return params.toString().replace(/\+/g, '%20'); //'+' in q quert not well interpreted in alerta API. Replace by %20 (space)
+}
+
+function formatQueryValueForCustomAttribute(val:string, useRegexMatch: boolean) : string {
+  // regex contain match (/value/)
+  if (useRegexMatch) return `(/${escapeRegex(val)}/)`
+
+  // regex exact match (/^value$/)
+  const luceneValue = escapeLuceneValue (val)
+  const regexExactMatch = luceneValue.replace('"','^').replace('"','$')  
+  return `(/${regexExactMatch}/)`
 }
 
 function cleanAndAppendKeyValueToParam(val: string, key: string, useRegex: boolean, params: URLSearchParams) {
