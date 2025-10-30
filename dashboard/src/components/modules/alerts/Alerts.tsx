@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import AlertsClientWrapper from './AlertsClientWrapper';
 import { verifySession } from '@/app/_lib/session';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
@@ -34,10 +33,8 @@ const Alerts = async () => {
   }
   
  
-  return (
-    <Box sx={{ width: '100%', padding: 2 }}>
-      <AlertsClientWrapper filtersValues={filtersValues} session={session}/>
-    </Box>
+  return (    
+      <AlertsClientWrapper filtersValues={filtersValues} session={session}/>   
   );
 };
 
