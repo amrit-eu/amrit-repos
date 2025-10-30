@@ -54,7 +54,7 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
     // Use ref to track if this is the initial mount
     const isInitialMount = useRef(true);
 
-    // Initialize status filter only once on mount by considering filtersValues (alerts count done server side on parent)
+    // Initialize status filter only once on mount by considering filtersValues (alerts count done server side on parent) and add "open" and "ack" by default if present in the count
     useEffect(() => {
       if (isInitialMount.current && filtersValues.status) {
         const initialStatusLabels = getFilterLabels(["open", "ack"], filtersValues.status);

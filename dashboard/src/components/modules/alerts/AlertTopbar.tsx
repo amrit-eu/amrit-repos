@@ -99,6 +99,7 @@ const AlertTopbar = ({
           switch (filter) {
             case 'severity':
             case 'status':
+            case 'event' :
               if (filtersValues[filter])
                 return (
                   <MultiSelectChip
@@ -113,8 +114,7 @@ const AlertTopbar = ({
                 );
               return null;
 
-            case 'resource':
-            case 'event':
+            case 'resource':            
               return (
                 <MultiChipInput
                   key={filter}

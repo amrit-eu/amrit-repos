@@ -1,7 +1,7 @@
 import AlertsClientWrapper from './AlertsClientWrapper';
 import { verifySession } from '@/app/_lib/session';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
-import { AlertsCount } from '@/types/alert';
+import { AlertsCount, EventsCount } from '@/types/alert';
 import { CountryAPIResponse, CountryOption, Session, TopicOption } from '@/types/types';
 import { FiltersValuesMap } from '@/types/filters';
 import { handleCountryAPIJsonResponse } from '@/lib/utils/handleCountryAPIJsonResponse';
@@ -23,11 +23,15 @@ const Alerts = async () => {
   // fetch topics list :
   const topicsData = await getFromGateway<TopicOption[]>('/data/topics');
 
+  // fetch event list
+  const eventsCount = await getFromGateway<EventsCount>('/alerta/alerts/events');
+
 
   // Fetch filters data server side
   const filtersValues :FiltersValuesMap = {
     severity: Object.entries(counts.severityCounts).map(([key])=> `${key}`),
-    status:  Object.entries(counts.statusCounts).map(([key])=> `${key}`),    
+    status:  Object.entries(counts.statusCounts).map(([key])=> `${key}`),
+    event: eventsCount.events.map(e => e.event),    
     Country: sortedCountryOption,
     alert_category: topicsData
   }

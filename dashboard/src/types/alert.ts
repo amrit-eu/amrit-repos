@@ -176,6 +176,12 @@ export type AlertApiResponse = AlertCountApiResponse & {
     statusCounts: Record<string, number>;
     total: number;
   }
+  
+  export type EventsCount = {
+    events : Array<{count:number , environment:string, event:string}>
+    status: string
+    total: number
+  }
 
   export type Note = {
     attributes : {environment: string, event: string, resource: string}
