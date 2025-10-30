@@ -9,6 +9,7 @@ import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNo
 import { FiltersValuesMap } from '@/types/filters';
 import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
 import { useRouter, useSearchParams } from "next/navigation";
+import AlertDetails from './AlertDetails';
 
 
 interface AlertsTableProps {
@@ -105,7 +106,7 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
         <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page}
          setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} data={alertsApiResponseData?.alerts ?? []} 
          totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={toolBarActionComponent} colmunsConfiguration={alertaColumnsConfig} 
-          onRowNavigate={onRowNavigate}
+          onRowNavigate={onRowNavigate} collapsingComponent={(data) => <AlertDetails data={data} showSummaryRow={false} />}
          />      
       
     </LoadingWrapper>
