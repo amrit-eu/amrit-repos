@@ -109,7 +109,7 @@ const CountryField: React.FC<CountryFieldProps> = ({
         <TextField
           {...params}
           variant="outlined"
-          label={"Country"}
+          label={label}
           inputRef={inputRef}          
         />
       )}

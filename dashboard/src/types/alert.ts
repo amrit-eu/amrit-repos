@@ -183,6 +183,12 @@ export type AlertApiResponse = AlertCountApiResponse & {
     total: number
   }
 
+  export type ResourcesCount = {
+    resources : Array<{count:number , environment:string, resource:string}>
+    status: string
+    total: number
+  }
+
   export type Note = {
     attributes : {environment: string, event: string, resource: string}
     createTime : string

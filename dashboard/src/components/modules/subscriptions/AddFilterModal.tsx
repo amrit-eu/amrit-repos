@@ -21,9 +21,7 @@ import { CountryOption } from '@/types/types';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
-import fetchTopicOptions from '@/lib/fetchers/fetchTopicOptions.client';
 import fetchEventsList from '@/lib/fetchers/fetchEventsList.client';
-import MultiSelectChip from '@/components/shared/inputs/MultiSelectChip';
 import SingleSelectChip from '@/components/shared/inputs/SingleSelectChip';
 
 export type FilterValue =
@@ -150,7 +148,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
               </Select>
           </FormControl>
 
-          {/* Set filter inpur form */}
+          {/* Set filter input form */}
           { (() => {
               switch (filterType) {
                 // TIME RANGE INPUT
