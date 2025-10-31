@@ -32,7 +32,7 @@ type Actions = {
 const initial: State = {
   ui: { darkMode: false, sidebarOpen: true },
   filters: {},
-  alerts: { displayed: [ "event","severity","status","from-date", "to-date"], selected: {status:["open","ack"]}, onlyMySubs: true },
+  alerts: { displayed: [ "event","severity","status","resource", "alert_category", "Country"], selected: {status:["open","ack"]}, onlyMySubs: true },
 };
 
 export const useAppStore = create<State & Actions>()(

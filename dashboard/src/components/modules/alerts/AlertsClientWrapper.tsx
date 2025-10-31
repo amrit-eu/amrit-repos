@@ -54,7 +54,7 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
     // Use ref to track if this is the initial mount
     const isInitialMount = useRef(true);
 
-    // Initialize status filter only once on mount by considering filtersValues (alerts count done server side on parent)
+    // Initialize status filter only once on mount by considering filtersValues (alerts count done server side on parent) and add "open" and "ack" by default if present in the count
     useEffect(() => {
       if (isInitialMount.current && filtersValues.status) {
         const initialStatusLabels = getFilterLabels(["open", "ack"], filtersValues.status);
@@ -82,13 +82,11 @@ const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps)
 
 
   return (
-    <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{height: '100%', width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2, overflow:'hidden' }}>
 
         <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} bulkSetAlertSelected={bulkSetAlertSelected} isUserLogin={session?.isAuth ?? false}  isOnlyMySubsAlerts={onlyMySubs} setIsOnlyMySubsAlerts={setOnlyMySubs}/>
            
         <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={onlyMySubs} page={page} setPage={setPage}/>
-
-
 
     </Box>
   )
