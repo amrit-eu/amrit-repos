@@ -9,7 +9,6 @@ import { getSeveritiesAboveMinSeverity } from '../utils/getSeveritiesAboveMinSev
 import { gatewayFetchViaProxy } from '../gateway/gatewayFetchViaProxy.client';
 import { findAllChildrenTopicsFromId } from '../utils/findAllChildrenFromTopicId';
 
-//const baseUrl = ALERTA_API_BASE_URL;
 
 export default async function getAlerts(filters:FiltersValuesMap = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false,isOnlyMySubsAlerts:boolean=false, userId:number=0, signal?: AbortSignal) : Promise<AlertApiResponse> {
   const queryStringParts: string[] = [];

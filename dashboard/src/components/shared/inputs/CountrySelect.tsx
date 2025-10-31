@@ -21,6 +21,7 @@ interface CountryFieldProps {
   placeholder?: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  inputRef?:  React.RefObject<HTMLInputElement | null>
 }
 
 const OptionBox = styled(Box)({
@@ -40,6 +41,7 @@ const CountryField: React.FC<CountryFieldProps> = ({
   onMenuOpen,
   onMenuClose,
   openOnFocus,
+  inputRef
 }) => {
 
   return (
@@ -108,6 +110,7 @@ const CountryField: React.FC<CountryFieldProps> = ({
           {...params}
           variant="outlined"
           label={"Country"}
+          inputRef={inputRef}          
         />
       )}
       sx={{

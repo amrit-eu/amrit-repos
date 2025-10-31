@@ -21,6 +21,10 @@ import { CountryOption } from '@/types/types';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
+import fetchTopicOptions from '@/lib/fetchers/fetchTopicOptions.client';
+import fetchEventsList from '@/lib/fetchers/fetchEventsList.client';
+import MultiSelectChip from '@/components/shared/inputs/MultiSelectChip';
+import SingleSelectChip from '@/components/shared/inputs/SingleSelectChip';
 
 export type FilterValue =
   | string
@@ -48,10 +52,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
   const [filterValue, setFilterValue] = useState<FilterValue>('');
   const [filterOptions, setFilterOptions] = useState<FilterOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
-  const [, setCountryValue] = useState<CountryOption | null>(null);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [severityOpen, setSeverityOpen] = useState(false);
-  const [countryOpen, setCountryOpen] = useState(false);
 
   const valueInputRef = useRef<HTMLInputElement>(null);
 
@@ -61,8 +62,6 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
       setFilterType('');
       setFilterValue('');
       setSelectOpen(true);
-      setSeverityOpen(false);
-      setCountryOpen(false);
     } else {
       setSelectOpen(false);
     }
@@ -76,11 +75,10 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
       switch (type) {
         case 'minSeverityId':
           options = ALERT_SEVERITY_OPTIONS;
-          setFilterOptions(filterOptions);
           break;
         case 'countryName' :
-          const data = await fetchCountryOptions();
-          const fetchedCountryOptions = data
+          const countryData = await fetchCountryOptions();
+          const fetchedCountryOptions = countryData
             .filter((item) => item.id && item.name)
             .map((item) => ({
               id: item.id ?? '',
@@ -90,6 +88,14 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
           options = fetchedCountryOptions.sort((a, b) =>
             a.name.localeCompare(b.name)
           );
+          break;
+        case 'event':
+          const eventData= await fetchEventsList();
+          options = (eventData?.events ?? [])
+            .map(e => ({
+              name: e?.event
+            }))
+          break;
       }
     }     
      catch  {      
@@ -102,19 +108,11 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
     setFilterType(selectedType);
     setFilterValue('');
     setSelectOpen(false);
-    setSeverityOpen(false);
-    setCountryOpen(false);
 
     await fetchOptions(selectedType);
 
-    if (selectedType === 'minSeverityId') {
-      setTimeout(() => setSeverityOpen(true), 0);
-    } else if (selectedType === 'countryName') {
-      setTimeout(() => setCountryOpen(true), 0);
-    }  else if (selectedType === 'event' || selectedType === 'resource' || selectedType === 'wigosId') {
-      // focus the value textbox
-      setTimeout(() => valueInputRef.current?.focus(), 0);
-    }
+    // automatically focus on the input when fetch is done
+    setTimeout(() => valueInputRef.current?.focus(), 0);
   };
 
 
@@ -129,108 +127,122 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
       <DialogTitle>Add a Filter</DialogTitle>
       <DialogContent>
         <Stack spacing={2} mt={1}>
-        <FormControl fullWidth>
-          <InputLabel id="filter-type-label">Filter type</InputLabel>
-            <Select
-              value={filterType}
-              onChange={(e) => handleTypeChange(e.target.value as string)}
-              fullWidth
-              label={"Filter type"}
-              // Open the dropdown automatically on modal show
-                open={selectOpen}
-                onOpen={() => setSelectOpen(true)}
-                onClose={() => setSelectOpen(false)}
-                displayEmpty
-                renderValue={(val) => (val ? FILTER_TYPES.find(f => f.value === val)?.label : '')}
-                MenuProps={{ disableScrollLock: true }}
-            >
-              {FILTER_TYPES.map((f) => (
-                <MenuItem key={f.value} value={f.value}>
-                  {f.label}
-                </MenuItem>
-              ))}
-            </Select>
+          <FormControl fullWidth>
+            <InputLabel id="filter-type-label">Filter type</InputLabel>
+              <Select
+                value={filterType}
+                onChange={(e) => handleTypeChange(e.target.value as string)}
+                fullWidth
+                label={"Filter type"}
+                // Open the dropdown automatically on modal show
+                  open={selectOpen}
+                  onOpen={() => setSelectOpen(true)}
+                  onClose={() => setSelectOpen(false)}
+                  displayEmpty
+                  renderValue={(val) => (val ? FILTER_TYPES.find(f => f.value === val)?.label : '')}
+                  MenuProps={{ disableScrollLock: true }}
+              >
+                {FILTER_TYPES.map((f) => (
+                  <MenuItem key={f.value} value={f.value}>
+                    {f.label}
+                  </MenuItem>
+                ))}
+              </Select>
           </FormControl>
 
-          {filterType === 'timeRange' ? (
-            <Stack direction="row" spacing={2}>
-				<DateTimePicker
-				label="From"
-  				format="YYYY-MM-DD HH:mm:ss"
-				onChange={(newValue: Dayjs | null) =>
-					setFilterValue((prev: FilterValue) => ({
-					...(typeof prev === 'object' && prev !== null ? prev : {}),
-					minTime: newValue?.toISOString() ?? undefined,
-					}))
-				}
-				slotProps={{ textField: { fullWidth: true } }}
-				/>
+          {/* Set filter inpur form */}
+          { (() => {
+              switch (filterType) {
+                // TIME RANGE INPUT
+                case 'timeRange' :
+                  return(
+                    <Stack direction="row" spacing={2}>
+                      <DateTimePicker
+                      label="From"
+                        format="YYYY-MM-DD HH:mm:ss"
+                      onChange={(newValue: Dayjs | null) =>
+                        setFilterValue((prev: FilterValue) => ({
+                        ...(typeof prev === 'object' && prev !== null ? prev : {}),
+                        minTime: newValue?.toISOString() ?? undefined,
+                        }))
+                      }
+                      slotProps={{ textField: { fullWidth: true } }}
+                      />
 
-				<DateTimePicker
-				label="To"
-  				format="YYYY-MM-DD HH:mm:ss"
-				onChange={(newValue: Dayjs | null) =>
-					setFilterValue((prev: FilterValue) => ({
-					...(typeof prev === 'object' && prev !== null ? prev : {}),
-					maxTime: newValue?.toISOString() ?? undefined,
-					}))
-				}
-				slotProps={{ textField: { fullWidth: true } }}
-				/>
-        </Stack>
-          ) : (filterType && ['countryName'].includes(filterType) ? (
-            <CountrySelect 
-                label="Country"
-                multiple={false}
-                onChange={(newValue) => {
-                  if (newValue) {
-                    setCountryValue(newValue as CountryOption);
-                    setFilterValue(newValue as CountryOption);
-                  } else {
-                    setCountryValue(null);
-                    setFilterValue(null);
-                  }
-                } } 
-                options={filterOptions as CountryOption[]}	
-                menuOpen={countryOpen}
-                onMenuOpen={() => setCountryOpen(true)}
-                onMenuClose={() => setCountryOpen(false)}
-                autoFocus		/>
-          ) : filterType && ['minSeverityId'].includes(filterType) ? (
-			
-			<FormControl fullWidth>
- 				 <InputLabel id="filter-severity-label">Minimum severity</InputLabel>
-          <Select
-            labelId="filter-severity-label"
-            label="Minimum severity"
-            value={String(filterValue)}
-            fullWidth
-            onChange={(e) => setFilterValue(e.target.value)}
-            disabled={loadingOptions}
-            // Auto-open after type selection
-            open={severityOpen}
-            onOpen={() => setSeverityOpen(true)}
-            onClose={() => setSeverityOpen(false)}
-          >
-				{filterOptions.map((opt) => (
-					<MenuItem key={opt.id ?? opt.value} value={opt.label ?? opt.name}>
-					{opt.label ?? opt.name}
-					</MenuItem>
-				))}
-				</Select>
-			</FormControl>
-          ) : (
-            filterType && (
-              <TextField
-                label="Value"
-                fullWidth
-                value={typeof filterValue === 'string' ? filterValue : ''}
-                onChange={(e) => setFilterValue(e.target.value)}
-                inputRef={valueInputRef}
-                autoFocus 
-              />
-            )
-          ))}
+                      <DateTimePicker
+                      label="To"
+                        format="YYYY-MM-DD HH:mm:ss"
+                      onChange={(newValue: Dayjs | null) =>
+                        setFilterValue((prev: FilterValue) => ({
+                        ...(typeof prev === 'object' && prev !== null ? prev : {}),
+                        maxTime: newValue?.toISOString() ?? undefined,
+                        }))
+                      }
+                      slotProps={{ textField: { fullWidth: true } }}
+                      />
+                    </Stack>
+                  )
+                // COUNTRY INPUT  
+                case 'countryName' :
+                  return(
+                    <CountrySelect 
+                      label="Country"
+                      multiple={false}
+                      onChange={(newValue) => {
+                        if (newValue) {
+                          setFilterValue(newValue as CountryOption);
+                        } else {
+                          setFilterValue(null);
+                        }
+                      } } 
+                      options={filterOptions as CountryOption[]}
+                      openOnFocus={true}
+                      autoFocus
+                      inputRef={valueInputRef}
+                		/>
+                  )
+                // MIN SEVERITY INPUT
+                case 'minSeverityId':
+                  return(
+                     <SingleSelectChip 
+                        datalist={filterOptions.map(f => f.label ?? f.name ?? "")} 
+                        filterName={'Severity'} 
+                        onFilterChange={(_, value)=> setFilterValue(value)} 
+                        selectedValue={String(filterValue)}
+                        fullwidth
+                        inputRef={valueInputRef}
+                        disabled={loadingOptions}
+                      />	
+                  )
+                // EVENT INPUT
+                case 'event' :
+                  return(
+                    <SingleSelectChip 
+                      datalist={filterOptions.map(f => f.name ?? "")} 
+                      filterName={'Event'} 
+                      onFilterChange={(_, value)=> setFilterValue(value)} 
+                      selectedValue={String(filterValue)}
+                      fullwidth
+                      inputRef={valueInputRef}
+                      disabled={loadingOptions}
+                      freesolo={true} // user can want to subscribe to an event which is not yet in alerta database (because no alert has been emitted with this event yet)
+                    />
+                  )
+                // OTHERS INPUT :
+                default:
+                  return (
+                     <TextField
+                        label="Value"
+                        fullWidth
+                        value={typeof filterValue === 'string' ? filterValue : ''}
+                        onChange={(e) => setFilterValue(e.target.value)}
+                        inputRef={valueInputRef}
+                        autoFocus 
+                      />
+                  ) 
+              }
+            })()
+          }         
         </Stack>
       </DialogContent>
       <DialogActions>
