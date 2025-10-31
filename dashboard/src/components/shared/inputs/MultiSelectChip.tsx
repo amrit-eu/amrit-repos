@@ -21,7 +21,7 @@ const MultiSelectChip = ({datalist, onFilterChange, filterName, selectedValues, 
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 'auto', minWidth: 400, maxWidth: 900 }}>
+      <FormControl sx={{ width: 'auto', minWidth: 400, maxWidth: 900 }}>
         <Autocomplete
           id={`${filterName}-autocomplete`} 
           multiple

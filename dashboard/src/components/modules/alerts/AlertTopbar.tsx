@@ -55,7 +55,7 @@ const AlertTopbar = ({
     );
   }, [alertsFiltersDisplayed]);
 
-  const handleTopicSelection = (newtopicId: number) => {
+  const handleTopicSelection = (newtopicId: number | null) => {
     if (filtersValues.alert_category) {
       const topicAndChildren = findAllChildrenTopicsFromId(filtersValues.alert_category, newtopicId);
       onFilterChange('alert_category', topicAndChildren);
@@ -171,9 +171,11 @@ const AlertTopbar = ({
                 <TopicSelectField
                   key={filter}
                   size="medium"
-                  value={filtersSelectedValues[filter] ? filtersSelectedValues[filter][0].id : null}
+                  value={( filtersSelectedValues[filter] && filtersSelectedValues[filter][0]?.id) ? filtersSelectedValues[filter][0].id : null}
                   onChange={(newValue) => handleTopicSelection(newValue)}
                   topics={filtersValues.alert_category ?? []}
+                  label='Alert category'
+                  showClearIcon
                 />
               );
           }
