@@ -21,8 +21,8 @@ import { CountryOption } from '@/types/types';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
-import fetchEventsList from '@/lib/fetchers/fetchEventsList.client';
 import SingleSelectChip from '@/components/shared/inputs/SingleSelectChip';
+import { fetchEventsList, fetchResourcesList } from '@/lib/fetchers/fetchAlertsAttributeCount.client';
 
 export type FilterValue =
   | string
@@ -92,6 +92,13 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
           options = (eventData?.events ?? [])
             .map(e => ({
               name: e?.event
+            }))
+          break;
+        case 'resource':
+          const resourceData= await fetchResourcesList();
+          options = (resourceData?.resources ?? [])
+            .map(e => ({
+              name: e?.resource
             }))
           break;
       }
@@ -224,6 +231,19 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
                       inputRef={valueInputRef}
                       disabled={loadingOptions}
                       freesolo={true} // user can want to subscribe to an event which is not yet in alerta database (because no alert has been emitted with this event yet)
+                    />
+                  )
+                case 'resource' :
+                  return(
+                    <SingleSelectChip 
+                      datalist={filterOptions.map(f => f.name ?? "")} 
+                      filterName={'Resource'} 
+                      onFilterChange={(_, value)=> setFilterValue(value)} 
+                      selectedValue={String(filterValue)}
+                      fullwidth
+                      inputRef={valueInputRef}
+                      disabled={loadingOptions}
+                      freesolo={true} // user can want to subscribe to a resource which is not yet in alerta database (because no alert has been emitted with this resource yet)
                     />
                   )
                 // OTHERS INPUT :
