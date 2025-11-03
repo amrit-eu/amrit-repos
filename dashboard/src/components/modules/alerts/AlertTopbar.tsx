@@ -13,7 +13,6 @@ import { AlertFilters } from '@/constants/alertOptions';
 import { FiltersValuesMap } from '@/types/filters';
 import CountrySelect from '@/components/shared/inputs/CountrySelect';
 import { CountryOption } from '@/types/types';
-import MultiChipInput from '@/components/shared/inputs/MultiChipInput';
 import TopicSelectField from '@/components/shared/inputs/TopicSelectField';
 import { findAllChildrenTopicsFromId } from '@/lib/utils/findAllChildrenFromTopicId';
 import { useAppStore } from '@/store/useAppStore';
@@ -56,7 +55,7 @@ const AlertTopbar = ({
     );
   }, [alertsFiltersDisplayed]);
 
-  const handleTopicSelection = (newtopicId: number) => {
+  const handleTopicSelection = (newtopicId: number | null) => {
     if (filtersValues.alert_category) {
       const topicAndChildren = findAllChildrenTopicsFromId(filtersValues.alert_category, newtopicId);
       onFilterChange('alert_category', topicAndChildren);
@@ -102,6 +101,7 @@ const AlertTopbar = ({
               if (filtersValues[filter])
                 return (
                   <MultiSelectChip
+                    freesolo={false} // only choices from the list are authorized
                     key={filter}
                     datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []}
                     filterName={filter}
@@ -112,19 +112,22 @@ const AlertTopbar = ({
                   />
                 );
               return null;
-
-            case 'resource':
-            case 'event':
-              return (
-                <MultiChipInput
-                  key={filter}
-                  filterName={filter}
-                  selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
-                  onFilterChange={(filterKey, values) => {
-                    onFilterChange(filterKey as AlertFilters, values); 
-                  }}
-                />
-              );
+            case 'event' :
+            case 'resource' :
+              if (filtersValues[filter])
+                return (
+                  <MultiSelectChip
+                    freesolo = {true} // free text are authorized because request will be a regex match (contains)
+                    key={filter}
+                    datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []}
+                    filterName={filter}
+                    selectedValues={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
+                    onFilterChange={(filterKey, values) => {
+                      onFilterChange(filterKey as AlertFilters, values);
+                    }}
+                  />
+                );
+              return null;
 
             case 'Country':
               return (
@@ -168,9 +171,11 @@ const AlertTopbar = ({
                 <TopicSelectField
                   key={filter}
                   size="medium"
-                  value={filtersSelectedValues[filter] ? filtersSelectedValues[filter][0].id : null}
+                  value={( filtersSelectedValues[filter] && filtersSelectedValues[filter][0]?.id) ? filtersSelectedValues[filter][0].id : null}
                   onChange={(newValue) => handleTopicSelection(newValue)}
                   topics={filtersValues.alert_category ?? []}
+                  label='Alert category'
+                  showClearIcon
                 />
               );
           }

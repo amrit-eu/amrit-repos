@@ -2,6 +2,7 @@
 
 import { Order } from '@/types/types';
 import {
+  Box,
   FormControlLabel,
   Switch,
   Table,
@@ -114,88 +115,100 @@ function EnhancedTable<T extends HasId & Record<string, unknown>>({
     page > 0 && totalCount ? Math.max(0, (1 + page) * rowsPerPage - totalCount) : 0;
 
   return (
-    <div>
-      <EnhancedTableToolbar
-        selected={selected}
-        numSelected={selected.length}
-        toolbarActions={toolbarActions}
-      />
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={totalCount ?? 0}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-
-      <TableContainer>
-        <Table
-          sx={{ minWidth: 750 }}
-          aria-labelledby="tableTitle"
-          size={dense ? 'small' : 'medium'}
-        >
-          <EnhancedTableHead<T>
-            numSelected={selected.length}
-            order={order}
-            orderBy={orderBy}
-            onSelectAllClick={handleSelectAllClick}
-            onRequestSort={handleRequestSort}
-            rowCount={data.length ?? 0}
-            columnsConfig={colmunsConfiguration}
-            isCollapsedComponent={!!collapsingComponent}
-          />
-
-          <TableBody>
-            {(data ?? []).map((rowData, index) => {
-              const isItemSelected = selected.includes(rowData.id);
-
-              return (
-                <EnhancedTableRow
-                  key={`table-row-${index}`}
-                  rowData={rowData}
-                  columnsConfig={colmunsConfiguration}
-                  isItemSelected={isItemSelected}
-                  handleClickOnRow={handleClickOnRow}
-                  rowId={rowData.id}
-                  onRowNavigate={onRowNavigate} // ✅ ok now
-                  onToggleSelect={(id) => {
-                    const selectedIndex = selected.indexOf(id);
-                    let next: readonly string[] = [];
-                    if (selectedIndex === -1) next = next.concat(selected, id);
-                    else if (selectedIndex === 0) next = next.concat(selected.slice(1));
-                    else if (selectedIndex === selected.length - 1)
-                      next = next.concat(selected.slice(0, -1));
-                    else
-                      next = next.concat(
-                        selected.slice(0, selectedIndex),
-                        selected.slice(selectedIndex + 1)
-                      );
-                    setSelected(next);
-                  }}
-                  // keep collapsing supported, even if you're not using it for alerts now
-                  collapsingComponent={collapsingComponent && collapsingComponent(rowData)}
-                />
-              ); // ✅ closed row component
-            })}
-
-            {emptyRows > 0 && (
-              <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                <TableCell />
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <FormControlLabel
-        sx={{ marginLeft: 2 }}
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense table"
-      />
-    </div>
+    <Box sx={{
+      height: '100%', 
+      width: '100%', 
+      display: 'flex',
+      flexDirection: 'column',      
+      
+      }}
+    >
+      
+        <EnhancedTableToolbar
+          selected={selected}
+          numSelected={selected.length}
+          toolbarActions={toolbarActions}
+        />
+  
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={totalCount ?? 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{overflow:'hidden' }}
+          
+        />
+  
+        <TableContainer sx={{ height: '100%' }}>
+          <Table
+            stickyHeader
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+          >
+            <EnhancedTableHead<T>
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={data.length ?? 0}
+              columnsConfig={colmunsConfiguration}
+              isCollapsedComponent={!!collapsingComponent}
+            />
+  
+            <TableBody>
+              {(data ?? []).map((rowData, index) => {
+                const isItemSelected = selected.includes(rowData.id);
+  
+                return (
+                  <EnhancedTableRow
+                    key={`table-row-${index}`}
+                    rowData={rowData}
+                    columnsConfig={colmunsConfiguration}
+                    isItemSelected={isItemSelected}
+                    handleClickOnRow={handleClickOnRow}
+                    rowId={rowData.id}
+                    onRowNavigate={onRowNavigate} // ✅ ok now
+                    onToggleSelect={(id) => {
+                      const selectedIndex = selected.indexOf(id);
+                      let next: readonly string[] = [];
+                      if (selectedIndex === -1) next = next.concat(selected, id);
+                      else if (selectedIndex === 0) next = next.concat(selected.slice(1));
+                      else if (selectedIndex === selected.length - 1)
+                        next = next.concat(selected.slice(0, -1));
+                      else
+                        next = next.concat(
+                          selected.slice(0, selectedIndex),
+                          selected.slice(selectedIndex + 1)
+                        );
+                      setSelected(next);
+                    }}
+                    // keep collapsing supported, even if you're not using it for alerts now
+                    collapsingComponent={collapsingComponent && collapsingComponent(rowData)}
+                  />
+                ); // ✅ closed row component
+              })}
+  
+              {emptyRows > 0 && (
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                  <TableCell />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+  
+        <FormControlLabel
+          sx={{ marginLeft: 2 }}
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense table"
+        />
+      </Box>
+    
   );
 }
 
