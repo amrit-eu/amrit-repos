@@ -5,6 +5,9 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class PasswordResetService {
   private readonly logger = new Logger(PasswordResetService.name);
+  private apiBase : string;
+  private gwSecret: string;
+
   constructor(
     private readonly mailer: MailerService,
     private readonly config: ConfigService) {
@@ -13,16 +16,19 @@ export class PasswordResetService {
       // mirror proxy.routes.ts → targetPath: '/api/data'
       const targetPath = '/api/data';
       this.apiBase = `${protocol}://${host}${targetPath}`;
+      this.gwSecret = this.config.get<string>('GATEWAY_SHARED_SECRET', '');
     }
-
-  private apiBase = process.env.OCEANOPS_API_BASE ?? 'http://localhost:8080/data';   // NOT GOOD ! 
 
   async request(email: string) {
     const clean = (email ?? '').trim().toLowerCase();
     this.logger.debug(`Forwarding to API: ${JSON.stringify({ email })}`);
     const res = await fetch(`${this.apiBase}/password/reset/request`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Accept': 'application/json',
+        'X-Gateway-Secret': this.gwSecret, 
+      },
       body: JSON.stringify({ email: clean }),
     });
 
@@ -47,7 +53,11 @@ export class PasswordResetService {
   async confirm(token: string, newPassword: string) {
     const res = await fetch(`${this.apiBase}/password/reset/confirm`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' ,
+        'X-Gateway-Secret': this.gwSecret,
+      },
       body: JSON.stringify({ token: (token ?? '').trim(), newPassword }),
     });
 
