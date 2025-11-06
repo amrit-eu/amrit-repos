@@ -18,7 +18,6 @@ interface AlertsTableProps {
    session: Session | null
    page:number,
    setPage:React.Dispatch<React.SetStateAction<number>>
-       
 }
 
 const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, setPage}: AlertsTableProps) => {

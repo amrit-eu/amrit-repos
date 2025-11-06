@@ -38,7 +38,7 @@ export class EmailFormatterService {
 	const seeMoreLink = (attrs.url && isValidUrl(attrs.url)) ? `<a href=${attrs.url} target='_blank'>See more on ${extractHost(attrs.url)}</a>` : ''
 
     return `
-      <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
       <div style="font-family: Lexend, Arial, sans-serif; line-height: 1.5; color: #333;">
         <h2 style="color: #c0392b;">🚨 AMRIT Alert Notification</h2>
