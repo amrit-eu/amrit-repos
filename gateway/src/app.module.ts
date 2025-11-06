@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { EmailModule } from './mailer/mailer.module';
 import { PasswordResetModule } from './api-gateway/auth/password-reset/password-reset.module'; 
+import { NotificationsModule } from './notifications/notifications.module';
+
 
 @Module({
   imports: [PasswordResetModule,NotificationsModule, EmailModule, AlertsMqttModule, ApiGatewayModule, HttpModule, ConfigModule.forRoot({isGlobal: true,})],
