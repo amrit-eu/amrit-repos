@@ -2,7 +2,8 @@ import { NestFactory, HttpAdapterHost, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import { RequestMethod, ValidationPipe } from '@nestjs/common';
-import { JwtAuthGuard } from './api-gateway/auth/jwt-auth.guard';
+import { RequestMethod } from '@nestjs/common';
+import { HttpJwtAuthGuard } from './api-gateway/auth/guards/httpjwt-auth.guard';
 import * as cookieParser from 'cookie-parser';
 import { json } from 'express';
 
@@ -25,7 +26,7 @@ async function bootstrap() {
     ],
   });
  
-  app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector))); // Apply JwtGuard globally
+  app.useGlobalGuards(new HttpJwtAuthGuard(app.get(Reflector))); // Apply JwtGuard globally
  
   await app.listen(process.env.PORT ?? 3000, process.env.HOSTNAME || 'localhost');
 }
