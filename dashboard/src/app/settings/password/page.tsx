@@ -6,9 +6,6 @@ import SettingsTabs from '@/components/modules/settings/SettingsTabs';
 import PasswordForm from '@/components/modules/settings/PasswordForm';
 
 export default function PasswordPage() {
-  const [snack, setSnack] = React.useState<{open: boolean; msg: string; sev: 'success'|'error'}>({
-    open: false, msg: '', sev: 'success'
-  });
 
   return (
       <><SettingsTabs />
