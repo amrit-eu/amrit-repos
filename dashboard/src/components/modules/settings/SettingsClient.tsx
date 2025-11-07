@@ -9,6 +9,7 @@ import ProfileForm from './ProfileForm';
 import PasswordForm from './PasswordForm';
 import { gatewayFetchViaProxy } from "@/lib/gateway/gatewayFetchViaProxy.client";
 import SettingsTabs from './SettingsTabs';
+import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
 
 function TabPanel(props: { children?: React.ReactNode; value: number; index: number; }) {
   const { children, value, index } = props;
@@ -67,22 +68,13 @@ export default function SettingsClient() {
         <TabPanel value={tab} index={1}>
           <PasswordForm />
         </TabPanel>
-
-        <Snackbar
-          open={snack.open}
-          autoHideDuration={3000}
-          onClose={() => setSnack((s) => ({ ...s, open: false }))}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert
-            onClose={() => setSnack((s) => ({ ...s, open: false }))}
-            severity={snack.sev}
-            variant="filled"
-            sx={{ width: '100%' }}
-          >
-            {snack.msg}
-          </Alert>
-        </Snackbar>
+        
+        <SnackbarAlert 
+          snackBarOpen={snack.open} 
+          handleCloseSnackbar={() => setSnack((s) => ({ ...s, open: false }))} 
+          message={snack.msg}
+          severity={snack.sev} />
+        
       </Box></>
   );
 }
