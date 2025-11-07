@@ -10,9 +10,8 @@ import {
   DialogTitle,
   OutlinedInput,
   CircularProgress,
-  Snackbar,
-  Alert,
 } from '@mui/material';
+import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
 
 interface ForgotPasswordProps {
   open: boolean;
@@ -101,29 +100,22 @@ const ForgotPassword = ({ open, handleClose }: ForgotPasswordProps) => {
             Continue
           </Button>
         </DialogActions>
-      </Dialog>
+        {/* Snackbar for success */}
+        <SnackbarAlert 
+          snackBarOpen={success} 
+          handleCloseSnackbar={() => setSuccess(false)} 
+          message={'Password reset email sent successfully!'}
+          severity="success"
+        />
 
-      {/* Snackbar for success */}
-      <Snackbar
-        open={success}
-        autoHideDuration={4000}
-        onClose={() => setSuccess(false)}
-      >
-        <Alert severity="success" sx={{ width: '100%' }}>
-          Password reset email sent successfully!
-        </Alert>
-      </Snackbar>
-
-      {/* Snackbar for error */}
-      <Snackbar
-        open={!!error}
-        autoHideDuration={4000}
-        onClose={() => setError(null)}
-      >
-        <Alert severity="error" sx={{ width: '100%' }}>
-          {error}
-        </Alert>
-      </Snackbar>
+        {/* Snackbar for error */}
+        <SnackbarAlert 
+          snackBarOpen={!!error} 
+          handleCloseSnackbar={() => setError(null)} 
+          message={error ?? ""}
+          severity="error"
+        />
+      </Dialog>           
     </>
   );
 };
