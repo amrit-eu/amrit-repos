@@ -15,22 +15,6 @@ export default function PasswordPage() {
                 backgroundColor: 'background.default',
               }}>
       <PasswordForm />
-
-      <Snackbar
-        open={snack.open}
-        autoHideDuration={3000}
-        onClose={() => setSnack(s => ({ ...s, open: false }))}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={() => setSnack(s => ({ ...s, open: false }))}
-          severity={snack.sev}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {snack.msg}
-        </Alert>
-      </Snackbar>
     </Box></>
   );
 }
