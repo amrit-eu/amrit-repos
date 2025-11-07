@@ -1,6 +1,6 @@
 'use client';
 
-import SectionTabs, { SectionTab } from '@/components/layout/SectionTabs';
+import SectionTabs, { SectionTab } from '@/components/shared/nav/SectionTabs';
 import InboxIcon from '@mui/icons-material/Inbox';
 import StarIcon from '@mui/icons-material/StarOutlineOutlined';
 
