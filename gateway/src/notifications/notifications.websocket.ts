@@ -1,11 +1,9 @@
 import { Logger, OnModuleInit, UseGuards } from "@nestjs/common";
 import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import {Namespace,  Server,  Socket} from 'socket.io'
+import {Namespace} from 'socket.io'
 import { WsJwtAuthGuard } from "src/api-gateway/auth/guards/wsjwt-auth.guard";
-import { WsJwtStrategy } from "src/api-gateway/auth/strategies/ws-jwt.strategy";
-import * as passport from 'passport';
 import { SocketAuthMiddleware } from "src/api-gateway/auth/strategies/ws.middleware";
-import { authentifiedSocker } from "src/types/jwt-user";
+import { authentifiedSocket } from "src/types/jwt-user";
 
 
 
@@ -22,34 +20,49 @@ export class NotificationsGateway implements OnModuleInit{
   * We also block the connection to default namespace ('/')
   *  @param server 
   */ 
- afterInit(namespace:Namespace) { 
-  // use middleware to check auth on connection to socket
-  namespace.use(SocketAuthMiddleware()) 
+  afterInit(namespace:Namespace) {
+    // use middleware to check auth on connection to socket
+    namespace.use(SocketAuthMiddleware()) 
 
-  // prevent connection to default '/' namespace :
-  const mainServer = namespace.server; 
-  mainServer.of('/').use((socket, next) => {
-    this.logger.warn(`Rejected connection to default namespace`);
-    next(new Error('Connect to /notifications'));
-  });
-  
- }
+    // prevent connection to default '/' namespace :
+    const mainServer = namespace.server; 
+    mainServer.of('/').use((socket, next) => {
+      this.logger.warn(`Rejected connection to default namespace`);
+      next(new Error('Connect to /notifications'));
+    });  
+  }
 
-  onModuleInit() { 
-
-  this.notificationsNamespace.on('connection' , (socket) => {
-    this.logger.log(`Socket connected : ${socket.id}`)
+  onModuleInit() {
+  this.notificationsNamespace.on('connection' , (socket:authentifiedSocket ) => {
+    this.logger.log(`Socket connected. id : ${socket.id}, user : ${socket.user.name}`)
   })
   }
 
-  // sending message for refreshing alerts table on client
-   broadcastAlertsRefresh() {
+  async handleConnection(@ConnectedSocket() client: authentifiedSocket) {    
+    try {
+      // put the user in a specific room:
+      await client.join(`user:${client.user.userId}`)
+
+    } catch {
+      this.logger.warn("failed to put websocket client in a room linked to user's id")
+      client.disconnect(true);
+     
+    }
+  }
+
+  // sending message for refreshing alerts table on all authenticated
+  broadcastAlertsRefresh() {
     this.notificationsNamespace.emit('alerts:refresh');
   }
 
+  // +1 notifications for a specified user (based on his subscriptions )
+  pushUserBadgeIncrement (userId: string, notificationDTO : any) {
+    this.notificationsNamespace.to(`user:${userId}`).emit('notifications:new', notificationDTO);
+  } 
+
   
   @SubscribeMessage("newMessage")
-  onNewMessage(@MessageBody() body:any, @ConnectedSocket() client: authentifiedSocker) {
+  onNewMessage(@MessageBody() body:any, @ConnectedSocket() client: authentifiedSocket) {
     console.log (client.user)
     this.notificationsNamespace.emit('onMessage', {test:"test"} )
   }
