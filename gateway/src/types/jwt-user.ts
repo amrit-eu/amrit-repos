@@ -7,4 +7,4 @@ export interface JwtUser {
 	roles: string[]
 }
 
-export type authentifiedSocker = Socket & {user : JwtUser}
+export type authentifiedSocket = Socket & {user : JwtUser}
