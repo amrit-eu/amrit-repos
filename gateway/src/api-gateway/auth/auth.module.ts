@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { HttpModule } from '@nestjs/axios';
-import { WsJwtStrategy } from './strategies/wsjwt.strategy';
-import { HttpJwtStrategy } from './strategies/httpjwt.strategy';
+import { WsJwtStrategy } from './strategies/ws-jwt.strategy';
+import { HttpJwtStrategy } from './strategies/http-jwt.strategy';
 
 
 @Module({

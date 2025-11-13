@@ -1,11 +1,12 @@
 import { Controller, Patch, Post, Req, Body, UseGuards, HttpException, Logger, Get } from '@nestjs/common';
 import { Request } from 'express';
 import { MeService } from './me.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+
 import { AxiosResponse } from 'axios';
+import { HttpJwtAuthGuard } from '../auth/guards/httpjwt-auth.guard';
 
 @Controller('oceanops/auth')
-@UseGuards(JwtAuthGuard)
+@UseGuards(HttpJwtAuthGuard)
 export class MeController {
   private readonly logger = new Logger(MeController.name, { timestamp: true });
   constructor(private readonly meService: MeService) {}
