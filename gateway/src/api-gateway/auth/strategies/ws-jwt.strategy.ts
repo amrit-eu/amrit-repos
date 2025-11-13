@@ -47,7 +47,6 @@ export function extractTokenFromWsHandshake (req: Socket)  {
  */
 function parseCookiesFromHeader(cookieHeader?: string): { [key: string]: string } {
     if (!cookieHeader) return {};
-
     return cookieHeader.split(';').reduce((cookies, cookie) => {
         const [name, value] = cookie.trim().split('=');
         if (name && value) {

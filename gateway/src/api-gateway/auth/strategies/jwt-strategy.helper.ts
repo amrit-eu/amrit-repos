@@ -6,6 +6,13 @@ import { Request } from 'express';
 import { JwtPayload } from '../../../types/types';
 import { JwtUser } from '../../../types/jwt-user';
 
+/**
+ * Modular Strategy to verify JWT. It can be configurable by specifying the function to retrieve the JWT from the incomming request.
+ * THis function will be different if it is HTTP or WebSocket request.
+ * @param configService 
+ * @param jwtFromRequest 
+ * @returns 
+ */
 export function createJwtStrategyOptions(
     configService: ConfigService,
     jwtFromRequest: (req: any) => string | null
