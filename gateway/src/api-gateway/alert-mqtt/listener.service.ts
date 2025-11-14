@@ -1,29 +1,22 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import * as mqtt from 'mqtt';
-import { HttpService } from '@nestjs/axios';
-import { MailerService } from '../../mailer/mailer.service';
-import { createProxyRouteMap, ProxyRouteMap } from 'src/utils/proxy.routes';
-import { ConfigService } from '@nestjs/config';
-import { EmailFormatterService } from './email-formatter.service';
-import { ContactMatcherService } from './contact-matcher.service';
+import { ContactMatcherService } from '../alert-subscriptions/contact-matcher.service';
 import { AlertEvent } from '../../types/alert';
+import { NotificationsConfig } from 'src/types/notifications';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class AlertsMqttService implements OnModuleInit {
   private client!: mqtt.MqttClient;
   private activeEmail : boolean;
-  private readonly proxyRoutes: ProxyRouteMap;
   private readonly logger = new Logger(AlertsMqttService.name);
+  private reconnectAttempts = 0;
+  private readonly MAX_RECONNECT_ATTEMPTS = 5;
 
   constructor(
-    private readonly httpService: HttpService,
-    private readonly mailer: MailerService,
-    private readonly config: ConfigService,
-    private readonly emailFormatter: EmailFormatterService,
     private readonly contactMatcher: ContactMatcherService,
-  ) {
-    this.proxyRoutes = createProxyRouteMap(config);
-  }
+    private readonly notificationService: NotificationsService
+  ) { }
 
   onModuleInit(): void {
     this.activeEmail = process.env.ACTIVE_EMAIL === 'true';
@@ -32,36 +25,58 @@ export class AlertsMqttService implements OnModuleInit {
       password: process.env.ALERTS_MQTT_PASSWORD_RO!,
       clean: true,
       protocol: 'wss',
+      reconnectPeriod: 5000,
     });
+    this.logger.log('Connection to MQTT broker...');
 
+    // error on connection
+    this.client.on('error', (error) => {
+      this.logger.error('❌ MQTT connection error:', error);
+    })
+
+    // connection to broker
     this.client.on('connect', () => {
+      this.logger.log('✅ Successfully connected to MQTT broker');
+      this.reconnectAttempts = 0;
+      // subscribe after connection
       this.client.subscribe('amrit/notification/processed/#', (err) => {
         if (!err) {
           this.logger.log('✅ Connected to MQTT broker');
-
-		  // RECIEVE AND HANDLE MOCK ALERT FOR TESTING IN DEV (only if sending real email is not activated)
-        if(!this.activeEmail) void this.testMockAlert(); 
-          
-      }
+          // RECIEVE AND HANDLE MOCK ALERT FOR TESTING IN DEV (only if sending real email is not activated)
+          if(!this.activeEmail) void this.testMockAlert();             
+        }
+        else {
+          this.logger.log("Error when subscribing to topic", err)
+        }
       });
     });
+    // re-connection tentative
+    this.client.on('reconnect', () => {
+      this.reconnectAttempts++;
+      this.logger.log(`🔄 Reconnection attempt ${this.reconnectAttempts}/${this.MAX_RECONNECT_ATTEMPTS}`);
 
-	this.client.on('message', (topic, message) => {
-	void (async () => {
-		try {
-		const alert = JSON.parse(message.toString()) as AlertEvent;
-		await this.handleAlert(alert);
-		} catch (err) {
-		this.logger.error('⚠️ Failed to parse or handle alert message', err);
-		}
-	})();
-	});
+      if (this.reconnectAttempts >= this.MAX_RECONNECT_ATTEMPTS) {
+        this.logger.error('❌ Max reconnection attempts reached. Stopping reconnection.');
+        this.client.end(true); // end client
+      }
+    });
+
+    // message handling
+    this.client.on('message', (topic, message) => {
+      void (async () => {
+        try {
+        const alert = JSON.parse(message.toString()) as AlertEvent;
+        await this.handleAlert(alert);
+        } catch (err) {
+        this.logger.error('⚠️ Failed to parse or handle alert message', err);
+        }
+      })();
+    });
   }
 
   async handleAlert(alert: AlertEvent): Promise<void> {
     this.logger.log ("alert received on mqtt : " + alert.data.resource +", "+alert.data.event+", "+alert.data.severity)
-    if (alert?.data?.repeat === true) return;
-
+    // build notification alert payload 
     const payload = {
       alertCategory: alert?.data?.attributes?.alert_category,
       severity: alert?.data?.severity,
@@ -71,46 +86,24 @@ export class AlertsMqttService implements OnModuleInit {
     };
 
     if (!payload.alertCategory) {
-      this.logger.warn('🚫 Missing required alert data, skipping.');
+      this.logger.warn('Missing required alert data, skipping.');
       return;
     }
 
+    // email sent only if alert is a new one an not a duplicate. Websocket notification sent anyway.
+    const notificationConfig : NotificationsConfig = {
+      alertEmailEnabled: (alert?.data?.repeat === false),
+      alertWebsocketEnabled: true
+    }    
+
     try {
       const contacts = await this.contactMatcher.findMatchingContacts(alert);
-      if (!Array.isArray(contacts) || contacts.length === 0) return;
+      // notify this alert
+      await this.notificationService.notify({alert,contacts}, notificationConfig);
 
-      const emailContent = this.emailFormatter.formatAlertEmailContent(alert);
-
-      for (const contact of contacts) {
-        try {
-          this.logger.log("send email to " + contact.email + " for alert resource "+alert.data.resource+ " event " + alert.data.event)
-          await this.sendEmail(contact.email, alert, emailContent);
-        } catch (emailError) {
-          this.logger.error(`❌ Failed to send email to ${contact.email}`, emailError);
-        }
-      }
     } catch (err) {
-      this.logger.error('❌ Contact matching or email formatting failed', err);
+      this.logger.error('Contact matching or notifications failed', err);
     }
-  }
-
-  async sendEmail(email: string, alert: AlertEvent, content: string): Promise<void> {
-        
-    if (this.activeEmail) {
-    await this.mailer.sendMail(
-      email,
-      `Alert: ${alert.data.resource} - ${alert.data.event}`,
-      content,
-      'AMRIT Alerts',
-    );
-  } else {
-    await this.mailer.sendTestEmail(
-      email,
-      `Alert: ${alert.data.resource} - ${alert.data.event}`,
-      content,
-      'AMRIT Alerts',
-    );
-  }
   }
 
   async testMockAlert(): Promise<void> {
