@@ -1,6 +1,6 @@
 // src/alerts/email-formatter.service.ts
 import { Injectable } from '@nestjs/common';
-import { AlertEvent, Alert, AlertAttributes } from '../../types/alert';
+import { AlertEvent, Alert, AlertAttributes } from '../types/alert';
 import { extractHost, isValidUrl } from 'src/utils/stringUtils';
 
 @Injectable()
