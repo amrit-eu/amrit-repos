@@ -12,6 +12,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
+import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client';
 
 interface ForgotPasswordProps {
   open: boolean;
@@ -30,15 +31,19 @@ const ForgotPassword = ({ open, handleClose }: ForgotPasswordProps) => {
     setError(null);
     setSuccess(false);
 
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_GATEWAY_BASE_URL}/password-reset/request`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
 
-      const data = await res.json();
-      if (res.ok && data.queued) {
+    try {
+      const res = await gatewayFetchViaProxy<{queued: boolean}> ('POST', '/password-reset/request',{email: email} )
+      
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_GATEWAY_BASE_URL}/password-reset/request`, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ email }),
+      // });
+     
+      //const data = await res.json();
+      console.log (res)
+      if (res.queued) {
         setSuccess(true);
         setEmail('');
       } else {

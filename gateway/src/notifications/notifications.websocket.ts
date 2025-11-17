@@ -1,5 +1,5 @@
 import { Logger, OnModuleInit, UseGuards } from "@nestjs/common";
-import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { ConnectedSocket, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import {Namespace} from 'socket.io'
 import { WsJwtAuthGuard } from "src/api-gateway/auth/guards/wsjwt-auth.guard";
 import { SocketAuthMiddleware } from "src/api-gateway/auth/strategies/ws.middleware";
