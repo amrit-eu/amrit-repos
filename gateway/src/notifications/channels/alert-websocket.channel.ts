@@ -15,9 +15,10 @@ export class AlertWebsocketChannel {
             resource: alert.data.resource,
             event: alert.data.event
         }
+        
         for (const contact of contacts) {
-            if (!contact.userId) continue;
-            this.websocketGateway.pushUserBadgeIncrement(contact.userId, notificationDTO);
+            if (!contact.id) continue;
+            this.websocketGateway.pushUserBadgeIncrement(contact.id.toString(), notificationDTO);
         }
 
          // Explicit return of resolve Promise (no await in intern)

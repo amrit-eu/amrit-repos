@@ -34,7 +34,7 @@ export class NotificationsGateway implements OnModuleInit{
 
   onModuleInit() {
   this.notificationsNamespace.on('connection' , (socket:authentifiedSocket ) => {
-    this.logger.log(`Socket connected. id : ${socket.id}, user : ${socket.user.name}`)
+    this.logger.log(`Socket connected. id : ${socket.id}, user : ${socket.user?.name}`)
   })
   }
 
@@ -45,8 +45,7 @@ export class NotificationsGateway implements OnModuleInit{
 
     } catch {
       this.logger.warn("failed to put websocket client in a room linked to user's id")
-      client.disconnect(true);
-     
+      client.disconnect(true);     
     }
   }
 
@@ -56,16 +55,10 @@ export class NotificationsGateway implements OnModuleInit{
   }
 
   // +1 notifications for a specified user (based on his subscriptions )
-  pushUserBadgeIncrement (userId: string, notificationDTO : any) {
-    this.notificationsNamespace.to(`user:${userId}`).emit('notifications:new', notificationDTO);
+  pushUserBadgeIncrement (id: string, notificationDTO : any) {
+    this.notificationsNamespace.to(`user:${id}`).emit('notifications:new', notificationDTO);
   } 
 
-  
-  @SubscribeMessage("newMessage")
-  onNewMessage(@MessageBody() body:any, @ConnectedSocket() client: authentifiedSocket) {
-    console.log (client.user)
-    this.notificationsNamespace.emit('onMessage', {test:"test"} )
-  }
 
 }
 
