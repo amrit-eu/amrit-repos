@@ -1,4 +1,4 @@
-import { getGatewayBaseUrl } from '@/app/api/gateway-proxy/config.server';
+import { getGatewayBaseUrl } from '@/app/api/config/config.server';
 import { cookies, headers } from 'next/headers';
 
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';

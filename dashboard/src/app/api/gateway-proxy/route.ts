@@ -1,7 +1,7 @@
 // app/api/gateway-proxy/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies, headers } from 'next/headers';
-import { getGatewayBaseUrl } from './config.server';
+import { getGatewayBaseUrl } from '../config/config.server';
 
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
 import { postToGateway } from '@/lib/gateway/postToGateway.server';

@@ -1,5 +1,5 @@
 import { createRemoteJWKSet, jwtVerify, JWTVerifyResult } from 'jose';
-import { getOceanopsAuthServiceUrl } from '../api/gateway-proxy/config.server';
+import { getOceanopsAuthServiceUrl } from '../api/config/config.server';
 
 
 

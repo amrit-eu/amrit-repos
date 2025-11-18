@@ -8,3 +8,9 @@ export function getGatewayBaseUrl() {
 export function getOceanopsAuthServiceUrl() {
   return getGatewayBaseUrl() + '/oceanops/auth';
 }
+
+export function getPublicSignupUrl() {
+  const val = process.env.PUBLIC_SIGNUP_URL;
+  if (!val) throw new Error('PUBLIC_SIGNUP_URL env var required');
+  return val;
+}
