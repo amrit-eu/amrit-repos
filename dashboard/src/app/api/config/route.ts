@@ -12,7 +12,8 @@ export async function GET() {
 
         return NextResponse.json({
             gatewayBaseUrl: gatewayBaseUrl,
-            publicSignupUrl: publicSignupUrl
+            publicSignupUrl: publicSignupUrl,
+            websocketBaseUrl : gatewayBaseUrl.replace(/\/api\/?$/, '')
         })
         
     }catch (error) {

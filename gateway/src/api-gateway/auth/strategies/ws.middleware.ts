@@ -15,7 +15,7 @@ export const SocketAuthMiddleware = (): SocketIOMiddleWare =>  {
                 if (err) {
                   return next(err)
                 }
-                if (!user) {   
+                if (!user) {
                     return next(new Error('Unauthorized'));
                 } 
                 // Attach user to Socket client 

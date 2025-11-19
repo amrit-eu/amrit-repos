@@ -10,6 +10,7 @@ import { FiltersValuesMap } from '@/types/filters';
 import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
 import { useRouter, useSearchParams } from "next/navigation";
 import AlertDetails from './AlertDetails';
+import { useNotifications } from '@/hooks/useNotifications';
 
 
 interface AlertsTableProps {
@@ -37,6 +38,9 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
 
   // Memoize userId to prevent unnecessary re-renders when session object changes
   const userId = useMemo(() => session?.userId ?? 0, [session?.userId]);
+
+  // usenotifications :
+  const {newAlertCount} = useNotifications(userId !== 0);
 
   // fetch alerts data
   useEffect(() => {
@@ -70,7 +74,8 @@ const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts, page, 
       isLatestRequest = false;
       controller.abort();
     };
-  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts, userId])
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts, userId,newAlertCount ])
+
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {

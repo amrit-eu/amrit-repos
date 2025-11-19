@@ -1,5 +1,5 @@
-import { Logger, OnModuleInit, UseGuards } from "@nestjs/common";
-import { ConnectedSocket, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { Logger, UseGuards } from "@nestjs/common";
+import { ConnectedSocket, OnGatewayDisconnect, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import {Namespace} from 'socket.io'
 import { WsJwtAuthGuard } from "src/api-gateway/auth/guards/wsjwt-auth.guard";
 import { SocketAuthMiddleware } from "src/api-gateway/auth/strategies/ws.middleware";
@@ -9,11 +9,13 @@ import { authentifiedSocket } from "src/types/jwt-user";
 
 @UseGuards(WsJwtAuthGuard)
 @WebSocketGateway({ path: '/api/notifications', namespace: 'notifications'})
-export class NotificationsGateway implements OnModuleInit{
+export class NotificationsGateway implements OnGatewayDisconnect  {
+ 
   private readonly logger = new Logger(NotificationsGateway.name, { timestamp: true })
 
   @WebSocketServer()
   notificationsNamespace: Namespace;
+
 
  /**
   * Use a middleware to check the JWT and prevent the connection to websocket gateway if not authentified
@@ -32,21 +34,32 @@ export class NotificationsGateway implements OnModuleInit{
     });  
   }
 
-  onModuleInit() {
-  this.notificationsNamespace.on('connection' , (socket:authentifiedSocket ) => {
-    this.logger.log(`Socket connected. id : ${socket.id}, user : ${socket.user?.name}`)
-  })
-  }
-
   async handleConnection(@ConnectedSocket() client: authentifiedSocket) {    
+    
+    const user = client.user;
+
+    if (!user || !user.userId) {
+      this.logger.warn(`Connection rejected: no user data for socket ${client.id}`);
+      client.disconnect(true);
+      return;
+    }    
+
     try {
       // put the user in a specific room:
-      await client.join(`user:${client.user.userId}`)
-
+      await client.join(`user:${user.userId}`)
+      this.logger.log(
+        `Socket ${client.id} connected for user ${user.userId} (${user.name})`
+      );
     } catch {
       this.logger.warn("failed to put websocket client in a room linked to user's id")
       client.disconnect(true);     
     }
+  }
+
+  handleDisconnect(client: authentifiedSocket) {
+    this.logger.log(
+        `Socket ${client.id} (user ${client.user.userId}) disconnected`
+      );
   }
 
   // sending message for refreshing alerts table on all authenticated

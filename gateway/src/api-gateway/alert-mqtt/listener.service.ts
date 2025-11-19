@@ -10,8 +10,7 @@ export class AlertsMqttService implements OnModuleInit {
   private client!: mqtt.MqttClient;
   private activeEmail : boolean;
   private readonly logger = new Logger(AlertsMqttService.name);
-  private reconnectAttempts = 0;
-  private readonly MAX_RECONNECT_ATTEMPTS = 5;
+
 
   constructor(
     private readonly contactMatcher: ContactMatcherService,
@@ -37,7 +36,6 @@ export class AlertsMqttService implements OnModuleInit {
     // connection to broker
     this.client.on('connect', () => {
       this.logger.log('✅ Successfully connected to MQTT broker');
-      this.reconnectAttempts = 0;
       // subscribe after connection
       this.client.subscribe('amrit/notification/processed/#', (err) => {
         if (!err) {
@@ -49,16 +47,6 @@ export class AlertsMqttService implements OnModuleInit {
           this.logger.log("Error when subscribing to topic", err)
         }
       });
-    });
-    // re-connection tentative
-    this.client.on('reconnect', () => {
-      this.reconnectAttempts++;
-      this.logger.log(`🔄 Reconnection attempt ${this.reconnectAttempts}/${this.MAX_RECONNECT_ATTEMPTS}`);
-
-      if (this.reconnectAttempts >= this.MAX_RECONNECT_ATTEMPTS) {
-        this.logger.error('❌ Max reconnection attempts reached. Stopping reconnection.');
-        this.client.end(true); // end client
-      }
     });
 
     // message handling

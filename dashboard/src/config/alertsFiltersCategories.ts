@@ -2,7 +2,7 @@ import { AlertFilters } from "@/constants/alertOptions";
 
 export const ALERTS_FILTERS_CATEGORY : Record<string, AlertFilters[]> = {
 
-    General : ["event", "alert_category","status", "severity", 'from-date', "to-date"],
+    General : ["alert_category","event", "status", "severity", 'from-date', "to-date"],
     Identifiers : ["resource"],
     Localization : ["Country"]
 

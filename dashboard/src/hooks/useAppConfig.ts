@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 interface AppConfig {
   gatewayBaseUrl: string;
   publicSignupUrl: string;
+  websocketBaseUrl: string;
 }
 
 let cachedConfig: AppConfig | null = null;
@@ -17,6 +18,7 @@ export const useAppConfig = () => {
     const [loading, setLoading] = useState(!cachedConfig);
     const [error, setError] = useState<Error | null>(null);
 
+
     useEffect(() => {
     // if alreaddy retrieve (cached), use it
     if (cachedConfig) {
@@ -25,20 +27,9 @@ export const useAppConfig = () => {
       return;
     }
 
-    // if request to /api/config is already being made, we use it (avoid multiple request) :
-    if (configPromise) {
-        configPromise
-      .then(data => {
-        setConfig(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err);
-        setLoading(false);
-        configPromise = null; // Reset for a retry
-      });
-    } else {
-        configPromise = fetch('/api/config')
+   // If no promise exists, create one
+    if (!configPromise) {      
+      configPromise = fetch('/api/config')
         .then(res => {
           if (!res.ok) {
             throw new Error(`Config fetch failed: ${res.status}`);
@@ -48,10 +39,23 @@ export const useAppConfig = () => {
         .then(data => {
           cachedConfig = data;
           return data;
+        })
+        .catch(err => {
+          throw err;
         });
-    }
+     } 
+
+    configPromise
+      .then(data => {
+        setConfig(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err);
+        setLoading(false);
+        configPromise = null; // Reset for retry
+      });
 
 }, [])
-    console.log(config)
-    return { config, loading, error };
+   return { config, loading, error };
 }

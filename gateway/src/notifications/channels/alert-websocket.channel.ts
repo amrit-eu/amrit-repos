@@ -12,10 +12,11 @@ export class AlertWebsocketChannel {
 
         //2- send +1 notification badge for matching user
         const notificationDTO = {
+            id: alert.data.id,
             resource: alert.data.resource,
             event: alert.data.event
         }
-        
+
         for (const contact of contacts) {
             if (!contact.id) continue;
             this.websocketGateway.pushUserBadgeIncrement(contact.id.toString(), notificationDTO);
