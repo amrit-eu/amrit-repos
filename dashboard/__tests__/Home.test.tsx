@@ -6,5 +6,5 @@ import Home from '../src/components/modules/home/Home';
 
 test('renders project description text', () => {
   render(<Home />);
-  expect(screen.getByText(/collaborative AMRIT project/i)).toBeInTheDocument();
+  expect(screen.getByText(/This application is open-source and collaborative./i)).toBeInTheDocument();
 });
