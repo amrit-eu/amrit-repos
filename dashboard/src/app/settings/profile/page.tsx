@@ -1,11 +1,11 @@
 
 import * as React from 'react';
-import SettingsClient from '@/components/modules/settings/SettingsClient';
+import { Settings } from '@mui/icons-material';
 
 export default function ProfilePage() {
 
 
   return (
-      <SettingsClient />
+      <Settings/>
   );
 }
