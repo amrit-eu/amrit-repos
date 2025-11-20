@@ -24,7 +24,7 @@ export class AlertsMqttService implements OnModuleInit {
       password: process.env.ALERTS_MQTT_PASSWORD_RO!,
       clean: true,
       protocol: 'wss',
-      reconnectPeriod: 5000,
+      reconnectPeriod: 30000,
     });
     this.logger.log('Connection to MQTT broker...');
 

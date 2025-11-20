@@ -12,3 +12,12 @@ export interface NotificationsConfig {
   alertEmailEnabled: boolean;
   alertWebsocketEnabled: boolean;
 }
+
+export type NotificationType = 'alert' | 'othertype'
+
+export interface NotificationDTO {
+    id: string;
+    text: string;
+    type : NotificationType;
+}
+

@@ -1,0 +1,189 @@
+import React, { useState } from 'react';
+import {
+  IconButton,
+  Badge,
+  Popover,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button,
+  Box,
+  Typography,
+  Divider,
+  Alert,
+} from '@mui/material';
+import { NotificationsNone as NotificationsNoneIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { useNotifications } from '../../hooks/useNotifications';
+import { NotificationDTO } from '@/types/notifications';
+import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
+
+
+interface NotificationsProps {
+  isAuthenticated: boolean;
+}
+
+const Notifications = ({ isAuthenticated }: NotificationsProps) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const { notifications, unreadCount, markAsRead, removeAllNotifications, removeNotification } =
+    useNotifications(isAuthenticated);
+
+  const router = useRouter();
+  const search = useSearchParams();
+  const qs = search?.toString();
+    
+
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    markAsRead();
+  };
+
+
+  const handleNotificationClick = (notification: NotificationDTO) => {
+      removeNotification(notification.id);
+      switch (notification.type) {
+        case 'alert':
+          router.push(`/alerts/${id}${qs ? `?${qs}` : ""}`);
+        default:
+          break;
+      }
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'notifications-popover' : undefined;
+
+  return (
+    <>
+      <IconButton
+        aria-describedby={id}
+        onClick={handleOpen}
+        color="inherit"
+        sx={{
+          position: 'relative',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          },
+        }}
+      >
+        <Badge badgeContent={unreadCount} color="error">
+          <NotificationsNoneIcon />
+        </Badge>
+      </IconButton>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        slotProps={{
+          paper: {
+            sx: {
+              width: 360,
+              maxHeight: 500,
+              borderRadius: 2,
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            },
+          },
+        }}
+      >
+        <Box sx={{ p: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+            Notifications
+          </Typography>
+          <Divider sx={{ mb: 1 }} />
+        </Box>
+
+        {notifications.length === 0 ? (
+          <Box sx={{ p: 3, textAlign: 'center' }}>
+            <Alert severity="info" sx={{ mb: 2 }}>
+              No notification
+            </Alert>
+          </Box>
+        ) : (
+          <>
+            <List
+              sx={{
+                maxHeight: 350,
+                overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  width: '8px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: '#f1f1f1',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  background: '#888',
+                  borderRadius: '4px',
+                  '&:hover': {
+                    background: '#555',
+                  },
+                },
+              }}
+            >
+              {notifications.map((notification) => (
+                <ListItem key={notification.id} disablePadding>
+                  <ListItemButton
+                    onClick={() => handleNotificationClick(notification)}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      },
+                    }}
+                  >
+                    <ListItemText
+                      primary={notification.text}
+                      slotProps={{
+                        primary: {
+                          variant: 'body2',
+                          sx: { fontWeight: 500 },
+                        },
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+
+            <Divider />
+            <Box
+              sx={{
+                p: 1.5,
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 1,
+              }}
+            >
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                startIcon={<DeleteIcon />}
+                onClick={removeAllNotifications}
+                fullWidth
+              >
+                Remove all
+              </Button>
+            </Box>
+          </>
+        )}
+      </Popover>
+    </>
+  );
+};
+
+export default Notifications;

@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppConfig } from "./useAppConfig";
+import { NotificationDTO } from "@/types/notifications";
 
-interface NotificationData {
-  id: string,
-  resource:string;
-  event:string;
-}
+
 
 interface NotificationHookOptions {
   isAuthenticated?: boolean;
@@ -19,7 +16,7 @@ export const useNotifications = (isAuthenticated: boolean,options?: Notification
 const { config, loading: configLoading, error: configError } = useAppConfig();
 const [isConnected, setIsConnected] = useState(false);
 const [newAlertCount, setNewAlertCount] = useState(0);
-const [notifications, setNotifications] = useState<NotificationData[]>([]);
+const [notifications, setNotifications] = useState<NotificationDTO[]>([]);
 const [unreadCount, setUnreadCount] = useState(0);
 const socketRef = useRef<Socket | null>(null);
 
@@ -74,7 +71,7 @@ const socketRef = useRef<Socket | null>(null);
     });
 
     // Event: new notification for the user
-    socket.on('notifications:new', (notification: NotificationData) => {
+    socket.on('notifications:new', (notification: NotificationDTO) => {
       setNotifications(prev => [notification, ...prev]);
       setUnreadCount(prev => prev + 1);
     });
@@ -95,6 +92,12 @@ const socketRef = useRef<Socket | null>(null);
     setNotifications(prev => prev.filter(n => n.id !== id));
   }, []);
 
+   // delete all notification
+  const removeAllNotifications = useCallback(() => {
+    setNotifications([]);
+  }, []);
+
+
 
 
   return {
@@ -104,6 +107,7 @@ const socketRef = useRef<Socket | null>(null);
     unreadCount,
     markAsRead,
     removeNotification,
+    removeAllNotifications,
     socket: socketRef.current,
   };
 };

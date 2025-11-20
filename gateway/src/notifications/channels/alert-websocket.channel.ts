@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { NotificationsGateway } from "../notifications.websocket";
-import { AlertNotificationPayload } from "src/types/notifications";
+import {  AlertNotificationPayload, NotificationDTO } from "src/types/notifications";
 
 @Injectable()
 export class AlertWebsocketChannel {
@@ -11,10 +11,10 @@ export class AlertWebsocketChannel {
         this.websocketGateway.broadcastAlertsRefresh();
 
         //2- send +1 notification badge for matching user
-        const notificationDTO = {
+        const notificationDTO : NotificationDTO= {
             id: alert.data.id,
-            resource: alert.data.resource,
-            event: alert.data.event
+            text: `${alert.data.resource} - ${alert.data.event}`,
+            type : 'alert'
         }
 
         for (const contact of contacts) {

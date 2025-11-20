@@ -4,6 +4,7 @@ import {Namespace} from 'socket.io'
 import { WsJwtAuthGuard } from "src/api-gateway/auth/guards/wsjwt-auth.guard";
 import { SocketAuthMiddleware } from "src/api-gateway/auth/strategies/ws.middleware";
 import { authentifiedSocket } from "src/types/jwt-user";
+import { NotificationDTO } from "src/types/notifications";
 
 
 
@@ -68,7 +69,7 @@ export class NotificationsGateway implements OnGatewayDisconnect  {
   }
 
   // +1 notifications for a specified user (based on his subscriptions )
-  pushUserBadgeIncrement (id: string, notificationDTO : any) {
+  pushUserBadgeIncrement (id: string, notificationDTO : NotificationDTO) {
     this.notificationsNamespace.to(`user:${id}`).emit('notifications:new', notificationDTO);
   } 
 
