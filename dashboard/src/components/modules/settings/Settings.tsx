@@ -4,15 +4,16 @@ import { Me } from '@/types/me'
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
 
 // server side component which fetch user data
-const  Settings = async () => {
+const Settings = async () => {
     let me :Me={};   
     try {
         me =await  getFromGateway<Me>('/oceanops/auth/me')
     } catch {
         me.firstName ='data not available'
     }
-
-    <SettingsClient initialMe={me}/>
+    return (
+        <SettingsClient initialMe={me}/>
+    )
   
 }
 

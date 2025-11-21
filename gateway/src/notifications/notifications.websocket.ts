@@ -49,7 +49,7 @@ export class NotificationsGateway implements OnGatewayDisconnect  {
       // put the user in a specific room:
       await client.join(`user:${user.userId}`)
       this.logger.log(
-        `Socket ${client.id} connected for user ${user.userId} (${user.name})`
+        `Socket ${client.id} connected for user ${user.userId} - ${user.name}`
       );
     } catch {
       this.logger.warn("failed to put websocket client in a room linked to user's id")
@@ -59,7 +59,7 @@ export class NotificationsGateway implements OnGatewayDisconnect  {
 
   handleDisconnect(client: authentifiedSocket) {
     this.logger.log(
-        `Socket ${client.id} (user ${client.user.userId}) disconnected`
+        `Socket ${client.id} (user ${client.user.userId} - ${client.user.name}) disconnected`
       );
   }
 

@@ -1,6 +1,6 @@
 
+import Settings from '@/components/modules/settings/Settings';
 import * as React from 'react';
-import { Settings } from '@mui/icons-material';
 
 export default function ProfilePage() {
 

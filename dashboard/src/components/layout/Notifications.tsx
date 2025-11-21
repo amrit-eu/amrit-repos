@@ -12,12 +12,12 @@ import {
   Typography,
   Divider,
   Alert,
+  useTheme,
 } from '@mui/material';
 import { NotificationsNone as NotificationsNoneIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { useNotifications } from '../../hooks/useNotifications';
 import { NotificationDTO } from '@/types/notifications';
-import { useRouter } from 'next/router';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 
 interface NotificationsProps {
@@ -25,14 +25,12 @@ interface NotificationsProps {
 }
 
 const Notifications = ({ isAuthenticated }: NotificationsProps) => {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { notifications, unreadCount, markAsRead, removeAllNotifications, removeNotification } =
     useNotifications(isAuthenticated);
 
-  const router = useRouter();
-  const search = useSearchParams();
-  const qs = search?.toString();
-    
+  const router = useRouter();    
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,11 +43,12 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
 
 
   const handleNotificationClick = (notification: NotificationDTO) => {
-      removeNotification(notification.id);
+      
       switch (notification.type) {
         case 'alert':
-          router.push(`/alerts/${id}${qs ? `?${qs}` : ""}`);
+          router.push(`/alerts/${notification.id}`);
         default:
+          removeNotification(notification.id);
           break;
       }
   };
@@ -66,7 +65,7 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
         sx={{
           position: 'relative',
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            backgroundColor: theme.palette.action.hover,
           },
         }}
       >
@@ -94,7 +93,6 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
               width: 360,
               maxHeight: 500,
               borderRadius: 2,
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
             },
           },
         }}
@@ -122,13 +120,13 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
                   width: '8px',
                 },
                 '&::-webkit-scrollbar-track': {
-                  background: '#f1f1f1',
+                  background: theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
                 },
                 '&::-webkit-scrollbar-thumb': {
-                  background: '#888',
+                  background: theme.palette.mode === 'dark' ? theme.palette.grey[600] : theme.palette.grey[400],
                   borderRadius: '4px',
                   '&:hover': {
-                    background: '#555',
+                    background: theme.palette.mode === 'dark' ? theme.palette.grey[500] : theme.palette.grey[600],
                   },
                 },
               }}
@@ -141,7 +139,7 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
                       py: 1.5,
                       px: 2,
                       '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                        backgroundColor: theme.palette.action.hover,
                       },
                     }}
                   >
