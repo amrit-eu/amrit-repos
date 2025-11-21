@@ -15,7 +15,7 @@ export function useCountries() {
     (async () => {
       try {
         setLoading(true);
-        const res = await gatewayFetchViaProxy<CountryAPIResponse>('GET', '/oceanops/data/countries');
+        const res = await gatewayFetchViaProxy<CountryAPIResponse>('GET', '/oceanops/data/countries',undefined, undefined, true);
         const list = handleCountryAPIJsonResponse(res); // CountryOption[]
         list.sort((a, b) => a.name.localeCompare(b.name));
         if (!alive) return;
