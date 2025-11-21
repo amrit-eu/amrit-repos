@@ -12,8 +12,7 @@ import { AccountCircle, Logout, Settings } from '@mui/icons-material';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { useNotifications } from '@/hooks/useNotifications';
-import Notifications from './Notifications';
+import NotificationsIcon from './NotificationsIcon';
 
 interface MainTopbarProps {
   darkMode: boolean;
@@ -197,7 +196,7 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
                 </MenuItem>
               </Menu>
 
-              <Notifications isAuthenticated={isAuth} />
+              <NotificationsIcon isAuthenticated={isAuth} />
             </>
             
           ) : null}

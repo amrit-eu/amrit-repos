@@ -18,13 +18,14 @@ import { NotificationsNone as NotificationsNoneIcon, Delete as DeleteIcon } from
 import { useNotifications } from '../../hooks/useNotifications';
 import { NotificationDTO } from '@/types/notifications';
 import { useRouter } from 'next/navigation';
+import { alpha } from '@mui/material/styles';
 
 
-interface NotificationsProps {
+interface NotificationsIconProps {
   isAuthenticated: boolean;
 }
 
-const Notifications = ({ isAuthenticated }: NotificationsProps) => {
+const NotificationsIcon = ({ isAuthenticated }: NotificationsIconProps) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { notifications, unreadCount, markAsRead, removeAllNotifications, removeNotification } =
@@ -101,7 +102,7 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
             Notifications
           </Typography>
-          <Divider sx={{ mb: 1 }} />
+          <Divider sx={{ mb: 0.5 }} />
         </Box>
 
         {notifications.length === 0 ? (
@@ -131,17 +132,22 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
                 },
               }}
             >
-              {notifications.map((notification) => (
+              {notifications.map((notification, index) => (
                 <ListItem key={notification.id} disablePadding>
                   <ListItemButton
                     onClick={() => handleNotificationClick(notification)}
-                    sx={{
+                    sx={[{
                       py: 1.5,
-                      px: 2,
+                      px: 2,                      
                       '&:hover': {
                         backgroundColor: theme.palette.action.hover,
                       },
-                    }}
+                    },
+                    index < unreadCount && {
+                      bgcolor: (theme) =>
+                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                    }
+                  ]}
                   >
                     <ListItemText
                       primary={notification.text}
@@ -184,4 +190,4 @@ const Notifications = ({ isAuthenticated }: NotificationsProps) => {
   );
 };
 
-export default Notifications;
+export default NotificationsIcon;

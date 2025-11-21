@@ -22,7 +22,7 @@ export async function fetchFromGateway<T>({
 
   //headers to forwars :
   const forwardedHeaders = await headers();
-  console.log(cookieHeader);
+
   const res = await fetch(getGatewayBaseUrl()+path, {
     method,
     cache,
