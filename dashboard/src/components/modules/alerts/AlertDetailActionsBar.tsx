@@ -42,6 +42,7 @@ export default function AlertDetailActionsBar({
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const isEditor = isUserLogin && userRoles.includes("alert_editor");
+  const isAdmin = isUserLogin && userRoles.includes("alert_admin");
   const disabled = loading || !isEditor;
 
   const globalMsg = !isUserLogin
@@ -167,7 +168,7 @@ export default function AlertDetailActionsBar({
               startIcon={<DeleteIcon />}
               variant="text"
               color="error"
-              disabled={disabled}
+              disabled={disabled || !isAdmin}
               onClick={() => setConfirmDeleteOpen(true)}
             >
               Delete
