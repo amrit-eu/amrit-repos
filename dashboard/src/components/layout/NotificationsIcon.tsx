@@ -48,8 +48,8 @@ const NotificationsIcon = ({ isAuthenticated }: NotificationsIconProps) => {
       switch (notification.type) {
         case 'alert':
           router.push(`/alerts/${notification.id}`);
+          handleClose();
         default:
-          removeNotification(notification.id);
           break;
       }
   };
@@ -133,12 +133,21 @@ const NotificationsIcon = ({ isAuthenticated }: NotificationsIconProps) => {
               }}
             >
               {notifications.map((notification, index) => (
-                <ListItem key={notification.id} disablePadding>
+                <ListItem
+                  key={notification.id}
+                  disablePadding
+                  sx={{
+                    '&:hover .delete-btn': {
+                      opacity: 1,
+                    }
+                  }}
+                >
                   <ListItemButton
                     onClick={() => handleNotificationClick(notification)}
                     sx={[{
                       py: 1.5,
-                      px: 2,                      
+                      px: 2,
+                      pr: 5,
                       '&:hover': {
                         backgroundColor: theme.palette.action.hover,
                       },
@@ -159,6 +168,22 @@ const NotificationsIcon = ({ isAuthenticated }: NotificationsIconProps) => {
                       }}
                     />
                   </ListItemButton>
+                  <IconButton
+                    className="delete-btn"
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeNotification(notification.id);
+                    }}
+                    sx={{
+                      position: 'absolute',
+                      right: 8,
+                      opacity: 0,
+                      transition: 'opacity 0.2s',
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </ListItem>
               ))}
             </List>
