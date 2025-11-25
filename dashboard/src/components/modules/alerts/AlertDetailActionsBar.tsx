@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack, Tooltip } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import UndoIcon from "@mui/icons-material/Undo";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -163,16 +163,20 @@ export default function AlertDetailActionsBar({
             >
               Close
             </Button>
-            <Button
-              sx={verticalButtonSx}
-              startIcon={<DeleteIcon />}
-              variant="text"
-              color="error"
-              disabled={disabled || !isAdmin}
-              onClick={() => setConfirmDeleteOpen(true)}
-            >
-              Delete
-            </Button>
+            <Tooltip title={!isAdmin  ?  "You don't have rights to delete alerts":""}>
+              <span style={{ display: 'inline-block' }}>
+                <Button
+                  sx={verticalButtonSx}
+                  startIcon={<DeleteIcon />}
+                  variant="text"
+                  color="error"
+                  disabled={disabled || !isAdmin}
+                  onClick={() => setConfirmDeleteOpen(true)}
+                >
+                  Delete
+                </Button>
+              </span>
+            </Tooltip>
           </Stack>
         </Box>
       </Box>

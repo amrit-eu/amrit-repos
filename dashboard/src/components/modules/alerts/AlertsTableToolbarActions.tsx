@@ -110,10 +110,12 @@ const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserL
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip title="Delete">
-                    <IconButton onClick={() => setDeleteConfirmationDialogOpen(true)} disabled={areActionDisabled || !isAdmin} aria-label="delete alert">
-                        <DeleteIcon />
-                    </IconButton>
+                <Tooltip title={isAdmin  ? "Delete" : areActionDisabled ? "" : "You don't have rights to delete alerts"}>
+                    <span style={{ display: 'inline-block' }}> 
+                        <IconButton onClick={() => setDeleteConfirmationDialogOpen(true)} disabled={areActionDisabled || !isAdmin} aria-label="delete alert">
+                            <DeleteIcon />
+                        </IconButton>
+                    </span>
                 </Tooltip>
             </span>
         </Tooltip>
