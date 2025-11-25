@@ -25,11 +25,8 @@ const socketRef = useRef<Socket | null>(null);
         return;
     }
 
-    if (configLoading) {
-      return;
-    }
     if (configLoading || !config) {
-        return;
+      return;
     }
 
     if (configError) {
