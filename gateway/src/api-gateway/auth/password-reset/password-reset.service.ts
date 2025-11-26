@@ -21,7 +21,6 @@ export class PasswordResetService {
 
   async request(email: string) {
     const clean = (email ?? '').trim().toLowerCase();
-    this.logger.debug(`Forwarding to API: ${JSON.stringify({ email })}`);
     const res = await fetch(`${this.apiBase}/password/reset/request`, {
       method: 'POST',
       headers: { 
@@ -33,7 +32,7 @@ export class PasswordResetService {
     });
 
     const raw = await res.text();
-    this.logger.debug(`OceanOPS /request -> ${res.status} ${raw}`);
+    this.logger.log(`OceanOPS password resert request -> ${email}`);
 
     if (!res.ok) return { upstreamStatus: res.status, upstreamBody: tryParse(raw) };
 
