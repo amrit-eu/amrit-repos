@@ -5,7 +5,7 @@ export async function gatewayFetchViaProxy<T>(
   path: string,
   body?: GatewayProxyPayload['body'],
   signal?: AbortSignal | null | undefined,
-  cache?: boolean
+  cacheTime?: number
 ): Promise<T> {
   let res: Response;
 
@@ -14,8 +14,8 @@ export async function gatewayFetchViaProxy<T>(
     res = await fetch(url, { 
       method: 'GET',
       signal, 
-      ...(cache
-        ? { cache: 'force-cache', next: { revalidate: 1800 } }
+      ...(cacheTime
+        ? { cache: 'force-cache', next: { revalidate: cacheTime } }
         : {}),
     });
   } else {

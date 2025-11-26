@@ -4,7 +4,7 @@ import { handleCountryAPIJsonResponse } from "../utils/handleCountryAPIJsonRespo
 import { gatewayFetchViaProxy } from "../gateway/gatewayFetchViaProxy.client";
 
 export default async function fetchCountryOptions(): Promise<FilterOption[]> {
-  const json = await gatewayFetchViaProxy<CountryAPIResponse>('GET',`/data/countries`,undefined, undefined, true);
+  const json = await gatewayFetchViaProxy<CountryAPIResponse>('GET',`/data/countries`,undefined, undefined, 3600);
   return handleCountryAPIJsonResponse(json);
 }
 
