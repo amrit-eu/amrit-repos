@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 import { Request} from 'express';
 import { addJWTinAuthHeaderAsBearer, buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../../utils/proxy.utils';
 import { createProxyRouteMap, ProxyRoute, ProxyRouteMap } from '../../utils/proxy.routes';
-import { extractTokenFromRequest } from '../auth/jwt.strategy';
+import { extractTokenFromHttpRequest } from '../auth/strategies/jwt-strategy.helper';
 
 @Injectable()
 export class AlertaService {  
@@ -79,7 +79,7 @@ export class AlertaService {
     };
 
     // extract JWT from source request :
-    const jwt = extractTokenFromRequest(req)
+    const jwt = extractTokenFromHttpRequest(req)
     if (jwt) {
       addJWTinAuthHeaderAsBearer(jwt,config);
     }    

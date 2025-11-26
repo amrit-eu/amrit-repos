@@ -40,7 +40,7 @@ const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserL
     } = useAlertActions(selected, onActionDone)   
 
     const areActionDisabled = loading || !isUserLogin || !userRoles.includes("alert_editor");
-
+    const isAdmin = isUserLogin && userRoles.includes("alert_admin");
     const shouldShowGlobalTooltip = !isUserLogin || !userRoles.includes("alert_editor");
     const tooltipMessage = !isUserLogin
     ? "You must be logged in to perform actions"
@@ -110,10 +110,12 @@ const AlertsTableToolbarActions = ({selected, setSelected, onActionDone, isUserL
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip title="Delete">
-                    <IconButton onClick={() => setDeleteConfirmationDialogOpen(true)} disabled={areActionDisabled} aria-label="delete alert">
-                        <DeleteIcon />
-                    </IconButton>
+                <Tooltip title={isAdmin  ? "Delete" : areActionDisabled ? "" : "You don't have rights to delete alerts"}>
+                    <span style={{ display: 'inline-block' }}> 
+                        <IconButton onClick={() => setDeleteConfirmationDialogOpen(true)} disabled={areActionDisabled || !isAdmin} aria-label="delete alert">
+                            <DeleteIcon />
+                        </IconButton>
+                    </span>
                 </Tooltip>
             </span>
         </Tooltip>

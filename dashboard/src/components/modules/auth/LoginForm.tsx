@@ -10,6 +10,7 @@ import ForgotPassword from './ForgotPassword';
 import { login } from '../../../app/_actions/auth';
 import SubmitButton from '../../shared/buttons/SubmitButton';
 import { useRouter } from 'next/navigation';
+import { useAppConfig } from '@/hooks/useAppConfig';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -50,6 +51,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
 const LoginForm =  ({callbackUrl} : {callbackUrl?: string}) => {
     const [openForgetPassword, setOpenForgetPassword,] = React.useState(false);
     const [state, loginAction, isPending] = useActionState(login, undefined);
+    const  { config, loading : configLoading, error: configError} = useAppConfig();
     const router = useRouter()
     
     useEffect(() => {
@@ -156,9 +158,10 @@ const LoginForm =  ({callbackUrl} : {callbackUrl?: string}) => {
             </Link>
             <Divider></Divider>
             <Button
+              disabled={configLoading || configError !== null}
               variant="outlined"
               component="a"
-              href={process.env.NEXT_PUBLIC_SIGNUP_URL ?? 'https://oceanops-dashboard.isival.ifremer.fr/signup/'}
+              href={config?.publicSignupUrl}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -9,14 +9,13 @@ import { normalizeErrorMessage } from '@/lib/utils/normalizeErrorMessage';
 
 type Props = {
   me: Me | null;
-  loading: boolean;
   onUpdated?: (updated: Partial<Me>) => void;
   openSnack: (msg: string, sev?: 'success' | 'error') => void;
 };
 
 const t = (v: string) => (v?.trim?.() ?? '') || null;
 
-export default function ProfileForm({ me, loading, onUpdated, openSnack }: Props) {
+export default function ProfileForm({ me, onUpdated, openSnack }: Props) {
   const [busy, setBusy] = React.useState(false);
   const [firstName, setFirstName] = React.useState(me?.firstName ?? '');
   const [lastName, setLastName] = React.useState(me?.lastName ?? '');
@@ -113,7 +112,7 @@ export default function ProfileForm({ me, loading, onUpdated, openSnack }: Props
       orcid={orcid}
       country={country}
       hidePublic={hidePublic}
-      disabled={busy || loading}
+      disabled={busy}
       onChangeFirstName={setFirstName}
       onChangeLastName={setLastName}
       onChangeEmail={setEmail}

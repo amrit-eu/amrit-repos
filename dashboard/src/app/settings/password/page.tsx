@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { Box, Snackbar, Alert } from '@mui/material';
+import { Box } from '@mui/material';
 import SettingsTabs from '@/components/modules/settings/SettingsTabs';
 import PasswordForm from '@/components/modules/settings/PasswordForm';
 

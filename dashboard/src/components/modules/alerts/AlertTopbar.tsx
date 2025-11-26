@@ -141,6 +141,7 @@ const AlertTopbar = ({
                     const val = Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined;
                     onFilterChange('Country', val);
                   }}
+                  fullWidth={false}
                 />
               );
 

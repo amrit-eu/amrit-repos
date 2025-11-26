@@ -21,7 +21,7 @@ export class AuthService {
           }
 
     async authProxyRequest(req: Request): Promise<any>{
-        this.logger.log(`Proxy ${req.method} request to OceanOps Authentication Service`);
+        this.logger.log(`Proxy ${req.method} request to OceanOps Authentication Service : ${req.path}`);
         const basePath = 'api/oceanops'
 
         const route = this.proxyRoutes[basePath];

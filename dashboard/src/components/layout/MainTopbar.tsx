@@ -12,6 +12,7 @@ import { AccountCircle, Logout, Settings } from '@mui/icons-material';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import NotificationsIcon from './NotificationsIcon';
 
 interface MainTopbarProps {
   darkMode: boolean;
@@ -96,6 +97,7 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
 
   const { isAuth, username } = session;
 
+ 
   const hideLoginOnThisRoute = pathname === '/login' || pathname === '/signup';
 
   return (
@@ -193,7 +195,10 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
                   Log out
                 </MenuItem>
               </Menu>
+
+              <NotificationsIcon isAuthenticated={isAuth} />
             </>
+            
           ) : null}
 
           <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />

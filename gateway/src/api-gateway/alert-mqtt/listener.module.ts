@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AlertsMqttService } from './listener.service';
 import { HttpModule } from '@nestjs/axios';
-import { EmailModule } from '../../mailer/mailer.module';
-import { EmailFormatterService } from './email-formatter.service';
-import { ContactMatcherService } from './contact-matcher.service';
+import { NotificationsModule } from 'src/notifications/notifications.module';
+import { AlertSubscriptionsModule } from '../alert-subscriptions/alert-subscriptions.module';
 
 @Module({
-  imports: [HttpModule, EmailModule],
-  providers: [AlertsMqttService, EmailModule, EmailFormatterService, ContactMatcherService ],
-  exports: [EmailFormatterService, ContactMatcherService ]
+  imports: [HttpModule, NotificationsModule,AlertSubscriptionsModule ],
+  providers: [AlertsMqttService],
+  exports: []
 })
 export class AlertsMqttModule {}
