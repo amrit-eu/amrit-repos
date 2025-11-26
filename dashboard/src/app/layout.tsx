@@ -9,6 +9,7 @@ import '@fontsource/lexend/600.css';
 import '@fontsource/lexend/700.css';
 import '@fontsource/lexend/800.css';
 import LayoutClient from './LayoutClient';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 export const metadata: Metadata = {
   title: 'Amrit Boards',
@@ -23,10 +24,12 @@ export default async function RootLayout({ children, modal }: { children: React.
   return (
     <html lang="en">
       <body>
+        <AppRouterCacheProvider>
           <LayoutClient>
             {children}
             {modal}           
             </LayoutClient>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

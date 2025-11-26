@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Box, CssBaseline } from '@mui/material';
+import { Box } from '@mui/material';
 import MainTopbar from '../components/layout/MainTopbar';
 import Sidebar from '../components/layout/sidebar/Sidebar';
 import ThemeRegistry from '../theme/ThemeRegistry';
@@ -37,7 +37,6 @@ export default function LayoutClient({ children }: { children: React.ReactNode }
 
   return (
     <ThemeRegistry mode={darkMode ? 'dark' : 'light'}>
-      <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         {/* Hide until mounted to avoid hydration flicker, but keep hooks order stable */}
         <div style={{ visibility: mounted ? 'visible' : 'hidden' }}>

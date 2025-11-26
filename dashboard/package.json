@@ -12,6 +12,7 @@
     "test:e2e": "cypress open"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/baloo-2": "^5.2.5",
@@ -22,6 +23,7 @@
     "@fontsource/roboto": "^5.2.5",
     "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.8",
+    "@mui/material-nextjs": "^7.3.5",
     "@mui/x-data-grid": "^7.28.2",
     "@mui/x-date-pickers": "^8.5.0",
     "@mui/x-date-pickers-pro": "^8.5.0",
