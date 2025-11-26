@@ -26,10 +26,10 @@ const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 250, centered =
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     router.push(tabs[newValue].path);
   };
-
+  const tabValue = currentIndex === -1 ? false : currentIndex;  
   return (
     <Tabs
-      value={currentIndex}
+      value={tabValue}
       onChange={handleChange}
       centered={centered}
       sx={{
