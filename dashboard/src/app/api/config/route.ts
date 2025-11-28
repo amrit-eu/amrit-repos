@@ -1,19 +1,19 @@
 // app/api/config/route.ts
 import { NextResponse } from 'next/server';
-import { getGatewayBaseUrl, getPublicSignupUrl } from './config.server';
+import { getGatewayPublicBaseUrl, getPublicSignupUrl } from './config.server';
 
 
 export async function GET() {
 
     // retrieve the nestJS gateway backend url
     try {
-        const gatewayBaseUrl = getGatewayBaseUrl();
+        const gatewayPublicBaseUrl = getGatewayPublicBaseUrl();
         const publicSignupUrl = getPublicSignupUrl();
 
         return NextResponse.json({
-            gatewayBaseUrl: gatewayBaseUrl,
+            gatewayPublicBaseUrl: gatewayPublicBaseUrl,
             publicSignupUrl: publicSignupUrl,
-            websocketBaseUrl : gatewayBaseUrl.replace(/\/api\/?$/, '')
+            websocketBaseUrl : gatewayPublicBaseUrl.replace(/\/api\/?$/, '')
         })
         
     }catch (error) {

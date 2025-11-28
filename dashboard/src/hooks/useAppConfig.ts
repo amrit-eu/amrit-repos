@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface AppConfig {
-  gatewayBaseUrl: string;
+  gatewayPublicBaseUrl: string;
   publicSignupUrl: string;
   websocketBaseUrl: string;
 }

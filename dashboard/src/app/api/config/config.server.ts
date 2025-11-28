@@ -5,6 +5,12 @@ export function getGatewayBaseUrl() {
   return val;
 }
 
+export function getGatewayPublicBaseUrl() {
+  const val = process.env.GATEWAY_PUBLIC_BASE_URL;
+  if (!val) throw new Error('GATEWAY_PUBLIC_BASE_URL env var required');
+  return val;
+}
+
 export function getOceanopsAuthServiceUrl() {
   return getGatewayBaseUrl() + '/oceanops/auth';
 }
