@@ -24,8 +24,8 @@ export class EmailFormatterService {
     min-width: 180px;
   `;
   
-  const inspectLink = (alert.id) 
-    ? `<a href="${process.env.REFERENCED_DASHBOARD_URL_IN_EMAILS}/alerts/${alert.id}" target="_blank" style="${buttonStyle}">📊 Open in Dashboard</a>` 
+  const inspectLink = (data.id) 
+    ? `<a href="${process.env.REFERENCED_DASHBOARD_URL_IN_EMAILS}/alerts/${data.id}" target="_blank" style="${buttonStyle}">📊 Open in Dashboard</a>` 
     : '';
   
   const seeMoreLink = (attrs.url && isValidUrl(attrs.url)) 
@@ -101,7 +101,7 @@ export class EmailFormatterService {
       <div style="background-color: #d9f1f3; padding: 20px; border-radius: 12px; margin-bottom: 24px; border-left: 4px solid #007b8a;">
         <div style="margin-bottom: 12px;">
           <span style="font-weight: 600; color: #006a7c;">Alert ID:</span> 
-          <span style="color: #333; font-family: monospace; word-break: break-all;">${alert.id}</span>
+          <span style="color: #333; font-family: monospace; word-break: break-all;">${data.id}</span>
         </div>
         ${(inspectLink || seeMoreLink) ? `
           <div class="button-container" style="margin-top: 16px; text-align: center;">
@@ -117,7 +117,7 @@ export class EmailFormatterService {
         <tbody>
           ${createTableRow('Resource', data.resource)}
           ${createTableRow('Country', attrs.Country)}
-          ${createTableRow('Date/Time', alert.time)}
+          ${createTableRow('Date/Time', data.lastReceiveTime)}
           ${createTableRow('Event', data.event)}
         </tbody>
       </table>
