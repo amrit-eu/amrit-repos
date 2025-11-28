@@ -49,6 +49,7 @@ const NotificationsIcon = ({ isAuthenticated }: NotificationsIconProps) => {
         case 'alert':
           router.push(`/alerts/${notification.id}`);
           handleClose();
+          break;
         default:
           break;
       }
