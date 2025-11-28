@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosHeaderValue  } from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import { proxyHttpRequest, buildAxiosRequestConfigFromSourceRequest } from '../../utils/proxy.utils';
@@ -32,10 +32,18 @@ export class AlertSubscriptionsService {
 
     const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, basePath, route);
 
-    config.headers = config.headers ?? {};
-    delete (config.headers as any)['X-Gateway-Secret'];
-    delete (config.headers as any)['x-gateway-secret'];
-    (config.headers as any)['X-Gateway-Secret'] = this.gwSecret;
+    // Normalize headers and type them as Axios header values
+    const headers = (config.headers ?? {}) as Record<string, AxiosHeaderValue | undefined>;
+
+    // Strip any existing gateway secret coming from the client
+    delete headers['X-Gateway-Secret'];
+    delete headers['x-gateway-secret'];
+
+    // Inject our internal gateway secret
+    headers['X-Gateway-Secret'] = this.gwSecret;
+
+    // Put headers back into the Axios config
+    config.headers = headers;
 
     return proxyHttpRequest(this.httpService, config);
   }
