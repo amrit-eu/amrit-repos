@@ -20,7 +20,7 @@ const [notifications, setNotifications] = useState<NotificationDTO[]>([]);
 const [unreadCount, setUnreadCount] = useState(0);
 const socketRef = useRef<Socket | null>(null);
 
-  useEffect(() => {   
+  useEffect(() => {
     if (isAuthenticated=== false) {
         return;
     }

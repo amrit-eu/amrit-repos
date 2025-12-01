@@ -12,9 +12,10 @@ export async function createSession (access_token: string, expires_in: number) {
 
   cookieStore.set('session', access_token, {
       httpOnly: true,
-      // secure: true,
+      secure: true,
       path: '/',
-      sameSite: 'strict',    
+      sameSite: 'none',              
+      domain: process.env.DEPLOYMENT_DOMAIN,
       expires: expirationDate,
   });
 }
